@@ -1,6 +1,6 @@
 # Admin & Agency Management - BDD Feature Documentation
 
-This directory contains Behavior-Driven Development (BDD) feature files for VroomMarket's admin and agency management functionality.
+This directory contains Behavior-Driven Development (BDD) feature files for Starter SaaS's admin and agency management functionality.
 
 ## Overview
 

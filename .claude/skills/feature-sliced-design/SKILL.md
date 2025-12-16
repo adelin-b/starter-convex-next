@@ -8,7 +8,7 @@ targets:
 ---
 # Feature-Sliced Design (@x Pattern)
 
-VroomMarket uses Feature-Sliced Design for feature isolation with **@x public API folders** for explicit cross-feature communication.
+Starter SaaS uses Feature-Sliced Design for feature isolation with **@x public API folders** for explicit cross-feature communication.
 
 ## Core Principles
 
@@ -203,4 +203,4 @@ When refactoring to this pattern:
 
 - [Feature-Sliced Design](https://feature-sliced.design/docs/reference/public-api)
 - [Bulletproof React](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md)
-- VroomMarket implementation: `packages/eslint-config/feature-boundaries.js`
+- Starter SaaS implementation: `packages/eslint-config/feature-boundaries.js`

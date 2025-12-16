@@ -8,7 +8,7 @@ targets:
 ---
 # Playwright BDD Patterns
 
-This skill documents BDD/Gherkin patterns for VroomMarket E2E tests: feature file structure, scenario design, and step definitions.
+This skill documents BDD/Gherkin patterns for Starter SaaS E2E tests: feature file structure, scenario design, and step definitions.
 
 ## Core Principles
 
@@ -168,7 +168,7 @@ When I sign in as "admin@realcompany.com" with password "RealPassword!"
 | Background > 4 lines                  | 75         | Split or use Given    |
 | > 10 steps in scenario                | 80         | Abstract or split     |
 
-## Existing VroomMarket Steps
+## Existing Starter SaaS Steps
 
 Common steps already defined in `apps/e2e/tests/steps/`:
 

@@ -498,7 +498,7 @@ Then("I should see a link to go back", async ({ ctx }) => {
 // SETUP & AUTHENTICATION STEPS
 // ═══════════════════════════════════════════════════════════════════
 
-Given("the VroomMarket platform is running", async ({ ctx }) => {
+Given("the Starter SaaS platform is running", async ({ ctx }) => {
   // Basic health check - navigate to homepage
   await ctx.page.goto("/");
   await ctx.page.waitForLoadState("networkidle");

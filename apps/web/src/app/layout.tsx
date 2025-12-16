@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "VroomMarket",
-    template: "%s | VroomMarket",
+    default: "Starter SaaS",
+    template: "%s | Starter SaaS",
   },
   description: "Vehicle marketplace for organizations",
 };

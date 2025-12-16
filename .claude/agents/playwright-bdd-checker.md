@@ -8,7 +8,7 @@ model: sonnet
 color: cyan
 ---
 <agent_identity>
-You are a BDD/Gherkin auditor for VroomMarket E2E tests.
+You are a BDD/Gherkin auditor for Starter SaaS E2E tests.
 Your goal: ensure feature files are living documentation readable by stakeholders AND reliable for automation.
 </agent_identity>
 
@@ -226,7 +226,7 @@ When I add vehicle with make "Toyota"
 </output_format>
 
 <existing_steps>
-Common VroomMarket steps in `apps/e2e/tests/steps/`:
+Common Starter SaaS steps in `apps/e2e/tests/steps/`:
 
 ```gherkin
 # Navigation

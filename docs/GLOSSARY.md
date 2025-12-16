@@ -1,4 +1,4 @@
-# VroomMarket - Project Glossary
+# Starter SaaS - Project Glossary
 
 Cross-domain business terminology. Domain-specific terms are in each domain's GLOSSARY.md.
 
@@ -8,7 +8,7 @@ Cross-domain business terminology. Domain-specific terms are in each domain's GL
 An authenticated person in the system. Users can have roles in agencies.
 
 ### Agency
-A business organization on VroomMarket. Agencies have members with specific roles.
+A business organization on Starter SaaS. Agencies have members with specific roles.
 
 ### Role
 A permission set assigned to users within an agency. Values: `commercial`, `owner`.

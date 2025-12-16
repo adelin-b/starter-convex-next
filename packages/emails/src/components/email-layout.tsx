@@ -8,7 +8,7 @@ type EmailLayoutProps = {
 };
 
 /**
- * Base layout component for all VroomMarket emails.
+ * Base layout component for all emails.
  * Provides consistent branding, header, and footer.
  */
 export function EmailLayout({ preview, children }: EmailLayoutProps) {

@@ -13,7 +13,7 @@ const resend = new Resend(components.resend, {
   testMode: true,
 });
 
-const TEST_FROM_EMAIL = "VroomMarket Test <test@starter-saas.fr>";
+const TEST_FROM_EMAIL = "Starter SaaS Test <test@starter-saas.fr>";
 
 // SMTP config for local testing with smtp4dev
 // biome-ignore lint/style/noProcessEnv: SMTP config only used in test mode

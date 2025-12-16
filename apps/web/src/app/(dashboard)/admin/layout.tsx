@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 export const metadata: Metadata = {
   title: {
     default: "Administration",
-    template: "%s | VroomMarket",
+    template: "%s | Starter SaaS",
   },
 };
 

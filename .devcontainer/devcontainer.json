@@ -1,5 +1,5 @@
 {
-  "name": "Better VroomMarket Dev Container",
+  "name": "Better Starter SaaS Dev Container",
   "build": {
     "dockerfile": "Dockerfile"
   },

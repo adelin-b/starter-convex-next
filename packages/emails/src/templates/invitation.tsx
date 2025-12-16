@@ -56,7 +56,7 @@ export function InvitationEmail({
         <EmailText>
           <Trans
             id="r1CXkr"
-            message="{inviterName} has invited you to join {organizationName} on VroomMarket."
+            message="{inviterName} has invited you to join {organizationName}."
             values={{ inviterName, organizationName }}
           />
         </EmailText>

@@ -18,14 +18,14 @@ export default async function DashboardGroupLayout({
       sidebarHeader={
         <div className="flex h-8 items-center gap-2 group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0">
           <Image
-            alt="VroomMarket"
+            alt="Logo"
             className="size-8 shrink-0"
             height={32}
             src="/assets/logos/logo-small.png"
             width={32}
           />
           <span className="truncate font-semibold text-lg group-data-[collapsible=icon]:hidden">
-            starter-saas
+            Starter SaaS
           </span>
         </div>
       }

@@ -4,13 +4,13 @@
  */
 
 export const emailConfig = {
-  siteName: "VroomMarket",
-  siteUrl: "https://starter-saas.fr",
-  logoUrl: "https://starter-saas.fr/logo.png",
-  supportEmail: "support@starter-saas.fr",
+  siteName: "Starter SaaS",
+  siteUrl: process.env.SITE_URL || "http://localhost:3001",
+  logoUrl: `${process.env.SITE_URL || "http://localhost:3001"}/assets/logos/logo-small.png`,
+  supportEmail: process.env.EMAIL_FROM || "noreply@example.com",
   socialLinks: {
-    twitter: "https://twitter.com/starter-saas",
-    linkedin: "https://linkedin.com/company/starter-saas",
+    twitter: "https://twitter.com/your-app",
+    linkedin: "https://linkedin.com/company/your-app",
   },
 } as const;
 

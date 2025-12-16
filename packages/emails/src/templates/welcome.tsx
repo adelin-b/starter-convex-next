@@ -24,10 +24,10 @@ export function WelcomeEmail({ name = "User", locale = "en" }: WelcomeEmailProps
   return (
     <EmailIntlProvider locale={locale}>
       <EmailLayout
-        preview={locale === "fr" ? "Bienvenue sur VroomMarket" : "Welcome to VroomMarket"}
+        preview={locale === "fr" ? "Bienvenue sur notre plateforme" : "Welcome to our platform"}
       >
         <EmailHeading>
-          <Trans id="WUuxvV" message="Welcome to VroomMarket!" />
+          <Trans id="WUuxvV" message="Welcome!" />
         </EmailHeading>
         <EmailText>
           <Trans id="OQHisq" message="Hi {name}," values={{ name }} />
@@ -35,32 +35,32 @@ export function WelcomeEmail({ name = "User", locale = "en" }: WelcomeEmailProps
         <EmailText>
           <Trans
             id="9IbDCT"
-            message="Thanks for joining VroomMarket! We're excited to have you on board."
+            message="Thanks for joining us! We're excited to have you on board."
           />
         </EmailText>
         <EmailText>
           <Trans
             id="hpWU8E"
-            message="VroomMarket is your trusted marketplace for buying and selling vehicles. Here's what you can do:"
+            message="Here's what you can do to get started:"
           />
         </EmailText>
         <ul style={list}>
           <li style={listItem}>
-            <Trans id="g1hQ4g" message="Browse thousands of vehicles" />
+            <Trans id="g1hQ4g" message="Create and manage your tasks" />
           </li>
           <li style={listItem}>
-            <Trans id="/AokE8" message="List your vehicles for sale" />
+            <Trans id="/AokE8" message="Collaborate with your team" />
           </li>
           <li style={listItem}>
-            <Trans id="lRkxNV" message="Connect with buyers and sellers" />
+            <Trans id="lRkxNV" message="Organize your work efficiently" />
           </li>
           <li style={listItem}>
-            <Trans id="cQS0I1" message="Get the best deals on the market" />
+            <Trans id="cQS0I1" message="Track your progress" />
           </li>
         </ul>
         <Section style={buttonContainer}>
-          <EmailButton href={`${emailConfig.siteUrl}/vehicles`}>
-            <Trans id="Y1QnKw" message="Start Browsing" />
+          <EmailButton href={`${emailConfig.siteUrl}/todos`}>
+            <Trans id="Y1QnKw" message="Get Started" />
           </EmailButton>
         </Section>
         <EmailText>

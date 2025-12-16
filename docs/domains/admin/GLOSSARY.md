@@ -1,4 +1,4 @@
-# VroomMarket Admin & Agency Management - Glossary
+# Starter SaaS Admin & Agency Management - Glossary
 
 ## User & Role Terminology
 
@@ -17,7 +17,7 @@ An authenticated person in the system. Users can be members of agencies with spe
 ## Agency Terminology
 
 ### Agency
-An organization or business entity within VroomMarket. Agencies have members with specific roles. Each agency has a name, optional description, contact information (email, phone), and address.
+An organization or business entity within Starter SaaS. Agencies have members with specific roles. Each agency has a name, optional description, contact information (email, phone), and address.
 
 ### Membership
 The relationship between a user and an agency, including the roles the user has in that agency. Memberships track which users belong to which agencies and what they can do.
@@ -31,7 +31,7 @@ The process of verifying a user's identity through login credentials (email and 
 The process of determining what actions an authenticated user is allowed to perform based on their roles and memberships.
 
 ### Admin Access
-Access to agency management features. In VroomMarket, admin access is granted to users who have the "owner" role in at least one agency. This allows them to manage agencies, members, and roles.
+Access to agency management features. In Starter SaaS, admin access is granted to users who have the "owner" role in at least one agency. This allows them to manage agencies, members, and roles.
 
 ### Role Assignment
 The act of granting specific roles to a user within an agency. Roles can be cumulated, meaning a user can have multiple roles simultaneously (e.g., both commercial and owner).

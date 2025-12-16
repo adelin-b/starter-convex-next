@@ -22,7 +22,7 @@ export function BrandLogo({ variant = "color", size = "sm", className = "" }: Br
 
   return (
     <Image
-      alt="VroomMarket"
+      alt="Starter SaaS"
       className={`${sizeClass} ${className}`.trim()}
       height={height}
       src={src}

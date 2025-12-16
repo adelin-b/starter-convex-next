@@ -8,7 +8,7 @@ targets:
 ---
 # React Component Patterns
 
-This skill documents React patterns for VroomMarket components: forms, error handling, i18n, and component extraction.
+This skill documents React patterns for Starter SaaS components: forms, error handling, i18n, and component extraction.
 
 ## Patterns
 
@@ -183,7 +183,7 @@ import { msg } from "@lingui/core/macro";
 function Component() {
   return (
     <h1>
-      <Trans>Welcome to VroomMarket</Trans>
+      <Trans>Welcome to Starter SaaS</Trans>
     </h1>
   );
 }

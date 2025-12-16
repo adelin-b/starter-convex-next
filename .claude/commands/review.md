@@ -1,5 +1,5 @@
 ---
-description: VroomMarket PR review with specialized agents
+description: Starter SaaS PR review with specialized agents
 allowed-tools:
   - Bash
   - Glob
@@ -12,8 +12,8 @@ argument-hint: >-
   [parallel]
 ---
 <command_identity>
-VroomMarket comprehensive code review using specialized agents.
-Combines VroomMarket-specific pattern checks with general code quality agents into a unified workflow.
+Starter SaaS comprehensive code review using specialized agents.
+Combines Starter SaaS-specific pattern checks with general code quality agents into a unified workflow.
 </command_identity>
 
 <context_and_motivation>
@@ -79,7 +79,7 @@ Based on changed files and requested aspects, select from this consolidated list
 
 <agent_grouping>
 
-## Group A: Project Pattern Enforcement (VroomMarket-specific)
+## Group A: Project Pattern Enforcement (Starter SaaS-specific)
 Run these first - they catch patterns generic reviewers miss:
 
 1. **type-safety-checker** - assertNever, `as const`, type derivation
@@ -121,12 +121,12 @@ Run last:
 
 <agent_overlap_guide>
 
-When both VroomMarket and toolkit agents cover similar ground:
+When both Starter SaaS and toolkit agents cover similar ground:
 
-| VroomMarket Agent   | Toolkit Agent         | How They Differ                                                                     |
+| Starter SaaS Agent   | Toolkit Agent         | How They Differ                                                                     |
 |---------------------|-----------------------|-------------------------------------------------------------------------------------|
-| type-safety-checker | type-design-analyzer  | VroomMarket checks assertNever/`as const`; toolkit checks encapsulation/invariants  |
-| app-errors-enforcer | silent-failure-hunter | VroomMarket enforces AppErrors factory; toolkit catches silent failures generically |
+| type-safety-checker | type-design-analyzer  | Starter SaaS checks assertNever/`as const`; toolkit checks encapsulation/invariants  |
+| app-errors-enforcer | silent-failure-hunter | Starter SaaS enforces AppErrors factory; toolkit catches silent failures generically |
 
 Both run - they're complementary.
 
@@ -272,7 +272,7 @@ import { cn } from "@starter-saas/ui/lib/utils";
 
 <agent_descriptions>
 
-### VroomMarket-Specific
+### Starter SaaS-Specific
 
 | Agent                        | Focus                                                           |
 |------------------------------|-----------------------------------------------------------------|

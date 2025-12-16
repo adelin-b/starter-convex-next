@@ -1,6 +1,6 @@
-# Storybook for Better VroomMarket UI Components
+# Storybook for Better Starter SaaS UI Components
 
-This Storybook app provides interactive documentation for the UI components used in the Better VroomMarket project.
+This Storybook app provides interactive documentation for the UI components used in the Better Starter SaaS project.
 
 ## Features
 

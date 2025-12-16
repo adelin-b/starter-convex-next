@@ -8,33 +8,24 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@starter-saas/ui/sidebar";
-import { useMutation } from "convex/react";
-import { Building2, Car, Plus, Settings, Users } from "lucide-react";
+import { Building2, CheckSquare, Settings, Users } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useQueryWithStatus } from "@/lib/convex-hooks";
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const router = useRouter();
   const { t } = useLingui();
   const { data: hasAdminAccess } = useQueryWithStatus(api.organizations.hasAdminAccess, {});
-  const createDraft = useMutation(api.vehicles.createDraft);
-
-  const handleNewVehicle = async () => {
-    const { id } = await createDraft({});
-    router.push(`/vehicles/${id}`);
-  };
 
   const navigationItems = [
     {
-      title: t`Vehicles`,
-      url: "/vehicles",
-      icon: Car,
+      title: t`Todos`,
+      url: "/todos",
+      icon: CheckSquare,
     },
   ] as const;
 
@@ -74,11 +65,6 @@ export function AppSidebar() {
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
-                  {item.url === "/vehicles" && (
-                    <SidebarMenuAction onClick={handleNewVehicle} title={t`New Vehicle`}>
-                      <Plus />
-                    </SidebarMenuAction>
-                  )}
                 </SidebarMenuItem>
               );
             })}

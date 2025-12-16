@@ -21,11 +21,11 @@ const resend = new Resend(components.resend, {
 });
 
 // Production from address (requires starter-saas.fr domain to be verified in Resend)
-const PROD_FROM_EMAIL = "VroomMarket <noreply@starter-saas.fr>";
+const PROD_FROM_EMAIL = "Starter SaaS <noreply@starter-saas.fr>";
 
 // Test from address (works without domain verification)
 // See: https://resend.com/docs/dashboard/emails/send-test-emails
-const TEST_FROM_EMAIL = "VroomMarket <onboarding@resend.dev>";
+const TEST_FROM_EMAIL = "Starter SaaS <onboarding@resend.dev>";
 
 /**
  * Get the from email address.
@@ -149,7 +149,7 @@ export const sendWelcomeEmail = internalAction({
     await sendEmail(context, {
       from: getFromEmail(),
       to: args.to,
-      subject: "Welcome to VroomMarket!",
+      subject: "Welcome to Starter SaaS!",
       html,
     });
   },

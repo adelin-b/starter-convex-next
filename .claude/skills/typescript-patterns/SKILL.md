@@ -8,7 +8,7 @@ targets:
 ---
 # TypeScript Type Safety Patterns
 
-This skill documents TypeScript patterns that ensure compile-time type safety in VroomMarket.
+This skill documents TypeScript patterns that ensure compile-time type safety in Starter SaaS.
 
 ## Patterns
 

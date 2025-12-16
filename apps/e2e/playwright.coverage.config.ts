@@ -24,7 +24,7 @@ const isCI = !!process.env.CI;
 
 // Coverage report configuration for monocart-reporter
 const coverageOptions: CoverageReportOptions = {
-  name: "VroomMarket V8 Coverage Report",
+  name: "Starter SaaS V8 Coverage Report",
 
   // Filter coverage entries
   entryFilter: (entry) => {
@@ -76,7 +76,7 @@ export default defineConfig({
     [
       "monocart-reporter",
       {
-        name: "VroomMarket E2E Coverage Report",
+        name: "Starter SaaS E2E Coverage Report",
         outputFile: "./coverage-report/index.html",
         coverage: coverageOptions,
       },

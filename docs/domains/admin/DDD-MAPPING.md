@@ -1,4 +1,4 @@
-# VroomMarket Admin & Agency Management - DDD Mapping
+# Starter SaaS Admin & Agency Management - DDD Mapping
 
 ## Domain Model
 

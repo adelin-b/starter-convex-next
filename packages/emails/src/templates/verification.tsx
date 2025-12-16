@@ -40,7 +40,7 @@ export function VerificationEmail({
         <EmailText>
           <Trans
             id="r190ll"
-            message="Thanks for signing up for VroomMarket! Please verify your email address by clicking the button below."
+            message="Thanks for signing up for Starter SaaS! Please verify your email address by clicking the button below."
           />
         </EmailText>
         <Section style={buttonContainer}>

@@ -7,8 +7,8 @@
  */
 
 import { $ } from "bun";
-import { existsSync, readFileSync, writeFileSync } from "fs";
-import { join } from "path";
+import { existsSync, readFileSync, writeFileSync, readdirSync } from "fs";
+import { join, basename } from "path";
 import * as readline from "readline";
 
 const rl = readline.createInterface({
@@ -41,12 +41,106 @@ function openUrl(url: string) {
   }
 }
 
+function toKebabCase(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function toPascalCase(str: string): string {
+  return str
+    .split(/[-_\s]+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join("");
+}
+
+function updatePackageJson(filePath: string, projectName: string, scope: string) {
+  if (!existsSync(filePath)) return;
+
+  const content = readFileSync(filePath, "utf-8");
+  const updated = content
+    .replace(/"name":\s*"starter-saas"/g, `"name": "${projectName}"`)
+    .replace(/@starter-saas\//g, `@${scope}/`);
+
+  writeFileSync(filePath, updated);
+}
+
+function updateAllFiles(dir: string, oldScope: string, newScope: string) {
+  const extensions = [".ts", ".tsx", ".json", ".md"];
+  const ignoreDirs = ["node_modules", ".git", ".next", "storybook-static", ".turbo"];
+
+  function processDir(currentDir: string) {
+    const entries = readdirSync(currentDir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const fullPath = join(currentDir, entry.name);
+
+      if (entry.isDirectory()) {
+        if (!ignoreDirs.includes(entry.name)) {
+          processDir(fullPath);
+        }
+      } else if (extensions.some((ext) => entry.name.endsWith(ext))) {
+        try {
+          const content = readFileSync(fullPath, "utf-8");
+          if (content.includes(oldScope)) {
+            const updated = content.replace(new RegExp(oldScope, "g"), newScope);
+            writeFileSync(fullPath, updated);
+          }
+        } catch {
+          // Skip files that can't be read
+        }
+      }
+    }
+  }
+
+  processDir(dir);
+}
+
+async function checkPrerequisites(): Promise<boolean> {
+  console.log("Checking prerequisites...\n");
+
+  // Check Bun version
+  try {
+    const bunVersion = await $`bun --version`.text();
+    console.log(`✅ Bun: v${bunVersion.trim()}`);
+  } catch {
+    console.log("❌ Bun not found. Please install Bun: https://bun.sh");
+    return false;
+  }
+
+  // Check Node version
+  try {
+    const nodeVersion = await $`node --version`.text();
+    const major = parseInt(nodeVersion.trim().replace("v", "").split(".")[0]);
+    if (major >= 18 && major < 25) {
+      console.log(`✅ Node.js: ${nodeVersion.trim()}`);
+    } else {
+      console.log(`⚠️  Node.js ${nodeVersion.trim()} - recommended: v18-v24`);
+    }
+  } catch {
+    console.log("⚠️  Node.js not found (optional, Bun handles most operations)");
+  }
+
+  // Check Git
+  try {
+    await $`git --version`.quiet();
+    console.log("✅ Git: installed");
+  } catch {
+    console.log("⚠️  Git not found (optional, for version control)");
+  }
+
+  console.log("");
+  return true;
+}
+
 async function main() {
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║           🚀 Starter SaaS Setup Wizard 🚀                  ║
 ║                                                            ║
 ║  This wizard will help you configure:                      ║
+║  • Project name & branding                                 ║
 ║  • Convex backend                                          ║
 ║  • Better Auth authentication                              ║
 ║  • Environment variables                                   ║
@@ -54,7 +148,14 @@ async function main() {
 ╚═══════════════════════════════════════════════════════════╝
 `);
 
-  const totalSteps = 5;
+  const prereqOk = await checkPrerequisites();
+  if (!prereqOk) {
+    console.log("Please install missing prerequisites and try again.");
+    rl.close();
+    return;
+  }
+
+  const totalSteps = 6;
   let envContent = "";
 
   // Check if .env.local exists
@@ -64,20 +165,72 @@ async function main() {
     console.log("📄 Found existing .env.local file\n");
   }
 
-  // Step 1: Install dependencies
-  printStep(1, totalSteps, "Installing Dependencies");
+  // Step 1: Project Name
+  printStep(1, totalSteps, "Project Configuration");
+
+  const currentDirName = basename(process.cwd());
+  const defaultName = currentDirName !== "starter-convex-next" ? currentDirName : "my-saas-app";
+
+  console.log(`
+Choose a name for your project. This will be used for:
+• Package names (@your-project/backend, @your-project/ui, etc.)
+• Default branding
+• GitHub repository (if you create one)
+
+Examples: my-app, acme-platform, todo-pro
+`);
+
+  const projectNameInput = await ask(`Project name (default: ${defaultName}): `);
+  const projectName = toKebabCase(projectNameInput || defaultName);
+  const projectScope = projectName;
+  const projectTitle = toPascalCase(projectName);
+
+  console.log(`\n📦 Updating package names to @${projectScope}/...`);
+
+  // Update root package.json
+  updatePackageJson(join(process.cwd(), "package.json"), projectName, projectScope);
+
+  // Update all @starter-saas references
+  updateAllFiles(process.cwd(), "@starter-saas", `@${projectScope}`);
+
+  // Update packages
+  const packages = ["backend", "ui", "shared", "emails", "eslint-config", "vitest-config", "config"];
+  for (const pkg of packages) {
+    const pkgPath = join(process.cwd(), "packages", pkg, "package.json");
+    if (existsSync(pkgPath)) {
+      const content = readFileSync(pkgPath, "utf-8");
+      const updated = content.replace(/@starter-saas\//g, `@${projectScope}/`);
+      writeFileSync(pkgPath, updated);
+    }
+  }
+
+  // Update apps
+  const apps = ["web", "e2e", "storybook"];
+  for (const app of apps) {
+    const appPath = join(process.cwd(), "apps", app, "package.json");
+    if (existsSync(appPath)) {
+      const content = readFileSync(appPath, "utf-8");
+      const updated = content.replace(/@starter-saas\//g, `@${projectScope}/`);
+      writeFileSync(appPath, updated);
+    }
+  }
+
+  console.log(`✅ Project configured as "${projectName}"`);
+
+  // Step 2: Install dependencies
+  printStep(2, totalSteps, "Installing Dependencies");
   console.log("Running bun install...");
   await $`bun install`;
   console.log("✅ Dependencies installed!");
 
-  // Step 2: Set up Convex
-  printStep(2, totalSteps, "Convex Setup");
+  // Step 3: Set up Convex
+  printStep(3, totalSteps, "Convex Setup");
   console.log(`
 Convex is your real-time backend. You need a Convex project.
 
 1. Create a free account at convex.dev (if you don't have one)
-2. Create a new project in the Convex dashboard
-3. Get your deployment URL and deploy key
+2. Create a new project named "${projectName}"
+3. Get your deployment URL
 `);
 
   await ask("Press Enter to open Convex dashboard...");
@@ -88,8 +241,8 @@ Convex is your real-time backend. You need a Convex project.
     envContent += `\n# Convex\nCONVEX_URL=${convexUrl}\n`;
   }
 
-  // Step 3: Set up Better Auth
-  printStep(3, totalSteps, "Better Auth Setup");
+  // Step 4: Set up Better Auth
+  printStep(4, totalSteps, "Better Auth Setup");
   console.log(`
 Better Auth handles authentication. You need to configure:
 
@@ -156,8 +309,8 @@ GITHUB_CLIENT_SECRET=${githubClientSecret}
     }
   }
 
-  // Step 4: Email setup (optional)
-  printStep(4, totalSteps, "Email Setup (Optional)");
+  // Step 5: Email setup (optional)
+  printStep(5, totalSteps, "Email Setup (Optional)");
   console.log(`
 Email is used for:
 • Magic link authentication
@@ -184,8 +337,8 @@ EMAIL_FROM=${emailFrom || "noreply@example.com"}
     }
   }
 
-  // Step 5: Write .env.local and finalize
-  printStep(5, totalSteps, "Finalizing Setup");
+  // Step 6: Write .env.local and finalize
+  printStep(6, totalSteps, "Finalizing Setup");
 
   // Add default port config
   envContent += `
@@ -210,6 +363,8 @@ STORYBOOK_PORT=6006
 ╔═══════════════════════════════════════════════════════════╗
 ║                    🎉 Setup Complete! 🎉                   ║
 ╚═══════════════════════════════════════════════════════════╝
+
+Your project "${projectTitle}" is ready!
 
 Next steps:
 

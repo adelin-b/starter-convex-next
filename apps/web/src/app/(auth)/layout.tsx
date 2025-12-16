@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Sign In | VroomMarket",
-    template: "%s | VroomMarket",
+    default: "Sign In | Starter SaaS",
+    template: "%s | Starter SaaS",
   },
-  description: "Sign in to VroomMarket - Your premium vehicle marketplace",
+  description: "Sign in to Starter SaaS - Your premium vehicle marketplace",
 };
 
 export default function AuthLayout({

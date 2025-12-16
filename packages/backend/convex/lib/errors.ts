@@ -14,7 +14,7 @@ export type { FieldError } from "@starter-saas/shared/types";
  * ```ts
  * import { ErrorCodes, createAppError } from "./lib/errors";
  *
- * throw createAppError(ErrorCodes.VEHICLE_NOT_FOUND, "Vehicle not found");
+ * throw createAppError(ErrorCodes.RESOURCE_NOT_FOUND, "Todo not found");
  * ```
  */
 export const ErrorCodes = {
@@ -24,10 +24,10 @@ export const ErrorCodes = {
   NOT_AUTHENTICATED: "NOT_AUTHENTICATED",
 
   // Resource Not Found
-  VEHICLE_NOT_FOUND: "VEHICLE_NOT_FOUND",
+  RESOURCE_NOT_FOUND: "RESOURCE_NOT_FOUND",
   USER_NOT_FOUND: "USER_NOT_FOUND",
-  AGENCY_NOT_FOUND: "AGENCY_NOT_FOUND",
-  AGENCY_MEMBER_NOT_FOUND: "AGENCY_MEMBER_NOT_FOUND",
+  ORGANIZATION_NOT_FOUND: "ORGANIZATION_NOT_FOUND",
+  ORGANIZATION_MEMBER_NOT_FOUND: "ORGANIZATION_MEMBER_NOT_FOUND",
   INVITATION_NOT_FOUND: "INVITATION_NOT_FOUND",
 
   // Invitation Errors
@@ -58,7 +58,7 @@ const errorCodeValues = new Set(Object.values(ErrorCodes));
  *
  * @example
  * ```ts
- * const code = "VEHICLE_NOT_FOUND";
+ * const code = "RESOURCE_NOT_FOUND";
  * if (isErrorCode(code)) {
  *   // code is narrowed to ErrorCode type
  *   createAppError(code, "Not found");
@@ -89,9 +89,9 @@ export type ErrorSeverityLevel = (typeof ErrorSeverity)[keyof typeof ErrorSeveri
  * @example
  * ```ts
  * const payload: AppErrorPayload = {
- *   code: "VEHICLE_NOT_FOUND",
- *   message: "Vehicle not found",
- *   userMessage: "The requested vehicle could not be found",
+ *   code: "RESOURCE_NOT_FOUND",
+ *   message: "Todo not found",
+ *   userMessage: "The requested todo could not be found",
  * };
  * throw new ConvexError(payload);
  * ```
@@ -184,17 +184,10 @@ export const AppErrors = {
 
   // Resource Not Found
   notFound: (resource: string, id?: string) =>
-    createAppError(ErrorCodes.VEHICLE_NOT_FOUND, `${resource} not found`, {
+    createAppError(ErrorCodes.RESOURCE_NOT_FOUND, `${resource} not found`, {
       severity: ErrorSeverity.MEDIUM,
       ...(id && { details: { id } }),
       userMessage: `The requested ${resource} could not be found`,
-    }),
-
-  vehicleNotFound: (vehicleId?: string) =>
-    createAppError(ErrorCodes.VEHICLE_NOT_FOUND, "Vehicle not found", {
-      severity: ErrorSeverity.MEDIUM,
-      ...(vehicleId && { details: { vehicleId } }),
-      userMessage: "The requested vehicle could not be found",
     }),
 
   userNotFound: (userId?: string) =>
@@ -205,14 +198,14 @@ export const AppErrors = {
     }),
 
   organizationNotFound: (organizationId?: string) =>
-    createAppError(ErrorCodes.AGENCY_NOT_FOUND, "Organization not found", {
+    createAppError(ErrorCodes.ORGANIZATION_NOT_FOUND, "Organization not found", {
       severity: ErrorSeverity.MEDIUM,
       ...(organizationId && { details: { organizationId } }),
       userMessage: "The requested organization could not be found",
     }),
 
   organizationMemberNotFound: (memberId?: string) =>
-    createAppError(ErrorCodes.AGENCY_MEMBER_NOT_FOUND, "Organization member not found", {
+    createAppError(ErrorCodes.ORGANIZATION_MEMBER_NOT_FOUND, "Organization member not found", {
       severity: ErrorSeverity.MEDIUM,
       ...(memberId && { details: { memberId } }),
       userMessage: "The requested organization member could not be found",
@@ -271,7 +264,7 @@ export const AppErrors = {
    * Create a field-level validation error for forms
    * @example
    * AppErrors.fieldValidation([
-   *   { field: "licensePlate", message: "License plate already exists", code: "DUPLICATE" }
+   *   { field: "email", message: "Email already exists", code: "DUPLICATE" }
    * ])
    */
   fieldValidation: (fieldErrors: FieldError[], message = "Validation failed") =>
@@ -284,7 +277,7 @@ export const AppErrors = {
   /**
    * Duplicate value error with field-level context
    * @example
-   * AppErrors.duplicateValue("licensePlate", "ABC123")
+   * AppErrors.duplicateValue("email", "user@example.com")
    */
   duplicateValue: (field: string, existingValue?: string) =>
     createAppError(
@@ -355,7 +348,7 @@ export function isAppError(error: unknown): error is ConvexError<AppErrorPayload
  * @example
  * ```ts
  * try {
- *   await createVehicle(data);
+ *   await createTodo(data);
  * } catch (error) {
  *   const fieldErrors = getFieldErrors(error);
  *   for (const { field, message } of fieldErrors) {

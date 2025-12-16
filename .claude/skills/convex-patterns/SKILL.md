@@ -8,7 +8,7 @@ targets:
 ---
 # Convex Backend Patterns
 
-This skill documents Convex patterns for VroomMarket: schema validation, indexing, authentication, and query patterns.
+This skill documents Convex patterns for Starter SaaS: schema validation, indexing, authentication, and query patterns.
 
 ## Patterns
 

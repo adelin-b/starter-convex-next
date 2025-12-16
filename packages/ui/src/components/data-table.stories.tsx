@@ -408,63 +408,49 @@ export const CustomCellRendering: Story = {
 };
 
 // ============================================================================
-// Server-Side Filtering Stories (Vehicle DataTable)
+// Server-Side Filtering Stories (Task DataTable)
 // ============================================================================
 
-// Vehicle data type (matching Convex schema)
-type Vehicle = {
+// Task data type (generic example)
+type Task = {
   _id: string;
-  make: string;
-  model: string;
-  year: number;
-  price: number;
-  mileage: number;
-  fuelType: "gasoline" | "diesel" | "electric" | "hybrid";
-  status: "available" | "sold" | "reserved";
-  licensePlate: string;
+  title: string;
+  project: string;
+  priority: "low" | "medium" | "high" | "critical";
+  status: "pending" | "in_progress" | "completed";
+  assignee: string;
+  dueDate: string;
+  estimatedHours: number;
 };
 
-// Mock vehicle data generator
-const makes = ["Toyota", "Honda", "Ford", "BMW", "Mercedes", "Tesla", "Audi", "Volkswagen"];
-const vehicleModels: Record<string, string[]> = {
-  Toyota: ["Camry", "Corolla", "RAV4", "Highlander"],
-  Honda: ["Civic", "Accord", "CR-V", "Pilot"],
-  Ford: ["F-150", "Mustang", "Explorer", "Bronco"],
-  BMW: ["3 Series", "5 Series", "X3", "X5"],
-  Mercedes: ["C-Class", "E-Class", "GLC", "GLE"],
-  Tesla: ["Model 3", "Model Y", "Model S", "Model X"],
-  Audi: ["A4", "A6", "Q5", "Q7"],
-  Volkswagen: ["Golf", "Passat", "Tiguan", "Atlas"],
-};
-const fuelTypes = ["gasoline", "diesel", "electric", "hybrid"] as const;
-const vehicleStatuses = ["available", "sold", "reserved"] as const;
+// Mock task data generator
+const projects = ["Website Redesign", "Mobile App", "API Development", "Dashboard", "Analytics", "DevOps", "Security", "Documentation"];
+const assignees = ["Alice", "Bob", "Carol", "Dave", "Eve", "Frank", "Grace", "Henry"];
+const priorities = ["low", "medium", "high", "critical"] as const;
+const taskStatuses = ["pending", "in_progress", "completed"] as const;
 
-function generateMockVehicles(count: number): Vehicle[] {
+function generateMockTasks(count: number): Task[] {
   return Array.from({ length: count }, (_, i) => {
-    const make = makes[i % makes.length];
-    const modelList = vehicleModels[make] ?? ["Unknown"];
-    const BASE_PRICE = 15_000;
-    const PRICE_RANGE = 85_000;
-    const MAX_MILEAGE = 150_000;
-    const BASE_YEAR = 2018;
-    const YEAR_RANGE = 7;
+    const BASE_HOURS = 2;
+    const HOURS_RANGE = 38;
+    const DAYS_OFFSET = 30;
+    const MS_PER_DAY = 86400000;
     return {
-      _id: `vehicle-${i + 1}`,
-      make,
-      model: modelList[i % modelList.length],
-      year: BASE_YEAR + (i % YEAR_RANGE),
-      price: BASE_PRICE + Math.floor(Math.random() * PRICE_RANGE),
-      mileage: Math.floor(Math.random() * MAX_MILEAGE),
-      fuelType: fuelTypes[i % fuelTypes.length],
-      status: vehicleStatuses[i % vehicleStatuses.length],
-      licensePlate: `${String.fromCharCode(65 + (i % 26))}${String.fromCharCode(65 + ((i + 1) % 26))}-${100 + i}`,
+      _id: `task-${i + 1}`,
+      title: `Task ${i + 1}: ${["Implement feature", "Fix bug", "Review code", "Write tests", "Update docs"][i % 5]}`,
+      project: projects[i % projects.length],
+      priority: priorities[i % priorities.length],
+      status: taskStatuses[i % taskStatuses.length],
+      assignee: assignees[i % assignees.length],
+      dueDate: new Date(Date.now() + Math.floor(Math.random() * DAYS_OFFSET) * MS_PER_DAY).toISOString().split("T")[0],
+      estimatedHours: BASE_HOURS + Math.floor(Math.random() * HOURS_RANGE),
     };
   });
 }
 
-const mockVehicles = generateMockVehicles(50);
+const mockTasks = generateMockTasks(50);
 
-// Filter types (matching useVehicleFilters)
+// Filter types (for server-side filtering)
 type FilterOperator = "eq" | "contains" | "gte" | "lte" | "in";
 
 type FieldFilter = {
@@ -474,11 +460,11 @@ type FieldFilter = {
 };
 
 // Client-side filter simulation (mimics server behavior)
-function applyVehicleFilters(data: Vehicle[], filters: FieldFilter[]): Vehicle[] {
+function applyTaskFilters(data: Task[], filters: FieldFilter[]): Task[] {
   // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Filter simulation requires handling multiple operators
   return data.filter((item) => {
     for (const f of filters) {
-      const fieldValue = item[f.field as keyof Vehicle];
+      const fieldValue = item[f.field as keyof Task];
 
       switch (f.operator) {
         case "eq":
@@ -518,18 +504,18 @@ function applyVehicleFilters(data: Vehicle[], filters: FieldFilter[]): Vehicle[]
   });
 }
 
-function applyVehicleSort(
-  data: Vehicle[],
+function applyTaskSort(
+  data: Task[],
   sortField?: string,
   sortDirection?: "asc" | "desc",
-): Vehicle[] {
+): Task[] {
   if (!sortField) {
     return data;
   }
 
   return [...data].sort((a, b) => {
-    const aVal = a[sortField as keyof Vehicle];
-    const bVal = b[sortField as keyof Vehicle];
+    const aVal = a[sortField as keyof Task];
+    const bVal = b[sortField as keyof Task];
     if (aVal === bVal) {
       return 0;
     }
@@ -544,8 +530,8 @@ function applyVehicleSort(
   });
 }
 
-// Vehicle columns with server-side sort support
-const vehicleColumns: ColumnDef<Vehicle>[] = [
+// Task columns with server-side sort support
+const taskColumns: ColumnDef<Task>[] = [
   {
     accessorKey: "make",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Make" />,
@@ -590,8 +576,8 @@ const vehicleColumns: ColumnDef<Vehicle>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status") as Vehicle["status"];
-      const variantMap: Record<Vehicle["status"], "default" | "secondary" | "destructive"> = {
+      const status = row.getValue("status") as Task["status"];
+      const variantMap: Record<Task["status"], "default" | "secondary" | "destructive"> = {
         available: "default",
         reserved: "secondary",
         sold: "destructive",
@@ -605,20 +591,20 @@ const vehicleColumns: ColumnDef<Vehicle>[] = [
   },
 ];
 
-// Vehicle toolbar component
-type VehicleToolbarProps = {
+// Task toolbar component
+type TaskToolbarProps = {
   filters: FieldFilter[];
   onAddFilter: (filter: FieldFilter) => void;
   onRemoveFilter: (field: string, operator?: FilterOperator) => void;
   onClearFilters: () => void;
 };
 
-function VehicleToolbar({
+function TaskToolbar({
   filters,
   onAddFilter,
   onRemoveFilter,
   onClearFilters,
-}: VehicleToolbarProps) {
+}: TaskToolbarProps) {
   const [searchValue, setSearchValue] = useState("");
   const [statusValue, setStatusValue] = useState<string>("");
   const [fuelValue, setFuelValue] = useState<string>("");
@@ -662,13 +648,13 @@ function VehicleToolbar({
     <div className="flex flex-wrap items-center gap-2">
       <Input
         className="w-[200px]"
-        data-testid="vehicle-search-input"
+        data-testid="task-search-input"
         onChange={(e) => handleSearchChange(e.target.value)}
         placeholder="Search by make..."
         value={searchValue}
       />
       <Select
-        data-testid="vehicle-status-select"
+        data-testid="task-status-select"
         onValueChange={handleStatusChange}
         value={statusValue}
       >
@@ -682,7 +668,7 @@ function VehicleToolbar({
           <SelectItem value="sold">Sold</SelectItem>
         </SelectContent>
       </Select>
-      <Select data-testid="vehicle-fuel-select" onValueChange={handleFuelChange} value={fuelValue}>
+      <Select data-testid="task-fuel-select" onValueChange={handleFuelChange} value={fuelValue}>
         <SelectTrigger className="w-[150px]" data-testid="fuel-trigger">
           <SelectValue placeholder="Fuel Type" />
         </SelectTrigger>
@@ -704,27 +690,27 @@ function VehicleToolbar({
   );
 }
 
-// Wrapper that simulates useVehicleFilters without Convex
-type VehiclesDataTableWrapperProps = {
+// Wrapper that simulates useTaskFilters without Convex
+type TasksDataTableWrapperProps = {
   isLoading?: boolean;
   showToolbar?: boolean;
-  initialData?: Vehicle[];
+  initialData?: Task[];
 };
 
-function VehiclesDataTableWrapper({
+function TasksDataTableWrapper({
   isLoading = false,
   showToolbar = true,
-  initialData = mockVehicles,
-}: VehiclesDataTableWrapperProps) {
+  initialData = mockTasks,
+}: TasksDataTableWrapperProps) {
   const [filters, setFilters] = useState<FieldFilter[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
 
   // Simulate server-side processing
   const processedData = useMemo(() => {
-    let result = applyVehicleFilters(initialData, filters);
+    let result = applyTaskFilters(initialData, filters);
     if (sorting.length > 0) {
       const [sort] = sorting;
-      result = applyVehicleSort(result, sort.id, sort.desc ? "desc" : "asc");
+      result = applyTaskSort(result, sort.id, sort.desc ? "desc" : "asc");
     }
     return result;
   }, [initialData, filters, sorting]);
@@ -752,7 +738,7 @@ function VehiclesDataTableWrapper({
   return (
     <div className="space-y-4">
       <DataTable
-        columns={vehicleColumns}
+        columns={taskColumns}
         data={processedData}
         isLoading={isLoading}
         manualFiltering
@@ -760,7 +746,7 @@ function VehiclesDataTableWrapper({
         onSortingChange={handleSortingChange}
         toolbar={
           showToolbar ? (
-            <VehicleToolbar
+            <TaskToolbar
               filters={filters}
               onAddFilter={addFilter}
               onClearFilters={clearFilters}
@@ -789,7 +775,7 @@ function VehiclesDataTableWrapper({
         </p>
         <p>
           <strong>Results:</strong>{" "}
-          <span data-testid="results-count">{processedData.length} vehicles</span>
+          <span data-testid="results-count">{processedData.length} tasks</span>
         </p>
       </div>
     </div>
@@ -797,32 +783,32 @@ function VehiclesDataTableWrapper({
 }
 
 /**
- * Server-side filtered vehicle data table.
+ * Server-side filtered task data table.
  * Demonstrates manual filtering/sorting modes that work with backend queries.
  */
 export const ServerSideFiltering: Story = {
-  render: () => <VehiclesDataTableWrapper />,
+  render: () => <TasksDataTableWrapper />,
 };
 
 /**
  * Server-side filtering in loading state.
  */
 export const ServerSideLoading: Story = {
-  render: () => <VehiclesDataTableWrapper isLoading />,
+  render: () => <TasksDataTableWrapper isLoading />,
 };
 
 /**
  * Server-side filtering without toolbar.
  */
 export const ServerSideNoToolbar: Story = {
-  render: () => <VehiclesDataTableWrapper showToolbar={false} />,
+  render: () => <TasksDataTableWrapper showToolbar={false} />,
 };
 
 /**
  * Server-side filtering with empty results.
  */
 export const ServerSideEmpty: Story = {
-  render: () => <VehiclesDataTableWrapper initialData={[]} />,
+  render: () => <TasksDataTableWrapper initialData={[]} />,
 };
 
 /**
@@ -840,7 +826,7 @@ export const ServerSideInteractiveDemo: Story = {
           <li>Watch the debug panel below for filter/sort state</li>
         </ol>
       </div>
-      <VehiclesDataTableWrapper />
+      <TasksDataTableWrapper />
     </div>
   ),
 };
