@@ -1,0 +1,25 @@
+{
+  "name": "@starter-saas/eslint-config",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./base": "./base.js",
+    "./feature-boundaries": "./feature-boundaries.js",
+    "./monorepo-boundaries": "./monorepo-boundaries.js",
+    "./rules/prefer-cn": "./rules/prefer-cn.js"
+  },
+  "devDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
+    "@typescript-eslint/parser": "catalog:",
+    "@vitest/eslint-plugin": "^1.5.2",
+    "eslint": "catalog:",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-boundaries": "^5.3.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-playwright": "^2.4.0",
+    "eslint-plugin-sonarjs": "^3.0.5",
+    "eslint-plugin-unicorn": "^62.0.0",
+    "eslint-plugin-zod-x": "^1.12.0"
+  }
+}

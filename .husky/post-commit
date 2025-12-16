@@ -1,0 +1,18 @@
+#!/bin/sh
+# Sync AI tool configurations after commit
+# Flow: Claude Code (.claude/) → rulesync (.rulesync/) → Cursor (.cursor/)
+
+echo "🔄 Syncing AI tool configurations..."
+
+# Step 1: Import from Claude Code (.claude/) to rulesync format (.rulesync/)
+echo "  📥 Claude Code → rulesync..."
+bunx rulesync@latest import -t claudecode || echo "  ⚠️ Import failed"
+
+# Step 2: Export from rulesync (.rulesync/) to Cursor (.cursor/)
+echo "  📤 rulesync → Cursor..."
+bunx rulesync@latest generate -t cursor || echo "  ⚠️ Export failed"
+
+# Step 3: Remove redundant overview.mdc (Cursor reads CLAUDE.md directly)
+rm -f .cursor/rules/overview.mdc 2>/dev/null
+
+echo "✅ AI tool sync complete"

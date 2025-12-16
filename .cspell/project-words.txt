@@ -1,0 +1,196 @@
+
+# AI tools ignore patterns
+# Build/bundler terms
+# Car models
+# Car models (example data)
+# Convex
+# DataTable
+# DataTable/filtering
+# Demo/Sample names
+# Email terms
+# File extensions/types
+# Font/typography terms
+# French domain terms (used in JSDoc comments for SIV - Système d'Immatriculation des Véhicules)
+# French vehicle body types (used as enum values in schema)
+# Git features
+# Git hooks
+# GitHub Actions
+# HTML elements
+# ICU placeholders used in translations
+# Image compression
+# Libraries
+# Libraries/Tools
+# Misc
+# Playwright/Testing
+# Project-specific words
+# Python/Analysis terms
+# Security/SBOM tools
+# Storybook
+# Technical terms
+# Test license plates (crud.test.ts)
+# UI/CSS
+# Words incorrectly flagged as partial matches
+# i18n
+ACMR
+Autoform
+CNTBUG
+CNTFLT
+Camry
+EMPT
+Embla
+FINDNULL
+Français
+Fumadocs
+Glassmorphism
+IDDEL
+IDXDEL
+IDXINC
+INCLDEL
+Immatriculation
+Instyle
+Laithang
+Layou
+Leiter
+Lingui
+NOTSAFE
+Neue
+OVERSCAN
+Oeser
+Oxlint
+PARTDEL
+Passat
+QWEN
+Reverdo
+Segoe
+Semgrep
+Setuptools
+Signups
+Système
+Tiguan
+Timebreaker
+UPDMNY
+UPSNEW
+UPSNULL
+Uncategorized
+Véhicules
+adminpass
+agency
+aiignore
+amazonq
+analyse
+applypatch
+armv
+augmentignore
+auth
+authed
+autodocs
+autoform
+bddgen
+berline
+biome
+bun
+bunx
+cabine
+calen
+carnitas
+citadine
+claudecode
+clineignore
+clinerules
+cmdk
+cmdline
+codexignore
+convex
+cpes
+critair
+cursorignore
+cyclonedx
+datatable
+datatabletoolbar
+doesn
+domcontentloaded
+dtree
+epicweb
+evilrabbit
+extralight
+fourgonnette
+frontmatter
+ghos
+groupable
+huskyrc
+johndoe
+junie
+kiro
+kwargs
+lingui
+linkless
+localhos
+logrus
+ltree
+lucide
+maxleiter
+mcps
+middlewares
+mockuser
+monocart
+monorepo
+moto
+mozjpeg
+msvc
+networkidle
+nextjs
+njsproj
+ntvs
+nums
+oneline
+opencode
+prefetch
+qwen
+radix
+reques
+resender
+revalidate
+rnwood
+rooignore
+rscinfo
+rulesync
+runpy
+serializable
+shadcn
+signin
+signup
+snapsho
+sonarjs
+sqlfluff
+stefanzweifel
+stringish
+subpages
+swiftlint
+tablename
+tailwind
+tanstack
+tauri
+testuser
+textareas
+trpc
+tsgo
+turbo
+turbopack
+turborepo
+typesafe
+ultracite
+unauthed
+unhover
+unindexed
+unlocalized
+utcp
+vaul
+vinxi
+visualise
+vroom
+vroommarket
+vueless
+worktree
+worktrees
+zod
+zodvex

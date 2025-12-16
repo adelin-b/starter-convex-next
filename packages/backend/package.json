@@ -1,0 +1,42 @@
+{
+  "name": "@starter-saas/backend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "bun scripts/upload-env-to-convex-watch.ts .env.local & convex dev --tail-logs",
+    "dev:debug": "bun run dev",
+    "dev:env-upload-watch": "bun scripts/upload-env-to-convex-watch.ts .env.local",
+    "dev:setup": "convex dev --configure --until-success",
+    "check:types": "tsgo --noEmit --project convex/tsconfig.json",
+    "test": "vitest",
+    "test:debug": "vitest run --inspect-brk=9230 --pool=forks --no-file-parallelism",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@edge-runtime/vm": "^5.0.0",
+    "@types/node": "catalog:",
+    "@types/nodemailer": "^7.0.4",
+    "@types/react": "^19.2.7",
+    "@vitest/ui": "^4.0.14",
+    "convex-test": "^0.0.41",
+    "typescript": "catalog:",
+    "vite": "^7.2.4",
+    "vitest": "^4.0.14"
+  },
+  "dependencies": {
+    "@convex-dev/better-auth": "catalog:",
+    "@convex-dev/resend": "^0.2.1",
+    "@react-email/render": "^2.0.0",
+    "@starter-saas/emails": "workspace:*",
+    "@starter-saas/shared": "workspace:*",
+    "better-auth": "catalog:",
+    "convex": "catalog:",
+    "convex-helpers": "^0.1.105",
+    "nodemailer": "^7.0.11",
+    "zod": "^4.1.13",
+    "zodvex": "^0.2.5"
+  }
+}

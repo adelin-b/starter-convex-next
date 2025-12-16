@@ -1,0 +1,8 @@
+{
+  "*.{ts,tsx,js,jsx,json,md,css}": "biome check --write --no-errors-on-unmatched",
+  "*.tsx": "eslint --max-warnings 0 --no-warn-ignored",
+  "apps/web/src/**/*.{ts,tsx}": [
+    "bash -c 'cd apps/web && bun run intl:extract'",
+    "bash -c 'cd apps/web && bun run intl:compile:strict'"
+  ]
+}

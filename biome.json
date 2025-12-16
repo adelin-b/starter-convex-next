@@ -1,0 +1,227 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "**",
+      "!.worktrees",
+      "!**/.next",
+      "!**/.next-e2e",
+      "!**/dist",
+      "!**/.turbo",
+      "!**/dev-dist",
+      "!**/.zed",
+      "!**/.vscode",
+      "!**/routeTree.gen.ts",
+      "!**/src-tauri",
+      "!**/convex/_generated",
+      "!**/.nuxt",
+      "!bts.jsonc",
+      "!**/.expo",
+      "!**/.wrangler",
+      "!**/.alchemy",
+      "!**/.svelte-kit",
+      "!**/wrangler.jsonc",
+      "!**/.source",
+      "!bun.lock",
+      "!**/tests/features/.generated",
+      "!**/packages/eslint-config"
+    ]
+  },
+  "extends": ["ultracite/core", "ultracite/react", "ultracite/next"],
+  "assist": {
+    "actions": {
+      "source": {}
+    }
+  },
+  "linter": {
+    "domains": {
+      "react": "all",
+      "next": "all",
+      "test": "all",
+      "project": "all"
+    },
+    "rules": {
+      "correctness": {
+        "noUnusedImports": "warn"
+      },
+      "style": {
+        "noProcessEnv": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "**/*.spec.ts",
+        "**/*.spec.tsx",
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*.stories.tsx",
+        "e2e/**/*",
+        "**/e2e/**/*",
+        "**/tests/features/**/*.ts"
+      ],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noSvgWithoutTitle": "off",
+            "useFocusableInteractive": "off",
+            "useSemanticElements": "off"
+          },
+          "complexity": {
+            "noForEach": "off",
+            "noBannedTypes": "off"
+          },
+          "nursery": {
+            "noIncrementDecrement": "off"
+          },
+          "correctness": {
+            "noUnusedFunctionParameters": "off"
+          },
+          "suspicious": {
+            "noConsole": "off",
+            "useAwait": "off",
+            "noExplicitAny": "off",
+            "noArrayIndexKey": "off"
+          },
+          "performance": {
+            "useTopLevelRegex": "off",
+            "noImgElement": "off"
+          },
+          "style": {
+            "noMagicNumbers": "off",
+            "noNonNullAssertion": "off",
+            "noDescendingSpecificity": "off",
+            "noProcessEnv": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/backend/convex/**/*"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useFilenamingConvention": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/ui/src/**/*"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noNamespaceImport": "off",
+            "noImgElement": "off"
+          },
+          "security": {
+            "noDangerouslySetInnerHtml": "off"
+          },
+          "complexity": {
+            "noForEach": "off"
+          },
+          "suspicious": {
+            "noArrayIndexKey": "off",
+            "noExplicitAny": "off"
+          },
+          "a11y": {
+            "useSemanticElements": "off",
+            "useFocusableInteractive": "off",
+            "noSvgWithoutTitle": "off"
+          },
+          "style": {
+            "noNonNullAssertion": "off",
+            "noNestedTernary": "off"
+          },
+          "correctness": {
+            "useExhaustiveDependencies": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/env.ts",
+        "playwright.config.ts",
+        "playwright-bdd.config.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noProcessEnv": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/backend/convex/utils/crud.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off"
+          },
+          "style": {
+            "noNonNullAssertion": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/emails/src/**/*"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/@x/**/*"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "apps/e2e/lib/test.ts",
+        "apps/web/src/lib/convex-hooks.ts",
+        "apps/web/src/lib/i18n.ts"
+      ],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    }
+  ],
+  "formatter": {
+    "indentStyle": "space",
+    "lineEnding": "lf",
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "parser": {
+      "allowComments": true
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": false,
+      "tailwindDirectives": true
+    }
+  }
+}

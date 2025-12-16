@@ -1,0 +1,78 @@
+{
+  "name": "Better VroomMarket Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "oven-sh.bun-vscode",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "formulahendry.auto-rename-tag",
+        "streetsidesoftware.code-spell-checker",
+        "github.copilot",
+        "biomejs.biome"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "biomejs.biome",
+        "[typescript]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "[javascriptreact]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        }
+      }
+    }
+  },
+  "forwardPorts": [3001, 6006],
+  "portsAttributes": {
+    "3001": {
+      "label": "Web",
+      "onAutoForward": "notify"
+    },
+    "6006": {
+      "label": "Storybook",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postStartCommand": "bash .devcontainer/post-start.sh",
+  "remoteUser": "node",
+  "mounts": [
+    "source=${localEnv:HOME}/.config/git,target=/home/node/.config/git,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/gh,target=/home/node/.config/gh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.convex,target=/home/node/.convex,type=bind,consistency=cached",
+    "source=${localWorkspaceFolder}/.git,target=/main-repo-git,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.bun/install/cache,target=/home/node/.bun/install/cache,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.zsh_history,target=/home/node/.zsh_history,type=bind,consistency=cached"
+  ],
+  "initializeCommand": "bash -c 'WORKTREE_NAME=$(basename ${localWorkspaceFolder}); echo \"🔍 Checking for cached Docker images...\"; CACHED_IMAGES=$(docker images --filter \"reference=*${WORKTREE_NAME}*\" -q); if [ ! -z \"$CACHED_IMAGES\" ]; then echo \"🧹 Removing cached Docker images for ${WORKTREE_NAME}...\"; docker rmi -f $CACHED_IMAGES 2>/dev/null || true; echo \"✅ Cached images removed\"; fi; echo \"Main repo: $(git -C ${localWorkspaceFolder} rev-parse --show-toplevel)\"; echo \"Worktree: ${localWorkspaceFolder}\"'",
+  "containerEnv": {
+    "BROWSER": "none"
+  }
+}

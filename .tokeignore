@@ -1,0 +1,14 @@
+# Generated files
+**/convex/_generated/
+**/_generated/
+
+# Translation files (compiled catalogs)
+**/locales/*.po
+**/locales/*.mjs
+**/locales/*.json
+
+# Lock files
+bun.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

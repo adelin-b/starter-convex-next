@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Turbo: dev (all)",
+      "type": "shell",
+      "command": "bun run dev",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Turbo: dev:web",
+      "type": "shell",
+      "command": "bun run dev:web",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Turbo: dev:server (Convex)",
+      "type": "shell",
+      "command": "bun run dev:server",
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}
+
+

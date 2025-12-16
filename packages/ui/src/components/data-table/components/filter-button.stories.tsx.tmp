@@ -1,0 +1,157 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
+import {
+  generateManyColumns,
+  StoryDebugOutput,
+  sampleUserColumns,
+} from "../__stories__/story-helpers";
+import type { DataTableColumn, FilterGroup } from "../types";
+import { FilterButton } from "./filter-button";
+
+const meta: Meta<typeof FilterButton> = {
+  title: "composite/Datatable/FilterButton",
+  component: FilterButton,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+};
+
+export default meta;
+type Story = StoryObj<typeof FilterButton>;
+
+// Sample columns for stories - filterable subset
+const sampleColumns = sampleUserColumns.filter((col) => col.enableFiltering);
+
+// Many columns for scroll test
+const manyColumns = generateManyColumns(20);
+
+// Wrapper component for interactive state
+function FilterButtonStory({
+  columns,
+  initialFilters = [],
+  showLabel = true,
+  className,
+}: {
+  columns: DataTableColumn<unknown>[];
+  initialFilters?: FilterGroup[];
+  showLabel?: boolean;
+  className?: string;
+}) {
+  const [filterGroups, setFilterGroups] = useState<FilterGroup[]>(
+    initialFilters.length > 0 ? initialFilters : [{ logic: "AND", filters: [] }],
+  );
+
+  return (
+    <div className="flex flex-col gap-4">
+      <FilterButton
+        className={className}
+        columns={columns}
+        filterGroups={filterGroups}
+        onFiltersChange={setFilterGroups}
+        showLabel={showLabel}
+      />
+
+      {/* Debug output */}
+      <StoryDebugOutput data={filterGroups} label="Active Filters" />
+    </div>
+  );
+}
+
+/**
+ * Default FilterButton with filterable columns.
+ * Click to open dropdown and add filters.
+ */
+export const Default: Story = {
+  render: () => <FilterButtonStory columns={sampleColumns} />,
+};
+
+/**
+ * FilterButton with active filters showing badge and filter list.
+ * The badge displays the count of active filters.
+ */
+export const WithActiveFilters: Story = {
+  render: () => (
+    <FilterButtonStory
+      columns={sampleColumns}
+      initialFilters={[
+        {
+          logic: "AND",
+          filters: [
+            {
+              id: "filter-1",
+              column: "name",
+              operator: "contains",
+              value: "John",
+            },
+            {
+              id: "filter-2",
+              column: "email",
+              operator: "contains",
+              value: "@example.com",
+            },
+          ],
+        },
+      ]}
+    />
+  ),
+};
+
+/**
+ * FilterButton with no filterable columns.
+ * Shows empty state message.
+ */
+export const NoFilterableColumns: Story = {
+  render: () => (
+    <FilterButtonStory
+      columns={[
+        {
+          id: "id",
+          header: "ID",
+          accessorKey: "id",
+          enableFiltering: false,
+        },
+      ]}
+    />
+  ),
+};
+
+/**
+ * FilterButton with many columns to test scroll behavior.
+ * The dropdown uses ScrollArea with automatic scroll shadows.
+ */
+export const ManyColumns: Story = {
+  render: () => <FilterButtonStory columns={manyColumns} />,
+};
+
+/**
+ * FilterButton in small container (icon only).
+ * Label is hidden via container queries.
+ */
+export const SmallContainer: Story = {
+  render: () => (
+    <div className="w-32">
+      <FilterButtonStory className="w-full" columns={sampleColumns} />
+    </div>
+  ),
+};
+
+/**
+ * FilterButton in large container (icon + label).
+ * Label is visible via container queries.
+ */
+export const LargeContainer: Story = {
+  render: () => (
+    <div className="w-96">
+      <FilterButtonStory className="w-full" columns={sampleColumns} />
+    </div>
+  ),
+};
+
+/**
+ * FilterButton with label hidden via prop.
+ * Always shows icon only regardless of container size.
+ */
+export const IconOnly: Story = {
+  render: () => <FilterButtonStory columns={sampleColumns} showLabel={false} />,
+};

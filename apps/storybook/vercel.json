@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "cd ../.. && bun install",
+  "buildCommand": "cd ../.. && bun run build --filter=@starter-saas/storybook",
+  "outputDirectory": "storybook-static",
+  "framework": null,
+  "ignoreCommand": "bash ../../scripts/vercel-ignore-build.sh"
+}

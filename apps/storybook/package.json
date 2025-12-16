@@ -1,0 +1,33 @@
+{
+  "name": "@starter-saas/storybook",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "storybook dev -p ${STORYBOOK_PORT:-6006} --config-dir storybook $([ -n \"$CODESPACES\" ] || [ -n \"$REMOTE_CONTAINERS\" ] || [ -f /.dockerenv ] || [ -n \"$CI\" ] || [ -n \"$STORYBOOK_NO_OPEN\" ] && echo '--no-open')",
+    "build": "storybook build --config-dir storybook",
+    "clean": "rm -rf .turbo node_modules storybook-static",
+    "check:types": "tsgo --noEmit",
+    "storybook": "storybook dev -p ${STORYBOOK_PORT:-6006} --config-dir storybook",
+    "build-storybook": "storybook build --config-dir storybook"
+  },
+  "dependencies": {
+    "@storybook/addon-docs": "^10.0.8",
+    "@storybook/addon-links": "^10.0.8",
+    "@storybook/addon-onboarding": "^10.0.8",
+    "@storybook/addon-themes": "^10.0.8",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@storybook/react-vite": "^10.0.8",
+    "@tailwindcss/vite": "^4.1.16",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.2",
+    "@starter-saas/ui": "workspace:*",
+    "storybook": "^10.0.8",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4"
+  }
+}

@@ -1,0 +1,1293 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-12-10 10:32+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:154
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:225
+msgid "..."
+msgstr "..."
+
+#: src/app/(dashboard)/vehicles/page.tsx:93
+#~ msgid "{0, plural, =0 {No vehicles in inventory} one {# vehicle in inventory} other {# vehicles in inventory}}"
+#~ msgstr "{0, plural, =0 {No vehicles in inventory} one {# vehicle in inventory} other {# vehicles in inventory}}"
+
+#: src/features/agencies/components/agency-form-fields.tsx:87
+msgid "+33 1 23 45 67 89"
+msgstr "+33 1 23 45 67 89"
+
+#: src/features/agencies/components/agency-form-fields.tsx:120
+msgid "123 Street, City"
+msgstr "123 Street, City"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:181
+#~ msgid "15000"
+#~ msgstr "15000"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:113
+#~ msgid "2024"
+#~ msgstr "2024"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:160
+#~ msgid "25000"
+#~ msgstr "25000"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:134
+#~ msgid "ABC-1234"
+#~ msgstr "ABC-1234"
+
+#: src/app/(auth)/invitations/accept/page.tsx:236
+msgid "Accept Invitation"
+msgstr "Accept Invitation"
+
+#: src/features/agencies/i18n.ts:20
+msgid "Accepted"
+msgstr "Accepted"
+
+#: src/app/(auth)/invitations/accept/page.tsx:233
+msgid "Accepting..."
+msgstr "Accepting..."
+
+#: src/components/ui/auth-guard.tsx:127
+msgid "Access Denied"
+msgstr "Access Denied"
+
+#: src/features/users/components/user-menu.tsx:121
+msgid "Account"
+msgstr "Account"
+
+#: src/features/agencies/i18n.ts:7
+msgid "Active"
+msgstr "Active"
+
+#: src/features/agencies/components/create-agency-dialog.tsx:90
+msgid "Add a new agency to the system"
+msgstr "Add a new agency to the system"
+
+#: src/app/(dashboard)/vehicles/page.tsx:70
+#~ msgid "Add a new vehicle to your inventory"
+#~ msgstr "Add a new vehicle to your inventory"
+
+#: src/features/agencies/components/create-agency-dialog.tsx:81
+msgid "Add Agency"
+msgstr "Add Agency"
+
+#: src/app/(dashboard)/vehicles/page.tsx:84
+msgid "Add Vehicle"
+msgstr "Add Vehicle"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:252
+#~ msgid "Added {addedDate}"
+#~ msgstr "Added {addedDate}"
+
+#: src/features/vehicles/components/create-vehicle-form.tsx:119
+#~ msgid "Adding..."
+#~ msgstr "Adding..."
+
+#: src/features/agencies/components/agency-form-fields.tsx:117
+msgid "Address"
+msgstr "Address"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:140
+#: src/app/(dashboard)/admin/agencies/page.tsx:75
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:211
+#: src/app/(dashboard)/admin/members/page.tsx:316
+#: src/components/layouts/app-sidebar.tsx:42
+msgid "Admin"
+msgstr "Admin"
+
+#: src/app/(dashboard)/admin/page.tsx:33
+#: src/components/layouts/app-sidebar.tsx:91
+msgid "Administration"
+msgstr "Administration"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:148
+#: src/app/(dashboard)/admin/agencies/page.tsx:82
+#: src/app/(dashboard)/admin/agencies/page.tsx:90
+#: src/app/(dashboard)/admin/page.tsx:15
+#: src/components/layouts/app-sidebar.tsx:47
+msgid "Agencies"
+msgstr "Agencies"
+
+#: src/app/(auth)/invitations/accept/page.tsx:200
+#: src/app/(dashboard)/admin/members/page.tsx:79
+#: src/app/(dashboard)/admin/members/page.tsx:169
+#: src/components/layouts/app-sidebar.tsx:62
+msgid "Agency"
+msgstr "Agency"
+
+#: src/features/agencies/components/add-member-dialog.tsx:132
+msgid "Agency *"
+msgstr "Agency *"
+
+#: src/features/agencies/components/agency-form-fields.tsx:70
+msgid "Agency description"
+msgstr "Agency description"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:47
+msgid "Agency Information"
+msgstr "Agency Information"
+
+#: src/features/agencies/i18n.ts:14
+msgid "Agency Manager"
+msgstr "Agency Manager"
+
+#: src/features/agencies/components/role-selector.tsx:82
+msgid "Agency managers with full management permissions."
+msgstr "Agency managers with full management permissions."
+
+#: src/features/agencies/components/agency-members-tab.tsx:68
+msgid "Agency Members"
+msgstr "Agency Members"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:285
+msgid "Agency Membership"
+msgstr "Agency Membership"
+
+#: src/features/agencies/components/agency-form-fields.tsx:54
+msgid "Agency name"
+msgstr "Agency name"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:320
+msgid "Agency not found"
+msgstr "Agency not found"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:94
+msgid "Agency Not Found"
+msgstr "Agency Not Found"
+
+#: src/app/(dashboard)/admin/members/page.tsx:357
+msgid "All Invitations"
+msgstr "All Invitations"
+
+#: src/app/(dashboard)/admin/members/page.tsx:331
+msgid "All Members"
+msgstr "All Members"
+
+#: src/app/(auth)/invitations/accept/page.tsx:138
+msgid "Already Accepted"
+msgstr "Already Accepted"
+
+#: src/features/auth/components/sign-up-form.tsx:167
+msgid "Already have an account? Sign In"
+msgstr "Already have an account? Sign In"
+
+#: src/features/auth/components/sign-in-form.tsx:80
+#: src/features/auth/components/sign-up-form.tsx:82
+msgid "An unexpected error occurred. Please try again."
+msgstr "An unexpected error occurred. Please try again."
+
+#: src/app/(auth)/invitations/accept/page.tsx:216
+msgid "Assigned Roles"
+msgstr "Assigned Roles"
+
+#: src/features/vehicles/i18n.ts:29
+msgid "Automatic"
+msgstr "Automatic"
+
+#: src/features/vehicles/i18n.ts:8
+msgid "Available"
+msgstr "Available"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:104
+msgid "Back to Agencies"
+msgstr "Back to Agencies"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:173
+msgid "Back to Members"
+msgstr "Back to Members"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:306
+#: src/components/ui/auth-guard.tsx:139
+msgid "Back to Vehicles"
+msgstr "Back to Vehicles"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:78
+#~ msgid "Camry"
+#~ msgstr "Camry"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:227
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/features/vehicles/i18n.ts:42
+msgid "Change vehicle status"
+msgstr "Change vehicle status"
+
+#: src/app/(dashboard)/admin/page.tsx:49
+msgid "Click to manage agencies"
+msgstr "Click to manage agencies"
+
+#: src/app/(dashboard)/admin/page.tsx:51
+msgid "Click to manage members"
+msgstr "Click to manage members"
+
+#: src/features/agencies/i18n.ts:13
+msgid "Commercial"
+msgstr "Commercial"
+
+#: src/components/ui/connection-status-overlay.tsx:97
+#: src/features/auth/components/google-sign-in-button.tsx:36
+msgid "Connecting..."
+msgstr "Connecting..."
+
+#: src/components/ui/connection-status-overlay.tsx:120
+msgid "Connection Problem"
+msgstr "Connection Problem"
+
+#: src/features/agencies/components/agency-form-fields.tsx:103
+msgid "contact@agency.com"
+msgstr "contact@agency.com"
+
+#: src/features/auth/components/sign-up-form.tsx:104
+msgid "Create Account"
+msgstr "Create Account"
+
+#: src/features/agencies/components/create-agency-dialog.tsx:87
+#: src/features/agencies/components/create-agency-dialog.tsx:109
+msgid "Create Agency"
+msgstr "Create Agency"
+
+#: src/app/(dashboard)/admin/members/page.tsx:259
+#: src/features/agencies/hooks/use-agency-columns.tsx:83
+msgid "Created"
+msgstr "Created"
+
+#: src/features/agencies/components/create-agency-dialog.tsx:106
+msgid "Creating..."
+msgstr "Creating..."
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:237
+msgid "Current Information"
+msgstr "Current Information"
+
+#: src/features/agencies/hooks/use-member-columns.tsx:43
+msgid "Current Roles"
+msgstr "Current Roles"
+
+#: src/features/users/components/user-menu.tsx:147
+msgid "Dark"
+msgstr "Dark"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:122
+#: src/features/agencies/hooks/use-agency-columns.tsx:94
+msgid "Delete"
+msgstr "Delete"
+
+#: src/features/agencies/hooks/use-agency-columns.tsx:102
+msgid "Delete {agencyName}"
+msgstr "Delete {agencyName}"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:125
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:130
+#: src/features/agencies/hooks/use-agency-columns.tsx:98
+msgid "Delete Agency"
+msgstr "Delete Agency"
+
+#: src/features/vehicles/i18n.ts:43
+msgid "Delete vehicle"
+msgstr "Delete vehicle"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:143
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:148
+#~ msgid "Delete Vehicle"
+#~ msgstr "Delete Vehicle"
+
+#: src/features/agencies/components/agency-form-fields.tsx:67
+#: src/features/vehicles/components/vehicle-form.tsx:359
+msgid "Description"
+msgstr "Description"
+
+#: src/features/vehicles/i18n.ts:16
+msgid "Diesel"
+msgstr "Diesel"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:372
+msgid "Documents"
+msgstr "Documents"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:405
+msgid "Documents - Coming Soon"
+msgstr "Documents - Coming Soon"
+
+#: src/features/vehicles/i18n.ts:7
+msgid "Draft"
+msgstr "Draft"
+
+#: src/features/vehicles/components/vehicle-form.tsx:114
+msgid "Edit vehicle details. All fields are optional."
+msgstr "Edit vehicle details. All fields are optional."
+
+#: src/features/vehicles/i18n.ts:17
+msgid "Electric"
+msgstr "Electric"
+
+#: src/app/(dashboard)/admin/members/page.tsx:158
+#: src/features/agencies/components/agency-form-fields.tsx:100
+#: src/features/agencies/components/pending-invitations-card.tsx:91
+#: src/features/agencies/hooks/use-agency-columns.tsx:71
+#: src/features/auth/components/sign-in-form.tsx:109
+#: src/features/auth/components/sign-up-form.tsx:119
+msgid "Email"
+msgstr "Email"
+
+#: src/features/agencies/components/add-member-dialog.tsx:160
+msgid "Email Address *"
+msgstr "Email Address *"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:192
+msgid "Engine"
+msgstr "Engine"
+
+#: src/features/agencies/components/add-member-dialog.tsx:166
+msgid "Enter email address"
+msgstr "Enter email address"
+
+#: src/features/vehicles/components/vehicle-form.tsx:364
+msgid "Enter vehicle description..."
+msgstr "Enter vehicle description..."
+
+#: src/components/ui/connection-status-overlay.tsx:100
+msgid "Establishing connection to the server"
+msgstr "Establishing connection to the server"
+
+#: src/features/vehicles/i18n.ts:21
+msgid "Ethanol"
+msgstr "Ethanol"
+
+#: src/features/vehicles/components/vehicle-form.tsx:275
+msgid "Ex: 15000"
+msgstr "Ex: 15000"
+
+#: src/features/vehicles/components/vehicle-form.tsx:192
+msgid "Ex: 2020"
+msgstr "Ex: 2020"
+
+#: src/features/vehicles/components/vehicle-form.tsx:301
+msgid "Ex: 50000"
+msgstr "Ex: 50000"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:149
+#: src/features/vehicles/components/vehicle-form.tsx:138
+msgid "Ex: BF582LN"
+msgstr "Ex: BF582LN"
+
+#: src/features/vehicles/components/vehicle-form.tsx:328
+msgid "Ex: Black"
+msgstr "Ex: Black"
+
+#: src/features/vehicles/components/vehicle-form.tsx:344
+msgid "Ex: Black leather"
+msgstr "Ex: Black leather"
+
+#: src/features/vehicles/components/vehicle-form.tsx:173
+msgid "Ex: Camry"
+msgstr "Ex: Camry"
+
+#: src/features/vehicles/components/vehicle-form.tsx:157
+msgid "Ex: Toyota"
+msgstr "Ex: Toyota"
+
+#: src/features/agencies/i18n.ts:22
+msgid "Expired"
+msgstr "Expired"
+
+#: src/app/(dashboard)/admin/members/page.tsx:216
+#: src/features/agencies/components/pending-invitations-card.tsx:116
+msgid "Expires"
+msgstr "Expires"
+
+#: src/features/vehicles/components/vehicle-form.tsx:325
+msgid "Exterior Color"
+msgstr "Exterior Color"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:106
+msgid "Failed to apply SIV data"
+msgstr "Failed to apply SIV data"
+
+#: src/features/vehicles/i18n.ts:45
+msgid "Failed to load vehicles"
+msgstr "Failed to load vehicles"
+
+#: src/app/(dashboard)/vehicles/page.tsx:106
+#~ msgid "Failed to load vehicles. Please try again."
+#~ msgstr "Failed to load vehicles. Please try again."
+
+#: src/features/users/components/user-menu.tsx:67
+#: src/features/users/components/user-menu.tsx:73
+msgid "Failed to sign out. Please try again."
+msgstr "Failed to sign out. Please try again."
+
+#: src/features/agencies/i18n.ts:27
+msgid "Failed to update roles"
+msgstr "Failed to update roles"
+
+#: src/features/vehicles/components/vehicle-form.tsx:102
+msgid "Failed to update vehicle"
+msgstr "Failed to update vehicle"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:166
+msgid "For example: BF582LN"
+msgstr "For example: BF582LN"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:198
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:260
+#: src/features/vehicles/components/vehicle-form.tsx:213
+#: src/features/vehicles/i18n.ts:40
+msgid "Fuel Type"
+msgstr "Fuel Type"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:200
+#~ msgid "Fuel Type *"
+#~ msgstr "Fuel Type *"
+
+#: src/features/vehicles/i18n.ts:15
+msgid "Gasoline"
+msgstr "Gasoline"
+
+#: src/app/(auth)/invitations/accept/page.tsx:142
+msgid "Go to Dashboard"
+msgstr "Go to Dashboard"
+
+#: src/app/(auth)/invitations/accept/page.tsx:75
+#: src/app/(auth)/invitations/accept/page.tsx:103
+#: src/app/(auth)/invitations/accept/page.tsx:125
+#: src/app/(auth)/invitations/accept/page.tsx:159
+msgid "Go to Home"
+msgstr "Go to Home"
+
+#: src/features/auth/components/google-sign-in-button.tsx:36
+msgid "Google"
+msgstr "Google"
+
+#: src/features/auth/hooks/use-google-auth.ts:51
+msgid "Google sign in failed. Please try again."
+msgstr "Google sign in failed. Please try again."
+
+#: src/features/vehicles/i18n.ts:18
+msgid "Hybrid"
+msgstr "Hybrid"
+
+#: src/features/vehicles/i18n.ts:22
+msgid "Hydrogen"
+msgstr "Hydrogen"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:135
+msgid "Import vehicle information directly from the prefecture"
+msgstr "Import vehicle information directly from the prefecture"
+
+#: src/features/agencies/i18n.ts:8
+msgid "Inactive"
+msgstr "Inactive"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:172
+msgid "Info"
+msgstr "Info"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:363
+msgid "Information"
+msgstr "Information"
+
+#: src/features/vehicles/components/vehicle-form.tsx:341
+msgid "Interior Color"
+msgstr "Interior Color"
+
+#: src/app/(auth)/invitations/accept/page.tsx:71
+msgid "Invalid Invitation Link"
+msgstr "Invalid Invitation Link"
+
+#: src/features/vehicles/components/vehicle-form-schema.ts:26
+msgid "Invalid license plate format"
+msgstr "Invalid license plate format"
+
+#: src/app/(auth)/invitations/accept/page.tsx:174
+msgid "Invitation Accepted!"
+msgstr "Invitation Accepted!"
+
+#: src/app/(auth)/invitations/accept/page.tsx:121
+msgid "Invitation Expired"
+msgstr "Invitation Expired"
+
+#: src/app/(auth)/invitations/accept/page.tsx:99
+msgid "Invitation Not Found"
+msgstr "Invitation Not Found"
+
+#: src/app/(auth)/invitations/accept/page.tsx:155
+msgid "Invitation Revoked"
+msgstr "Invitation Revoked"
+
+#: src/features/agencies/components/pending-invitations-card.tsx:222
+msgid "Invitations that have been sent but not yet accepted"
+msgstr "Invitations that have been sent but not yet accepted"
+
+#: src/features/agencies/components/add-member-dialog.tsx:111
+#: src/features/agencies/components/add-member-dialog.tsx:117
+msgid "Invite Member"
+msgstr "Invite Member"
+
+#: src/app/(dashboard)/admin/members/page.tsx:248
+#: src/features/agencies/components/pending-invitations-card.tsx:145
+msgid "Invited By"
+msgstr "Invited By"
+
+#: src/features/agencies/components/pending-invitations-card.tsx:150
+#~ msgid "Invited by {0}"
+#~ msgstr "Invited by {0}"
+
+#: src/features/agencies/components/pending-invitations-card.tsx:150
+msgid "Invited by {inviterName}"
+msgstr "Invited by {inviterName}"
+
+#: src/app/(auth)/invitations/accept/page.tsx:254
+msgid "is inviting you to join their team"
+msgstr "is inviting you to join their team"
+
+#: src/features/vehicles/components/vehicle-form.tsx:309
+msgid "Kilometers"
+msgstr "Kilometers"
+
+#: src/features/users/components/user-menu.tsx:162
+msgid "Language"
+msgstr "Language"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:142
+#: src/features/vehicles/components/vehicle-form.tsx:135
+#: src/features/vehicles/i18n.ts:41
+msgid "License Plate"
+msgstr "License Plate"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:130
+#~ msgid "License Plate *"
+#~ msgstr "License Plate *"
+
+#: src/features/users/components/user-menu.tsx:143
+msgid "Light"
+msgstr "Light"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:376
+msgid "Listings"
+msgstr "Listings"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:413
+msgid "Listings - Coming Soon"
+msgstr "Listings - Coming Soon"
+
+#: src/components/ui/auth-guard.tsx:38
+msgid "Loading"
+msgstr "Loading"
+
+#: src/app/(auth)/_components/auth-loading.tsx:16
+msgid "Loading authentication"
+msgstr "Loading authentication"
+
+#: src/app/(auth)/invitations/accept/page.tsx:88
+msgid "Loading Invitation"
+msgstr "Loading Invitation"
+
+#: src/features/vehicles/i18n.ts:44
+msgid "Loading vehicles"
+msgstr "Loading vehicles"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:161
+#: src/app/(dashboard)/admin/agencies/page.tsx:105
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:232
+#: src/app/(dashboard)/admin/members/page.tsx:347
+#: src/app/(dashboard)/admin/members/page.tsx:371
+#: src/app/(dashboard)/vehicles/page.tsx:115
+#: src/components/ui/auth-guard.tsx:40
+#: src/features/agencies/components/agency-members-tab.tsx:93
+#: src/features/agencies/components/pending-invitations-card.tsx:233
+msgid "Loading..."
+msgstr "Loading..."
+
+#: src/features/vehicles/i18n.ts:20
+msgid "LPG"
+msgstr "LPG"
+
+#: src/features/vehicles/i18n.ts:35
+msgid "Make"
+msgstr "Make"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:59
+#~ msgid "Make *"
+#~ msgstr "Make *"
+
+#: src/app/(dashboard)/admin/page.tsx:16
+msgid "Manage agencies and their settings"
+msgstr "Manage agencies and their settings"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:288
+msgid "Manage agency membership and roles"
+msgstr "Manage agency membership and roles"
+
+#: src/features/agencies/components/agency-members-tab.tsx:71
+msgid "Manage members and their roles"
+msgstr "Manage members and their roles"
+
+#: src/app/(dashboard)/admin/agencies/page.tsx:88
+msgid "Manage your agencies and their settings"
+msgstr "Manage your agencies and their settings"
+
+#: src/app/(dashboard)/admin/page.tsx:31
+msgid "Manage your agencies, members, and roles"
+msgstr "Manage your agencies, members, and roles"
+
+#: src/app/(dashboard)/vehicles/page.tsx:98
+msgid "Manage your vehicle inventory"
+msgstr "Manage your vehicle inventory"
+
+#: src/features/vehicles/i18n.ts:28
+msgid "Manual"
+msgstr "Manual"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:183
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:242
+#: src/features/vehicles/components/vehicle-form.tsx:154
+msgid "Manufacturer"
+msgstr "Manufacturer"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:163
+msgid "Member Not Found"
+msgstr "Member Not Found"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:270
+#~ msgid "Member since {0}"
+#~ msgstr "Member since {0}"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:274
+msgid "Member since {memberSince}"
+msgstr "Member since {memberSince}"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:176
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:219
+#: src/app/(dashboard)/admin/members/page.tsx:323
+#: src/app/(dashboard)/admin/page.tsx:21
+#: src/components/layouts/app-sidebar.tsx:52
+msgid "Members"
+msgstr "Members"
+
+#: src/features/vehicles/components/vehicle-form.tsx:296
+#: src/features/vehicles/i18n.ts:39
+msgid "Mileage"
+msgstr "Mileage"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:177
+#~ msgid "Mileage *"
+#~ msgstr "Mileage *"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:186
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:248
+#: src/features/vehicles/components/vehicle-form.tsx:170
+#: src/features/vehicles/i18n.ts:36
+msgid "Model"
+msgstr "Model"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:75
+#~ msgid "Model *"
+#~ msgstr "Model *"
+
+#: src/features/agencies/hooks/use-agency-columns.tsx:34
+#: src/features/auth/components/sign-up-form.tsx:111
+msgid "Name"
+msgstr "Name"
+
+#: src/features/agencies/components/agency-form-fields.tsx:51
+msgid "Name *"
+msgstr "Name *"
+
+#: src/components/layouts/app-sidebar.tsx:54
+#~ msgid "Navigation"
+#~ msgstr "Navigation"
+
+#: src/features/auth/components/sign-in-form.tsx:157
+msgid "Need an account? Sign Up"
+msgstr "Need an account? Sign Up"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:323
+#: src/components/layouts/app-sidebar.tsx:77
+#: src/features/vehicles/hooks/use-vehicle-columns.tsx:37
+msgid "New Vehicle"
+msgstr "New Vehicle"
+
+#: src/app/(dashboard)/admin/agencies/page.tsx:102
+msgid "No agencies found."
+msgstr "No agencies found."
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:315
+msgid "No email"
+msgstr "No email"
+
+#: src/app/(auth)/invitations/accept/page.tsx:69
+msgid "No invitation token was provided in the URL."
+msgstr "No invitation token was provided in the URL."
+
+#: src/app/(dashboard)/admin/members/page.tsx:368
+msgid "No invitations sent yet."
+msgstr "No invitations sent yet."
+
+#: src/features/agencies/components/agency-members-tab.tsx:90
+msgid "No members found."
+msgstr "No members found."
+
+#: src/app/(dashboard)/admin/members/page.tsx:344
+msgid "No members found. Add members to agencies first."
+msgstr "No members found. Add members to agencies first."
+
+#: src/features/agencies/components/pending-invitations-card.tsx:230
+msgid "No pending invitations."
+msgstr "No pending invitations."
+
+#: src/app/(dashboard)/vehicles/page.tsx:112
+msgid "No vehicles found."
+msgstr "No vehicles found."
+
+#: src/features/auth/components/auth-divider.tsx:14
+msgid "Or continue with"
+msgstr "Or continue with"
+
+#: src/features/vehicles/i18n.ts:23
+msgid "Other"
+msgstr "Other"
+
+#: src/features/auth/components/sign-in-form.tsx:123
+#: src/features/auth/components/sign-up-form.tsx:133
+msgid "Password"
+msgstr "Password"
+
+#: src/features/agencies/i18n.ts:19
+msgid "Pending"
+msgstr "Pending"
+
+#: src/features/agencies/components/pending-invitations-card.tsx:219
+msgid "Pending Invitations"
+msgstr "Pending Invitations"
+
+#: src/features/agencies/components/agency-form-fields.tsx:84
+#: src/features/agencies/hooks/use-agency-columns.tsx:77
+msgid "Phone"
+msgstr "Phone"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:367
+msgid "Photos"
+msgstr "Photos"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:396
+msgid "Photos - Coming Soon"
+msgstr "Photos - Coming Soon"
+
+#: src/app/(auth)/invitations/accept/page.tsx:244
+msgid "Please sign in or create an account to accept this invitation."
+msgstr "Please sign in or create an account to accept this invitation."
+
+#: src/features/vehicles/i18n.ts:19
+msgid "Plug-in Hybrid"
+msgstr "Plug-in Hybrid"
+
+#: src/features/vehicles/components/vehicle-form.tsx:270
+msgid "Price"
+msgstr "Price"
+
+#: src/features/vehicles/i18n.ts:38
+msgid "Price ($)"
+msgstr "Price ($)"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:156
+#~ msgid "Price ($) *"
+#~ msgstr "Price ($) *"
+
+#: src/features/vehicles/components/vehicle-form.tsx:283
+msgid "Price in euros"
+msgstr "Price in euros"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:189
+msgid "Production Period"
+msgstr "Production Period"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:245
+msgid "Profile"
+msgstr "Profile"
+
+#: src/app/(auth)/_components/redirect-on-auth.tsx:28
+#: src/components/ui/auth-guard.tsx:63
+msgid "Redirecting"
+msgstr "Redirecting"
+
+#: src/app/(auth)/invitations/accept/page.tsx:178
+msgid "Redirecting to dashboard..."
+msgstr "Redirecting to dashboard..."
+
+#: src/components/ui/auth-guard.tsx:67
+msgid "Redirecting to login..."
+msgstr "Redirecting to login..."
+
+#: src/app/(auth)/_components/redirect-on-auth.tsx:30
+msgid "Redirecting..."
+msgstr "Redirecting..."
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:193
+#: src/app/(dashboard)/admin/members/page.tsx:128
+#: src/features/agencies/hooks/use-member-columns.tsx:72
+msgid "Remove"
+msgstr "Remove"
+
+#: src/app/(dashboard)/admin/members/page.tsx:138
+#: src/features/agencies/hooks/use-member-columns.tsx:79
+msgid "Remove member"
+msgstr "Remove member"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:196
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:201
+#: src/app/(dashboard)/admin/members/page.tsx:135
+#: src/features/agencies/hooks/use-member-columns.tsx:76
+msgid "Remove Member"
+msgstr "Remove Member"
+
+#: src/features/agencies/components/pending-invitations-card.tsx:175
+msgid "Resend"
+msgstr "Resend"
+
+#: src/features/vehicles/i18n.ts:10
+msgid "Reserved"
+msgstr "Reserved"
+
+#: src/features/agencies/components/pending-invitations-card.tsx:179
+#: src/features/agencies/components/pending-invitations-card.tsx:195
+msgid "Revoke"
+msgstr "Revoke"
+
+#: src/features/agencies/components/pending-invitations-card.tsx:185
+msgid "Revoke Invitation"
+msgstr "Revoke Invitation"
+
+#: src/features/agencies/i18n.ts:21
+msgid "Revoked"
+msgstr "Revoked"
+
+#: src/features/agencies/components/role-legend-card.tsx:20
+#~ msgid "Role Descriptions"
+#~ msgstr "Role Descriptions"
+
+#: src/app/(dashboard)/admin/members/page.tsx:111
+#: src/app/(dashboard)/admin/members/page.tsx:189
+#: src/features/agencies/components/pending-invitations-card.tsx:102
+msgid "Roles"
+msgstr "Roles"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:105
+#: src/features/agencies/components/add-member-dialog.tsx:175
+msgid "Roles *"
+msgstr "Roles *"
+
+#: src/features/agencies/components/role-selector.tsx:76
+msgid "Sales representatives who manage leads and client relationships."
+msgstr "Sales representatives who manage leads and client relationships."
+
+#: src/features/agencies/components/agency-form.tsx:98
+#: src/features/vehicles/components/vehicle-form.tsx:382
+msgid "Save Changes"
+msgstr "Save Changes"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:131
+msgid "Save Roles"
+msgstr "Save Roles"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:126
+#: src/features/agencies/components/agency-form.tsx:93
+#: src/features/vehicles/components/vehicle-form.tsx:377
+msgid "Saving..."
+msgstr "Saving..."
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:162
+msgid "Search"
+msgstr "Search"
+
+#: src/app/(dashboard)/admin/agencies/page.tsx:107
+msgid "Search agencies..."
+msgstr "Search agencies..."
+
+#: src/app/(dashboard)/admin/members/page.tsx:349
+msgid "Search by agency or user..."
+msgstr "Search by agency or user..."
+
+#: src/app/(dashboard)/admin/members/page.tsx:372
+msgid "Search by email or agency..."
+msgstr "Search by email or agency..."
+
+#: src/features/agencies/components/pending-invitations-card.tsx:234
+msgid "Search invitations..."
+msgstr "Search invitations..."
+
+#: src/features/agencies/components/agency-members-tab.tsx:94
+msgid "Search members..."
+msgstr "Search members..."
+
+#: src/app/(dashboard)/vehicles/page.tsx:117
+#~ msgid "Search vehicles..."
+#~ msgstr "Search vehicles..."
+
+#: src/app/(dashboard)/vehicles/page.tsx:117
+msgid "Search..."
+msgstr "Search..."
+
+#: src/features/agencies/components/add-member-dialog.tsx:140
+msgid "Select an agency"
+msgstr "Select an agency"
+
+#: src/features/vehicles/components/vehicle-form.tsx:218
+msgid "Select fuel type"
+msgstr "Select fuel type"
+
+#: src/features/vehicles/components/vehicle-form.tsx:245
+msgid "Select transmission"
+msgstr "Select transmission"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:174
+msgid "Select your model from the list below"
+msgstr "Select your model from the list below"
+
+#: src/features/vehicles/i18n.ts:30
+msgid "Semi-Automatic"
+msgstr "Semi-Automatic"
+
+#: src/features/agencies/components/add-member-dialog.tsx:123
+msgid "Send an invitation email to add a new member to an agency"
+msgstr "Send an invitation email to add a new member to an agency"
+
+#: src/features/agencies/components/add-member-dialog.tsx:121
+msgid "Send an invitation email to add a new member to this agency"
+msgstr "Send an invitation email to add a new member to this agency"
+
+#: src/features/agencies/components/add-member-dialog.tsx:197
+msgid "Send Invitation"
+msgstr "Send Invitation"
+
+#: src/features/agencies/components/add-member-dialog.tsx:194
+msgid "Sending..."
+msgstr "Sending..."
+
+#: src/features/users/components/user-menu.tsx:125
+msgid "Settings"
+msgstr "Settings"
+
+#: src/features/auth/components/sign-in-form.tsx:142
+msgid "Sign In"
+msgstr "Sign In"
+
+#: src/features/auth/components/sign-in-form.tsx:92
+msgid "Sign in failed. Please check your connection and try again."
+msgstr "Sign in failed. Please check your connection and try again."
+
+#: src/features/auth/components/sign-in-form.tsx:67
+msgid "Sign in successful"
+msgstr "Sign in successful"
+
+#: src/app/(auth)/invitations/accept/page.tsx:246
+msgid "Sign in to Accept"
+msgstr "Sign in to Accept"
+
+#: src/app/(auth)/invitations/accept/page.tsx:263
+msgid "Sign In to Accept"
+msgstr "Sign In to Accept"
+
+#: src/features/auth/components/google-sign-in-button.tsx:24
+msgid "Sign in with Google"
+msgstr "Sign in with Google"
+
+#: src/features/users/components/user-menu.tsx:184
+msgid "Sign out"
+msgstr "Sign out"
+
+#: src/features/auth/components/sign-up-form.tsx:152
+msgid "Sign Up"
+msgstr "Sign Up"
+
+#: src/features/auth/components/sign-up-form.tsx:94
+msgid "Sign up failed. Please check your connection and try again."
+msgstr "Sign up failed. Please check your connection and try again."
+
+#: src/features/auth/components/sign-up-form.tsx:69
+msgid "Sign up successful"
+msgstr "Sign up successful"
+
+#: src/features/users/components/user-menu.tsx:64
+msgid "Signed out successfully"
+msgstr "Signed out successfully"
+
+#: src/features/auth/components/sign-in-form.tsx:139
+msgid "Signing in..."
+msgstr "Signing in..."
+
+#: src/features/auth/components/sign-up-form.tsx:149
+msgid "Signing up..."
+msgstr "Signing up..."
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:132
+msgid "SIV Import"
+msgstr "SIV Import"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:83
+msgid "SIV lookup error"
+msgstr "SIV lookup error"
+
+#: src/features/vehicles/i18n.ts:9
+msgid "Sold"
+msgstr "Sold"
+
+#: src/app/(dashboard)/admin/members/page.tsx:203
+#: src/features/agencies/components/agency-form-fields.tsx:134
+#: src/features/agencies/hooks/use-agency-columns.tsx:48
+#: src/features/vehicles/hooks/use-vehicle-columns.tsx:60
+msgid "Status"
+msgstr "Status"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:228
+#~ msgid "Status *"
+#~ msgstr "Status *"
+
+#: src/features/users/components/user-menu.tsx:151
+msgid "System"
+msgstr "System"
+
+#: src/app/(auth)/invitations/accept/page.tsx:115
+#: src/app/(auth)/invitations/accept/page.tsx:168
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:186
+#: src/app/(dashboard)/admin/members/page.tsx:130
+msgid "the agency"
+msgstr "the agency"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:100
+msgid "The agency may have been deleted or you don't have access to it."
+msgstr "The agency may have been deleted or you don't have access to it."
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:92
+msgid "The agency you're looking for doesn't exist"
+msgstr "The agency you're looking for doesn't exist"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:169
+msgid "The member may have been removed or you don't have access."
+msgstr "The member may have been removed or you don't have access."
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:161
+msgid "The member you're looking for doesn't exist"
+msgstr "The member you're looking for doesn't exist"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:116
+#~ msgid "The vehicle may have been deleted or you don't have access to it."
+#~ msgstr "The vehicle may have been deleted or you don't have access to it."
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:302
+msgid "The vehicle may have been deleted."
+msgstr "The vehicle may have been deleted."
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:294
+msgid "The vehicle you are looking for does not exist"
+msgstr "The vehicle you are looking for does not exist"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:108
+#~ msgid "The vehicle you're looking for doesn't exist"
+#~ msgstr "The vehicle you're looking for doesn't exist"
+
+#: src/features/users/components/user-menu.tsx:136
+msgid "Theme"
+msgstr "Theme"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:115
+msgid "this agency"
+msgstr "this agency"
+
+#: src/app/(auth)/invitations/accept/page.tsx:136
+msgid "This invitation has already been accepted."
+msgstr "This invitation has already been accepted."
+
+#: src/app/(auth)/invitations/accept/page.tsx:153
+msgid "This invitation has been revoked by the agency administrator."
+msgstr "This invitation has been revoked by the agency administrator."
+
+#: src/app/(auth)/invitations/accept/page.tsx:116
+msgid "This invitation has expired. Please ask {expiredAgencyName} to send you a new one."
+msgstr "This invitation has expired. Please ask {expiredAgencyName} to send you a new one."
+
+#: src/app/(auth)/invitations/accept/page.tsx:97
+msgid "This invitation may have been revoked or the link is incorrect. Please contact the person who invited you."
+msgstr "This invitation may have been revoked or the link is incorrect. Please contact the person who invited you."
+
+#: src/features/vehicles/components/create-vehicle-form.tsx:53
+#~ msgid "This license plate already exists"
+#~ msgstr "This license plate already exists"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:185
+msgid "this member"
+msgstr "this member"
+
+#: src/features/agencies/components/pending-invitations-card.tsx:179
+#~ msgid "This will cancel the invitation for {0}. They will no longer be able to join using this link."
+#~ msgstr "This will cancel the invitation for {0}. They will no longer be able to join using this link."
+
+#: src/features/agencies/components/pending-invitations-card.tsx:182
+msgid "This will cancel the invitation for {email}. They will no longer be able to join using this link."
+msgstr "This will cancel the invitation for {email}. They will no longer be able to join using this link."
+
+#: src/features/agencies/hooks/use-agency-columns.tsx:95
+msgid "This will permanently delete {agencyName} and remove all its members. This action cannot be undone."
+msgstr "This will permanently delete {agencyName} and remove all its members. This action cannot be undone."
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:116
+msgid "This will permanently delete {deleteAgencyName} and remove all its members. This action cannot be undone."
+msgstr "This will permanently delete {deleteAgencyName} and remove all its members. This action cannot be undone."
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:140
+#~ msgid "This will permanently delete the {year} {make} {model}. This action cannot be undone."
+#~ msgstr "This will permanently delete the {year} {make} {model}. This action cannot be undone."
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:187
+msgid "This will remove {removeMemberName} from {removeAgencyName}. They will lose access to agency resources."
+msgstr "This will remove {removeMemberName} from {removeAgencyName}. They will lose access to agency resources."
+
+#: src/features/agencies/hooks/use-member-columns.tsx:73
+msgid "This will remove the member from this agency. They will lose access to agency resources."
+msgstr "This will remove the member from this agency. They will lose access to agency resources."
+
+#: src/app/(dashboard)/admin/members/page.tsx:131
+msgid "This will remove this member from {agencyName}. They will lose access to agency resources."
+msgstr "This will remove this member from {agencyName}. They will lose access to agency resources."
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:62
+#~ msgid "Toyota"
+#~ msgstr "Toyota"
+
+#: src/features/vehicles/components/vehicle-form.tsx:240
+msgid "Transmission"
+msgstr "Transmission"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:195
+msgid "Trim"
+msgstr "Trim"
+
+#: src/components/ui/connection-status-overlay.tsx:123
+msgid "Unable to connect to the server. Please check your internet connection and try again."
+msgstr "Unable to connect to the server. Please check your internet connection and try again."
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:50
+msgid "Update agency details and settings"
+msgstr "Update agency details and settings"
+
+#: src/features/agencies/hooks/use-member-columns.tsx:56
+msgid "Update Roles"
+msgstr "Update Roles"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:70
+#~ msgid "Update vehicle details and settings"
+#~ msgstr "Update vehicle details and settings"
+
+#: src/app/(dashboard)/admin/members/page.tsx:103
+#: src/features/agencies/hooks/use-member-columns.tsx:31
+msgid "User"
+msgstr "User"
+
+#: src/features/vehicles/hooks/use-vehicle-columns.tsx:31
+msgid "Vehicle"
+msgstr "Vehicle"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:95
+#~ msgid "Vehicle description..."
+#~ msgstr "Vehicle description..."
+
+#: src/features/vehicles/components/vehicle-form.tsx:111
+msgid "Vehicle Information"
+msgstr "Vehicle Information"
+
+#: src/app/(dashboard)/vehicles/page.tsx:90
+#~ msgid "Vehicle Inventory"
+#~ msgstr "Vehicle Inventory"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:296
+msgid "Vehicle Not Found"
+msgstr "Vehicle Not Found"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:335
+#: src/app/(dashboard)/vehicles/page.tsx:92
+#: src/app/(dashboard)/vehicles/page.tsx:100
+#: src/components/layouts/app-sidebar.tsx:34
+msgid "Vehicles"
+msgstr "Vehicles"
+
+#: src/app/(auth)/invitations/accept/page.tsx:86
+msgid "Verifying your invitation..."
+msgstr "Verifying your invitation..."
+
+#: src/app/(dashboard)/admin/members/page.tsx:126
+#~ msgid "View"
+#~ msgstr "View"
+
+#: src/app/(dashboard)/admin/members/page.tsx:360
+msgid "View all invitation activity across agencies"
+msgstr "View all invitation activity across agencies"
+
+#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:159
+msgid "View and manage agency details"
+msgstr "View and manage agency details"
+
+#: src/app/(dashboard)/admin/page.tsx:22
+msgid "View and manage agency members and roles"
+msgstr "View and manage agency members and roles"
+
+#: src/app/(dashboard)/admin/members/page.tsx:329
+msgid "View and manage all agency members across all agencies"
+msgstr "View and manage all agency members across all agencies"
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:230
+msgid "View and manage member profile"
+msgstr "View and manage member profile"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:171
+#~ msgid "View and manage vehicle details"
+#~ msgstr "View and manage vehicle details"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:358
+msgid "VO Sheet"
+msgstr "VO Sheet"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:383
+msgid "VO Sheet - Coming Soon"
+msgstr "VO Sheet - Coming Soon"
+
+#: src/features/auth/components/sign-in-form.tsx:102
+msgid "Welcome Back"
+msgstr "Welcome Back"
+
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:180
+#: src/app/(dashboard)/vehicles/[id]/page.tsx:254
+#: src/features/vehicles/components/vehicle-form.tsx:186
+#: src/features/vehicles/i18n.ts:37
+msgid "Year"
+msgstr "Year"
+
+#: src/features/vehicles/components/vehicle-form-fields.tsx:109
+#~ msgid "Year *"
+#~ msgstr "Year *"
+
+#: src/app/(auth)/invitations/accept/page.tsx:169
+msgid "You are now a member of {successAgencyName}. Redirecting..."
+msgstr "You are now a member of {successAgencyName}. Redirecting..."
+
+#: src/components/ui/auth-guard.tsx:130
+msgid "You need owner permissions to access the admin area. Please contact an administrator if you believe this is an error."
+msgstr "You need owner permissions to access the admin area. Please contact an administrator if you believe this is an error."
+
+#: src/app/(auth)/invitations/accept/page.tsx:191
+msgid "You're Invited!"
+msgstr "You're Invited!"
+
+#: src/app/(auth)/invitations/accept/page.tsx:189
+msgid "You've been invited to join this agency."
+msgstr "You've been invited to join this agency."

@@ -1,0 +1,123 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "dictionaryDefinitions": [
+    {
+      "name": "project-words",
+      "path": "./.cspell/project-words.txt",
+      "addWords": true
+    }
+  ],
+  "dictionaries": [
+    "project-words",
+    "typescript",
+    "node",
+    "npm",
+    "html",
+    "css",
+    "softwareTerms"
+  ],
+  "import": [
+    "@cspell/dict-typescript/cspell-ext.json",
+    "@cspell/dict-node/cspell-ext.json",
+    "@cspell/dict-fr-fr/cspell-ext.json"
+  ],
+  "overrides": [
+    {
+      "filename": "**/locales/en.po",
+      "language": "en",
+      "ignoreRegExpList": [
+        "/^#[~:|,.].*$/gm",
+        "/^msgid\\s+/gm",
+        "/^msgstr\\s+/gm",
+        "/\"POT-Creation-Date:.*\"/g",
+        "/\"PO-Revision-Date:.*\"/g",
+        "/\"Language-Team:.*\"/g",
+        "/\"X-Generator:.*\"/g",
+        "/lingui/g"
+      ]
+    },
+    {
+      "filename": "**/locales/fr.po",
+      "language": "fr",
+      "ignoreRegExpList": [
+        "/^#[~:|,.].*$/gm",
+        "/^msgid\\s+\".*\"$/gm",
+        "/^msgid$/gm",
+        "/^msgstr\\s+/gm",
+        "/\"POT-Creation-Date:.*\"/g",
+        "/\"PO-Revision-Date:.*\"/g",
+        "/\"Language-Team:.*\"/g",
+        "/\"X-Generator:.*\"/g",
+        "/\"Last-Translator:.*\"/g",
+        "/lingui/g"
+      ]
+    }
+  ],
+  "ignorePaths": [
+    "megalinter-output.txt",
+    "node_modules",
+    "**/node_modules",
+    "dist",
+    "**/dist",
+    "build",
+    "**/build",
+    ".next",
+    "**/.next",
+    ".turbo",
+    "**/.turbo",
+    "coverage",
+    "**/.nyc_output",
+    "**/test-results",
+    "test-results",
+    "**/playwright-report",
+    "playwright-report",
+    "**/storybook-static",
+    "storybook-static",
+    "bun.lock",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "**/*.min.js",
+    "**/*.bundle.js",
+    "**/.git",
+    "megalinter-reports",
+    ".vscode",
+    "**/convex/_generated",
+    "**/_generated",
+    "**/*.tsbuildinfo",
+    "**/*.log",
+    "**/.env*",
+    "**/*.mp4",
+    "**/*.svg",
+    "**/*.png",
+    "**/*.jpg",
+    "**/*.jpeg",
+    "**/*.gif",
+    "**/*.woff",
+    "**/*.woff2",
+    "**/*.ttf",
+    "**/*.xml",
+    ".taskmaster",
+    ".ruler",
+    ".claude",
+    "**/locales/*.mjs",
+    "**/locales/*.json",
+    "patches/**"
+  ],
+  "ignoreRegExpList": [
+    "/\\b0[xX][a-fA-F0-9]+n?\\b/g",
+    "/[A-Za-z0-9+/]{20,}={0,2}/g",
+    "/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi",
+    "/\\b[A-Z]{3,}_[A-Z_]+\\b/g",
+    "/id=[\"'][A-Za-z0-9+\\/]+[\"']/g"
+  ],
+  "enableFiletypes": [
+    "typescript",
+    "typescriptreact",
+    "javascript",
+    "javascriptreact",
+    "markdown"
+  ]
+}

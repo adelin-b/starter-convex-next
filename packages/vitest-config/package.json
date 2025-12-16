@@ -1,0 +1,39 @@
+{
+  "name": "@starter-saas/vitest-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./base": {
+      "import": "./base.ts",
+      "types": "./base.ts"
+    },
+    "./react": {
+      "import": "./react.ts",
+      "types": "./react.ts"
+    },
+    "./browser": {
+      "import": "./browser.ts",
+      "types": "./browser.ts"
+    },
+    "./setup": {
+      "import": "./setup.ts",
+      "types": "./setup.ts"
+    }
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/browser-playwright": "^4.0.14",
+    "@vitest/coverage-v8": "^4.0.14",
+    "jsdom": "^27.2.0",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^4.0.14"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "vitest": "^4.0.14"
+  }
+}

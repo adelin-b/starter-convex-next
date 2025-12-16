@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "src/globals.css",
+    "baseColor": "gray",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@starter-saas/ui",
+    "hooks": "@starter-saas/ui/hooks",
+    "lib": "@starter-saas/ui/lib",
+    "ui": "@starter-saas/ui",
+    "utils": "@starter-saas/ui/utils"
+  },
+  "registries": {
+    "@storybook": "https://registry.lloydrichards.dev/v2/r/{name}.json"
+  }
+}

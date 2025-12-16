@@ -1,0 +1,65 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next: start dev (port 3001, inspect :9229)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd apps/web && bun run dev:debug"
+    },
+    {
+      "name": "Next: attach (server)",
+      "type": "pwa-node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/apps/web"
+    },
+    {
+      "name": "Next: debug (client)",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:3001",
+      "webRoot": "${workspaceFolder}/apps/web",
+      "sourceMaps": true
+    },
+    {
+      "name": "Convex: start dev (logs only)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd packages/backend && bun run dev:debug"
+    },
+    {
+      "name": "Convex tests: start (inspect-brk :9230)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd packages/backend && bun run test:debug"
+    },
+    {
+      "name": "Convex tests: attach",
+      "type": "pwa-node",
+      "request": "attach",
+      "port": 9230,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/packages/backend"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug: Next (server+client)",
+      "configurations": ["Next: start dev (port 3001, inspect :9229)", "Next: attach (server)", "Next: debug (client)"]
+    },
+    {
+      "name": "Debug: Full stack (Next + Convex dev logs)",
+      "configurations": ["Next: start dev (port 3001, inspect :9229)", "Next: attach (server)", "Next: debug (client)", "Convex: start dev (logs only)"]
+    },
+    {
+      "name": "Debug: Convex via tests (breakpoints)",
+      "configurations": ["Convex tests: start (inspect-brk :9230)", "Convex tests: attach"]
+    }
+  ]
+}
+
+

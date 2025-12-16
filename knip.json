@@ -1,0 +1,140 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignoreExportsUsedInFile": true,
+  "ignore": [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.turbo/**",
+    "**/next-env.d.ts",
+    "**/*.d.ts",
+    "**/_generated/**",
+    "**/convex/_generated/**",
+    "**/storybook-static/**",
+    "**/tsconfig*.json",
+    "**/.worktree/**",
+    ".worktrees/**"
+  ],
+  "ignoreDependencies": [
+    "baseline-browser-mapping",
+    "import-in-the-middle",
+    "require-in-the-middle",
+    "@cucumber/gherkin",
+    "lint-staged",
+    "@vitest/coverage-v8",
+    "sharp-cli",
+    "svgo",
+    "@commitlint/cli",
+    "@cspell/dict-fr-fr",
+    "postcss",
+    "postcss-load-config",
+    "@lingui/babel-plugin-lingui-macro",
+    "@lingui/loader",
+    "@lingui/conf",
+    "@lingui/macro",
+    "@lingui/swc-plugin",
+    "@typescript-eslint/parser",
+    "eslint-import-resolver-typescript",
+    "eslint-plugin-import",
+    "@react-email/preview-server",
+    "next",
+    "react-dom",
+    "web"
+  ],
+  "ignoreBinaries": ["open"],
+  "workspaces": {
+    ".": {
+      "entry": [
+        "scripts/*.ts",
+        "tests/**/*.ts",
+        "playwright-bdd.config.ts",
+        "vitest.config.ts",
+        "lint-staged.config.js",
+        "commitlint.config.cjs"
+      ],
+      "project": ["scripts/*.ts", "tests/**/*.ts"]
+    },
+    "packages/ui": {
+      "entry": [
+        "src/**/*.tsx",
+        "src/**/*.test.{ts,tsx}",
+        "vitest.config.ts",
+        "postcss.config.js"
+      ],
+      "project": ["src/**/*.{ts,tsx}"],
+      "ignore": ["**/*.stories.{ts,tsx}"]
+    },
+    "packages/backend": {
+      "entry": ["convex/**/*.{ts,js}"],
+      "project": ["convex/**/*.{ts,js}"],
+      "ignore": ["convex/_generated/**", "convex/node_modules/**"]
+    },
+    "packages/shared": {
+      "entry": [
+        "src/assert-never.ts",
+        "src/types.ts",
+        "src/normalize-license-plate.ts",
+        "src/i18n-types.ts"
+      ],
+      "project": ["src/**/*.ts"]
+    },
+    "packages/vitest-config": {
+      "entry": ["base.ts", "react.ts", "browser.ts"],
+      "project": ["*.ts"]
+    },
+    "apps/web": {
+      "entry": [
+        "src/app/**/*.{ts,tsx}",
+        "src/lib/*.ts",
+        "src/instrumentation.ts",
+        "sentry.client.config.ts",
+        "sentry.server.config.ts",
+        "sentry.edge.config.ts",
+        "next.config.ts",
+        "postcss.config.mjs"
+      ],
+      "project": ["src/**/*.{ts,tsx}"],
+      "next": {
+        "entry": ["src/app/**/*.{ts,tsx}"]
+      }
+    },
+    "apps/storybook": {
+      "entry": ["storybook/main.ts", "storybook/preview.ts"],
+      "storybook": {
+        "config": ["storybook/main.ts"],
+        "entry": ["storybook/*.ts"]
+      }
+    },
+    "apps/e2e": {
+      "entry": [
+        "playwright.config.ts",
+        "playwright.coverage.config.ts",
+        "lib/*.ts",
+        "scripts/*.ts",
+        "tests/**/*.ts"
+      ],
+      "project": ["lib/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts"],
+      "playwright": {
+        "config": ["playwright.config.ts", "playwright.coverage.config.ts"]
+      }
+    },
+    "packages/emails": {
+      "entry": [
+        "src/index.ts",
+        "src/templates/index.ts",
+        "src/templates/*.tsx",
+        "src/components/index.ts",
+        "src/config.ts",
+        "src/i18n.tsx",
+        "lingui.config.ts"
+      ],
+      "project": ["src/**/*.{ts,tsx}"],
+      "ignore": ["src/templates/*.tsx"]
+    }
+  },
+  "compilers": {
+    "css": true,
+    "svg": true
+  }
+}
