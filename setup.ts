@@ -7,8 +7,8 @@
  */
 
 import { $ } from "bun";
-import { existsSync, readFileSync, writeFileSync, readdirSync } from "fs";
-import { join, basename } from "path";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
+import { basename, join } from "path";
 import * as readline from "readline";
 
 const rl = readline.createInterface({
@@ -112,7 +112,7 @@ async function checkPrerequisites(): Promise<boolean> {
   // Check Node version
   try {
     const nodeVersion = await $`node --version`.text();
-    const major = parseInt(nodeVersion.trim().replace("v", "").split(".")[0]);
+    const major = Number.parseInt(nodeVersion.trim().replace("v", "").split(".")[0]);
     if (major >= 18 && major < 25) {
       console.log(`✅ Node.js: ${nodeVersion.trim()}`);
     } else {
@@ -143,8 +143,8 @@ async function main() {
 ║  • Project name & branding                                 ║
 ║  • Convex backend                                          ║
 ║  • Better Auth authentication                              ║
-║  • Environment variables                                   ║
 ║  • Email provider (optional)                               ║
+║  • Polar payments (optional)                               ║
 ╚═══════════════════════════════════════════════════════════╝
 `);
 
@@ -155,7 +155,7 @@ async function main() {
     return;
   }
 
-  const totalSteps = 6;
+  const totalSteps = 7;
   let envContent = "";
 
   // Check if .env.local exists
@@ -194,7 +194,15 @@ Examples: my-app, acme-platform, todo-pro
   updateAllFiles(process.cwd(), "@starter-saas", `@${projectScope}`);
 
   // Update packages
-  const packages = ["backend", "ui", "shared", "emails", "eslint-config", "vitest-config", "config"];
+  const packages = [
+    "backend",
+    "ui",
+    "shared",
+    "emails",
+    "eslint-config",
+    "vitest-config",
+    "config",
+  ];
   for (const pkg of packages) {
     const pkgPath = join(process.cwd(), "packages", pkg, "package.json");
     if (existsSync(pkgPath)) {
@@ -236,7 +244,9 @@ Convex is your real-time backend. You need a Convex project.
   await ask("Press Enter to open Convex dashboard...");
   openUrl("https://dashboard.convex.dev");
 
-  const convexUrl = await ask("\nEnter your Convex deployment URL (e.g., https://xxx-xxx.convex.cloud): ");
+  const convexUrl = await ask(
+    "\nEnter your Convex deployment URL (e.g., https://xxx-xxx.convex.cloud): ",
+  );
   if (convexUrl) {
     envContent += `\n# Convex\nCONVEX_URL=${convexUrl}\n`;
   }
@@ -254,7 +264,7 @@ Generating a secure secret...
 
   // Generate a random secret
   const secret = Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString("base64");
-  console.log(`✅ Generated BETTER_AUTH_SECRET`);
+  console.log("✅ Generated BETTER_AUTH_SECRET");
 
   const siteUrl = await ask("\nEnter your site URL (default: http://localhost:3001): ");
   const finalSiteUrl = siteUrl || "http://localhost:3001";
@@ -337,8 +347,88 @@ EMAIL_FROM=${emailFrom || "noreply@example.com"}
     }
   }
 
-  // Step 6: Write .env.local and finalize
-  printStep(6, totalSteps, "Finalizing Setup");
+  // Step 6: Polar Payments setup (optional)
+  printStep(6, totalSteps, "Polar Payments Setup (Optional)");
+  console.log(`
+Polar provides subscription and payment handling for your SaaS.
+
+Features:
+• 4% + 40¢ per transaction (no monthly fees)
+• Merchant of Record (handles tax compliance)
+• Built-in subscription management
+• Sandbox mode for testing
+
+You'll need:
+1. A Polar account (free)
+2. An organization on Polar
+3. Products created in the Polar dashboard
+`);
+
+  const setupPolar = await ask("Do you want to set up Polar payments? (y/n): ");
+  if (setupPolar.toLowerCase() === "y") {
+    console.log(`
+Setting up Polar...
+
+1. Create an account at polar.sh
+2. Create an organization
+3. Go to Settings → Developers → Organization Tokens
+4. Create a new token with necessary permissions
+`);
+    await ask("Press Enter to open Polar dashboard...");
+    openUrl("https://polar.sh/dashboard");
+
+    const polarToken = await ask("\nEnter Polar Organization Token (or press Enter to skip): ");
+    if (polarToken) {
+      envContent += `
+# Polar Payments
+POLAR_ORGANIZATION_TOKEN=${polarToken}
+POLAR_SERVER=sandbox
+`;
+
+      console.log(`
+Now set up webhooks for subscription events:
+
+1. Go to Settings → Developers → Webhooks
+2. Create a new webhook
+3. Set URL to: {YOUR_CONVEX_HTTP_URL}/polar/webhook
+4. Select events: subscription.created, subscription.updated, subscription.canceled
+`);
+      await ask("Press Enter to open Polar webhook settings...");
+      openUrl("https://polar.sh/dashboard/settings/developers/webhooks");
+
+      const polarWebhookSecret = await ask("\nEnter Polar Webhook Secret (or press Enter to skip for now): ");
+      if (polarWebhookSecret) {
+        envContent += `POLAR_WEBHOOK_SECRET=${polarWebhookSecret}
+`;
+      } else {
+        envContent += `# POLAR_WEBHOOK_SECRET=your_webhook_secret_here
+`;
+      }
+
+      console.log(`
+Optional: Configure product IDs for subscription tiers.
+You can create products in Polar dashboard → Products.
+Product IDs can be added later to .env.local:
+
+# POLAR_PRODUCT_PRO_MONTHLY=your_product_id
+# POLAR_PRODUCT_PRO_YEARLY=your_product_id
+# POLAR_PRODUCT_TEAM_MONTHLY=your_product_id
+# POLAR_PRODUCT_TEAM_YEARLY=your_product_id
+`);
+      envContent += `
+# Polar Product IDs (configure these after creating products in Polar dashboard)
+# POLAR_PRODUCT_PRO_MONTHLY=your_product_id
+# POLAR_PRODUCT_PRO_YEARLY=your_product_id
+# POLAR_PRODUCT_TEAM_MONTHLY=your_product_id
+# POLAR_PRODUCT_TEAM_YEARLY=your_product_id
+`;
+
+      console.log("✅ Polar configuration added!");
+    }
+  }
+
+  // Step 7: Write .env.local and finalize
+  printStep(7, totalSteps, "Finalizing Setup");
 
   // Add default port config
   envContent += `
@@ -386,6 +476,7 @@ Useful commands:
 Documentation:
 • Convex: https://docs.convex.dev
 • Better Auth: https://www.better-auth.com
+• Polar: https://docs.polar.sh
 • Next.js: https://nextjs.org/docs
 
 Happy building! 🚀
