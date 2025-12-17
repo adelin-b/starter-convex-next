@@ -1,10 +1,10 @@
 import { v } from "convex/values";
 import { z } from "zod";
-import { fuelTypes, Vehicles, vehicleStatuses } from "../schema";
+import { Todos, todoPriorities, todoStatuses } from "../schema";
 import { testingMutation, testingQuery } from "./lib";
 
-// Create schema for vehicle insertion (without system fields)
-const vehicleInsertSchema = z.object(Vehicles.shape);
+// Create schema for todo insertion (without system fields)
+const todoInsertSchema = z.object(Todos.shape);
 
 /**
  * Clear all data from the database.
@@ -14,10 +14,10 @@ export const clearAll = testingMutation({
   args: {},
   returns: v.null(),
   handler: async (context) => {
-    // Clear vehicles table
-    const vehicles = await context.db.query("vehicles").collect();
-    for (const vehicle of vehicles) {
-      await context.db.delete(vehicle._id);
+    // Clear todos table
+    const todos = await context.db.query("todos").collect();
+    for (const todo of todos) {
+      await context.db.delete(todo._id);
     }
 
     return null;
@@ -69,49 +69,45 @@ export const createTestUser = testingMutation({
 });
 
 /**
- * Seed the database with test vehicles.
+ * Seed the database with test todos.
  */
-export const seedVehicles = testingMutation({
+export const seedTodos = testingMutation({
   args: {
     count: v.number(),
+    userId: v.string(),
   },
-  returns: v.array(v.id("vehicles")),
+  returns: v.array(v.id("todos")),
   handler: async (context, args) => {
-    const vehicleIds: Awaited<ReturnType<typeof context.db.insert<"vehicles">>>[] = [];
+    const todoIds: Awaited<ReturnType<typeof context.db.insert<"todos">>>[] = [];
     const now = Date.now();
 
-    const makes = ["Toyota", "Honda", "Ford", "BMW", "Mercedes"];
-    const models = ["Camry", "Civic", "F-150", "3 Series", "C-Class"];
+    const titles = ["Review code", "Write tests", "Fix bugs", "Deploy app", "Update docs"];
 
     for (let index = 0; index < args.count; index++) {
-      const makeIndex = index % makes.length;
-      const vehicleData = vehicleInsertSchema.parse({
-        make: makes[makeIndex],
-        model: models[makeIndex],
-        description: `Test vehicle ${index + 1}`,
-        year: 2020 + (index % 5),
-        price: 20_000 + index * 1000,
-        mileage: 10_000 + index * 5000,
-        fuelType: fuelTypes[index % fuelTypes.length],
-        licensePlate: `TEST${String(index + 1).padStart(3, "0")}`,
-        status: vehicleStatuses[0],
+      const titleIndex = index % titles.length;
+      const todoData = todoInsertSchema.parse({
+        title: `${titles[titleIndex]} ${index + 1}`,
+        description: `Test todo description ${index + 1}`,
+        status: todoStatuses[index % todoStatuses.length],
+        priority: todoPriorities[index % todoPriorities.length],
+        userId: args.userId,
         createdAt: now,
         updatedAt: now,
       });
 
-      const id = await context.db.insert("vehicles", vehicleData);
-      vehicleIds.push(id);
+      const id = await context.db.insert("todos", todoData);
+      todoIds.push(id);
     }
 
-    return vehicleIds;
+    return todoIds;
   },
 });
 
 /**
- * Get all vehicles (for test assertions).
+ * Get all todos (for test assertions).
  */
-export const listVehicles = testingQuery({
+export const listTodos = testingQuery({
   args: {},
   returns: v.array(v.any()),
-  handler: async (context) => await context.db.query("vehicles").collect(),
+  handler: async (context) => await context.db.query("todos").collect(),
 });

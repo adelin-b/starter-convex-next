@@ -11,7 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@starter-saas/ui/sidebar";
-import { Building2, CheckSquare, Settings, Users } from "lucide-react";
+import { Building2, CheckSquare, CreditCard, Settings, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useQueryWithStatus } from "@/lib/convex-hooks";
@@ -26,6 +26,11 @@ export function AppSidebar() {
       title: t`Todos`,
       url: "/todos",
       icon: CheckSquare,
+    },
+    {
+      title: t`Settings`,
+      url: "/settings",
+      icon: CreditCard,
     },
   ] as const;
 

@@ -103,5 +103,8 @@
   "engines": {
     "node": ">=18 <25"
   },
-  "patchedDependencies": {}
+  "patchedDependencies": {},
+  "dependencies": {
+    "@convex-dev/polar": "^0.7.3"
+  }
 }

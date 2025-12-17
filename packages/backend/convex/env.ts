@@ -56,6 +56,30 @@ export const env = {
   get SMTP_PORT(): number {
     return Number(process.env.SMTP_PORT) || 2525;
   },
+
+  // Polar payment/subscription environment variables
+  get POLAR_ORGANIZATION_TOKEN(): string | undefined {
+    return process.env.POLAR_ORGANIZATION_TOKEN || undefined;
+  },
+  get POLAR_WEBHOOK_SECRET(): string | undefined {
+    return process.env.POLAR_WEBHOOK_SECRET || undefined;
+  },
+  get POLAR_SERVER(): string {
+    return process.env.POLAR_SERVER || "sandbox";
+  },
+  // Product IDs - configure these in your Polar dashboard
+  get POLAR_PRODUCT_PRO_MONTHLY(): string | undefined {
+    return process.env.POLAR_PRODUCT_PRO_MONTHLY || undefined;
+  },
+  get POLAR_PRODUCT_PRO_YEARLY(): string | undefined {
+    return process.env.POLAR_PRODUCT_PRO_YEARLY || undefined;
+  },
+  get POLAR_PRODUCT_TEAM_MONTHLY(): string | undefined {
+    return process.env.POLAR_PRODUCT_TEAM_MONTHLY || undefined;
+  },
+  get POLAR_PRODUCT_TEAM_YEARLY(): string | undefined {
+    return process.env.POLAR_PRODUCT_TEAM_YEARLY || undefined;
+  },
 };
 
 /**

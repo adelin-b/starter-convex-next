@@ -1,9 +1,8 @@
 import { z } from "zod";
 import { zid } from "zodvex";
-import type { Id } from "./_generated/dataModel";
 import { AppErrors } from "./lib/errors";
-import { mutation, query, zodMutation, zodQuery } from "./lib/functions";
-import { Todos, todoStatuses, todoPriorities } from "./schema";
+import { zodMutation, zodQuery } from "./lib/functions";
+import { todoPriorities, todoStatuses } from "./schema";
 
 // Create args schema
 const CreateTodoArgsSchema = z.object({
@@ -40,7 +39,7 @@ export const list = zodQuery({
       return await context.db
         .query("todos")
         .withIndex("by_user_status", (q) =>
-          q.eq("userId", identity.subject).eq("status", args.status!)
+          q.eq("userId", identity.subject).eq("status", args.status!),
         )
         .collect();
     }
@@ -70,7 +69,7 @@ export const getById = zodQuery({
 
     // Ensure user owns this todo
     if (todo.userId !== identity.subject) {
-      throw AppErrors.notAuthorized("view this todo");
+      throw AppErrors.insufficientPermissions("view this todo");
     }
 
     return todo;
@@ -118,7 +117,7 @@ export const update = zodMutation({
     }
 
     if (existing.userId !== identity.subject) {
-      throw AppErrors.notAuthorized("update this todo");
+      throw AppErrors.insufficientPermissions("update this todo");
     }
 
     const now = Date.now();
@@ -156,7 +155,7 @@ export const remove = zodMutation({
     }
 
     if (existing.userId !== identity.subject) {
-      throw AppErrors.notAuthorized("delete this todo");
+      throw AppErrors.insufficientPermissions("delete this todo");
     }
 
     await context.db.delete(id);
@@ -181,7 +180,7 @@ export const toggleComplete = zodMutation({
     }
 
     if (existing.userId !== identity.subject) {
-      throw AppErrors.notAuthorized("toggle this todo");
+      throw AppErrors.insufficientPermissions("toggle this todo");
     }
 
     const now = Date.now();
