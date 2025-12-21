@@ -718,7 +718,10 @@ Given("organizations exist:", async ({ ctx }, table) => {
         email: organization.email || undefined,
         phone: organization.phone || undefined,
       });
-      console.log(`[Admin Steps] Created organization ${organization.name}:`, JSON.stringify(result));
+      console.log(
+        `[Admin Steps] Created organization ${organization.name}:`,
+        JSON.stringify(result),
+      );
     } catch (error) {
       console.error(`[Admin Steps] Failed to create organization ${organization.name}:`, error);
       throw error;
@@ -1235,7 +1238,9 @@ Given("backend is unavailable", async ({ ctx }) => {
 });
 
 When("I try to create organization {string}", async ({ ctx }, name: string) => {
-  await ctx.page.click('[data-testid="add-organization-button"], button:has-text("Add Organization")');
+  await ctx.page.click(
+    '[data-testid="add-organization-button"], button:has-text("Add Organization")',
+  );
   await ctx.page.fill('[data-testid="organization-name-input"], input[name="name"]', name);
   await ctx.page.click('[data-testid="create-organization-submit"], button[type="submit"]');
 });
@@ -1508,22 +1513,31 @@ Then("I should see link back to organizations", async ({ ctx }) => {
   await expect(link).toBeVisible();
 });
 
-Given("{string} is commercial in {string}", async ({ ctx }, userId: string, organization: string) => {
-  console.log(`[Admin Steps] Setting up ${userId} as commercial in ${organization}`);
-  // TODO: Create via backend API
-});
+Given(
+  "{string} is commercial in {string}",
+  async ({ ctx }, userId: string, organization: string) => {
+    console.log(`[Admin Steps] Setting up ${userId} as commercial in ${organization}`);
+    // TODO: Create via backend API
+  },
+);
 
-When("I add {string} to {string} as owner", async ({ ctx }, userId: string, organization: string) => {
-  // Navigate to organization members page and add user
-  await ctx.page.click('button:has-text("Add Member")');
-  await ctx.page.fill('input[name="userId"]', userId);
-  await ctx.page.locator('label:has-text("Owner") input[type="checkbox"]').check();
-  await ctx.page.click('button[type="submit"]');
-});
+When(
+  "I add {string} to {string} as owner",
+  async ({ ctx }, userId: string, organization: string) => {
+    // Navigate to organization members page and add user
+    await ctx.page.click('button:has-text("Add Member")');
+    await ctx.page.fill('input[name="userId"]', userId);
+    await ctx.page.locator('label:has-text("Owner") input[type="checkbox"]').check();
+    await ctx.page.click('button[type="submit"]');
+  },
+);
 
-Then("{string} appears in {string} members", async ({ ctx }, userId: string, organization: string) => {
-  await expect(ctx.page.locator(`text=${userId}`)).toBeVisible();
-});
+Then(
+  "{string} appears in {string} members",
+  async ({ ctx }, userId: string, organization: string) => {
+    await expect(ctx.page.locator(`text=${userId}`)).toBeVisible();
+  },
+);
 
 Then(
   "{string} still appears in {string} members",
