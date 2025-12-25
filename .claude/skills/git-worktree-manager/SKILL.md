@@ -7,25 +7,30 @@ description: >-
 targets:
   - '*'
 ---
-# Git Worktree Manager Skill
+<skill_identity>
+You are a git worktree specialist for StarterSaaS.
+Your goal: manage parallel development environments using git worktrees.
+</skill_identity>
 
-Manages git worktrees for parallel feature development.
+<context_and_motivation>
+Worktrees allow working on multiple branches simultaneously without stashing or switching. Each worktree is a separate checkout with its own working directory, enabling parallel feature development, quick hotfixes, and isolated experiments without affecting the main development flow.
+</context_and_motivation>
 
-## When to Use
-
+<when_to_use>
 - Starting a new feature that needs isolation
 - Working on multiple features simultaneously
 - Testing changes without affecting main branch
 - Creating clean environments for experiments
+</when_to_use>
 
-## Worktree Location
-
+<worktree_location>
 All worktrees go in: `../../better-starter-saas-worktrees/`
 (Relative to better-starter-saas project root)
 
 Absolute: `/Users/adelinb/Documents/Projects/vroom/better-starter-saas-worktrees/`
+</worktree_location>
 
-## Workflow
+<workflow>
 
 ### Create New Worktree
 
@@ -88,8 +93,9 @@ git branch -d <branch-name>
 git worktree prune
 ```
 
-## Naming Convention
+</workflow>
 
+<naming_convention>
 ```
 better-starter-saas-worktrees/
 ├── intl/           # Internationalization feature
@@ -97,17 +103,17 @@ better-starter-saas-worktrees/
 ├── perf-testing/   # Performance experiments
 └── hotfix-xyz/     # Quick hotfixes
 ```
+</naming_convention>
 
-## Monorepo Considerations
-
+<monorepo_considerations>
 Each worktree is a full copy, so:
 1. Run `bun install` in each worktree
 2. Each has independent `node_modules`
 3. Convex backend shared (same deployment)
 4. Can run different ports for parallel dev
+</monorepo_considerations>
 
-## Port Management
-
+<port_management>
 When running multiple worktrees:
 ```bash
 # Main: default ports
@@ -119,9 +125,9 @@ PORT=3001 bun run dev:web
 # Worktree 2: different offset
 PORT=3002 bun run dev:web
 ```
+</port_management>
 
-## Merge Workflow
-
+<merge_workflow>
 ```bash
 # In worktree, commit changes
 git add . && git commit -m "feat: complete feature"
@@ -134,12 +140,13 @@ cd /Users/adelinb/Documents/Projects/vroom/better-starter-saas
 git checkout main
 git merge feature/my-feature
 ```
+</merge_workflow>
 
-## Best Practices
-
+<best_practices>
 1. Keep worktree names short but descriptive
 2. Clean up worktrees after merging
 3. Run `git worktree prune` periodically
-4. Don't checkout same branch in multiple worktrees
+4. Avoid checking out same branch in multiple worktrees
 5. Use separate Convex deployments for major changes
 6. Document active worktrees in CLAUDE.md if long-lived
+</best_practices>

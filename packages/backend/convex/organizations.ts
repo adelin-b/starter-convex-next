@@ -393,7 +393,7 @@ export const isOwner = zodQuery({
       return false;
     }
 
-    return membership.roles.includes("organization-manager");
+    return membership.roles.includes("owner");
   },
 });
 
@@ -475,11 +475,63 @@ export const seedTestOrganization = zodInternalMutation({
     await context.db.insert("organizationMembers", {
       userId,
       organizationId,
-      roles: ["organization-manager"],
+      roles: ["owner"],
       createdAt: now,
       updatedAt: now,
     });
 
     return { organizationId, userId };
+  },
+});
+
+/**
+ * Seed a test organization member.
+ * INTERNAL mutation - callable only from other Convex functions or admin dashboard.
+ * Takes organizationName to look up the org, memberEmail as userId placeholder, and roles.
+ */
+export const seedTestOrganizationMember = zodInternalMutation({
+  args: {
+    organizationName: z.string().min(1),
+    memberEmail: z.string().min(1),
+    roles: z.array(z.enum(organizationRoles)).min(1),
+  },
+  handler: async (context, { organizationName, memberEmail, roles }) => {
+    // Find the organization by name
+    const organization = await context.db
+      .query("organizations")
+      .withIndex("by_name", (q) => q.eq("name", organizationName))
+      .first();
+
+    if (!organization) {
+      throw AppErrors.organizationNotFound(organizationName);
+    }
+
+    // Use email as userId for test seeding
+    const userId = memberEmail;
+
+    // Check if already a member
+    const existing = await context.db
+      .query("organizationMembers")
+      .withIndex("by_user_organization", (q) =>
+        q.eq("userId", userId).eq("organizationId", organization._id),
+      )
+      .first();
+
+    if (existing) {
+      // Update roles if member already exists
+      await context.db.patch(existing._id, { roles, updatedAt: Date.now() });
+      return { memberId: existing._id, organizationId: organization._id, userId };
+    }
+
+    const now = Date.now();
+    const memberId = await context.db.insert("organizationMembers", {
+      userId,
+      organizationId: organization._id,
+      roles,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    return { memberId, organizationId: organization._id, userId };
   },
 });

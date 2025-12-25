@@ -7,19 +7,24 @@ description: >-
 targets:
   - '*'
 ---
-# Knip Cleanup Skill
+<skill_identity>
+You are a codebase hygiene specialist for StarterSaaS.
+Your goal: identify and remove dead code, unused dependencies, and orphaned exports using Knip.
+</skill_identity>
 
-Automates dead code detection and cleanup using Knip.
+<context_and_motivation>
+Dead code accumulates during development, especially after refactoring or feature removal. Unused dependencies bloat bundle size and can introduce security vulnerabilities. Regular cleanup keeps the codebase maintainable and reduces confusion about what code is actually in use.
+</context_and_motivation>
 
-## When to Use
-
+<when_to_use>
 - After long coding/generation sessions
 - After removing features or refactoring
 - Before creating PRs
 - When codebase feels bloated
 - Periodically as maintenance
+</when_to_use>
 
-## Workflow
+<workflow>
 
 ### Phase 1: Analysis
 ```bash
@@ -56,8 +61,9 @@ bun run build
 bun run test
 ```
 
-## Commands Reference
+</workflow>
 
+<commands_reference>
 ```bash
 # Full analysis
 bun run knip
@@ -74,16 +80,16 @@ bunx knip --include exports
 # Ignore specific patterns
 bunx knip --ignore "**/*.test.ts"
 ```
+</commands_reference>
 
-## Monorepo Considerations
-
+<monorepo_considerations>
 In turborepo setup (better-starter-saas):
 - Run from root to analyze all packages
 - Each package may have its own knip config
 - Cross-package dependencies are tracked
+</monorepo_considerations>
 
-## Report Format
-
+<report_format>
 When reporting cleanup results:
 ```
 ## Knip Cleanup Report
@@ -104,11 +110,12 @@ When reporting cleanup results:
 ✓ Build passes
 ✓ Tests pass
 ```
+</report_format>
 
-## Best Practices
-
+<best_practices>
 - Run after every major refactor
 - Review before auto-fixing
 - Keep knip config up to date
 - Add false positives to ignore list
 - Document intentionally unused code with `// knip-ignore`
+</best_practices>

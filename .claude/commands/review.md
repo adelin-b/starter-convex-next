@@ -1,19 +1,12 @@
 ---
-description: Starter SaaS PR review with specialized agents
-allowed-tools:
-  - Bash
-  - Glob
-  - Grep
-  - Read
-  - Task
-argument-hint: >-
-  [aspects:
-  types|errors|convex|react|bdd|tests|comments|simplify|coherence|skills|all]
-  [parallel]
+description: "StarterSaaS PR review with specialized agents"
+argument-hint: "[aspects: types|errors|convex|react|bdd|tests|comments|simplify|coherence|skills|all] [parallel]"
+allowed-tools: ["Bash", "Glob", "Grep", "Read", "Task"]
 ---
+
 <command_identity>
-Starter SaaS comprehensive code review using specialized agents.
-Combines Starter SaaS-specific pattern checks with general code quality agents into a unified workflow.
+StarterSaaS comprehensive code review using specialized agents.
+Combines StarterSaaS-specific pattern checks with general code quality agents into a unified workflow.
 </command_identity>
 
 <context_and_motivation>
@@ -79,7 +72,7 @@ Based on changed files and requested aspects, select from this consolidated list
 
 <agent_grouping>
 
-## Group A: Project Pattern Enforcement (Starter SaaS-specific)
+## Group A: Project Pattern Enforcement (StarterSaaS-specific)
 Run these first - they catch patterns generic reviewers miss:
 
 1. **type-safety-checker** - assertNever, `as const`, type derivation
@@ -121,12 +114,12 @@ Run last:
 
 <agent_overlap_guide>
 
-When both Starter SaaS and toolkit agents cover similar ground:
+When both StarterSaaS and toolkit agents cover similar ground:
 
-| Starter SaaS Agent   | Toolkit Agent         | How They Differ                                                                     |
+| StarterSaaS Agent   | Toolkit Agent         | How They Differ                                                                     |
 |---------------------|-----------------------|-------------------------------------------------------------------------------------|
-| type-safety-checker | type-design-analyzer  | Starter SaaS checks assertNever/`as const`; toolkit checks encapsulation/invariants  |
-| app-errors-enforcer | silent-failure-hunter | Starter SaaS enforces AppErrors factory; toolkit catches silent failures generically |
+| type-safety-checker | type-design-analyzer  | StarterSaaS checks assertNever/`as const`; toolkit checks encapsulation/invariants  |
+| app-errors-enforcer | silent-failure-hunter | StarterSaaS enforces AppErrors factory; toolkit catches silent failures generically |
 
 Both run - they're complementary.
 
@@ -272,7 +265,7 @@ import { cn } from "@starter-saas/ui/lib/utils";
 
 <agent_descriptions>
 
-### Starter SaaS-Specific
+### StarterSaaS-Specific
 
 | Agent                        | Focus                                                           |
 |------------------------------|-----------------------------------------------------------------|

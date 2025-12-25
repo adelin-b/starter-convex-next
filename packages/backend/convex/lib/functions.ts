@@ -29,7 +29,12 @@ export type {
  * Tables that use the legacy/basic functions
  * Add new tables here as they are created
  */
-export type AppTables = "vehicles" | "organizations" | "organizationMembers" | "organizationInvitations" | "admins";
+export type AppTables =
+  | "todos"
+  | "organizations"
+  | "organizationMembers"
+  | "organizationInvitations"
+  | "admins";
 
 /**
  * Base query with typed database

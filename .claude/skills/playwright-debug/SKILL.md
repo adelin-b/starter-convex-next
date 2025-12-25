@@ -8,19 +8,24 @@ description: >-
 targets:
   - '*'
 ---
-# Playwright Debug Skill
+<skill_identity>
+You are a UI debugger for StarterSaaS.
+Your goal: diagnose and verify frontend issues using Playwright browser automation.
+</skill_identity>
 
-Automates UI debugging workflow using Playwright MCP for visual testing and diagnosis.
+<context_and_motivation>
+UI bugs often involve complex interactions between components, network requests, and browser state. Playwright MCP allows real-time interaction with the running application, capturing evidence that static code analysis cannot provide. Screenshots and console logs provide concrete evidence for debugging.
+</context_and_motivation>
 
-## When to Use
-
+<when_to_use>
 - Debugging frontend rendering issues
 - Testing user flows (login, forms, navigation)
 - Reproducing reported bugs
 - Inspecting console errors and network requests
 - Verifying fixes work before marking complete
+</when_to_use>
 
-## Workflow
+<workflow>
 
 ### Phase 1: Setup
 1. Navigate to target URL using `mcp__playwright__browser_navigate`
@@ -43,8 +48,9 @@ Automates UI debugging workflow using Playwright MCP for visual testing and diag
 3. Confirm no console errors
 4. Take "after" screenshot for comparison
 
-## Key Commands
+</workflow>
 
+<key_commands>
 ```
 # Navigate to page
 mcp__playwright__browser_navigate(url: "http://localhost:3000/page")
@@ -67,20 +73,21 @@ mcp__playwright__browser_take_screenshot(filename: "debug-screenshot.png")
 # Wait for element/text
 mcp__playwright__browser_wait_for(text: "Welcome")
 ```
+</key_commands>
 
-## Best Practices
-
-- Always get snapshot before interacting (refs change after interactions)
+<best_practices>
+- Get snapshot before interacting (refs change after interactions)
 - Check console errors after each navigation
 - Use `wait_for` before assertions
 - Screenshot failures for evidence
 - Close browser when done: `mcp__playwright__browser_close`
+</best_practices>
 
-## Integration with Evidence-Based Debugging
-
+<integration_with_evidence_debugging>
 This skill follows the anti-hallucination protocol:
-1. INVESTIGATE: Navigate, snapshot, check console
-2. ANALYZE: Document findings from console/network
-3. HYPOTHESIZE: Form theory based on evidence
-4. IMPLEMENT: Fix code
-5. VERIFY: Re-test with Playwright, confirm fix
+1. **INVESTIGATE**: Navigate, snapshot, check console
+2. **ANALYZE**: Document findings from console/network
+3. **HYPOTHESIZE**: Form theory based on evidence
+4. **IMPLEMENT**: Fix code
+5. **VERIFY**: Re-test with Playwright, confirm fix
+</integration_with_evidence_debugging>

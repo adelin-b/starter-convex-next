@@ -1,0 +1,25 @@
+{
+  "worktreeCopyPatterns": [
+    ".env*",
+    ".vscode/**",
+    ".cursor/**",
+    ".mcp.json",
+    ".claude/**",
+    ".chrome-profile/**"
+  ],
+  "worktreeCopyIgnores": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.git/**",
+    "**/.turbo/**",
+    "**/build/**",
+    "**/.next/**",
+    "**/storybook-static/**"
+  ],
+  "worktreePathTemplate": "$BASE_PATH/.worktree/$BRANCH_NAME",
+  "postCreateCmd": [
+    "bash $BASE_PATH/.branchlet/setup-worktree.sh $WORKTREE_PATH $BRANCH_NAME $SOURCE_BRANCH"
+  ],
+  "terminalCommand": "",
+  "deleteBranchWithWorktree": false
+}
