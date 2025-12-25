@@ -7,6 +7,10 @@ import type { DataModel } from "./_generated/dataModel";
 import { query } from "./_generated/server";
 import { env } from "./env";
 
+// Type assertion needed until `convex dev` regenerates types with polar component
+// biome-ignore lint/suspicious/noExplicitAny: Polar component types not yet generated
+const polarComponent = (components as unknown as { polar: any }).polar;
+
 /**
  * Polar client for subscription and payment handling.
  * Configure your products in the Polar dashboard and map them here.
@@ -18,7 +22,7 @@ import { env } from "./env";
  *
  * @see https://polar.sh/docs
  */
-export const polar = new Polar<DataModel>(components.polar, {
+export const polar = new Polar<DataModel>(polarComponent, {
   /**
    * Get user info for subscription lookup.
    * This connects Polar subscriptions to your user system.
@@ -107,10 +111,16 @@ export type SubscriptionTier = "free" | "pro" | "team";
  * Get the subscription tier from a product key.
  */
 export function getSubscriptionTier(productKey: string | null): SubscriptionTier {
-  if (!productKey) return "free";
+  if (!productKey) {
+    return "free";
+  }
 
-  if (productKey.startsWith("team")) return "team";
-  if (productKey.startsWith("pro")) return "pro";
+  if (productKey.startsWith("team")) {
+    return "team";
+  }
+  if (productKey.startsWith("pro")) {
+    return "pro";
+  }
 
   return "free";
 }

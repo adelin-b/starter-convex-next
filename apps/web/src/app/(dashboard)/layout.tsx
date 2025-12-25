@@ -1,3 +1,4 @@
+/* eslint-disable lingui/no-unlocalized-strings */
 import { DashboardLayout } from "@starter-saas/ui/dashboard-layout";
 import Image from "next/image";
 import { AppSidebar } from "@/components/layouts/app-sidebar";

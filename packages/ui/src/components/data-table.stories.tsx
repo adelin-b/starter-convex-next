@@ -424,7 +424,16 @@ type Task = {
 };
 
 // Mock task data generator
-const projects = ["Website Redesign", "Mobile App", "API Development", "Dashboard", "Analytics", "DevOps", "Security", "Documentation"];
+const projects = [
+  "Website Redesign",
+  "Mobile App",
+  "API Development",
+  "Dashboard",
+  "Analytics",
+  "DevOps",
+  "Security",
+  "Documentation",
+];
 const assignees = ["Alice", "Bob", "Carol", "Dave", "Eve", "Frank", "Grace", "Henry"];
 const priorities = ["low", "medium", "high", "critical"] as const;
 const taskStatuses = ["pending", "in_progress", "completed"] as const;
@@ -434,7 +443,7 @@ function generateMockTasks(count: number): Task[] {
     const BASE_HOURS = 2;
     const HOURS_RANGE = 38;
     const DAYS_OFFSET = 30;
-    const MS_PER_DAY = 86400000;
+    const MS_PER_DAY = 86_400_000;
     return {
       _id: `task-${i + 1}`,
       title: `Task ${i + 1}: ${["Implement feature", "Fix bug", "Review code", "Write tests", "Update docs"][i % 5]}`,
@@ -442,7 +451,9 @@ function generateMockTasks(count: number): Task[] {
       priority: priorities[i % priorities.length],
       status: taskStatuses[i % taskStatuses.length],
       assignee: assignees[i % assignees.length],
-      dueDate: new Date(Date.now() + Math.floor(Math.random() * DAYS_OFFSET) * MS_PER_DAY).toISOString().split("T")[0],
+      dueDate: new Date(Date.now() + Math.floor(Math.random() * DAYS_OFFSET) * MS_PER_DAY)
+        .toISOString()
+        .split("T")[0],
       estimatedHours: BASE_HOURS + Math.floor(Math.random() * HOURS_RANGE),
     };
   });
@@ -504,11 +515,7 @@ function applyTaskFilters(data: Task[], filters: FieldFilter[]): Task[] {
   });
 }
 
-function applyTaskSort(
-  data: Task[],
-  sortField?: string,
-  sortDirection?: "asc" | "desc",
-): Task[] {
+function applyTaskSort(data: Task[], sortField?: string, sortDirection?: "asc" | "desc"): Task[] {
   if (!sortField) {
     return data;
   }
@@ -533,43 +540,25 @@ function applyTaskSort(
 // Task columns with server-side sort support
 const taskColumns: ColumnDef<Task>[] = [
   {
-    accessorKey: "make",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Make" />,
+    accessorKey: "title",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
   },
   {
-    accessorKey: "model",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Model" />,
+    accessorKey: "project",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Project" />,
   },
   {
-    accessorKey: "year",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Year" />,
-  },
-  {
-    accessorKey: "price",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Price" />,
+    accessorKey: "priority",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Priority" />,
     cell: ({ row }) => {
-      const price = row.getValue("price") as number;
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      }).format(price);
-    },
-  },
-  {
-    accessorKey: "mileage",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Mileage" />,
-    cell: ({ row }) => {
-      const mileage = row.getValue("mileage") as number;
-      return `${new Intl.NumberFormat("en-US").format(mileage)} mi`;
-    },
-  },
-  {
-    accessorKey: "fuelType",
-    header: "Fuel Type",
-    cell: ({ row }) => {
-      const fuelType = row.getValue("fuelType") as string;
-      return <span className="capitalize">{fuelType}</span>;
+      const priority = row.getValue("priority") as Task["priority"];
+      const variantMap: Record<Task["priority"], "default" | "secondary" | "destructive"> = {
+        low: "secondary",
+        medium: "default",
+        high: "destructive",
+        critical: "destructive",
+      };
+      return <Badge variant={variantMap[priority]}>{priority}</Badge>;
     },
   },
   {
@@ -578,16 +567,28 @@ const taskColumns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       const status = row.getValue("status") as Task["status"];
       const variantMap: Record<Task["status"], "default" | "secondary" | "destructive"> = {
-        available: "default",
-        reserved: "secondary",
-        sold: "destructive",
+        pending: "secondary",
+        in_progress: "default",
+        completed: "destructive",
       };
       return <Badge variant={variantMap[status]}>{status}</Badge>;
     },
   },
   {
-    accessorKey: "licensePlate",
-    header: "License Plate",
+    accessorKey: "assignee",
+    header: "Assignee",
+  },
+  {
+    accessorKey: "dueDate",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Due Date" />,
+  },
+  {
+    accessorKey: "estimatedHours",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Est. Hours" />,
+    cell: ({ row }) => {
+      const hours = row.getValue("estimatedHours") as number;
+      return `${hours}h`;
+    },
   },
 ];
 
@@ -599,23 +600,18 @@ type TaskToolbarProps = {
   onClearFilters: () => void;
 };
 
-function TaskToolbar({
-  filters,
-  onAddFilter,
-  onRemoveFilter,
-  onClearFilters,
-}: TaskToolbarProps) {
+function TaskToolbar({ filters, onAddFilter, onRemoveFilter, onClearFilters }: TaskToolbarProps) {
   const [searchValue, setSearchValue] = useState("");
   const [statusValue, setStatusValue] = useState<string>("");
-  const [fuelValue, setFuelValue] = useState<string>("");
+  const [priorityValue, setPriorityValue] = useState<string>("");
 
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
     if (value) {
-      onRemoveFilter("make", "contains");
-      onAddFilter({ field: "make", operator: "contains", value });
+      onRemoveFilter("title", "contains");
+      onAddFilter({ field: "title", operator: "contains", value });
     } else {
-      onRemoveFilter("make", "contains");
+      onRemoveFilter("title", "contains");
     }
   };
 
@@ -627,18 +623,18 @@ function TaskToolbar({
     }
   };
 
-  const handleFuelChange = (value: string) => {
-    setFuelValue(value);
-    onRemoveFilter("fuelType", "eq");
+  const handlePriorityChange = (value: string) => {
+    setPriorityValue(value);
+    onRemoveFilter("priority", "eq");
     if (value && value !== "all") {
-      onAddFilter({ field: "fuelType", operator: "eq", value });
+      onAddFilter({ field: "priority", operator: "eq", value });
     }
   };
 
   const handleClear = () => {
     setSearchValue("");
     setStatusValue("");
-    setFuelValue("");
+    setPriorityValue("");
     onClearFilters();
   };
 
@@ -650,7 +646,7 @@ function TaskToolbar({
         className="w-[200px]"
         data-testid="task-search-input"
         onChange={(e) => handleSearchChange(e.target.value)}
-        placeholder="Search by make..."
+        placeholder="Search by title..."
         value={searchValue}
       />
       <Select
@@ -663,21 +659,25 @@ function TaskToolbar({
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All Statuses</SelectItem>
-          <SelectItem value="available">Available</SelectItem>
-          <SelectItem value="reserved">Reserved</SelectItem>
-          <SelectItem value="sold">Sold</SelectItem>
+          <SelectItem value="pending">Pending</SelectItem>
+          <SelectItem value="in_progress">In Progress</SelectItem>
+          <SelectItem value="completed">Completed</SelectItem>
         </SelectContent>
       </Select>
-      <Select data-testid="task-fuel-select" onValueChange={handleFuelChange} value={fuelValue}>
-        <SelectTrigger className="w-[150px]" data-testid="fuel-trigger">
-          <SelectValue placeholder="Fuel Type" />
+      <Select
+        data-testid="task-priority-select"
+        onValueChange={handlePriorityChange}
+        value={priorityValue}
+      >
+        <SelectTrigger className="w-[150px]" data-testid="priority-trigger">
+          <SelectValue placeholder="Priority" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Fuel Types</SelectItem>
-          <SelectItem value="gasoline">Gasoline</SelectItem>
-          <SelectItem value="diesel">Diesel</SelectItem>
-          <SelectItem value="electric">Electric</SelectItem>
-          <SelectItem value="hybrid">Hybrid</SelectItem>
+          <SelectItem value="all">All Priorities</SelectItem>
+          <SelectItem value="low">Low</SelectItem>
+          <SelectItem value="medium">Medium</SelectItem>
+          <SelectItem value="high">High</SelectItem>
+          <SelectItem value="critical">Critical</SelectItem>
         </SelectContent>
       </Select>
       {hasActiveFilters && (

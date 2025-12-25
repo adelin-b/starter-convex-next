@@ -1,3 +1,4 @@
+/* eslint-disable lingui/no-unlocalized-strings */
 import {
   PageHeader,
   PageHeaderActions,
@@ -9,13 +10,11 @@ import { CreateTodoDialog, TodoList } from "@/features/todos";
 
 export default function TodosPage() {
   return (
-    <div className="container py-6 space-y-6">
+    <div className="container space-y-6 py-6">
       <PageHeader>
         <PageHeaderContent>
           <PageHeaderTitle>Todos</PageHeaderTitle>
-          <PageHeaderDescription>
-            Manage your tasks and stay organized
-          </PageHeaderDescription>
+          <PageHeaderDescription>Manage your tasks and stay organized</PageHeaderDescription>
         </PageHeaderContent>
         <PageHeaderActions>
           <CreateTodoDialog />

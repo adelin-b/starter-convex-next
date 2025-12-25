@@ -59,6 +59,8 @@ Oeser
 Oxlint
 PARTDEL
 Passat
+plateforme
+prereq
 QWEN
 Reverdo
 Segoe

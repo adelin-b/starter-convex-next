@@ -1,7 +1,6 @@
 "use client";
 
 import { useLingui } from "@lingui/react/macro";
-import type { ColumnDef } from "@tanstack/react-table";
 import type { Id } from "@starter-saas/backend/convex/_generated/dataModel";
 import type { OrganizationRole } from "@starter-saas/backend/convex/schema";
 import { roleColors } from "@starter-saas/backend/convex/schema";
@@ -9,6 +8,7 @@ import { Badge } from "@starter-saas/ui/badge";
 import { Button } from "@starter-saas/ui/button";
 import { ConfirmDialog } from "@starter-saas/ui/confirm-dialog";
 import { cn } from "@starter-saas/ui/utils";
+import type { ColumnDef } from "@tanstack/react-table";
 import { Clock, Mail, RotateCcw, Trash2, X } from "lucide-react";
 import { useMemo } from "react";
 import { UserCell } from "@/features/users/@x/organizations";

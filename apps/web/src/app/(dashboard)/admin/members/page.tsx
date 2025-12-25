@@ -1,7 +1,6 @@
 "use client";
 
 import { Trans, useLingui } from "@lingui/react/macro";
-import type { ColumnDef } from "@tanstack/react-table";
 import { api } from "@starter-saas/backend/convex/_generated/api";
 import type { Doc, Id } from "@starter-saas/backend/convex/_generated/dataModel";
 import { roleColors } from "@starter-saas/backend/convex/schema";
@@ -21,6 +20,7 @@ import { DataTable } from "@starter-saas/ui/data-table";
 import { DEFAULT_TABLE_CONFIG, STANDARD_VIEWS } from "@starter-saas/ui/lib/table-utils";
 import { getConvexErrorMessage } from "@starter-saas/ui/use-convex-form-errors";
 import { cn } from "@starter-saas/ui/utils";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useMutation } from "convex/react";
 import { AlertCircle, Building2, Clock, Mail, Trash2, Users } from "lucide-react";
 import Link from "next/link";
@@ -29,7 +29,11 @@ import { useMemo, useState } from "react";
 import { PageLayout } from "@/components/layouts/page-layout";
 import { AdminGuard } from "@/components/ui/auth-guard";
 import type { AuthUser, MemberStatus, UnifiedMemberRow } from "@/features/organizations/@x/admin";
-import { AddMemberDialog, memberStatusMessages, roleMessages } from "@/features/organizations/@x/admin";
+import {
+  AddMemberDialog,
+  memberStatusMessages,
+  roleMessages,
+} from "@/features/organizations/@x/admin";
 import { UserCell } from "@/features/users/@x/organizations";
 import { useQueryWithStatus } from "@/lib/convex-hooks";
 import { logError } from "@/lib/sentry";
@@ -322,9 +326,9 @@ function MembersContent() {
       actions={
         organizations && organizations.length > 0 ? (
           <AddMemberDialog
-            organizations={organizations}
             onError={setError}
             onSuccess={() => setError(null)}
+            organizations={organizations}
           />
         ) : null
       }

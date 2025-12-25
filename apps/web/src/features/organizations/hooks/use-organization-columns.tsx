@@ -1,7 +1,6 @@
 "use client";
 
 import { useLingui } from "@lingui/react/macro";
-import type { ColumnDef } from "@tanstack/react-table";
 import type { Id } from "@starter-saas/backend/convex/_generated/dataModel";
 import { organizationStatuses } from "@starter-saas/backend/convex/schema";
 import { Button } from "@starter-saas/ui/button";
@@ -13,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@starter-saas/ui/select";
+import type { ColumnDef } from "@tanstack/react-table";
 import { Building2, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";

@@ -11,8 +11,9 @@ export const statusMessages: Record<OrganizationStatus, MessageDescriptor> = {
 
 /** Role label messages for i18n */
 export const roleMessages: Record<OrganizationRole, MessageDescriptor> = {
-  commercial: msg`Commercial`,
-  "organization-manager": msg`Organization Manager`,
+  member: msg`Member`,
+  admin: msg`Admin`,
+  owner: msg`Owner`,
 } as const;
 
 /** Member status label messages (active + invitation statuses) */

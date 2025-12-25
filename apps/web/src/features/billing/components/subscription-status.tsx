@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable lingui/no-unlocalized-strings */
 
 import { CustomerPortalLink } from "@convex-dev/polar/react";
 import { api } from "@starter-saas/backend/convex/_generated/api";
@@ -6,14 +7,14 @@ import { Badge } from "@starter-saas/ui/badge";
 import { Button } from "@starter-saas/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@starter-saas/ui/card";
 import { Skeleton } from "@starter-saas/ui/skeleton";
-import { useQuery } from "convex/react";
 import { CreditCardIcon, ExternalLinkIcon } from "lucide-react";
+import { useQueryWithStatus } from "@/lib/convex-hooks";
 
 export function SubscriptionStatus() {
-  const subscription = useQuery(api.polar.getCurrentSubscription);
+  const { data: subscription, isPending } = useQueryWithStatus(api.polar.getCurrentSubscription);
 
   // Loading state
-  if (subscription === undefined) {
+  if (isPending) {
     return (
       <Card>
         <CardHeader>

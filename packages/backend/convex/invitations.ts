@@ -238,7 +238,9 @@ export const create = zodMutation({
     // Check for existing pending invitation
     const existingInvitation = await context.db
       .query("organizationInvitations")
-      .withIndex("by_email_organization", (q) => q.eq("email", email).eq("organizationId", organizationId))
+      .withIndex("by_email_organization", (q) =>
+        q.eq("email", email).eq("organizationId", organizationId),
+      )
       .filter((q) => q.eq(q.field("status"), "pending"))
       .first();
 

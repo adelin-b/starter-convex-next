@@ -23,7 +23,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@starter-saas/ui/select";
-import { getConvexErrorMessage, useConvexFormErrors } from "@starter-saas/ui/use-convex-form-errors";
+import {
+  getConvexErrorMessage,
+  useConvexFormErrors,
+} from "@starter-saas/ui/use-convex-form-errors";
 import { useMutation } from "convex/react";
 import { Loader2, Mail } from "lucide-react";
 import { useState } from "react";
@@ -55,7 +58,12 @@ type AddMemberDialogProps = {
     }
 );
 
-export function AddMemberDialog({ organizationId, organizations, onSuccess, onError }: AddMemberDialogProps) {
+export function AddMemberDialog({
+  organizationId,
+  organizations,
+  onSuccess,
+  onError,
+}: AddMemberDialogProps) {
   const { t } = useLingui();
   const [open, setOpen] = useState(false);
   const inviteMemberMutation = useMutation(api.invitations.create);
@@ -67,7 +75,7 @@ export function AddMemberDialog({ organizationId, organizations, onSuccess, onEr
     defaultValues: {
       email: "",
       organizationId: organizationId ?? "",
-      roles: ["commercial"],
+      roles: ["member"],
     },
   });
 
@@ -88,7 +96,7 @@ export function AddMemberDialog({ organizationId, organizations, onSuccess, onEr
         organizationId: data.organizationId as Id<"organizations">,
         roles: data.roles,
       });
-      reset({ email: "", organizationId: organizationId ?? "", roles: ["commercial"] });
+      reset({ email: "", organizationId: organizationId ?? "", roles: ["member"] });
       setOpen(false);
       onSuccess();
     } catch (error) {

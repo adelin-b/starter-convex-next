@@ -39,8 +39,7 @@
     "eslint-plugin-import",
     "@react-email/preview-server",
     "next",
-    "react-dom",
-    "web"
+    "react-dom"
   ],
   "ignoreBinaries": ["open"],
   "workspaces": {

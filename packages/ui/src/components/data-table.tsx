@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@starter-saas/ui/utils";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -14,7 +15,6 @@ import {
   useReactTable,
   type VisibilityState,
 } from "@tanstack/react-table";
-import { cn } from "@starter-saas/ui/utils";
 import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
 import * as React from "react";
 import { Button } from "./button";

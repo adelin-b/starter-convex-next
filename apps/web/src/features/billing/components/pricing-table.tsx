@@ -1,11 +1,12 @@
 "use client";
+/* eslint-disable lingui/no-unlocalized-strings */
 
 import { CheckoutLink } from "@convex-dev/polar/react";
 import { api } from "@starter-saas/backend/convex/_generated/api";
 import { Label } from "@starter-saas/ui/label";
 import { Switch } from "@starter-saas/ui/switch";
-import { useQuery } from "convex/react";
 import { useState } from "react";
+import { useQueryWithStatus } from "@/lib/convex-hooks";
 import { PricingCard, type PricingTier } from "./pricing-card";
 
 /**
@@ -72,7 +73,7 @@ export function PricingTable({
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
 
   // Get current user's subscription (returns null if not subscribed or not logged in)
-  const subscription = useQuery(api.polar.getCurrentSubscription);
+  const { data: subscription } = useQueryWithStatus(api.polar.getCurrentSubscription);
   const currentProductKey = subscription?.productKey ?? null;
 
   return (

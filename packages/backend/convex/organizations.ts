@@ -291,7 +291,9 @@ export const addMember = zodMutation({
     // Check if user is already a member
     const existing = await context.db
       .query("organizationMembers")
-      .withIndex("by_user_organization", (q) => q.eq("userId", args.userId).eq("organizationId", args.organizationId))
+      .withIndex("by_user_organization", (q) =>
+        q.eq("userId", args.userId).eq("organizationId", args.organizationId),
+      )
       .first();
 
     if (existing) {
@@ -365,7 +367,9 @@ export const hasRole = zodQuery({
 
     const membership = await context.db
       .query("organizationMembers")
-      .withIndex("by_user_organization", (q) => q.eq("userId", identity.subject).eq("organizationId", organizationId))
+      .withIndex("by_user_organization", (q) =>
+        q.eq("userId", identity.subject).eq("organizationId", organizationId),
+      )
       .first();
 
     if (!membership) {
@@ -386,7 +390,9 @@ export const isOwner = zodQuery({
 
     const membership = await context.db
       .query("organizationMembers")
-      .withIndex("by_user_organization", (q) => q.eq("userId", identity.subject).eq("organizationId", organizationId))
+      .withIndex("by_user_organization", (q) =>
+        q.eq("userId", identity.subject).eq("organizationId", organizationId),
+      )
       .first();
 
     if (!membership) {

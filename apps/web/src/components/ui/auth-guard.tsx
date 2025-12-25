@@ -101,7 +101,10 @@ function AdminPermissionCheck({
   children: ReactNode;
   fallback?: ReactNode;
 }) {
-  const { data: hasAdminAccess, isPending } = useQueryWithStatus(api.organizations.hasAdminAccess, {});
+  const { data: hasAdminAccess, isPending } = useQueryWithStatus(
+    api.organizations.hasAdminAccess,
+    {},
+  );
 
   // Still loading
   if (isPending) {

@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+
 /**
  * Starter SaaS Setup Script
  *
@@ -6,12 +7,14 @@
  * Run with: bun setup.ts
  */
 
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { basename, join } from "node:path";
+import { createInterface } from "node:readline";
 import { $ } from "bun";
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
-import { basename, join } from "path";
-import * as readline from "readline";
 
-const rl = readline.createInterface({
+const WORD_SPLIT_REGEX = /[\s_-]+/;
+
+const rl = createInterface({
   input: process.stdin,
   output: process.stdout,
 });
@@ -33,10 +36,13 @@ function printStep(step: number, total: number, title: string) {
 function openUrl(url: string) {
   const platform = process.platform;
   if (platform === "darwin") {
+    // biome-ignore lint/correctness/noUndeclaredVariables: Bun runtime global
     Bun.spawn(["open", url]);
   } else if (platform === "win32") {
+    // biome-ignore lint/correctness/noUndeclaredVariables: Bun runtime global
     Bun.spawn(["cmd", "/c", "start", url]);
   } else {
+    // biome-ignore lint/correctness/noUndeclaredVariables: Bun runtime global
     Bun.spawn(["xdg-open", url]);
   }
 }
@@ -44,32 +50,41 @@ function openUrl(url: string) {
 function toKebabCase(str: string): string {
   return str
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+    .replaceAll(/[^\da-z]+/g, "-")
+    .replaceAll(/(^-)|(-$)/g, "");
 }
 
 function toPascalCase(str: string): string {
   return str
-    .split(/[-_\s]+/)
+    .split(WORD_SPLIT_REGEX)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join("");
 }
 
 function updatePackageJson(filePath: string, projectName: string, scope: string) {
-  if (!existsSync(filePath)) return;
+  if (!existsSync(filePath)) {
+    return;
+  }
 
-  const content = readFileSync(filePath, "utf-8");
+  const content = readFileSync(filePath, "utf8");
   const updated = content
-    .replace(/"name":\s*"starter-saas"/g, `"name": "${projectName}"`)
-    .replace(/@starter-saas\//g, `@${scope}/`);
+    .replaceAll(/"name":\s*"starter-saas"/g, `"name": "${projectName}"`)
+    .replaceAll("@starter-saas/", `@${scope}/`);
 
   writeFileSync(filePath, updated);
 }
 
 function updateAllFiles(dir: string, oldScope: string, newScope: string) {
   const extensions = [".ts", ".tsx", ".json", ".md"];
-  const ignoreDirs = ["node_modules", ".git", ".next", "storybook-static", ".turbo"];
+  const ignoreDirectories = new Set([
+    "node_modules",
+    ".git",
+    ".next",
+    "storybook-static",
+    ".turbo",
+  ]);
 
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: recursive directory traversal requires this structure
   function processDir(currentDir: string) {
     const entries = readdirSync(currentDir, { withFileTypes: true });
 
@@ -77,14 +92,14 @@ function updateAllFiles(dir: string, oldScope: string, newScope: string) {
       const fullPath = join(currentDir, entry.name);
 
       if (entry.isDirectory()) {
-        if (!ignoreDirs.includes(entry.name)) {
+        if (!ignoreDirectories.has(entry.name)) {
           processDir(fullPath);
         }
-      } else if (extensions.some((ext) => entry.name.endsWith(ext))) {
+      } else if (extensions.some((extension) => entry.name.endsWith(extension))) {
         try {
-          const content = readFileSync(fullPath, "utf-8");
+          const content = readFileSync(fullPath, "utf8");
           if (content.includes(oldScope)) {
-            const updated = content.replace(new RegExp(oldScope, "g"), newScope);
+            const updated = content.replaceAll(new RegExp(oldScope, "g"), newScope);
             writeFileSync(fullPath, updated);
           }
         } catch {
@@ -112,7 +127,7 @@ async function checkPrerequisites(): Promise<boolean> {
   // Check Node version
   try {
     const nodeVersion = await $`node --version`.text();
-    const major = Number.parseInt(nodeVersion.trim().replace("v", "").split(".")[0]);
+    const major = Number.parseInt(nodeVersion.trim().replace("v", "").split(".")[0], 10);
     if (major >= 18 && major < 25) {
       console.log(`✅ Node.js: ${nodeVersion.trim()}`);
     } else {
@@ -134,6 +149,7 @@ async function checkPrerequisites(): Promise<boolean> {
   return true;
 }
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: interactive wizard requires sequential user prompts
 async function main() {
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
@@ -161,7 +177,7 @@ async function main() {
   // Check if .env.local exists
   const envLocalPath = join(process.cwd(), ".env.local");
   if (existsSync(envLocalPath)) {
-    envContent = readFileSync(envLocalPath, "utf-8");
+    envContent = readFileSync(envLocalPath, "utf8");
     console.log("📄 Found existing .env.local file\n");
   }
 
@@ -169,7 +185,7 @@ async function main() {
   printStep(1, totalSteps, "Project Configuration");
 
   const currentDirName = basename(process.cwd());
-  const defaultName = currentDirName !== "starter-convex-next" ? currentDirName : "my-saas-app";
+  const defaultName = currentDirName === "starter-convex-next" ? "my-saas-app" : currentDirName;
 
   console.log(`
 Choose a name for your project. This will be used for:
@@ -203,12 +219,12 @@ Examples: my-app, acme-platform, todo-pro
     "vitest-config",
     "config",
   ];
-  for (const pkg of packages) {
-    const pkgPath = join(process.cwd(), "packages", pkg, "package.json");
-    if (existsSync(pkgPath)) {
-      const content = readFileSync(pkgPath, "utf-8");
-      const updated = content.replace(/@starter-saas\//g, `@${projectScope}/`);
-      writeFileSync(pkgPath, updated);
+  for (const package_ of packages) {
+    const packagePath = join(process.cwd(), "packages", package_, "package.json");
+    if (existsSync(packagePath)) {
+      const content = readFileSync(packagePath, "utf8");
+      const updated = content.replaceAll("@starter-saas/", `@${projectScope}/`);
+      writeFileSync(packagePath, updated);
     }
   }
 
@@ -217,8 +233,8 @@ Examples: my-app, acme-platform, todo-pro
   for (const app of apps) {
     const appPath = join(process.cwd(), "apps", app, "package.json");
     if (existsSync(appPath)) {
-      const content = readFileSync(appPath, "utf-8");
-      const updated = content.replace(/@starter-saas\//g, `@${projectScope}/`);
+      const content = readFileSync(appPath, "utf8");
+      const updated = content.replaceAll("@starter-saas/", `@${projectScope}/`);
       writeFileSync(appPath, updated);
     }
   }
@@ -396,7 +412,9 @@ Now set up webhooks for subscription events:
       await ask("Press Enter to open Polar webhook settings...");
       openUrl("https://polar.sh/dashboard/settings/developers/webhooks");
 
-      const polarWebhookSecret = await ask("\nEnter Polar Webhook Secret (or press Enter to skip for now): ");
+      const polarWebhookSecret = await ask(
+        "\nEnter Polar Webhook Secret (or press Enter to skip for now): ",
+      );
       if (polarWebhookSecret) {
         envContent += `POLAR_WEBHOOK_SECRET=${polarWebhookSecret}
 `;
@@ -437,7 +455,7 @@ PORT=3001
 STORYBOOK_PORT=6006
 `;
 
-  writeFileSync(envLocalPath, envContent.trim() + "\n");
+  writeFileSync(envLocalPath, `${envContent.trim()}\n`);
   console.log("✅ Created .env.local with your configuration\n");
 
   // Run Convex setup
@@ -445,7 +463,7 @@ STORYBOOK_PORT=6006
   try {
     await $`cd packages/backend && bunx convex dev --once`;
     console.log("✅ Convex schema deployed!");
-  } catch (e) {
+  } catch {
     console.log("⚠️  Convex setup skipped (run 'bun run dev:setup' manually)");
   }
 

@@ -4,7 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { api } from "@starter-saas/backend/convex/_generated/api";
 import type { Doc, Id } from "@starter-saas/backend/convex/_generated/dataModel";
-import { OrganizationMembers, type OrganizationRole, roleColors } from "@starter-saas/backend/convex/schema";
+import {
+  OrganizationMembers,
+  type OrganizationRole,
+  roleColors,
+} from "@starter-saas/backend/convex/schema";
 import { Alert, AlertDescription } from "@starter-saas/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@starter-saas/ui/avatar";
 import { Badge } from "@starter-saas/ui/badge";
@@ -20,7 +24,10 @@ import { Button } from "@starter-saas/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@starter-saas/ui/card";
 import { ConfirmDialog } from "@starter-saas/ui/confirm-dialog";
 import { Label } from "@starter-saas/ui/label";
-import { getConvexErrorMessage, useConvexFormErrors } from "@starter-saas/ui/use-convex-form-errors";
+import {
+  getConvexErrorMessage,
+  useConvexFormErrors,
+} from "@starter-saas/ui/use-convex-form-errors";
 import { useMutation } from "convex/react";
 import { AlertCircle, Building2, Loader2, Mail, Save, Trash2, User } from "lucide-react";
 import Link from "next/link";
@@ -139,7 +146,9 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
-  const { data: member, isPending } = useQueryWithStatus(api.organizations.getMemberById, { memberId });
+  const { data: member, isPending } = useQueryWithStatus(api.organizations.getMemberById, {
+    memberId,
+  });
   const removeMemberMutation = useMutation(api.organizations.removeMember);
 
   const handleRemove = async () => {

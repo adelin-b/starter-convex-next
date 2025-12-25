@@ -25,6 +25,7 @@ export const env = {
 
     // Deploy-time placeholder (env vars empty during bundling)
     // If this placeholder reaches runtime, OAuth will fail with clear redirect errors
+    // eslint-disable-next-line sonarjs/no-clear-text-protocols -- intentional invalid URL for dev fallback
     return "http://site-url-not-configured.invalid";
   },
   get IS_TEST(): "true" | "false" {

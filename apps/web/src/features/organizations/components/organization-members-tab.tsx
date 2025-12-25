@@ -3,7 +3,7 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import { api } from "@starter-saas/backend/convex/_generated/api";
 import type { Id } from "@starter-saas/backend/convex/_generated/dataModel";
-import type { OrganizationRole, InvitationStatus } from "@starter-saas/backend/convex/schema";
+import type { InvitationStatus, OrganizationRole } from "@starter-saas/backend/convex/schema";
 import { Alert, AlertDescription } from "@starter-saas/ui/alert";
 import { DataTable } from "@starter-saas/ui/data-table";
 import { DEFAULT_TABLE_CONFIG, STANDARD_VIEWS } from "@starter-saas/ui/lib/table-utils";
@@ -89,7 +89,12 @@ type OrganizationMembersTabProps = {
   error: string | null;
 };
 
-export function OrganizationMembersTab({ organizationId, onSuccess, onError, error }: OrganizationMembersTabProps) {
+export function OrganizationMembersTab({
+  organizationId,
+  onSuccess,
+  onError,
+  error,
+}: OrganizationMembersTabProps) {
   const { t } = useLingui();
   const [removingId, setRemovingId] = useState<string | null>(null);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
@@ -125,7 +130,10 @@ export function OrganizationMembersTab({ organizationId, onSuccess, onError, err
     return [...memberRows, ...invitationRows].sort(sortUnifiedRows);
   }, [members, invitations]);
 
-  const handleUpdateRoles = async (memberId: Id<"organizationMembers">, roles: OrganizationRole[]) => {
+  const handleUpdateRoles = async (
+    memberId: Id<"organizationMembers">,
+    roles: OrganizationRole[],
+  ) => {
     setUpdatingId(memberId);
     try {
       await updateRolesMutation({ memberId, roles });
@@ -201,7 +209,7 @@ export function OrganizationMembersTab({ organizationId, onSuccess, onError, err
             <Trans>Manage members and their roles</Trans>
           </p>
         </div>
-        <AddMemberDialog organizationId={organizationId} onError={onError} onSuccess={onSuccess} />
+        <AddMemberDialog onError={onError} onSuccess={onSuccess} organizationId={organizationId} />
       </div>
 
       {error && (

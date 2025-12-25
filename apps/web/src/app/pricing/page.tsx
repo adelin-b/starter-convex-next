@@ -1,7 +1,8 @@
+/* eslint-disable lingui/no-unlocalized-strings */
 import { Button } from "@starter-saas/ui/button";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PricingTable } from "~/features/billing";
+import { PricingTable } from "@/features/billing";
 
 export const metadata: Metadata = {
   title: "Pricing",

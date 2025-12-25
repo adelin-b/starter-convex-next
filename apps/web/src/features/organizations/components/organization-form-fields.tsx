@@ -51,7 +51,11 @@ export function OrganizationFormFields<T extends FieldValues & OrganizationBaseF
               <Trans>Name *</Trans>
             </FormLabel>
             <FormControl>
-              <Input data-testid="organization-name-input" placeholder={t`Organization name`} {...field} />
+              <Input
+                data-testid="organization-name-input"
+                placeholder={t`Organization name`}
+                {...field}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

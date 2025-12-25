@@ -2,7 +2,11 @@
 
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { type OrganizationRole, organizationRoles, roleColors } from "@starter-saas/backend/convex/schema";
+import {
+  type OrganizationRole,
+  organizationRoles,
+  roleColors,
+} from "@starter-saas/backend/convex/schema";
 import { assertNever } from "@starter-saas/shared/assert-never";
 import { Badge } from "@starter-saas/ui/badge";
 import { Checkbox } from "@starter-saas/ui/checkbox";
@@ -71,15 +75,14 @@ export function RoleSelector({
               <span className="text-muted-foreground text-xs">
                 {(() => {
                   switch (role) {
-                    case "commercial": {
-                      return (
-                        <Trans>
-                          Sales representatives who manage leads and client relationships.
-                        </Trans>
-                      );
+                    case "member": {
+                      return <Trans>Regular members with basic access.</Trans>;
                     }
-                    case "organization-manager": {
-                      return <Trans>Organization managers with full management permissions.</Trans>;
+                    case "admin": {
+                      return <Trans>Administrators with management permissions.</Trans>;
+                    }
+                    case "owner": {
+                      return <Trans>Organization owners with full control.</Trans>;
                     }
                     default: {
                       assertNever(role);

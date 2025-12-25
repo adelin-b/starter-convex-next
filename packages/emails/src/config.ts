@@ -3,11 +3,16 @@
  * Shared across all email templates
  */
 
+// biome-ignore lint/style/noProcessEnv: email config requires env access at module level
+const SITE_URL = process.env.SITE_URL || "http://localhost:3001";
+// biome-ignore lint/style/noProcessEnv: email config requires env access at module level
+const EMAIL_FROM = process.env.EMAIL_FROM || "noreply@example.com";
+
 export const emailConfig = {
   siteName: "Starter SaaS",
-  siteUrl: process.env.SITE_URL || "http://localhost:3001",
-  logoUrl: `${process.env.SITE_URL || "http://localhost:3001"}/assets/logos/logo-small.png`,
-  supportEmail: process.env.EMAIL_FROM || "noreply@example.com",
+  siteUrl: SITE_URL,
+  logoUrl: `${SITE_URL}/assets/logos/logo-small.png`,
+  supportEmail: EMAIL_FROM,
   socialLinks: {
     twitter: "https://twitter.com/your-app",
     linkedin: "https://linkedin.com/company/your-app",

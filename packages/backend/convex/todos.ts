@@ -36,11 +36,10 @@ export const list = zodQuery({
     }
 
     if (args.status) {
+      const status = args.status;
       return await context.db
         .query("todos")
-        .withIndex("by_user_status", (q) =>
-          q.eq("userId", identity.subject).eq("status", args.status!),
-        )
+        .withIndex("by_user_status", (q) => q.eq("userId", identity.subject).eq("status", status))
         .collect();
     }
 
@@ -88,15 +87,13 @@ export const create = zodMutation({
     }
 
     const now = Date.now();
-    const id = await context.db.insert("todos", {
+    return await context.db.insert("todos", {
       ...args,
       status: "pending",
       userId: identity.subject,
       createdAt: now,
       updatedAt: now,
     });
-
-    return id;
   },
 });
 
@@ -121,12 +118,12 @@ export const update = zodMutation({
     }
 
     const now = Date.now();
-    const completedAt =
-      updates.status === "completed" && existing.status !== "completed"
-        ? now
-        : updates.status !== "completed"
-          ? undefined
-          : existing.completedAt;
+    let completedAt: number | undefined;
+    if (updates.status === "completed" && existing.status !== "completed") {
+      completedAt = now;
+    } else if (updates.status === "completed") {
+      completedAt = existing.completedAt;
+    }
 
     await context.db.patch(id, {
       ...updates,

@@ -1,7 +1,7 @@
 "use client";
 
-import type { Row, Table as TanStackTable } from "@tanstack/react-table";
 import { assertNever } from "@starter-saas/shared/assert-never";
+import type { Row, Table as TanStackTable } from "@tanstack/react-table";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { cn } from "../../../utils";
 import type { DataTableLabels } from "../labels";

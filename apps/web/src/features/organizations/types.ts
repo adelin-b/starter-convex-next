@@ -1,5 +1,5 @@
 import type { Doc, Id } from "@starter-saas/backend/convex/_generated/dataModel";
-import type { OrganizationRole, InvitationStatus } from "@starter-saas/backend/convex/schema";
+import type { InvitationStatus, OrganizationRole } from "@starter-saas/backend/convex/schema";
 
 /** User data from better-auth */
 export type AuthUser = {

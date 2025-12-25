@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable lingui/no-unlocalized-strings */
 
 import {
   PageHeader,
@@ -6,7 +7,7 @@ import {
   PageHeaderDescription,
   PageHeaderTitle,
 } from "@starter-saas/ui/page-header";
-import { SubscriptionStatus } from "~/features/billing";
+import { SubscriptionStatus } from "@/features/billing";
 
 export default function SettingsPage() {
   return (

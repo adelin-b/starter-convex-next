@@ -33,16 +33,10 @@ export function WelcomeEmail({ name = "User", locale = "en" }: WelcomeEmailProps
           <Trans id="OQHisq" message="Hi {name}," values={{ name }} />
         </EmailText>
         <EmailText>
-          <Trans
-            id="9IbDCT"
-            message="Thanks for joining us! We're excited to have you on board."
-          />
+          <Trans id="9IbDCT" message="Thanks for joining us! We're excited to have you on board." />
         </EmailText>
         <EmailText>
-          <Trans
-            id="hpWU8E"
-            message="Here's what you can do to get started:"
-          />
+          <Trans id="hpWU8E" message="Here's what you can do to get started:" />
         </EmailText>
         <ul style={list}>
           <li style={listItem}>

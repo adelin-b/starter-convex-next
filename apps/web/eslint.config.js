@@ -1,7 +1,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createFeatureBoundariesZones } from "@starter-saas/eslint-config/feature-boundaries";
 import tsParser from "@typescript-eslint/parser";
-import { createFeatureBoundariesZones } from "@vroommarket/eslint-config/feature-boundaries";
 import importPlugin from "eslint-plugin-import";
 import lingui from "eslint-plugin-lingui";
 

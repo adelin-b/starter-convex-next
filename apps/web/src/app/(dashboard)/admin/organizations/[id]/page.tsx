@@ -58,7 +58,7 @@ function InfoTabContent({
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-        <OrganizationForm organization={organization} onError={onError} onSuccess={onSuccess} />
+        <OrganizationForm onError={onError} onSuccess={onSuccess} organization={organization} />
       </CardContent>
     </Card>
   );
@@ -74,7 +74,9 @@ function OrganizationDetailContent({ organizationId }: { organizationId: Id<"org
   const tabParam = searchParams.get("tab");
   const [activeTab, setActiveTab] = useState(tabParam === "members" ? "members" : "info");
 
-  const { data: organization, isPending } = useQueryWithStatus(api.organizations.getById, { id: organizationId });
+  const { data: organization, isPending } = useQueryWithStatus(api.organizations.getById, {
+    id: organizationId,
+  });
   const deleteMutation = useMutation(api.organizations.remove);
 
   const handleDelete = async () => {
@@ -180,19 +182,19 @@ function OrganizationDetailContent({ organizationId }: { organizationId: Id<"org
 
           <TabsContent className="mt-6" value="info">
             <InfoTabContent
-              organization={organization}
               error={activeTab === "info" ? error : null}
               onError={setError}
               onSuccess={() => setError(null)}
+              organization={organization}
             />
           </TabsContent>
 
           <TabsContent className="mt-6" value="members">
             <OrganizationMembersTab
-              organizationId={organizationId}
               error={activeTab === "members" ? error : null}
               onError={setError}
               onSuccess={() => setError(null)}
+              organizationId={organizationId}
             />
           </TabsContent>
         </Tabs>

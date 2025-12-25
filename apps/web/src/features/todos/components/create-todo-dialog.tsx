@@ -1,7 +1,8 @@
 "use client";
+/* eslint-disable lingui/no-unlocalized-strings */
 
 import { api } from "@starter-saas/backend/convex/_generated/api";
-import { todoPriorities } from "@starter-saas/backend/convex/schema";
+import type { todoPriorities } from "@starter-saas/backend/convex/schema";
 import { Button } from "@starter-saas/ui/button";
 import {
   Dialog,
@@ -38,7 +39,9 @@ export function CreateTodoDialog() {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      if (!title.trim()) return;
+      if (!title.trim()) {
+        return;
+      }
 
       setIsSubmitting(true);
       try {
@@ -55,11 +58,11 @@ export function CreateTodoDialog() {
         setIsSubmitting(false);
       }
     },
-    [createTodo, title, description, priority]
+    [createTodo, title, description, priority],
   );
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
         <Button>
           <Plus className="size-4" />
@@ -80,10 +83,10 @@ export function CreateTodoDialog() {
               <Label htmlFor="title">Title</Label>
               <Input
                 id="title"
-                placeholder="What needs to be done?"
-                value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                placeholder="What needs to be done?"
                 required
+                value={title}
               />
             </div>
 
@@ -91,20 +94,18 @@ export function CreateTodoDialog() {
               <Label htmlFor="description">Description (optional)</Label>
               <Textarea
                 id="description"
-                placeholder="Add more details..."
-                value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                placeholder="Add more details..."
                 rows={3}
+                value={description}
               />
             </div>
 
             <div className="grid gap-2">
               <Label htmlFor="priority">Priority (optional)</Label>
               <Select
+                onValueChange={(value) => setPriority(value as (typeof todoPriorities)[number])}
                 value={priority}
-                onValueChange={(value) =>
-                  setPriority(value as (typeof todoPriorities)[number])
-                }
               >
                 <SelectTrigger id="priority">
                   <SelectValue placeholder="Select priority" />
@@ -119,14 +120,10 @@ export function CreateTodoDialog() {
           </div>
 
           <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setOpen(false)}
-            >
+            <Button onClick={() => setOpen(false)} type="button" variant="outline">
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting || !title.trim()}>
+            <Button disabled={isSubmitting || !title.trim()} type="submit">
               {isSubmitting ? "Creating..." : "Create Todo"}
             </Button>
           </DialogFooter>

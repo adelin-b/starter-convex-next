@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable lingui/no-unlocalized-strings */
 
 import { api } from "@starter-saas/backend/convex/_generated/api";
 import type { Doc } from "@starter-saas/backend/convex/_generated/dataModel";
@@ -10,9 +11,9 @@ import { useMutation } from "convex/react";
 import { Trash2 } from "lucide-react";
 import { useCallback } from "react";
 
-interface TodoItemProps {
+type TodoItemProps = {
   todo: Doc<"todos">;
-}
+};
 
 const priorityColors = {
   low: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
@@ -38,43 +39,41 @@ export function TodoItem({ todo }: TodoItemProps) {
     <div
       className={cn(
         "flex items-center gap-3 rounded-lg border bg-card p-4 transition-opacity",
-        isCompleted && "opacity-60"
+        isCompleted && "opacity-60",
       )}
     >
       <Checkbox
+        aria-label={isCompleted ? "Mark as incomplete" : "Mark as complete"}
         checked={isCompleted}
         onCheckedChange={handleToggle}
-        aria-label={isCompleted ? "Mark as incomplete" : "Mark as complete"}
       />
 
-      <div className="flex-1 min-w-0">
+      <div className="min-w-0 flex-1">
         <p
           className={cn(
-            "font-medium truncate",
-            isCompleted && "line-through text-muted-foreground"
+            "truncate font-medium",
+            isCompleted && "text-muted-foreground line-through",
           )}
         >
           {todo.title}
         </p>
         {todo.description && (
-          <p className="text-sm text-muted-foreground truncate mt-0.5">
-            {todo.description}
-          </p>
+          <p className="mt-0.5 truncate text-muted-foreground text-sm">{todo.description}</p>
         )}
       </div>
 
       {todo.priority && (
-        <Badge variant="outline" className={priorityColors[todo.priority]}>
+        <Badge className={priorityColors[todo.priority]} variant="outline">
           {todo.priority}
         </Badge>
       )}
 
       <Button
-        variant="ghost"
-        size="icon-sm"
-        onClick={handleDelete}
         aria-label="Delete todo"
         className="text-muted-foreground hover:text-destructive"
+        onClick={handleDelete}
+        size="icon-sm"
+        variant="ghost"
       >
         <Trash2 className="size-4" />
       </Button>

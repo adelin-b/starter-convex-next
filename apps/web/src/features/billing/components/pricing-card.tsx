@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable lingui/no-unlocalized-strings */
 
 import { Badge } from "@starter-saas/ui/badge";
 import { Button } from "@starter-saas/ui/button";
@@ -10,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@starter-saas/ui/card";
-import { cn } from "@starter-saas/ui/lib/utils";
+import { cn } from "@starter-saas/ui/utils";
 import { CheckIcon } from "lucide-react";
 
 export type PricingTier = {
@@ -101,7 +102,9 @@ export function PricingCard({
           onClick={() => onSelect?.(productId)}
           variant={tier.highlighted ? "default" : "outline"}
         >
-          {currentPlan ? "Current Plan" : isLoading ? "Loading..." : "Get Started"}
+          {currentPlan && "Current Plan"}
+          {!currentPlan && isLoading && "Loading..."}
+          {!(currentPlan || isLoading) && "Get Started"}
         </Button>
       </CardFooter>
     </Card>
