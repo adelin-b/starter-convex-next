@@ -57,10 +57,29 @@
         "PORT",
         "STORYBOOK_PORT",
         "STORYBOOK_NO_OPEN",
-        "E2E_MODE"
+        "E2E_MODE",
+        "OLLAMA_BASE_URL",
+        "OLLAMA_MODEL",
+        "LANGGRAPH_DEPLOYMENT_URL",
+        "NEXT_PUBLIC_COPILOTKIT_AGENT_NAME",
+        "NEXT_PUBLIC_COPILOTKIT_AGENT_DESCRIPTION",
+        "LANGSMITH_API_KEY",
+        "LIVEKIT_API_KEY",
+        "LIVEKIT_API_SECRET",
+        "LIVEKIT_URL",
+        "LIVEKIT_WS_URL",
+        "LIVEKIT_SIP_OUTBOUND_TRUNK_ID",
+        "NEXT_PUBLIC_LIVEKIT_URL",
+        "OPENAI_API_KEY",
+        "OPENAI_MODEL"
       ]
     },
     "dev:setup": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "dependsOn": ["build"],
       "cache": false,
       "persistent": true
     },

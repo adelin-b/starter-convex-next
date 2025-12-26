@@ -46,6 +46,7 @@ const formSchema = z.object({
 
 const ProfileForm = (args: Story["args"]) => {
   const form = useForm<z.infer<typeof formSchema>>({
+    // @ts-expect-error - Zod v3.25 compatibility with zodResolver
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",

@@ -1,0 +1,10 @@
+# ShellCheck configuration file# See https://www.shellcheck.net/wiki/Directive
+
+# Disable style suggestions that are acceptable in our codebase
+disable=SC2129 # Allow individual redirects instead of grouped redirects
+disable=SC2126 # Allow grep|wc -l instead of grep -c
+disable=SC2086 # Allow unquoted variables when word splitting is intentional
+disable=SC2034 # Allow unused variables (may be used in sourced scripts)
+
+# Enable extended analysis
+enable=all

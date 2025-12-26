@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "noConfigSearch": true,
+  "words": ["megalinter", "oxsecurity"],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/archived/**",
+    "**/vscode-extension/**",
+    "**/.git/**",
+    "**/.pnpm-lock.json",
+    ".vscode",
+    "megalinter-reports",
+    "package-lock.json",
+    "report",
+    // TOFIX: remove this once we have internationalized emails
+    "packages/email/emails/welcome.tsx"
+  ]
+}

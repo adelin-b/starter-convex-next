@@ -46,6 +46,7 @@ export default function SignInForm({
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignInFormData>({
+    // @ts-expect-error - Zod v3.25 version mismatch with zodResolver
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: "",

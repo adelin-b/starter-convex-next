@@ -37,6 +37,8 @@
     "dev:setup": "turbo -F @starter-saas/backend dev:setup",
     "dev:storybook": "turbo -F @starter-saas/storybook dev",
     "dev:emails": "turbo -F @starter-saas/emails dev",
+    "dev:deedee": "turbo -F deedee dev",
+    "dev:agent": "turbo -F @starter-saas/agent-livekit dev",
     "test": "turbo test",
     "test:watch": "vitest --watch",
     "test:e2e": "turbo -F @starter-saas/e2e test:e2e",
@@ -103,8 +105,12 @@
   "engines": {
     "node": ">=18 <25"
   },
-  "patchedDependencies": {},
+  "patchedDependencies": {
+    "@xixixao/uploadstuff@0.0.5": "patches/@xixixao%2Fuploadstuff@0.0.5.patch"
+  },
   "dependencies": {
-    "@convex-dev/polar": "^0.7.3"
+    "@convex-dev/polar": "^0.7.3",
+    "@langchain/core": "^1.0.5",
+    "@langchain/langgraph": "^1.0.2"
   }
 }

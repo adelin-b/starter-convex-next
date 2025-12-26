@@ -61,6 +61,7 @@ function MemberRolesForm({
   const updateRolesMutation = useMutation(api.organizations.updateMemberRoles);
 
   const form = useForm<MemberFormData>({
+    // @ts-expect-error - Zod v3.25 version mismatch with zodResolver
     resolver: zodResolver(MemberFormSchema),
     defaultValues: {
       roles: member.roles as OrganizationRole[],

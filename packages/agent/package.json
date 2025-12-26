@@ -1,0 +1,22 @@
+{
+  "name": "@starter-saas/agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bunx @langchain/langgraph-cli dev --port 8124",
+    "build": "bunx @langchain/langgraph-cli build --tag latest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@copilotkit/sdk-js": "^1.10.6",
+    "@langchain/core": "^1.0.5",
+    "@langchain/langgraph": "^1.0.2",
+    "@langchain/openai": "^0.3.17",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,26 @@
+# act configuration for local GitHub Actions testing
+# See: https://github.com/nektos/act
+
+# Use medium-sized Docker image (balance between speed and compatibility)
+-P ubuntu-latest=catthehacker/ubuntu:act-latest
+
+# Bind workspace directory
+--bind
+
+# Use existing Docker network for better connectivity
+--network host
+
+# Set default platform
+--platform linux/amd64
+
+# Container architecture
+--container-architecture linux/amd64
+
+# Detect event automatically
+--detect-event
+
+# Reuse containers for faster iteration
+--reuse
+
+# Show verbose output
+--verbose

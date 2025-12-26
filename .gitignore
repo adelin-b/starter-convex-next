@@ -149,3 +149,4 @@ apps/web/src/locales/*.mjs
 
 # Auto Claude data directory
 .auto-claude/
+repo-examples/

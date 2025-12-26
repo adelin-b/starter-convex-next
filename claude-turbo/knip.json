@@ -1,0 +1,78 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "eslint": ["**/*/.eslintrc.{js,mjs,cjs,json}"],
+  "ignoreExportsUsedInFile": true,
+  "ignore": [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.turbo/**",
+    "**/*.config.{js,ts,mjs,cjs}",
+    "**/next-env.d.ts",
+    "**/*.d.ts",
+    "**/_generated/**",
+    "**/convex/_generated/**",
+    "**/storybook-static/**",
+    "archived/**",
+    "**/tsconfig*.json",
+    "tooling/typescript/**"
+  ],
+  "ignoreDependencies": [
+    "@react-email/*",
+    "@v1/eslint-config",
+    "eslint-config-*",
+    "@eslint/eslintrc",
+    "eslint-plugin-turbo",
+    "@commitlint/config-conventional"
+  ],
+  "workspaces": {
+    "packages/ui": {
+      "entry": ["src/**/*.{ts,tsx}"],
+      "project": ["src/**/*.{ts,tsx}"],
+      "ignore": ["**/*.stories.{ts,tsx}", "**/*.test.{ts,tsx}"]
+    },
+    "packages/backend": {
+      "entry": ["convex/**/*.{ts,js}"],
+      "project": ["convex/**/*.{ts,js}"],
+      "ignore": ["convex/_generated/**", "convex/node_modules/**"]
+    },
+    "packages/analytics": {
+      "entry": ["src/**/*.{ts,tsx}"],
+      "project": ["src/**/*.{ts,tsx}"]
+    },
+    "packages/logger": {
+      "project": ["src/**/*.{ts,tsx}"]
+    },
+    "packages/email": {
+      "entry": ["emails/**/*.tsx", "components/**/*.tsx"],
+      "project": ["emails/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"]
+    },
+    "apps/web": {
+      "entry": ["src/app/**/*.{ts,tsx}"],
+      "project": ["src/**/*.{ts,tsx}"],
+      "next": {
+        "entry": ["src/app/**/*.{ts,tsx}"]
+      }
+    },
+    "apps/deedee": {
+      "entry": ["src/app/**/*.{ts,tsx}"],
+      "project": ["src/**/*.{ts,tsx}"],
+      "ignoreFiles": ["src/hooks/use-image-urls.ts", "src/hooks/use-mobile.ts"],
+      "next": {
+        "entry": ["src/app/**/*.{ts,tsx}"]
+      }
+    },
+    "apps/storybook": {
+      "entry": [".storybook/*.ts"]
+    },
+    "tooling/eslint-config": {
+      "entry": ["*.js", "*.json"],
+      "project": ["*.js", "*.json"]
+    }
+  },
+  "compilers": {
+    "css": true,
+    "svg": true
+  }
+}

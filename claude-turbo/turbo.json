@@ -1,0 +1,139 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "globalDependencies": ["**/.env", "**/.env.local"],
+  "globalEnv": [
+    "NEXT_PUBLIC_CONVEX_URL",
+    "CONVEX_URL",
+    "CONVEX_SITE_URL",
+    "CONVEX_SYSTEM_ADMIN_TOKEN",
+    "SITE_URL",
+    "NEXT_PUBLIC_APP_URL",
+    "AUTH_GOOGLE_ID",
+    "AUTH_GOOGLE_SECRET",
+    "VALIDATE_ENV",
+    "E2E_CLERK_USER_USERNAME",
+    "E2E_CLERK_USER_PASSWORD",
+    "OLLAMA_BASE_URL",
+    "OLLAMA_MODEL",
+    "LANGGRAPH_DEPLOYMENT_URL",
+    "NEXT_PUBLIC_COPILOTKIT_AGENT_NAME",
+    "NEXT_PUBLIC_COPILOTKIT_AGENT_DESCRIPTION",
+    "LANGSMITH_API_KEY",
+    "LIVEKIT_API_KEY",
+    "LIVEKIT_API_SECRET",
+    "LIVEKIT_URL",
+    "LIVEKIT_WS_URL",
+    "LIVEKIT_SIP_OUTBOUND_TRUNK_ID",
+    "NEXT_PUBLIC_LIVEKIT_URL",
+    "CLERK_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    "CLERK_SECRET_KEY",
+    "CLERK_WEBHOOK_SECRET",
+    "NEXT_PUBLIC_CLERK_SIGN_IN_URL",
+    "NEXT_PUBLIC_CLERK_SIGN_UP_URL",
+    "NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL",
+    "NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL"
+  ],
+  "ui": "stream",
+  "tasks": {
+    "build": {
+      "env": [
+        "RESEND_API_KEY",
+        "RESEND_SENDER_EMAIL_AUTH",
+        "LOOPS_FORM_ID",
+        "OPENPANEL_SECRET_KEY",
+        "NEXT_PUBLIC_OPENPANEL_CLIENT_ID",
+        "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "NEXT_PUBLIC_SENTRY_DSN",
+        "NEXT_PUBLIC_CAL_LINK",
+        "CLERK_SECRET_KEY",
+        "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+        "NEXT_PUBLIC_CLERK_FRONTEND_API_URL",
+        "CLERK_WEBHOOK_SECRET",
+        "CONVEX_DEPLOYMENT",
+        "OPENAI_API_KEY",
+        "OPENAI_MODEL"
+      ],
+      "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local", "!**/*.stories.*"],
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "next-env.d.ts",
+        "dist/**",
+        "storybook-static/**"
+      ]
+    },
+    "start": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
+    "test:e2e": {
+      "dependsOn": ["@v1/deedee#build", "@v1/web#build"],
+      "env": [
+        "E2E_CLERK_USER_USERNAME",
+        "E2E_CLERK_USER_PASSWORD",
+        "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+        "CLERK_SECRET_KEY",
+        "NEXT_PUBLIC_CONVEX_URL"
+      ],
+      "cache": false
+    },
+    "clean": {
+      "cache": false
+    },
+    "dev": {
+      "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"],
+      "persistent": true,
+      "cache": false
+    },
+    "dev:env-upload-watch": {
+      "inputs": [".env", ".env.local"],
+      "persistent": true,
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": []
+    },
+    "format": {
+      "cache": false
+    },
+    "storybook": {
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "stories/**/*.tsx",
+        "stories/**/*.ts",
+        "stories/**/*.mdx",
+        ".storybook/**/*",
+        "../../../packages/ui/src/**/*.stories.*"
+      ],
+      "persistent": true,
+      "cache": false
+    },
+    "build-storybook": {
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "stories/**/*.tsx",
+        "stories/**/*.ts",
+        "stories/**/*.mdx",
+        ".storybook/**/*",
+        "../../../packages/ui/src/**/*.stories.*"
+      ],
+      "outputs": ["storybook-static/**"]
+    }
+  }
+}

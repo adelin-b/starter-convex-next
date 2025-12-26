@@ -30,11 +30,46 @@ export type {
  * Add new tables here as they are created
  */
 export type AppTables =
+  // Starter template tables
   | "todos"
   | "organizations"
   | "organizationMembers"
   | "organizationInvitations"
-  | "admins";
+  | "admins"
+  // API & Usage tables
+  | "apiKeys"
+  | "usageEvents"
+  | "dailyUsage"
+  | "organizationUsage"
+  | "auditLogs"
+  | "apiLogs"
+  | "subscriptions"
+  // Files & Notifications
+  | "files"
+  | "notifications"
+  | "notificationPreferences"
+  // Agents & Tools
+  | "agents"
+  | "agentFolders"
+  | "agentTemplates"
+  | "agentTools"
+  | "agentData"
+  | "agentActions"
+  // Scripts & Prospects
+  | "scripts"
+  | "prospects"
+  | "campaigns"
+  // Calls
+  | "calls"
+  | "callTranscripts"
+  | "scheduledCallbacks"
+  // SDR Copilot
+  | "vehicleInsights"
+  | "sdrCallPreps"
+  | "sdrInsightUsage"
+  | "salesTechniques"
+  | "aiGeneratedScripts"
+  | "sdrLiveSuggestions";
 
 /**
  * Base query with typed database

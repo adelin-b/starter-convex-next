@@ -46,6 +46,7 @@ export default function SignUpForm({
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignUpFormData>({
+    // @ts-expect-error - Zod v3.25 version mismatch with zodResolver
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       name: "",
