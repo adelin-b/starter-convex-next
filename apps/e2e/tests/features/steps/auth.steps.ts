@@ -2,54 +2,45 @@ import type { Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 import { FORM_VALIDATION_DELAY } from "../../../lib/constants";
 import { isMobileViewport } from "../../../lib/viewport-utils";
-import { Given, Then, When } from "./fixtures";
+import { Given, Then, When, waitForConvexConnection } from "./fixtures";
 
 /**
  * Helper to wait for authentication to complete.
+ * After login, user is redirected to /todos.
  * On desktop: waits for user-menu to be visible
- * On mobile: sidebar has no trigger, so we check for authenticated content (dashboard data)
+ * On mobile: waits for Todos heading since sidebar is collapsed
  */
 async function waitForAuthenticated(page: Page, timeout = 15_000): Promise<void> {
-  const userMenu = page.locator('[data-testid="user-menu"]');
-
-  // First check if user-menu is already visible (desktop)
-  // Log unexpected errors (not just "element not found") for debugging
-  const isVisible = await userMenu.isVisible().catch((error) => {
-    const msg = (error as Error).message || "";
-    if (!(msg.includes("not found") || msg.includes("detached"))) {
-      process.stderr.write(`[Auth] Unexpected error checking visibility: ${msg}\n`);
-    }
-    return false;
-  });
-  if (isVisible) {
-    return;
-  }
+  // Wait for redirect to /todos
+  await page.waitForURL(/\/todos/, { timeout });
 
   if (isMobileViewport(page)) {
-    // On mobile, sidebar has no trigger - verify auth by checking for authenticated-only content
-    // The dashboard shows "privateData: {message}" only when authenticated
-    const dashboardContent = page.locator("text=privateData:");
-    await dashboardContent.waitFor({ state: "visible", timeout });
+    // On mobile, verify by checking for Todos heading
+    const todosHeading = page.getByRole("heading", { name: /todos/i });
+    await todosHeading.waitFor({ state: "visible", timeout: 10_000 });
   } else {
     // Desktop - wait for the user-menu
+    const userMenu = page.locator('[data-testid="user-menu"]');
     await userMenu.waitFor({ state: "visible", timeout });
   }
 }
 
 /**
- * Step definition for navigating to the dashboard page.
- * When unauthenticated, this shows the sign-in/sign-up forms.
+ * Step definition for navigating to the login page.
+ * Shows sign-up form by default, with option to switch to sign-in.
  *
  * Usage in feature files:
- *   Given I am on the dashboard page
+ *   Given I am on the login page
  */
-Given("I am on the dashboard page", async ({ ctx }) => {
-  await ctx.page.goto("/dashboard");
+Given("I am on the login page", async ({ ctx }) => {
+  await ctx.page.goto("/login");
+  // Wait for Convex to connect (avoids "Connection Problem" overlay)
+  await waitForConvexConnection(ctx.page);
 });
 
 /**
  * Step definition for signing in manually during a test.
- * The sign-in form appears on /dashboard when unauthenticated.
+ * The sign-in form appears on /login when unauthenticated.
  * First clicks "Sign In" link to show the sign-in form (default is sign-up form).
  * If a matching account was created earlier, uses the stored unique email.
  *
@@ -73,12 +64,27 @@ When(
     const isOnSignUpForm = await nameField.isVisible();
 
     if (isOnSignUpForm) {
+      // On mobile, button clicks can be flaky - use more reliable approach
       const switchButton = ctx.page.getByRole("button", { name: /already have an account/i });
       await switchButton.scrollIntoViewIfNeeded();
-      await switchButton.click({ force: true });
+
+      // Wait a moment for any animations to settle
+      await ctx.page.waitForTimeout(100);
+
+      // Click and wait for form transition
+      await switchButton.click();
 
       // Wait for name field to disappear (form switch animation)
-      await nameField.waitFor({ state: "hidden", timeout: 5000 });
+      // Use polling to handle mobile viewport delays
+      await ctx.page.waitForFunction(
+        () => !document.querySelector('input[name="name"]') || document.querySelector('input[name="name"]')?.closest('[style*="display: none"]'),
+        { timeout: 10_000, polling: 200 },
+      ).catch(async () => {
+        // Retry click if form didn't switch
+        process.stderr.write("[Auth] Form switch didn't happen, retrying click...\n");
+        await switchButton.click();
+        await nameField.waitFor({ state: "hidden", timeout: 5000 });
+      });
     }
 
     // Wait for sign-in form email field to be ready
@@ -105,7 +111,7 @@ When(
     // Use submit button inside form (type="submit"), not the switch button
     const submitButton = ctx.page.locator('button[type="submit"]');
     await submitButton.scrollIntoViewIfNeeded();
-    await submitButton.click({ force: true });
+    await submitButton.click();
 
     // Wait for either success (authenticated content) or error (toast)
     await Promise.race([
@@ -117,7 +123,7 @@ When(
 
 /**
  * Step definition for signing up a new user during a test.
- * The sign-up form is shown by default on /dashboard when unauthenticated.
+ * The sign-up form is shown by default on /login when unauthenticated.
  *
  * Usage in feature files:
  *   When I sign up with name "Test User", email "new@example.com" and password "password123"
@@ -129,8 +135,10 @@ When(
     const [localPart, domain] = email.split("@");
     const uniqueEmail = `${localPart}+${Date.now()}@${domain}`;
 
-    // Navigate to dashboard which shows sign-in form when unauthenticated
-    await ctx.page.goto("/dashboard");
+    // Navigate to login which shows sign-up form by default when unauthenticated
+    await ctx.page.goto("/login");
+    // Wait for Convex to connect (avoids "Connection Problem" overlay)
+    await waitForConvexConnection(ctx.page);
 
     // Wait for either sign-in or sign-up form to appear
     await ctx.page.waitForSelector('input[name="email"]', { state: "visible", timeout: 10_000 });
@@ -173,10 +181,10 @@ When(
         process.stderr.write(`[Auth] Form validation wait timed out: ${error.message}\n`);
       });
 
-    // Click submit button with force:true to ensure it triggers
+    // Click submit button
     const submitButton = ctx.page.getByRole("button", { name: /sign up/i }).first();
     await submitButton.scrollIntoViewIfNeeded();
-    await submitButton.click({ force: true });
+    await submitButton.click();
 
     // Wait for either:
     // 1. Successful authentication (user-menu or privateData appears)
@@ -235,16 +243,20 @@ When("I log out", async ({ ctx }) => {
 
 /**
  * Step definition for verifying authenticated state.
- * On mobile, checks for authenticated content since user-menu is inaccessible.
+ * After login, user is redirected to /todos. Verifies by checking URL and user menu.
+ * On mobile, checks for todos page content since user-menu is in sidebar.
  *
  * Usage in feature files:
  *   Then I should be logged in
  */
 Then("I should be logged in", async ({ ctx }) => {
+  // Wait for redirect to /todos (app redirects there after login)
+  await ctx.page.waitForURL(/\/todos/, { timeout: 15_000 });
+
   if (isMobileViewport(ctx.page)) {
-    // On mobile, verify by checking for authenticated-only content
-    const dashboardContent = ctx.page.locator("text=privateData:");
-    await expect(dashboardContent).toBeVisible({ timeout: 10_000 });
+    // On mobile, verify by checking for Todos heading
+    const todosHeading = ctx.page.getByRole("heading", { name: /todos/i });
+    await expect(todosHeading).toBeVisible({ timeout: 10_000 });
   } else {
     // On desktop, check for user menu which only appears when authenticated
     const userMenu = ctx.page.locator('[data-testid="user-menu"]');
@@ -283,14 +295,15 @@ Then("the URL should be {string}", async ({ ctx }, expectedUrl: string) => {
 
 /**
  * Step definition for verifying sign-in option is visible.
- * When unauthenticated, the dashboard shows sign-up form with a link to sign-in.
+ * When unauthenticated, the login page shows sign-up form with a link to sign-in.
  *
  * Usage in feature files:
  *   Then I should see the sign in option
  */
 Then("I should see the sign in option", async ({ ctx }) => {
-  // The dashboard shows sign-up by default with a "Sign In" link
-  const signInOption = ctx.page.getByRole("button", { name: /sign in/i });
+  // The login page shows sign-up by default with "Already have an account? Sign In" button
+  // Use more specific selector to avoid matching "Sign in with Google"
+  const signInOption = ctx.page.getByRole("button", { name: /already have an account/i });
   await expect(signInOption).toBeVisible({ timeout: 10_000 });
 });
 
@@ -346,7 +359,9 @@ Given(
     ctx.accountEmail = uniqueEmail;
     ctx.accountPassword = password;
 
-    await ctx.page.goto("/dashboard");
+    await ctx.page.goto("/login");
+    // Wait for Convex to connect (avoids "Connection Problem" overlay)
+    await waitForConvexConnection(ctx.page);
 
     // Wait for either sign-in or sign-up form to appear
     await ctx.page.waitForSelector('input[name="email"]', { state: "visible", timeout: 10_000 });
@@ -389,10 +404,10 @@ Given(
         process.stderr.write(`[Auth] Form validation wait timed out: ${error.message}\n`);
       });
 
-    // Click submit button with force:true to ensure it triggers
+    // Click submit button
     const submitButton = ctx.page.getByRole("button", { name: /sign up/i }).first();
     await submitButton.scrollIntoViewIfNeeded();
-    await submitButton.click({ force: true });
+    await submitButton.click();
 
     // Wait for successful signup (handles mobile sidebar)
     await waitForAuthenticated(ctx.page, 15_000);
@@ -529,7 +544,7 @@ When(
     // Click submit
     const submitButton = ctx.page.getByRole("button", { name: /sign up/i }).first();
     await submitButton.scrollIntoViewIfNeeded();
-    await submitButton.click({ force: true });
+    await submitButton.click();
 
     // Wait for error response (don't wait for success since we expect failure)
     await ctx.page.waitForSelector('[data-sonner-toast][data-type="error"]', { timeout: 15_000 });

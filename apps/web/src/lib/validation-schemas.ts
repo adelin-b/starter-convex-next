@@ -6,11 +6,15 @@ import { z } from "zod";
  * configured in IntlProvider (z.config with zod/locales).
  */
 
-export const emailSchema = z.email();
+export const emailSchema = z.email({ message: "Invalid email address" });
 
-export const passwordSchema = z.string().min(8);
+export const passwordSchema = z
+  .string()
+  .min(8, { message: "Password must be at least 8 characters" });
 
-export const nameSchema = z.string().min(2);
+export const nameSchema = z
+  .string()
+  .min(2, { message: "Name must be at least 2 characters" });
 
 export const signInSchema = z.object({
   email: emailSchema,

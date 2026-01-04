@@ -1,7 +1,6 @@
 import { cn } from "@starter-saas/ui/utils";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import "@starter-saas/ui/globals.css";
 import Providers from "@/components/providers/providers";
 import { getLocale } from "@/lib/get-locale";
@@ -36,20 +35,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        {/* biome-ignore lint/style/noProcessEnv: Server component dev script check */}
-        {process.env.NODE_ENV === "development" && (
-          <>
-            <Script
-              src="//unpkg.com/react-grab/dist/index.global.js"
-              strategy="beforeInteractive"
-            />
-            <Script
-              src="//unpkg.com/@react-grab/claude-code/dist/client.global.js"
-              strategy="lazyOnload"
-            />
-          </>
-        )}
-        <script async crossOrigin="anonymous" src="https://tweakcn.com/live-preview.min.js" />
+{/* Dev tools loaded via DevToolsLoader component to avoid duplicate script loading */}
       </head>
       <body className={cn(geistSans.variable, geistMono.variable, "antialiased")}>
         <Providers locale={locale} messages={messages}>

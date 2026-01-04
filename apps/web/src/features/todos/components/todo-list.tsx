@@ -19,7 +19,8 @@ export function TodoList() {
     );
   }
 
-  if (todos.length === 0) {
+  // Handle case when query returns undefined (auth loading, error, etc.)
+  if (!todos || todos.length === 0) {
     return (
       <CardEmptyState
         description="Create your first todo to get started"

@@ -1,10 +1,51 @@
 import type { BrowserContext, Page } from "@playwright/test";
 import { ConvexHttpClient } from "convex/browser";
 import { test as base, createBdd } from "playwright-bdd";
+import { hideNextjsDevOverlay } from "../../../lib/nextjs-overlay-utils";
 
 // Re-export the Convex API for use in step definitions
 // biome-ignore lint/performance/noBarrelFile: intentional re-export for step definitions convenience
 export { api } from "@starter-saas/backend/convex/_generated/api";
+
+/**
+ * Wait for Convex connection to be established.
+ * The app shows overlays when Convex is connecting or disconnected:
+ * - "Connecting..." overlay after 2s
+ * - "Connection Problem" overlay after 10s
+ *
+ * This function actively waits for connection to succeed by checking
+ * that no connection overlay is visible and the page content is interactive.
+ *
+ * @param page - Playwright page
+ * @param timeout - Maximum time to wait (default 30s for initial connection)
+ */
+export async function waitForConvexConnection(page: Page, timeout = 30_000): Promise<void> {
+  const startTime = Date.now();
+  const checkInterval = 500;
+
+  // Wait for initial page load
+  await page.waitForLoadState("domcontentloaded");
+
+  while (Date.now() - startTime < timeout) {
+    // Check for connection overlays
+    const connectingOverlay = page.getByRole("heading", { name: /Connecting\.\.\./i });
+    const connectionProblem = page.getByRole("heading", { name: /Connection Problem/i });
+
+    const isConnecting = await connectingOverlay.isVisible().catch(() => false);
+    const hasConnectionProblem = await connectionProblem.isVisible().catch(() => false);
+
+    // If no connection overlay visible, connection is established
+    if (!isConnecting && !hasConnectionProblem) {
+      return;
+    }
+
+    // Wait and retry
+    await page.waitForTimeout(checkInterval);
+  }
+
+  // If we get here, connection didn't establish in time - throw useful error
+  throw new Error(`Convex connection not established within ${timeout}ms. Check backend logs.`);
+}
 
 // Admin key for direct DB access (same as in convex-backend.ts)
 const ADMIN_KEY =
@@ -49,6 +90,9 @@ export const test = base.extend<{ ctx: TestContext }>({
     // Create a fresh browser context for each test (isolated cookies/storage)
     const context = await browser.newContext();
     const page = await context.newPage();
+
+    // Hide Next.js dev overlay to prevent click interception
+    await hideNextjsDevOverlay(page);
 
     const context_: TestContext = {
       page,

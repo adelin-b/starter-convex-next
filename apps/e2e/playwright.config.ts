@@ -35,6 +35,8 @@ import {
 
 const isCI = !!process.env.CI;
 const isIsolated = process.env.ISOLATED !== "false"; // Default: true (isolated)
+// Reuse servers locally (handles UI mode restarts), fresh in CI
+const shouldReuseServer = !isCI;
 
 // Port configuration
 // - Dev servers: 3xxx/6xxx (web=3001, storybook=6006)
@@ -99,15 +101,18 @@ export default defineConfig({
     // ─────────────────────────────────────────────────────────────────
     // Features - BDD tests (auth, navigation)
     // Default: Chrome + mobile. CI adds Firefox + webkit.
+    // Timeout increased to 60s for Convex subscription sync.
     // ─────────────────────────────────────────────────────────────────
     {
       name: "features-chromium",
       testDir: bddTestDir,
+      timeout: 60_000,
       use: { ...devices["Desktop Chrome"] },
     },
     {
       name: "features-mobile",
       testDir: bddTestDir,
+      timeout: 60_000,
       use: { ...devices["iPhone 14"] },
     },
     // Firefox and webkit only run in CI
@@ -141,7 +146,7 @@ export default defineConfig({
           cwd: "../..",
           command: `echo '🔧 Starting Convex backend (isolated on port ${E2E_CONVEX_START_PORT})...' && cd apps/e2e && bun scripts/start-convex.ts`,
           url: `http://127.0.0.1:${E2E_CONVEX_START_PORT}`,
-          reuseExistingServer: false,
+          reuseExistingServer: shouldReuseServer,
           gracefulShutdown: { signal: "SIGINT", timeout: SHUTDOWN_TIMEOUT },
           timeout: SERVER_TIMEOUT_MS,
           stdout: "pipe",
@@ -150,9 +155,10 @@ export default defineConfig({
         {
           name: "web",
           cwd: "../..",
-          command: `echo '🚀 Starting web server (isolated on port ${WEB_PORT})...' && cd apps/web && rm -rf .next-e2e && E2E_MODE=true PORT=${WEB_PORT} bunx next dev --port ${WEB_PORT}`,
+          // Write .env.e2e before starting Next.js (sets NEXT_PUBLIC_CONVEX_SITE_URL, etc.)
+          command: `echo '🚀 Starting web server (isolated on port ${WEB_PORT})...' && cd apps/e2e && bun scripts/write-e2e-env.ts && cd ../web && rm -rf .next-e2e && E2E_MODE=true PORT=${WEB_PORT} bunx next dev --port ${WEB_PORT}`,
           url: WEB_BASE_URL,
-          reuseExistingServer: false,
+          reuseExistingServer: shouldReuseServer,
           gracefulShutdown: { signal: "SIGINT", timeout: SHUTDOWN_TIMEOUT },
           timeout: SERVER_TIMEOUT_MS,
           // Note: Use DEBUG=pw:webserver to see server startup logs
@@ -165,7 +171,7 @@ export default defineConfig({
           command: `echo '📚 Starting Storybook (isolated on port ${STORYBOOK_PORT})...' && STORYBOOK_NO_OPEN=1 STORYBOOK_PORT=${STORYBOOK_PORT} bun dev:storybook`,
           url: STORYBOOK_BASE_URL,
           gracefulShutdown: { signal: "SIGINT", timeout: SHUTDOWN_TIMEOUT },
-          reuseExistingServer: false,
+          reuseExistingServer: shouldReuseServer,
           timeout: SERVER_TIMEOUT_MS,
           stdout: "pipe",
           stderr: "pipe",

@@ -27,7 +27,7 @@ type SignUpFormProps = {
 
 export default function SignUpForm({
   onSwitchToSignIn,
-  callbackUrl = "/vehicles",
+  callbackUrl = "/todos",
 }: SignUpFormProps) {
   const router = useRouter();
   const { t } = useLingui();
