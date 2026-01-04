@@ -1,15 +1,12 @@
 import { api } from "@starter-saas/backend/convex/_generated/api";
-import { useMutation } from "convex/react";
 import { useQuery } from "convex-helpers/react/cache/hooks";
-import { useEffect } from "react";
 import { authClient } from "@/lib/auth/client";
 
 /**
  * Enhanced User Hook
  *
  * Features:
- * - Automatic profile creation/linking when user signs up
- * - Real-time profile updates via Convex
+ * - Real-time user data via Convex (user created automatically by Better-Auth)
  * - Role and KYC status helpers
  * - TypeScript type safety
  *
@@ -29,25 +26,8 @@ export function useUser() {
   const betterAuthUser = session?.user;
 
   // Reactive query to get user data (automatically updates when data changes)
-  const user = useQuery(api.users.getCurrentUser);
-
-  // Mutation to create user if needed
-  const createUser = useMutation(api.users.getOrCreateUser);
-
-  // Handle user creation when signed in but no user exists yet
-  useEffect(() => {
-    const createUserIfNeeded = async () => {
-      if (!isSessionLoading && betterAuthUser && user === null) {
-        try {
-          await createUser();
-        } catch (error) {
-          console.error("Error creating user:", error);
-        }
-      }
-    };
-
-    createUserIfNeeded();
-  }, [isSessionLoading, betterAuthUser, user, createUser]);
+  // Users are created automatically by Better-Auth database hooks
+  const user = useQuery(api.auth.getCurrentUser);
 
   // Role helpers (using globalRole from schema)
   const isUser = user?.globalRole === "user" || !user?.globalRole;

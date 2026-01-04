@@ -15,11 +15,22 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@starter-saas/ui/
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { AuthWrapper } from "@/components/auth/auth-wrapper";
 import { AgentBreadcrumbOverride } from "@/components/breadcrumb/agent-breadcrumb-override";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import "@copilotkit/react-ui/styles.css";
+
+// CopilotKit is only enabled when agent name is configured
+const COPILOT_ENABLED = !!process.env.NEXT_PUBLIC_COPILOTKIT_AGENT_NAME;
+
+function CopilotWrapper({ children }: { children: ReactNode }) {
+  if (!COPILOT_ENABLED) {
+    return <>{children}</>;
+  }
+  return <CopilotKit runtimeUrl="/api/copilotkit">{children}</CopilotKit>;
+}
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
@@ -33,20 +44,19 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   // Generate breadcrumb based on current path
   const generateBreadcrumb = () => {
     const segments = pathname.split("/").filter(Boolean);
-    const breadcrumbItems: Array<{ label: string; href?: string; isLast: boolean }> = [];
 
-    // Always start with Dashboard
-    breadcrumbItems.push({
+    // Start with Dashboard, then add other segments
+    const dashboardItem = {
       label: "Dashboard",
       href: "/dashboard",
       isLast: segments.length === 1,
-    });
+    };
 
-    // Add other segments
-    for (let i = 1; i < segments.length; i += 1) {
-      const segment = segments[i];
-      const href = `/${segments.slice(0, i + 1).join("/")}`;
-      const isLast = i === segments.length - 1;
+    // Map remaining segments to breadcrumb items
+    const additionalItems = segments.slice(1).map((segment, index) => {
+      const segmentIndex = index + 1;
+      const href = `/${segments.slice(0, segmentIndex + 1).join("/")}`;
+      const isLast = segmentIndex === segments.length - 1;
 
       // Convert segment to readable label
       let label =
@@ -60,14 +70,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         label = agentNames[segment];
       }
 
-      breadcrumbItems.push({
+      return {
         label,
         href: isLast ? undefined : href,
         isLast,
-      });
-    }
+      };
+    });
 
-    return breadcrumbItems;
+    return [dashboardItem, ...additionalItems];
   };
 
   const handleAgentNameLoad = (agentId: string, agentName: string) => {
@@ -85,7 +95,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <AuthWrapper>
-      <CopilotKit runtimeUrl="/api/copilotkit">
+      <CopilotWrapper>
         <AgentBreadcrumbOverride onAgentNameLoad={handleAgentNameLoad} />
         <SidebarProvider>
           <AppSidebar />
@@ -137,7 +147,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="flex flex-1 flex-col gap-4 overflow-hidden p-4 pt-0">{children}</div>
           </SidebarInset>
         </SidebarProvider>
-      </CopilotKit>
+      </CopilotWrapper>
     </AuthWrapper>
   );
 }
