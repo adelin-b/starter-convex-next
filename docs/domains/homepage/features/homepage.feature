@@ -1,41 +1,19 @@
 @homepage
 Feature: Homepage
-	As a user
-	I want to see the homepage
-	So that I can understand what the application does
-
-	Background:
-		Given I am authenticated
-		When I visit the homepage
+	As a visitor
+	I want to see the landing page
+	So that I can understand what the application offers
 
 	# ─────────────────────────────────────────────────────────────────
 	# Page Load
 	# ─────────────────────────────────────────────────────────────────
 
-	Scenario: Load the homepage as authenticated user
-		Then the URL should be "/"
+	Scenario: View landing page
+		Given I am on the homepage
+		Then I should see the hero section
+		And I should see "Get Started" button
 
-	Scenario: Display title banner
-		Then I should see the title banner
-
-	# ─────────────────────────────────────────────────────────────────
-	# API Status
-	# ─────────────────────────────────────────────────────────────────
-
-	Scenario: Display API status section
-		Then I should see the API status section
-
-	Scenario: Connect to Convex API
-		When I wait for the API to connect
-		Then the API status should be "Connected"
-
-	# ─────────────────────────────────────────────────────────────────
-	# Accessibility
-	# ─────────────────────────────────────────────────────────────────
-
-	Scenario: Have proper heading structure
-		Then I should see the "API Status" heading
-
-	Scenario: Be keyboard navigable
-		When I press the Tab key
-		Then an element should have focus
+	Scenario: Navigate to login from landing page
+		Given I am on the homepage
+		When I click on "Sign In" button
+		Then I should be on the login page

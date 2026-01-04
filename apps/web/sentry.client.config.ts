@@ -5,6 +5,12 @@
 // biome-ignore lint/performance/noNamespaceImport: Sentry SDK requires namespace import pattern
 import * as Sentry from "@sentry/nextjs";
 
+// biome-ignore lint/style/noProcessEnv: Environment check at initialization
+const isDev = process.env.NODE_ENV === "development";
+
+// Spotlight auto-enabled in dev - sidecar runs via `bun dev`
+const spotlightEnabled = isDev;
+
 Sentry.init({
   // biome-ignore lint/style/noProcessEnv: Sentry config requires direct env access at initialization
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
@@ -44,13 +50,17 @@ Sentry.init({
   replaysSessionSampleRate: 0.1, // 10% of sessions
   replaysOnErrorSampleRate: 1, // 100% of sessions with errors
 
-  // Only enable in production
+  // Enable in production OR when Spotlight is enabled for dev
   // biome-ignore lint/style/noProcessEnv: Sentry config requires direct env access at initialization
-  enabled: process.env.NODE_ENV === "production",
+  enabled: process.env.NODE_ENV === "production" || spotlightEnabled,
 
   // Set environment
   // biome-ignore lint/style/noProcessEnv: Sentry config requires direct env access at initialization
   environment: process.env.NODE_ENV,
+
+  // Spotlight: local dev overlay showing Sentry events without sending to cloud
+  // https://spotlightjs.com/setup/nextjs/
+  spotlight: spotlightEnabled,
 
   // Debug mode for development
   debug: false,

@@ -50,7 +50,7 @@ function LoginContent() {
         <RedirectOnAuth callbackUrl={callbackUrl} />
       </Authenticated>
       <Unauthenticated>
-        <AuthPageLayout>
+        <AuthPageLayout callbackUrl={callbackUrl}>
           {showSignIn ? (
             <SignInForm callbackUrl={callbackUrl} onSwitchToSignUp={() => setShowSignIn(false)} />
           ) : (

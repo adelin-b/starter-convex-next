@@ -19,7 +19,7 @@ export function isValidCallbackUrl(url: string): boolean {
  */
 export function getSafeCallbackUrl(
   url: string | null | undefined,
-  defaultUrl = "/vehicles",
+  defaultUrl = "/todos",
 ): string {
   if (url && isValidCallbackUrl(url)) {
     return url;

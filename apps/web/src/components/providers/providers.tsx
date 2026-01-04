@@ -5,6 +5,7 @@ import type { Messages } from "@lingui/core";
 import { Toaster } from "@starter-saas/ui/sonner";
 import { ConvexReactClient } from "convex/react";
 import { ConvexQueryCacheProvider } from "convex-helpers/react/cache/provider";
+import { DevToolsLoader } from "@/components/dev-tools-loader";
 import { ConnectionStatusOverlay } from "@/components/ui/connection-status-overlay";
 import { env } from "@/config/env";
 import { authClient } from "@/lib/auth/client";
@@ -13,6 +14,9 @@ import { IntlProvider } from "./intl-provider";
 import { ThemeProvider } from "./theme-provider";
 
 const convex = new ConvexReactClient(env.NEXT_PUBLIC_CONVEX_URL);
+
+// biome-ignore lint/style/noProcessEnv: Dev mode check at module level
+const isDev = process.env.NODE_ENV === "development";
 
 type ProvidersProps = {
   children: React.ReactNode;
@@ -31,6 +35,7 @@ export default function Providers({ children, locale, messages }: ProvidersProps
         </ConvexBetterAuthProvider>
       </IntlProvider>
       <Toaster richColors />
+      {isDev && <DevToolsLoader />}
     </ThemeProvider>
   );
 }

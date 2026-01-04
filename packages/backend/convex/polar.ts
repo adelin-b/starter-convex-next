@@ -22,19 +22,20 @@ const polarComponent = (components as unknown as { polar: any }).polar;
  *
  * @see https://polar.sh/docs
  */
-export const polar = new Polar<DataModel>(polarComponent, {
+export const polar: Polar<DataModel> = new Polar<DataModel>(polarComponent, {
   /**
    * Get user info for subscription lookup.
    * This connects Polar subscriptions to your user system.
    */
-  getUserInfo: async (ctx) => {
-    const user = await ctx.runQuery(api.auth.getCurrentUser);
+  getUserInfo: async (ctx): Promise<{ userId: string; email: string }> => {
+    // biome-ignore lint/suspicious/noExplicitAny: better-auth user type is complex
+    const user: any = await ctx.runQuery(api.auth.getCurrentUser);
     if (!user) {
       throw new Error("User not authenticated");
     }
     return {
-      userId: user._id,
-      email: user.email,
+      userId: user.id as string,
+      email: user.email as string,
     };
   },
 
@@ -93,12 +94,14 @@ export const {
 export const getCurrentSubscription = query({
   args: {},
   returns: v.any(),
-  handler: async (ctx) => {
-    const user = await ctx.runQuery(api.auth.getCurrentUser);
+  // biome-ignore lint/suspicious/noExplicitAny: Polar subscription type is complex
+  handler: async (ctx): Promise<any> => {
+    // biome-ignore lint/suspicious/noExplicitAny: better-auth user type is complex
+    const user: any = await ctx.runQuery(api.auth.getCurrentUser);
     if (!user) {
       return null; // Not authenticated = no subscription
     }
-    return await polar.getCurrentSubscription(ctx, { userId: user._id });
+    return await polar.getCurrentSubscription(ctx, { userId: user.id });
   },
 });
 

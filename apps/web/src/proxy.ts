@@ -4,9 +4,9 @@ import { type NextRequest, NextResponse } from "next/server";
 import { getSafeCallbackUrl } from "@/utils/url-utils";
 
 // Routes that require authentication
-const protectedRoutes = ["/", "/vehicles", "/admin"] as const;
+const protectedRoutes = ["/todos", "/settings", "/admin"] as const;
 
-// Routes that should redirect to vehicles if already authenticated
+// Routes that should redirect to app if already authenticated
 const authRoutes = ["/login"] as const;
 
 export function proxy(request: NextRequest) {

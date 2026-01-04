@@ -1,67 +1,41 @@
 import { expect } from "@playwright/test";
-import { EXTENDED_TIMEOUT } from "../../../lib/constants";
-import { Then, When } from "./fixtures";
+import { Then, When, waitForConvexConnection } from "./fixtures";
 
 /**
- * Step definition for visiting the homepage.
+ * Step definition for verifying the hero section is visible.
+ * The hero section contains the main headline and CTA buttons.
  */
-When("I visit the homepage", async ({ page, ctx }) => {
-  ctx.page = ctx.page || page;
-  await ctx.page.goto("/");
+Then("I should see the hero section", async ({ ctx }) => {
+  // Wait for Convex connection first
+  await waitForConvexConnection(ctx.page);
+
+  // Hero section has the main headline
+  const heroHeading = ctx.page.locator("h1");
+  await expect(heroHeading).toBeVisible();
+  await expect(heroHeading).toContainText("Build Your SaaS");
 });
 
 /**
- * Step definition for verifying the title banner is visible.
+ * Step definition for verifying a button is visible by text.
+ * Uses .first() since pages may have multiple buttons with similar text (e.g., "Get Started" in hero and pricing cards).
  */
-Then("I should see the title banner", async ({ ctx }) => {
-  const preBanner = ctx.page.locator("pre");
-  await expect(preBanner).toBeVisible();
-  await expect(preBanner).toContainText("██");
+Then("I should see {string} button", async ({ ctx }, buttonText: string) => {
+  const button = ctx.page.getByRole("button", { name: new RegExp(buttonText, "i") }).first();
+  await expect(button).toBeVisible();
 });
 
 /**
- * Step definition for verifying the API status section is visible.
+ * Step definition for clicking on a button by text.
  */
-Then("I should see the API status section", async ({ ctx }) => {
-  const apiStatusSection = ctx.page.locator("section").filter({ hasText: "API Status" });
-  await expect(apiStatusSection).toBeVisible();
+When("I click on {string} button", async ({ ctx }, buttonText: string) => {
+  const button = ctx.page.getByRole("button", { name: new RegExp(buttonText, "i") });
+  await button.click();
 });
 
 /**
- * Step definition for waiting for the API to connect.
+ * Step definition for verifying we're on the login page.
  */
-When("I wait for the API to connect", async ({ ctx }) => {
-  const statusText = ctx.page.locator("section").filter({ hasText: "API Status" }).locator("span");
-  await statusText.filter({ hasText: "Connected" }).waitFor({ timeout: EXTENDED_TIMEOUT });
-});
-
-/**
- * Step definition for verifying the API status.
- */
-Then("the API status should be {string}", async ({ ctx }, expectedStatus: string) => {
-  const statusText = ctx.page.locator("section").filter({ hasText: "API Status" }).locator("span");
-  await expect(statusText).toContainText(expectedStatus);
-});
-
-/**
- * Step definition for verifying a heading is visible.
- */
-Then("I should see the {string} heading", async ({ ctx }, headingText: string) => {
-  const heading = ctx.page.getByRole("heading", { name: headingText });
-  await expect(heading).toBeVisible();
-});
-
-/**
- * Step definition for pressing the Tab key.
- */
-When("I press the Tab key", async ({ ctx }) => {
-  await ctx.page.keyboard.press("Tab");
-});
-
-/**
- * Step definition for verifying an element has focus.
- */
-Then("an element should have focus", async ({ ctx }) => {
-  const focusedElement = ctx.page.locator(":focus");
-  await expect(focusedElement).toBeVisible();
+Then("I should be on the login page", async ({ ctx }) => {
+  await ctx.page.waitForURL(/\/login/);
+  await expect(ctx.page).toHaveURL(/\/login/);
 });
