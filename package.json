@@ -37,7 +37,6 @@
     "dev:setup": "turbo -F @starter-saas/backend dev:setup",
     "dev:storybook": "turbo -F @starter-saas/storybook dev",
     "dev:emails": "turbo -F @starter-saas/emails dev",
-    "dev:deedee": "turbo -F deedee dev",
     "dev:agent": "turbo -F @starter-saas/agent-livekit dev",
     "test": "turbo test",
     "test:watch": "vitest --watch",

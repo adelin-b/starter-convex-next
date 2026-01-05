@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "esbuild src/agent.ts --bundle --platform=node --format=esm --outdir=dist --packages=external",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
     "dev": "tsx scripts/ensure-models.ts",
@@ -17,11 +17,13 @@
     "@livekit/agents-plugin-silero": "^1.0.15",
     "@livekit/noise-cancellation-node": "^0.1.9",
     "@starter-saas/backend": "workspace:*",
+    "convex": "^1.31.2",
     "dotenv": "^17.2.3",
     "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "esbuild": "^0.27.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }

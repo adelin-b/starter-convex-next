@@ -8,9 +8,15 @@
  * @module
  */
 
+import type * as admins from "../admins.js";
+import type * as agentTemplates from "../agentTemplates.js";
+import type * as agents from "../agents.js";
 import type * as auth from "../auth.js";
+import type * as calls from "../calls.js";
+import type * as campaigns from "../campaigns.js";
 import type * as emails_index from "../emails/index.js";
 import type * as env from "../env.js";
+import type * as files from "../files.js";
 import type * as healthCheck from "../healthCheck.js";
 import type * as http from "../http.js";
 import type * as invitations from "../invitations.js";
@@ -21,11 +27,15 @@ import type * as lib_users from "../lib/users.js";
 import type * as organizations from "../organizations.js";
 import type * as polar from "../polar.js";
 import type * as privateData from "../privateData.js";
+import type * as prospects from "../prospects.js";
+import type * as scripts from "../scripts.js";
+import type * as sdrCopilot from "../sdrCopilot.js";
 import type * as testing_emails from "../testing/emails.js";
 import type * as testing_lib from "../testing/lib.js";
 import type * as testing_testing from "../testing/testing.js";
 import type * as todos from "../todos.js";
 import type * as utils_crud from "../utils/crud.js";
+import type * as web from "../web.js";
 
 import type {
   ApiFromModules,
@@ -34,9 +44,15 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  admins: typeof admins;
+  agentTemplates: typeof agentTemplates;
+  agents: typeof agents;
   auth: typeof auth;
+  calls: typeof calls;
+  campaigns: typeof campaigns;
   "emails/index": typeof emails_index;
   env: typeof env;
+  files: typeof files;
   healthCheck: typeof healthCheck;
   http: typeof http;
   invitations: typeof invitations;
@@ -47,11 +63,15 @@ declare const fullApi: ApiFromModules<{
   organizations: typeof organizations;
   polar: typeof polar;
   privateData: typeof privateData;
+  prospects: typeof prospects;
+  scripts: typeof scripts;
+  sdrCopilot: typeof sdrCopilot;
   "testing/emails": typeof testing_emails;
   "testing/lib": typeof testing_lib;
   "testing/testing": typeof testing_testing;
   todos: typeof todos;
   "utils/crud": typeof utils_crud;
+  web: typeof web;
 }>;
 
 /**

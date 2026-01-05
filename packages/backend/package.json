@@ -1,6 +1,7 @@
 {
   "name": "@starter-saas/backend",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "bun scripts/upload-env-to-convex-watch.ts .env.local & convex dev --tail-logs",
     "dev:debug": "bun run dev",

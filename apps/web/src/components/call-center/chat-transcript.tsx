@@ -1,0 +1,1 @@
+../../features/call-center/components/chat-transcript.tsx

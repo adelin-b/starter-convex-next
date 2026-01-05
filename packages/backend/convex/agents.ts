@@ -122,6 +122,30 @@ export const getById = zodQuery({
 });
 
 /**
+ * Get agent by ID for LiveKit agent (server-to-server auth)
+ */
+export const getByIdForAgent = zodQuery({
+  args: {
+    id: zid("agents"),
+    systemToken: z.string(),
+  },
+  handler: async (context, { id, systemToken }) => {
+    // Verify system token
+    const expectedToken = process.env.CONVEX_SYSTEM_ADMIN_TOKEN;
+    if (!expectedToken || systemToken !== expectedToken) {
+      throw AppErrors.insufficientPermissions("access agent config");
+    }
+
+    const agent = await context.db.get(id);
+    if (!agent) {
+      throw AppErrors.notFound("Agent", id);
+    }
+
+    return agent;
+  },
+});
+
+/**
  * Get agents by folder
  */
 export const getByFolder = zodQuery({
@@ -249,6 +273,30 @@ export const toggleActive = zodMutation({
     });
 
     return { id, isActive: newStatus };
+  },
+});
+
+/**
+ * Read/get a single agent by ID (alias for getById)
+ */
+export const read = zodQuery({
+  args: { id: zid("agents") },
+  handler: async (context, { id }) => {
+    const identity = await context.auth.getUserIdentity();
+    if (!identity) {
+      throw AppErrors.notAuthenticated("view agent");
+    }
+
+    const agent = await context.db.get(id);
+    if (!agent) {
+      throw AppErrors.notFound("Agent", id);
+    }
+
+    if (agent.userId !== identity.subject) {
+      throw AppErrors.insufficientPermissions("view this agent");
+    }
+
+    return agent;
   },
 });
 

@@ -13,6 +13,7 @@ import * as livekit from "@livekit/agents-plugin-livekit";
 import * as silero from "@livekit/agents-plugin-silero";
 import { BackgroundVoiceCancellation } from "@livekit/noise-cancellation-node";
 import { api } from "@starter-saas/backend/convex/_generated/api.js";
+import type { Id } from "@starter-saas/backend/convex/_generated/dataModel.js";
 import { ConvexHttpClient } from "convex/browser";
 import dotenv from "dotenv";
 import { z } from "zod";
@@ -250,7 +251,7 @@ export default defineAgent({
 
           // Load agent from Convex using system admin token
           const agent = await convex.query(api.agents.getByIdForAgent, {
-            id: agentId,
+            id: agentId as Id<"agents">,
             systemToken: CONVEX_SYSTEM_ADMIN_TOKEN,
           });
 

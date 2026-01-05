@@ -193,8 +193,6 @@ stmts
 stmt
 
 # Project-specific
-deedee
-DeeDee
 handoo
 Handoo
 cursorrules

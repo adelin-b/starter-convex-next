@@ -55,14 +55,6 @@
         "entry": ["src/app/**/*.{ts,tsx}"]
       }
     },
-    "apps/deedee": {
-      "entry": ["src/app/**/*.{ts,tsx}"],
-      "project": ["src/**/*.{ts,tsx}"],
-      "ignoreFiles": ["src/hooks/use-image-urls.ts", "src/hooks/use-mobile.ts"],
-      "next": {
-        "entry": ["src/app/**/*.{ts,tsx}"]
-      }
-    },
     "apps/storybook": {
       "entry": [".storybook/*.ts"]
     },
