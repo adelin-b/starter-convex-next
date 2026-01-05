@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "chmod +x scripts/*.sh && ./scripts/vercel-install.sh",
+  "buildCommand": "./scripts/vercel-build.sh",
+  "outputDirectory": ".react-email/.next",
+  "framework": "nextjs"
+}

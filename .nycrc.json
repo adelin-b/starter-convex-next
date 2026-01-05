@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/istanbuljs/schema/main/default-schema.json",
+  "report-dir": "coverage-merged",
+  "temp-dir": ".nyc_output",
+  "reporter": ["html", "text", "lcov"],
+  "all": true,
+  "include": [
+    "apps/web/src/**/*.ts",
+    "apps/web/src/**/*.tsx",
+    "packages/ui/src/**/*.ts",
+    "packages/ui/src/**/*.tsx",
+    "packages/backend/convex/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.stories.tsx",
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/dist/**",
+    "**/story-helpers.tsx"
+  ],
+  "extension": [".ts", ".tsx"]
+}

@@ -1,0 +1,94 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[graphql]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "emmet.showExpandedAbbreviation": "never",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit",
+    "source.fixAll.stylelint": "explicit",
+    "source.fixAll.markdownlint": "explicit"
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.hg/store/**": true,
+    "**/node_modules/*/**": true,
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/.vscode/**": true
+  },
+
+  // MegaLinter integrated linter settings
+  "shellcheck.enable": true,
+  "shellcheck.executablePath": "shellcheck",
+  "shellcheck.run": "onType",
+  "shellcheck.useWorkspaceRootAsCwd": true,
+
+  // Stylelint configuration
+  "stylelint.enable": true,
+  "stylelint.validate": ["css", "scss", "sass"],
+
+  // Code Spell Checker
+  "cspell.enabled": true,
+  "cspell.language": "en",
+  "cspell.customDictionaries": {
+    "project-words": {
+      "name": "project-words",
+      "path": "${workspaceFolder}/.cspell/project-words.txt",
+      "addWords": true,
+      "scope": "workspace"
+    }
+  },
+
+  // Markdown linting
+  "markdownlint.config": {
+    "extends": "${workspaceFolder}/.markdownlint.json"
+  },
+
+  // YAML settings
+  "yaml.format.enable": true,
+  "yaml.validate": true,
+  "yaml.customTags": ["!reference sequence"],
+
+  // Shell formatting
+  "shellformat.flag": "-i 2 -ci",
+
+  // Standard JS (disabled for JS/TS files as we use Biome)
+  "standard.enable": false,
+  "standard.autoFixOnSave": false,
+
+  // Cucumber autocomplete settings for BDD testing
+  "cucumberautocomplete.steps": ["apps/e2e/tests/features/**/*.steps.ts"],
+  "cucumberautocomplete.syncfeatures": "apps/e2e/tests/features/**/*.feature",
+  "cucumber.features": ["apps/e2e/tests/features/**/*.feature"],
+  "cucumberautocomplete.strictGherkinCompletion": false,
+  "cucumberautocomplete.strictGherkinValidation": false,
+  "cucumberautocomplete.smartSnippets": true,
+  "cucumberautocomplete.onTypeFormat": true
+}

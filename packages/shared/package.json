@@ -1,0 +1,35 @@
+{
+  "name": "@starter-saas/shared",
+  "version": "0.1.0",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "biome check .",
+    "format": "biome --write .",
+    "check:types": "tsgo --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    "./assert-never": {
+      "types": "./src/assert-never.ts",
+      "default": "./src/assert-never.ts"
+    },
+    "./types": {
+      "types": "./src/types.ts",
+      "default": "./src/types.ts"
+    },
+    "./normalize-license-plate": {
+      "types": "./src/normalize-license-plate.ts",
+      "default": "./src/normalize-license-plate.ts"
+    },
+    "./i18n-types": {
+      "types": "./src/i18n-types.ts",
+      "default": "./src/i18n-types.ts"
+    }
+  }
+}

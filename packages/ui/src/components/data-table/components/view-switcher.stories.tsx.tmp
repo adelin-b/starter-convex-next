@@ -1,0 +1,180 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { LayoutGrid, List, Newspaper, Table2, Trello } from "lucide-react";
+import { useState } from "react";
+import type { ViewConfig } from "../types";
+import { ViewSwitcher } from "./view-switcher";
+
+const meta = {
+  title: "composite/Datatable/ViewSwitcher",
+  component: ViewSwitcher,
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+  },
+  argTypes: {
+    activeView: {
+      control: false,
+      description: "Currently active view configuration",
+    },
+    availableViews: {
+      control: false,
+      description: "Array of available view configurations",
+    },
+    onViewChange: {
+      action: "viewChanged",
+      description: "Callback when view is changed",
+    },
+  },
+} satisfies Meta<typeof ViewSwitcher>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// Sample view configurations
+const sampleViews: ViewConfig[] = [
+  {
+    id: "table",
+    type: "table",
+    name: "Table",
+    icon: Table2,
+    settings: {
+      enableSorting: true,
+      enableSelection: true,
+      enablePagination: true,
+      enableRowHover: true,
+      denseMode: false,
+    },
+  },
+  {
+    id: "board",
+    type: "board",
+    name: "Board",
+    icon: Trello,
+    settings: {
+      groupByColumn: "status",
+      enableDragDrop: true,
+      showCardCount: true,
+      columnWidth: 300,
+    },
+  },
+  {
+    id: "gallery",
+    type: "gallery",
+    name: "Gallery",
+    icon: LayoutGrid,
+    settings: {
+      cardSize: "medium" as const,
+      showPageIcon: true,
+      fitImage: false,
+      wrapProperties: false,
+      cardPreview: "page-content" as const,
+      openPagesIn: "center-peek" as const,
+      columns: 3,
+    },
+  },
+  {
+    id: "list",
+    type: "list",
+    name: "List",
+    icon: List,
+    settings: {
+      showPageIcon: true,
+      compactMode: false,
+      openPagesIn: "side-peek" as const,
+      showProperties: false,
+    },
+  },
+  {
+    id: "feed",
+    type: "feed",
+    name: "Feed",
+    icon: Newspaper,
+    settings: {
+      showAuthorByline: true,
+      enableReactions: true,
+      enableComments: true,
+      loadLimit: 10 as const,
+      openPagesIn: "center-peek" as const,
+      showTimestamps: true,
+    },
+  },
+];
+
+/**
+ * Interactive ViewSwitcher with state management
+ */
+function ViewSwitcherWithState({ views }: { views: ViewConfig[] }) {
+  const [activeView, setActiveView] = useState(views[0]!);
+
+  return (
+    <div className="space-y-4">
+      <ViewSwitcher activeView={activeView} availableViews={views} onViewChange={setActiveView} />
+      <div className="rounded-md border p-4 text-sm">
+        <p className="font-medium">Active View:</p>
+        <p className="text-muted-foreground">
+          {activeView.name} ({activeView.type})
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Default view switcher with all 5 views
+ */
+export const Default: Story = {
+  render: () => <ViewSwitcherWithState views={sampleViews} />,
+};
+
+/**
+ * Only 3 views enabled (Table, Board, List)
+ */
+export const ThreeViews: Story = {
+  render: () => (
+    <ViewSwitcherWithState
+      views={sampleViews.filter((v) => ["table", "board", "list"].includes(v.type))}
+    />
+  ),
+};
+
+/**
+ * Only 2 views enabled (Table, Gallery)
+ */
+export const TwoViews: Story = {
+  render: () => (
+    <ViewSwitcherWithState
+      views={sampleViews.filter((v) => ["table", "gallery"].includes(v.type))}
+    />
+  ),
+};
+
+/**
+ * Single view (table only) - switcher should still render
+ */
+export const SingleView: Story = {
+  render: () => <ViewSwitcherWithState views={sampleViews.filter((v) => v.type === "table")} />,
+};
+
+/**
+ * Custom styling example
+ */
+export const CustomStyling: Story = {
+  render: () => {
+    const [activeView, setActiveView] = useState(sampleViews[0]!);
+    return (
+      <ViewSwitcher
+        activeView={activeView}
+        availableViews={sampleViews}
+        className="border-2 border-primary"
+        onViewChange={setActiveView}
+      />
+    );
+  },
+};
+
+/**
+ * All available views
+ */
+export const AllViews: Story = {
+  render: () => <ViewSwitcherWithState views={sampleViews} />,
+};

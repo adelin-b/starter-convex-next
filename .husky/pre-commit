@@ -1,0 +1,41 @@
+#!/bin/sh
+# Exit on any error
+set -e
+
+# Run storybook e2e tests if storybook test files changed
+if git diff --cached --name-only | grep -q "storybook.*\.spec\.\|storybook.*\.test\."; then
+	bun run test:e2e:storybook
+fi
+
+# Check if there are any staged files
+if [ -z "$(git diff --cached --name-only)" ]; then
+	echo "No staged files to format"
+	exit 0
+fi
+
+# Run lint-staged (handles formatting, ESLint, i18n extraction + verification)
+echo "🔧 Running lint-staged..."
+bunx lint-staged
+
+# Run type checking
+echo "🔍 Type checking..."
+bun run check:types
+
+# Run spell checking on staged files
+echo "📝 Spell checking..."
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
+echo "$STAGED_FILES" | xargs bunx cspell --config ./cspell.json --unique --show-context --show-suggestions --no-must-find-files
+
+# Run sherif (monorepo dependency checker) if package.json files changed
+if git diff --cached --name-only | grep -q "package\.json"; then
+	echo "📦 Checking monorepo dependencies (sherif)..."
+	bunx sherif
+fi
+
+# Run knip (dead code detection) if source files changed
+if git diff --cached --name-only | grep -qE "\.(ts|tsx|js|jsx)$|package\.json"; then
+	echo "🔎 Checking for dead code (knip)..."
+	bun run knip
+fi
+
+echo "✅ Pre-commit checks passed"

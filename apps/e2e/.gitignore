@@ -1,0 +1,10 @@
+# Test results
+test-results/
+playwright-report/
+
+# Coverage
+coverage-report/
+assets/
+
+# BDD generated specs (playwright-bdd)
+tests/features-gen/

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://www.schemastore.org/jscpd.json",
+  "threshold": 3,
+  "gitignore": true,
+  "minToken": 90,
+  "reporters": ["html", "markdown"],
+  "ignore": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/.rbenv/**",
+    "**/.venv/**",
+    "**/.next/**",
+    "**/megalinter-reports/**",
+    "**/*cache*/**",
+    "**/.github/**",
+    "**/.idea/**",
+    "**/report/**",
+    "**/*.svg",
+    "**/.chrome-profile/**",
+    "**/archived/**",
+    "**/_generated/**",
+    "**/.taskmaster/**",
+    "**/.rulesync/**",
+    "**/.claude/**",
+    "**/.cursor/**",
+    "**/.vscode/**"
+  ]
+}

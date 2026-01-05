@@ -1,0 +1,106 @@
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/carousel";
+
+const CAROUSEL_SLIDE_COUNT = 5;
+const NEXT_BUTTON_PATTERN = /next/i;
+const PREVIOUS_BUTTON_PATTERN = /previous/i;
+
+/**
+ * A carousel with motion and swipe built using Embla.
+ */
+const meta: Meta<typeof Carousel> = {
+  title: "ui/Carousel",
+  component: Carousel,
+  tags: ["autodocs"],
+  argTypes: {},
+  args: {
+    className: "w-full max-w-xs",
+  },
+  render: (args) => (
+    <Carousel {...args}>
+      <CarouselContent>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <CarouselItem key={index}>
+            <div className="flex aspect-square items-center justify-center rounded border bg-card p-6">
+              <span className="font-semibold text-4xl">{index + 1}</span>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  ),
+  parameters: {
+    layout: "centered",
+  },
+} satisfies Meta<typeof Carousel>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+/**
+ * The default form of the carousel.
+ */
+export const Default: Story = {};
+
+/**
+ * Use the `basis` utility class to change the size of the carousel.
+ */
+export const Size: Story = {
+  render: (args) => (
+    <Carousel {...args} className="mx-12 w-full max-w-xs">
+      <CarouselContent>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <CarouselItem className="basis-1/3" key={index}>
+            <div className="flex aspect-square items-center justify-center rounded border bg-card p-6">
+              <span className="font-semibold text-4xl">{index + 1}</span>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  ),
+  args: {
+    className: "mx-12 w-full max-w-xs",
+  },
+};
+
+export const ShouldNavigate: Story = {
+  name: "when clicking next/previous buttons, should navigate through slides",
+  tags: ["!dev", "!autodocs"],
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const slides = await canvas.findAllByRole("group");
+    expect(slides).toHaveLength(CAROUSEL_SLIDE_COUNT);
+    const nextBtn = await canvas.findByRole("button", {
+      name: NEXT_BUTTON_PATTERN,
+    });
+    const prevBtn = await canvas.findByRole("button", {
+      name: PREVIOUS_BUTTON_PATTERN,
+    });
+
+    await step("navigate to the last slide", async () => {
+      for (let i = 0; i < slides.length - 1; i += 1) {
+        await userEvent.click(nextBtn);
+      }
+    });
+
+    await step("navigate back to the first slide", async () => {
+      for (let i = slides.length - 1; i > 0; i -= 1) {
+        await userEvent.click(prevBtn);
+      }
+    });
+  },
+};
+//

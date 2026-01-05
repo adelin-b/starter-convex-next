@@ -1,0 +1,25 @@
+{
+  "recommendations": [
+    // Primary formatter and linter (using Ultracite/Biome)
+    "biomejs.biome",
+
+    // MegaLinter recommended extensions
+    "esbenp.prettier-vscode",
+    "timonwong.shellcheck",
+    "AquaSecurityOfficial.trivy-vulnerability-scanner",
+    "stylelint.vscode-stylelint",
+    "streetsidesoftware.code-spell-checker",
+    "foxundermoon.shell-format",
+    "standard.vscode-standard",
+    "DavidAnson.vscode-markdownlint",
+
+    // Additional useful extensions for this project
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "unifiedjs.vscode-mdx",
+
+    // BDD Testing support
+    "alexkrechik.cucumberautocomplete",
+    "CucumberOpen.cucumber-official"
+  ]
+}

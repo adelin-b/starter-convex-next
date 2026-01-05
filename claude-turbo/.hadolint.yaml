@@ -1,0 +1,8 @@
+---
+ignored:
+  - DL3008 # Pin versions in apt-get install - impractical for dev containers
+  - SC2016 # Expressions don't expand in single quotes - intentional for shell config files
+  - DL3015 # Avoid additional packages - already using --no-install-recommends
+trustedRegistries:
+  - mcr.microsoft.com
+  - docker.io

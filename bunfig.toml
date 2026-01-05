@@ -1,0 +1,6 @@
+[install]
+linker = "isolated"
+
+[test]
+# Redirect `bun test` to `bun run test` (Vitest via Turbo)
+preload = ["./scripts/bun-test-redirect.ts"]
