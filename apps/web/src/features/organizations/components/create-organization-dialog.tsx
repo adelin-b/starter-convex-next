@@ -78,12 +78,14 @@ export function CreateOrganizationDialog({ onSuccess, onError }: CreateOrganizat
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger asChild>
-        <Button data-testid="add-organization-button">
-          <Plus className="mr-2 h-4 w-4" />
-          <Trans>Add Organization</Trans>
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Button data-testid="add-organization-button">
+            <Plus className="mr-2 h-4 w-4" />
+            <Trans>Add Organization</Trans>
+          </Button>
+        }
+      />
       <DialogContent data-testid="create-organization-dialog">
         <DialogHeader>
           <DialogTitle>

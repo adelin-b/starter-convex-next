@@ -1,13 +1,37 @@
 "use client";
 
 import { api } from "@starter-saas/backend/convex/_generated/api";
+import type { TodoStatus } from "@starter-saas/backend/convex/schema";
+import { assertNever } from "@starter-saas/shared/assert-never";
 import { CardEmptyState } from "@starter-saas/ui/card-empty-state";
-import { ClipboardList } from "lucide-react";
+import { AlertCircle, ClipboardList } from "lucide-react";
 import { useQueryWithStatus } from "@/lib/convex-hooks";
 import { TodoItem } from "./todo-item";
 
+/**
+ * Get sort order for todo status.
+ * Uses exhaustive switch with assertNever for compile-time safety.
+ */
+function getStatusOrder(status: TodoStatus): number {
+  switch (status) {
+    case "pending":
+      return 0;
+    case "in_progress":
+      return 1;
+    case "completed":
+      return 2;
+    default:
+      assertNever(status);
+  }
+}
+
 export function TodoList() {
-  const { data: todos, isPending } = useQueryWithStatus(api.todos.list, {});
+  const {
+    data: todos,
+    isPending,
+    isError,
+    error,
+  } = useQueryWithStatus(api.todos.list, { status: undefined });
 
   if (isPending) {
     return (
@@ -19,7 +43,16 @@ export function TodoList() {
     );
   }
 
-  // Handle case when query returns undefined (auth loading, error, etc.)
+  if (isError) {
+    return (
+      <div className="flex items-center gap-2 rounded-md bg-destructive/10 p-4 text-destructive">
+        <AlertCircle className="size-4 shrink-0" />
+        <span>{error?.message ?? "Failed to load todos"}</span>
+      </div>
+    );
+  }
+
+  // Handle case when query returns undefined or empty
   if (!todos || todos.length === 0) {
     return (
       <CardEmptyState
@@ -31,10 +64,9 @@ export function TodoList() {
   }
 
   // Sort: pending first, then in_progress, then completed
-  const sortedTodos = [...todos].sort((a, b) => {
-    const order: Record<string, number> = { pending: 0, in_progress: 1, completed: 2 };
-    return (order[a.status] ?? 3) - (order[b.status] ?? 3);
-  });
+  const sortedTodos = [...todos].sort(
+    (a, b) => getStatusOrder(a.status) - getStatusOrder(b.status),
+  );
 
   return (
     <div className="space-y-3">

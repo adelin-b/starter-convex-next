@@ -4,7 +4,7 @@ import { Filter, Plus } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../../../utils";
 import { Button } from "../../button";
-import { Popover, PopoverContent, PopoverTrigger } from "../../popover";
+import { Popover, PopoverContent, PopoverPositioner, PopoverTrigger } from "../../popover";
 import type { DataTableLabels } from "../labels";
 import { defaultDataTableLabels } from "../labels";
 import type { DataTableColumn, FilterGroup } from "../types";
@@ -114,90 +114,93 @@ export function FilterButton<TData>({
 
   return (
     <Popover onOpenChange={setOpen} open={open}>
-      <PopoverTrigger asChild>
-        <Button
-          aria-label={
-            activeFilterCount > 0
-              ? `${mergedLabels.filter} (${activeFilterCount} ${mergedLabels.filterActive})`
-              : mergedLabels.filter
-          }
-          className={cn(
-            "relative gap-2",
-            // Show label on larger containers, hide on small
-            "@md:gap-2",
-            className,
-          )}
-          size="sm"
-          variant="outline"
-        >
-          <Filter aria-hidden="true" className="size-4" />
-          {/* Label - hidden on small screens via container query */}
-          {showLabel && (
-            <span aria-hidden="true" className="@md:inline hidden">
-              {mergedLabels.filter}
-            </span>
-          )}
-          {/* Active filter count badge */}
-          {activeFilterCount > 0 && (
-            <span
-              aria-hidden="true"
-              className="flex size-5 items-center justify-center rounded-full bg-primary font-medium text-primary-foreground text-xs"
-            >
-              {activeFilterCount}
-            </span>
-          )}
-        </Button>
-      </PopoverTrigger>
-
-      <PopoverContent className="max-w-3xl">
-        <div className="space-y-4">
-          {/* Header */}
-          <div className="space-y-1">
-            <h3 className="font-semibold text-base">{mergedLabels.filters}</h3>
-            <p className="text-muted-foreground text-sm">{mergedLabels.filtersDescription}</p>
-          </div>
-
-          {/* Filter list */}
-          {allFilters.length > 0 ? (
-            <div className="space-y-3">
-              {allFilters.map((filter) => (
-                <FilterEditor
-                  columns={columns}
-                  filter={filter}
-                  key={filter.id}
-                  labels={labels}
-                  onChange={(updatedFilter) => handleFilterChange(filter.id, updatedFilter)}
-                  onRemove={() => handleFilterRemove(filter.id)}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-lg border border-dashed p-8 text-center">
-              <p className="text-muted-foreground text-sm">{mergedLabels.noFiltersApplied}</p>
-            </div>
-          )}
-
-          {/* Action buttons */}
-          <div className="flex items-center justify-between gap-2 border-t pt-4">
-            <Button
-              disabled={filterableColumns.length === 0}
-              onClick={handleAddFilter}
-              size="sm"
-              type="button"
-              variant="outline"
-            >
-              <Plus className="mr-2 size-4" />
-              {mergedLabels.addFilter}
-            </Button>
-
-            {allFilters.length > 0 && (
-              <Button onClick={handleClearAll} size="sm" type="button" variant="ghost">
-                {mergedLabels.clearAll}
-              </Button>
+      <PopoverTrigger
+        render={
+          <Button
+            aria-label={
+              activeFilterCount > 0
+                ? `${mergedLabels.filter} (${activeFilterCount} ${mergedLabels.filterActive})`
+                : mergedLabels.filter
+            }
+            className={cn(
+              "relative gap-2",
+              // Show label on larger containers, hide on small
+              "@md:gap-2",
+              className,
             )}
+            size="sm"
+            variant="outline"
+          >
+            <Filter aria-hidden="true" className="size-4" />
+            {/* Label - hidden on small screens via container query */}
+            {showLabel && (
+              <span aria-hidden="true" className="@md:inline hidden">
+                {mergedLabels.filter}
+              </span>
+            )}
+            {/* Active filter count badge */}
+            {activeFilterCount > 0 && (
+              <span
+                aria-hidden="true"
+                className="flex size-5 items-center justify-center rounded-full bg-primary font-medium text-primary-foreground text-xs"
+              >
+                {activeFilterCount}
+              </span>
+            )}
+          </Button>
+        }
+      />
+      <PopoverPositioner>
+        <PopoverContent className="max-w-3xl">
+          <div className="space-y-4">
+            {/* Header */}
+            <div className="space-y-1">
+              <h3 className="font-semibold text-base">{mergedLabels.filters}</h3>
+              <p className="text-muted-foreground text-sm">{mergedLabels.filtersDescription}</p>
+            </div>
+
+            {/* Filter list */}
+            {allFilters.length > 0 ? (
+              <div className="space-y-3">
+                {allFilters.map((filter) => (
+                  <FilterEditor
+                    columns={columns}
+                    filter={filter}
+                    key={filter.id}
+                    labels={labels}
+                    onChange={(updatedFilter) => handleFilterChange(filter.id, updatedFilter)}
+                    onRemove={() => handleFilterRemove(filter.id)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-lg border border-dashed p-8 text-center">
+                <p className="text-muted-foreground text-sm">{mergedLabels.noFiltersApplied}</p>
+              </div>
+            )}
+
+            {/* Action buttons */}
+            <div className="flex items-center justify-between gap-2 border-t pt-4">
+              <Button
+                disabled={filterableColumns.length === 0}
+                onClick={handleAddFilter}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <Plus className="mr-2 size-4" />
+                {mergedLabels.addFilter}
+              </Button>
+
+              {allFilters.length > 0 && (
+                <Button onClick={handleClearAll} size="sm" type="button" variant="ghost">
+                  {mergedLabels.clearAll}
+                </Button>
+              )}
+            </div>
           </div>
-        </div>
-      </PopoverContent>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

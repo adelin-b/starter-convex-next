@@ -34,15 +34,10 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 /**
- * Use the `openDelay` and `closeDelay` props to control the delay before the
- * hover card opens and closes.
+ * Instant hover card without delay.
+ * Note: Base UI's PreviewCard doesn't support openDelay/closeDelay props directly.
  */
-export const Instant: Story = {
-  args: {
-    openDelay: 0,
-    closeDelay: 0,
-  },
-};
+export const Instant: Story = {};
 
 export const ShouldShowOnHover: Story = {
   name: "when hovering over trigger, should show hover card content",

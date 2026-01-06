@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPositioner,
   DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
 import {
@@ -143,23 +144,27 @@ export const Footer: Story = {
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <User2 /> Username
-                  <ChevronUpIcon className="ml-auto" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-(--radix-popper-anchor-width)" side="top">
-                <DropdownMenuItem>
-                  <span>Account</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Billing</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Sign out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
+              <DropdownMenuTrigger
+                render={
+                  <SidebarMenuButton>
+                    <User2 /> Username
+                    <ChevronUpIcon className="ml-auto" />
+                  </SidebarMenuButton>
+                }
+              />
+              <DropdownMenuPositioner side="top">
+                <DropdownMenuContent className="w-(--radix-popper-anchor-width)">
+                  <DropdownMenuItem>
+                    <span>Account</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <span>Billing</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <span>Sign out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenuPositioner>
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>

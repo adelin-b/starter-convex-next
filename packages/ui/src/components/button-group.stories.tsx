@@ -16,6 +16,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPositioner,
   DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
 import { Input } from "@/components/input";
@@ -25,11 +26,17 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@/components/input-group";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
+import { Popover, PopoverContent, PopoverPositioner, PopoverTrigger } from "@/components/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/select";
 import { Separator } from "@/components/separator";
 import { Textarea } from "@/components/textarea";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/tooltip";
 
 /**
  * A container that groups related buttons together with consistent styling.
@@ -192,18 +199,22 @@ export const WithInputGroup: Story = {
               />
               <InputGroupAddon align="inline-end">
                 <Tooltip>
-                  <TooltipTrigger asChild>
-                    <InputGroupButton
-                      aria-pressed={voiceEnabled}
-                      className="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
-                      data-active={voiceEnabled}
-                      onClick={() => setVoiceEnabled(!voiceEnabled)}
-                      size="icon-xs"
-                    >
-                      <AudioLinesIcon />
-                    </InputGroupButton>
-                  </TooltipTrigger>
-                  <TooltipContent>Voice Mode</TooltipContent>
+                  <TooltipTrigger
+                    render={
+                      <InputGroupButton
+                        aria-pressed={voiceEnabled}
+                        className="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
+                        data-active={voiceEnabled}
+                        onClick={() => setVoiceEnabled(!voiceEnabled)}
+                        size="icon-xs"
+                      >
+                        <AudioLinesIcon />
+                      </InputGroupButton>
+                    }
+                  />
+                  <TooltipPositioner>
+                    <TooltipContent>Voice Mode</TooltipContent>
+                  </TooltipPositioner>
                 </Tooltip>
               </InputGroupAddon>
             </InputGroup>
@@ -222,22 +233,26 @@ export const WithDropdownMenu: Story = {
     <ButtonGroup>
       <Button variant="outline">Follow</Button>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className="!pl-2" variant="outline">
-            <ChevronDownIcon />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="[--radius:1rem]">
-          <DropdownMenuItem>Mute Conversation</DropdownMenuItem>
-          <DropdownMenuItem>Mark as Read</DropdownMenuItem>
-          <DropdownMenuItem>Report Conversation</DropdownMenuItem>
-          <DropdownMenuItem>Block User</DropdownMenuItem>
-          <DropdownMenuItem>Share Conversation</DropdownMenuItem>
-          <DropdownMenuItem>Copy Conversation</DropdownMenuItem>
-          <DropdownMenuItem className="text-destructive focus:text-destructive">
-            Delete Conversation
-          </DropdownMenuItem>
-        </DropdownMenuContent>
+        <DropdownMenuTrigger
+          render={
+            <Button className="!pl-2" variant="outline">
+              <ChevronDownIcon />
+            </Button>
+          }
+        />
+        <DropdownMenuPositioner align="end">
+          <DropdownMenuContent className="[--radius:1rem]">
+            <DropdownMenuItem>Mute Conversation</DropdownMenuItem>
+            <DropdownMenuItem>Mark as Read</DropdownMenuItem>
+            <DropdownMenuItem>Report Conversation</DropdownMenuItem>
+            <DropdownMenuItem>Block User</DropdownMenuItem>
+            <DropdownMenuItem>Share Conversation</DropdownMenuItem>
+            <DropdownMenuItem>Copy Conversation</DropdownMenuItem>
+            <DropdownMenuItem className="text-destructive focus:text-destructive">
+              Delete Conversation
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenuPositioner>
       </DropdownMenu>
     </ButtonGroup>
   ),
@@ -259,7 +274,7 @@ export const WithSelect: Story = {
     return (
       <ButtonGroup>
         <ButtonGroup>
-          <Select onValueChange={setCurrency} value={currency}>
+          <Select onValueChange={(val) => val && setCurrency(val)} value={currency}>
             <SelectTrigger className="font-mono">{currency}</SelectTrigger>
             <SelectContent className="min-w-24">
               {CURRENCIES.map((currencyOption) => (
@@ -292,28 +307,32 @@ export const WithPopover: Story = {
         <BotIcon /> Copilot
       </Button>
       <Popover>
-        <PopoverTrigger asChild>
-          <Button aria-label="Open Popover" size="icon" variant="outline">
-            <ChevronDownIcon />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent align="end" className="rounded-xl p-0 text-sm">
-          <div className="px-4 py-3">
-            <div className="font-medium text-sm">Agent Tasks</div>
-          </div>
-          <Separator />
-          <div className="p-4 text-sm *:[p:not(:last-child)]:mb-2">
-            <Textarea
-              className="mb-4 resize-none"
-              placeholder="Describe your task in natural language."
-            />
-            <p className="font-medium">Start a new task with Copilot</p>
-            <p className="text-muted-foreground">
-              Describe your task in natural language. Copilot will work in the background and open a
-              pull request for your review.
-            </p>
-          </div>
-        </PopoverContent>
+        <PopoverTrigger
+          render={
+            <Button aria-label="Open Popover" size="icon" variant="outline">
+              <ChevronDownIcon />
+            </Button>
+          }
+        />
+        <PopoverPositioner align="end">
+          <PopoverContent className="rounded-xl p-0 text-sm">
+            <div className="px-4 py-3">
+              <div className="font-medium text-sm">Agent Tasks</div>
+            </div>
+            <Separator />
+            <div className="p-4 text-sm *:[p:not(:last-child)]:mb-2">
+              <Textarea
+                className="mb-4 resize-none"
+                placeholder="Describe your task in natural language."
+              />
+              <p className="font-medium">Start a new task with Copilot</p>
+              <p className="text-muted-foreground">
+                Describe your task in natural language. Copilot will work in the background and open
+                a pull request for your review.
+              </p>
+            </div>
+          </PopoverContent>
+        </PopoverPositioner>
       </Popover>
     </ButtonGroup>
   ),

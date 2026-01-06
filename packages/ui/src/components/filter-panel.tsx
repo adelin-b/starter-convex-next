@@ -9,7 +9,7 @@ import { Button } from "./button";
 import { Calendar } from "./calendar";
 import { Checkbox } from "./checkbox";
 import { Label } from "./label";
-import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { Popover, PopoverContent, PopoverPositioner, PopoverTrigger } from "./popover";
 import { Separator } from "./separator";
 
 /**
@@ -84,31 +84,34 @@ function FilterPanelDateRange({
     <FilterPanelSection>
       <FilterPanelLabel>{label}</FilterPanelLabel>
       <Popover onOpenChange={setOpen} open={open}>
-        <PopoverTrigger asChild>
-          <Button
-            className={cn(
-              "w-full justify-start text-left font-normal",
-              !value && "text-muted-foreground",
-            )}
-            variant="outline"
-          >
-            <CalendarIcon className="mr-2 size-4" />
-            {value?.from ? (
-              value.to ? (
-                <>
-                  {format(value.from, "LLL dd, y")}
-                  {dateRangeSeparator}
-                  {format(value.to, "LLL dd, y")}
-                </>
+        <PopoverTrigger
+          render={
+            <Button
+              className={cn(
+                "w-full justify-start text-left font-normal",
+                !value && "text-muted-foreground",
+              )}
+              variant="outline"
+            >
+              <CalendarIcon className="mr-2 size-4" />
+              {value?.from ? (
+                value.to ? (
+                  <>
+                    {format(value.from, "LLL dd, y")}
+                    {dateRangeSeparator}
+                    {format(value.to, "LLL dd, y")}
+                  </>
+                ) : (
+                  format(value.from, "LLL dd, y")
+                )
               ) : (
-                format(value.from, "LLL dd, y")
-              )
-            ) : (
-              placeholder
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent align="start" className="w-auto p-0">
+                placeholder
+              )}
+            </Button>
+          }
+        />
+        <PopoverPositioner align="start">
+          <PopoverContent className="w-auto p-0">
           <Calendar
             defaultMonth={value?.from}
             initialFocus
@@ -137,7 +140,8 @@ function FilterPanelDateRange({
               </div>
             </>
           )}
-        </PopoverContent>
+          </PopoverContent>
+        </PopoverPositioner>
       </Popover>
     </FilterPanelSection>
   );

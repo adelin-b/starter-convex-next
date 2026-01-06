@@ -1,7 +1,13 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/tooltip";
 
 const ADD_BUTTON_PATTERN = /add/i;
 
@@ -9,9 +15,9 @@ const ADD_BUTTON_PATTERN = /add/i;
  * A popup that displays information related to an element when the element
  * receives keyboard focus or the mouse hovers over it.
  */
-const meta: Meta<typeof TooltipContent> = {
+const meta: Meta<typeof TooltipPositioner> = {
   title: "ui/Tooltip",
-  component: TooltipContent,
+  component: TooltipPositioner,
   tags: ["autodocs"],
   argTypes: {
     side: {
@@ -20,13 +26,9 @@ const meta: Meta<typeof TooltipContent> = {
         type: "radio",
       },
     },
-    children: {
-      control: "text",
-    },
   },
   args: {
     side: "top",
-    children: "Add to library",
   },
   parameters: {
     layout: "centered",
@@ -38,11 +40,13 @@ const meta: Meta<typeof TooltipContent> = {
           <PlusIcon className="h-4 w-4" />
           <span className="sr-only">Add</span>
         </TooltipTrigger>
-        <TooltipContent {...args} />
+        <TooltipPositioner {...args}>
+          <TooltipContent>Add to library</TooltipContent>
+        </TooltipPositioner>
       </Tooltip>
     </TooltipProvider>
   ),
-} satisfies Meta<typeof TooltipContent>;
+} satisfies Meta<typeof TooltipPositioner>;
 
 export default meta;
 

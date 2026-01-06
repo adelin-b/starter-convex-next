@@ -15,9 +15,9 @@ async function waitForAuthenticated(page: Page, timeout = 15_000): Promise<void>
   await page.waitForURL(/\/todos/, { timeout });
 
   if (isMobileViewport(page)) {
-    // On mobile, verify by checking for Todos heading
-    const todosHeading = page.getByRole("heading", { name: /todos/i });
-    await todosHeading.waitFor({ state: "visible", timeout: 10_000 });
+    // On mobile, verify by checking for page header title (uses exact match to avoid matching "No todos yet")
+    const pageTitle = page.locator('[data-slot="page-header-title"]');
+    await pageTitle.waitFor({ state: "visible", timeout: 10_000 });
   } else {
     // Desktop - wait for the user-menu
     const userMenu = page.locator('[data-testid="user-menu"]');
@@ -76,15 +76,19 @@ When(
 
       // Wait for name field to disappear (form switch animation)
       // Use polling to handle mobile viewport delays
-      await ctx.page.waitForFunction(
-        () => !document.querySelector('input[name="name"]') || document.querySelector('input[name="name"]')?.closest('[style*="display: none"]'),
-        { timeout: 10_000, polling: 200 },
-      ).catch(async () => {
-        // Retry click if form didn't switch
-        process.stderr.write("[Auth] Form switch didn't happen, retrying click...\n");
-        await switchButton.click();
-        await nameField.waitFor({ state: "hidden", timeout: 5000 });
-      });
+      await ctx.page
+        .waitForFunction(
+          () =>
+            !document.querySelector('input[name="name"]') ||
+            document.querySelector('input[name="name"]')?.closest('[style*="display: none"]'),
+          { timeout: 10_000, polling: 200 },
+        )
+        .catch(async () => {
+          // Retry click if form didn't switch
+          process.stderr.write("[Auth] Form switch didn't happen, retrying click...\n");
+          await switchButton.click();
+          await nameField.waitFor({ state: "hidden", timeout: 5000 });
+        });
     }
 
     // Wait for sign-in form email field to be ready
@@ -254,9 +258,9 @@ Then("I should be logged in", async ({ ctx }) => {
   await ctx.page.waitForURL(/\/todos/, { timeout: 15_000 });
 
   if (isMobileViewport(ctx.page)) {
-    // On mobile, verify by checking for Todos heading
-    const todosHeading = ctx.page.getByRole("heading", { name: /todos/i });
-    await expect(todosHeading).toBeVisible({ timeout: 10_000 });
+    // On mobile, verify by checking for page header title (uses exact match to avoid matching "No todos yet")
+    const pageTitle = ctx.page.locator('[data-slot="page-header-title"]');
+    await expect(pageTitle).toBeVisible({ timeout: 10_000 });
   } else {
     // On desktop, check for user menu which only appears when authenticated
     const userMenu = ctx.page.locator('[data-testid="user-menu"]');

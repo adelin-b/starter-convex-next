@@ -35,7 +35,7 @@ export async function waitForConvexConnection(page: Page, timeout = 30_000): Pro
     const hasConnectionProblem = await connectionProblem.isVisible().catch(() => false);
 
     // If no connection overlay visible, connection is established
-    if (!isConnecting && !hasConnectionProblem) {
+    if (!(isConnecting || hasConnectionProblem)) {
       return;
     }
 

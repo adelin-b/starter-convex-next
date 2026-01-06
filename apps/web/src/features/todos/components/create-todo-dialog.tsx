@@ -1,8 +1,9 @@
 "use client";
-/* eslint-disable lingui/no-unlocalized-strings */
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Trans } from "@lingui/react/macro";
 import { api } from "@starter-saas/backend/convex/_generated/api";
-import type { todoPriorities } from "@starter-saas/backend/convex/schema";
+import { todoPriorities } from "@starter-saas/backend/convex/schema";
 import { Button } from "@starter-saas/ui/button";
 import {
   Dialog,
@@ -13,8 +14,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@starter-saas/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@starter-saas/ui/form";
 import { Input } from "@starter-saas/ui/input";
-import { Label } from "@starter-saas/ui/label";
 import {
   Select,
   SelectContent,
@@ -23,111 +31,172 @@ import {
   SelectValue,
 } from "@starter-saas/ui/select";
 import { Textarea } from "@starter-saas/ui/textarea";
+import {
+  getConvexErrorMessage,
+  useConvexFormErrors,
+} from "@starter-saas/ui/use-convex-form-errors";
 import { useMutation } from "convex/react";
-import { Plus } from "lucide-react";
-import { useCallback, useState } from "react";
+import { Loader2, Plus } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+
+// Schema derived from backend types
+const CreateTodoSchema = z.object({
+  title: z.string().min(1, "Title is required").max(255),
+  description: z.string().max(2000).optional(),
+  priority: z.enum(todoPriorities).optional(),
+});
+
+type CreateTodoData = z.infer<typeof CreateTodoSchema>;
+
+// Priority display labels
+const priorityLabels: Record<(typeof todoPriorities)[number], string> = {
+  low: "Low",
+  medium: "Medium",
+  high: "High",
+};
 
 export function CreateTodoDialog() {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState<(typeof todoPriorities)[number] | "">("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const createTodo = useMutation(api.todos.create);
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!title.trim()) {
+  const form = useForm<CreateTodoData>({
+    resolver: zodResolver(CreateTodoSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      priority: undefined,
+    },
+  });
+
+  const {
+    handleSubmit,
+    reset,
+    control,
+    formState: { isSubmitting },
+  } = form;
+
+  const { handleConvexError } = useConvexFormErrors(form);
+
+  const onSubmit = async (data: CreateTodoData) => {
+    try {
+      await createTodo({
+        title: data.title.trim(),
+        description: data.description?.trim() || undefined,
+        priority: data.priority,
+        dueDate: undefined,
+      });
+      reset();
+      setOpen(false);
+      toast.success("Todo created successfully");
+    } catch (error) {
+      if (handleConvexError(error)) {
         return;
       }
-
-      setIsSubmitting(true);
-      try {
-        await createTodo({
-          title: title.trim(),
-          description: description.trim() || undefined,
-          priority: priority || undefined,
-        });
-        setOpen(false);
-        setTitle("");
-        setDescription("");
-        setPriority("");
-      } finally {
-        setIsSubmitting(false);
-      }
-    },
-    [createTodo, title, description, priority],
-  );
+      toast.error(getConvexErrorMessage(error, "Failed to create todo"));
+    }
+  };
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger asChild>
-        <Button>
-          <Plus className="size-4" />
-          New Todo
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Button>
+            <Plus className="size-4" />
+            <Trans>New Todo</Trans>
+          </Button>
+        }
+      />
       <DialogContent>
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>Create Todo</DialogTitle>
-            <DialogDescription>
-              Add a new todo to your list. Fill in the details below.
-            </DialogDescription>
-          </DialogHeader>
+        <DialogHeader>
+          <DialogTitle>
+            <Trans>Create Todo</Trans>
+          </DialogTitle>
+          <DialogDescription>
+            <Trans>Add a new todo to your list. Fill in the details below.</Trans>
+          </DialogDescription>
+        </DialogHeader>
 
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="title">Title</Label>
-              <Input
-                id="title"
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="What needs to be done?"
-                required
-                value={title}
-              />
-            </div>
+        <Form {...form}>
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+            <FormField
+              control={control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <Trans>Title</Trans>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="What needs to be done?" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-            <div className="grid gap-2">
-              <Label htmlFor="description">Description (optional)</Label>
-              <Textarea
-                id="description"
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Add more details..."
-                rows={3}
-                value={description}
-              />
-            </div>
+            <FormField
+              control={control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <Trans>Description (optional)</Trans>
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Add more details..." rows={3} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-            <div className="grid gap-2">
-              <Label htmlFor="priority">Priority (optional)</Label>
-              <Select
-                onValueChange={(value) => setPriority(value as (typeof todoPriorities)[number])}
-                value={priority}
-              >
-                <SelectTrigger id="priority">
-                  <SelectValue placeholder="Select priority" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="low">Low</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="high">High</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+            <FormField
+              control={control}
+              name="priority"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <Trans>Priority (optional)</Trans>
+                  </FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select priority" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {todoPriorities.map((priority) => (
+                        <SelectItem key={priority} value={priority}>
+                          {priorityLabels[priority]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <DialogFooter>
-            <Button onClick={() => setOpen(false)} type="button" variant="outline">
-              Cancel
-            </Button>
-            <Button disabled={isSubmitting || !title.trim()} type="submit">
-              {isSubmitting ? "Creating..." : "Create Todo"}
-            </Button>
-          </DialogFooter>
-        </form>
+            <DialogFooter>
+              <Button onClick={() => setOpen(false)} type="button" variant="outline">
+                <Trans>Cancel</Trans>
+              </Button>
+              <Button disabled={isSubmitting} type="submit">
+                {isSubmitting ? (
+                  <>
+                    <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+                    <Trans>Creating...</Trans>
+                  </>
+                ) : (
+                  <Trans>Create Todo</Trans>
+                )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

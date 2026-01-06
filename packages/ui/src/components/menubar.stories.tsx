@@ -14,6 +14,7 @@ import {
   MenubarShortcut,
   MenubarSub,
   MenubarSubContent,
+  MenubarSubPositioner,
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/menubar";
@@ -74,11 +75,13 @@ export const WithSubmenu: Story = {
           <MenubarItem>Download</MenubarItem>
           <MenubarSub>
             <MenubarSubTrigger>Share</MenubarSubTrigger>
-            <MenubarSubContent>
-              <MenubarItem>Email link</MenubarItem>
-              <MenubarItem>Messages</MenubarItem>
-              <MenubarItem>Notes</MenubarItem>
-            </MenubarSubContent>
+            <MenubarSubPositioner>
+              <MenubarSubContent>
+                <MenubarItem>Email link</MenubarItem>
+                <MenubarItem>Messages</MenubarItem>
+                <MenubarItem>Notes</MenubarItem>
+              </MenubarSubContent>
+            </MenubarSubPositioner>
           </MenubarSub>
         </MenubarContent>
       </MenubarMenu>

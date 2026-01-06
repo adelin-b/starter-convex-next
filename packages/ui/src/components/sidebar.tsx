@@ -12,7 +12,13 @@ import { Input } from "./input";
 import { Separator } from "./separator";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "./sheet";
 import { Skeleton } from "./skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const COOKIE_MAX_AGE_DAYS = 7;
@@ -117,7 +123,7 @@ function SidebarProvider({
 
   return (
     <SidebarContext.Provider value={contextValue}>
-      <TooltipProvider delayDuration={0}>
+      <TooltipProvider>
         <div
           className={cn(
             "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
@@ -178,7 +184,6 @@ function Sidebar({
       <Sheet onOpenChange={setOpenMobile} open={openMobile} {...props}>
         <SheetContent
           className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
-          closeLabel="Close sidebar"
           data-mobile="true"
           data-sidebar="sidebar"
           data-slot="sidebar"
@@ -526,13 +531,10 @@ function SidebarMenuButton({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>{button}</TooltipTrigger>
-      <TooltipContent
-        align="center"
-        hidden={state !== "collapsed" || isMobile}
-        side="right"
-        {...tooltip}
-      />
+      <TooltipTrigger render={button} />
+      <TooltipPositioner align="center" side="right">
+        <TooltipContent hidden={state !== "collapsed" || isMobile} {...tooltip} />
+      </TooltipPositioner>
     </Tooltip>
   );
 }

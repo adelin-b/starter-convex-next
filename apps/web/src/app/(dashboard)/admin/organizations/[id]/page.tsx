@@ -102,10 +102,8 @@ function OrganizationDetailContent({ organizationId }: { organizationId: Id<"org
             <p className="mt-4 text-muted-foreground">
               <Trans>The organization may have been deleted or you don't have access to it.</Trans>
             </p>
-            <Button asChild className="mt-4">
-              <Link href="/admin/organizations">
-                <Trans>Back to Organizations</Trans>
-              </Link>
+            <Button className="mt-4" render={<Link href="/admin/organizations" />}>
+              <Trans>Back to Organizations</Trans>
             </Button>
           </CardContent>
         </Card>

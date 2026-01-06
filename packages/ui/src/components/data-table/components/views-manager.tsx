@@ -18,6 +18,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPositioner,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../dropdown-menu";
@@ -37,7 +38,7 @@ export type ViewsManagerProps = {
   onDuplicateView: (viewId: string) => void;
   onSetDefaultView: (viewId: string | null) => void;
   className?: string;
-  trigger?: React.ReactNode;
+  trigger?: React.ReactElement;
   labels?: DataTableLabels;
 };
 
@@ -95,30 +96,34 @@ export function ViewsManager({
   return (
     <div className={cn("@container", className)}>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          {trigger || (
-            <Button aria-label={mergedLabels.manageViews} size="sm" variant="outline">
-              <Save className="mr-2 size-4" />
-              <span className="@md:inline hidden">{mergedLabels.views}</span>
-              {views.length > 0 && (
-                <span className="ml-2 flex size-5 items-center justify-center rounded-full bg-muted font-medium text-xs">
-                  {views.length}
-                </span>
-              )}
-            </Button>
-          )}
-        </DropdownMenuTrigger>
-
-        <DropdownMenuContent align="end" className="w-72">
+        <DropdownMenuTrigger
+          render={
+            trigger || (
+              <Button aria-label={mergedLabels.manageViews} size="sm" variant="outline">
+                <Save className="mr-2 size-4" />
+                <span className="@md:inline hidden">{mergedLabels.views}</span>
+                {views.length > 0 && (
+                  <span className="ml-2 flex size-5 items-center justify-center rounded-full bg-muted font-medium text-xs">
+                    {views.length}
+                  </span>
+                )}
+              </Button>
+            )
+          }
+        />
+        <DropdownMenuPositioner align="end">
+          <DropdownMenuContent className="w-72">
           <DropdownMenuLabel className="flex items-center justify-between">
             <span>{mergedLabels.savedViews}</span>
             <Dialog onOpenChange={setCreateDialogOpen} open={createDialogOpen}>
-              <DialogTrigger asChild>
-                <Button size="sm" variant="ghost">
-                  <Plus className="mr-1 size-3" />
-                  {mergedLabels.new}
-                </Button>
-              </DialogTrigger>
+              <DialogTrigger
+                render={
+                  <Button size="sm" variant="ghost">
+                    <Plus className="mr-1 size-3" />
+                    {mergedLabels.new}
+                  </Button>
+                }
+              />
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>{mergedLabels.createNewView}</DialogTitle>
@@ -194,17 +199,20 @@ export function ViewsManager({
                     </Button>
 
                     <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          aria-label={`Actions for ${view.name}`}
-                          className="opacity-0 group-hover:opacity-100"
-                          size="sm"
-                          variant="ghost"
-                        >
-                          <MoreVertical className="size-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
+                      <DropdownMenuTrigger
+                        render={
+                          <Button
+                            aria-label={`Actions for ${view.name}`}
+                            className="opacity-0 group-hover:opacity-100"
+                            size="sm"
+                            variant="ghost"
+                          >
+                            <MoreVertical className="size-4" />
+                          </Button>
+                        }
+                      />
+                      <DropdownMenuPositioner align="end">
+                        <DropdownMenuContent>
                         <DropdownMenuItem onClick={() => onApplyView(view.id)}>
                           <Check className="mr-2 size-4" />
                           {mergedLabels.applyView}
@@ -227,7 +235,8 @@ export function ViewsManager({
                           <Trash2 className="mr-2 size-4" />
                           {mergedLabels.delete}
                         </DropdownMenuItem>
-                      </DropdownMenuContent>
+                        </DropdownMenuContent>
+                      </DropdownMenuPositioner>
                     </DropdownMenu>
                   </div>
                 ))}
@@ -244,7 +253,8 @@ export function ViewsManager({
               </div>
             </>
           )}
-        </DropdownMenuContent>
+          </DropdownMenuContent>
+        </DropdownMenuPositioner>
       </DropdownMenu>
     </div>
   );

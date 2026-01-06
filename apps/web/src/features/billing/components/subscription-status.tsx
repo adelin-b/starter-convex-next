@@ -51,9 +51,7 @@ export function SubscriptionStatus() {
           <p className="text-muted-foreground text-sm">
             You're on the free plan. Upgrade to unlock more features.
           </p>
-          <Button asChild>
-            <a href="/pricing">View Plans</a>
-          </Button>
+          <Button render={<a href="/pricing" />}>View Plans</Button>
         </CardContent>
       </Card>
     );
@@ -101,9 +99,7 @@ export function SubscriptionStatus() {
             </Button>
           </CustomerPortalLink>
 
-          <Button asChild variant="ghost">
-            <a href="/pricing">Change Plan</a>
-          </Button>
+          <Button render={<a href="/pricing" />} variant="ghost">Change Plan</Button>
         </div>
       </CardContent>
     </Card>

@@ -100,7 +100,9 @@ export function ConfirmDialog({
 
   return (
     <AlertDialog onOpenChange={onOpenChange} open={open}>
-      {children && <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>}
+      {children && React.isValidElement(children) && (
+        <AlertDialogTrigger render={children} />
+      )}
       <AlertDialogContent data-slot="confirm-dialog" data-variant={variant}>
         <AlertDialogHeader>
           <div className="flex flex-col items-center text-center">

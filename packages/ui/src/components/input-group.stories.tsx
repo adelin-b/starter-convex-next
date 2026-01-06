@@ -22,6 +22,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPositioner,
   DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
 import {
@@ -33,9 +34,15 @@ import {
   InputGroupTextarea,
 } from "@/components/input-group";
 import { Label } from "@/components/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
+import { Popover, PopoverContent, PopoverPositioner, PopoverTrigger } from "@/components/popover";
 import { Spinner } from "@/components/spinner";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/tooltip";
 
 const CLIPBOARD_RESET_DELAY_MS = 2000;
 
@@ -168,17 +175,21 @@ export const WithButtons: Story = {
         </InputGroup>
         <InputGroup className="[--radius:9999px]">
           <Popover>
-            <PopoverTrigger asChild>
-              <InputGroupAddon>
-                <InputGroupButton size="icon-xs" variant="secondary">
-                  <Info />
-                </InputGroupButton>
-              </InputGroupAddon>
-            </PopoverTrigger>
-            <PopoverContent align="start" className="flex flex-col gap-1 rounded-xl text-sm">
-              <p className="font-medium">Your connection is not secure.</p>
-              <p>You should not enter any sensitive information on this site.</p>
-            </PopoverContent>
+            <PopoverTrigger
+              render={
+                <InputGroupAddon>
+                  <InputGroupButton size="icon-xs" variant="secondary">
+                    <Info />
+                  </InputGroupButton>
+                </InputGroupAddon>
+              }
+            />
+            <PopoverPositioner align="start">
+              <PopoverContent className="flex flex-col gap-1 rounded-xl text-sm">
+                <p className="font-medium">Your connection is not secure.</p>
+                <p>You should not enter any sensitive information on this site.</p>
+              </PopoverContent>
+            </PopoverPositioner>
           </Popover>
           <InputGroupAddon className="pl-1.5 text-muted-foreground">https://</InputGroupAddon>
           <InputGroupInput id="input-secure-19" />
@@ -213,14 +224,18 @@ export const WithTooltips: Story = {
           <InputGroupInput placeholder="Enter password" type="password" />
           <InputGroupAddon align="inline-end">
             <Tooltip>
-              <TooltipTrigger asChild>
-                <InputGroupButton aria-label="Info" size="icon-xs" variant="ghost">
-                  <InfoIcon />
-                </InputGroupButton>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Password must be at least 8 characters</p>
-              </TooltipContent>
+              <TooltipTrigger
+                render={
+                  <InputGroupButton aria-label="Info" size="icon-xs" variant="ghost">
+                    <InfoIcon />
+                  </InputGroupButton>
+                }
+              />
+              <TooltipPositioner>
+                <TooltipContent>
+                  <p>Password must be at least 8 characters</p>
+                </TooltipContent>
+              </TooltipPositioner>
             </Tooltip>
           </InputGroupAddon>
         </InputGroup>
@@ -228,30 +243,38 @@ export const WithTooltips: Story = {
           <InputGroupInput placeholder="Your email address" />
           <InputGroupAddon align="inline-end">
             <Tooltip>
-              <TooltipTrigger asChild>
-                <InputGroupButton aria-label="Help" size="icon-xs" variant="ghost">
-                  <HelpCircle />
-                </InputGroupButton>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>We'll use this to send you notifications</p>
-              </TooltipContent>
+              <TooltipTrigger
+                render={
+                  <InputGroupButton aria-label="Help" size="icon-xs" variant="ghost">
+                    <HelpCircle />
+                  </InputGroupButton>
+                }
+              />
+              <TooltipPositioner>
+                <TooltipContent>
+                  <p>We'll use this to send you notifications</p>
+                </TooltipContent>
+              </TooltipPositioner>
             </Tooltip>
           </InputGroupAddon>
         </InputGroup>
         <InputGroup {...args}>
           <InputGroupInput placeholder="Enter API key" />
           <Tooltip>
-            <TooltipTrigger asChild>
-              <InputGroupAddon>
-                <InputGroupButton aria-label="Help" size="icon-xs" variant="ghost">
-                  <HelpCircle />
-                </InputGroupButton>
-              </InputGroupAddon>
-            </TooltipTrigger>
-            <TooltipContent side="left">
-              <p>Click for help with API keys</p>
-            </TooltipContent>
+            <TooltipTrigger
+              render={
+                <InputGroupAddon>
+                  <InputGroupButton aria-label="Help" size="icon-xs" variant="ghost">
+                    <HelpCircle />
+                  </InputGroupButton>
+                </InputGroupAddon>
+              }
+            />
+            <TooltipPositioner side="left">
+              <TooltipContent>
+                <p>Click for help with API keys</p>
+              </TooltipContent>
+            </TooltipPositioner>
           </Tooltip>
         </InputGroup>
       </TooltipProvider>
@@ -352,19 +375,23 @@ export const WithLabels: Story = {
               Email
             </Label>
             <Tooltip>
-              <TooltipTrigger asChild>
-                <InputGroupButton
-                  aria-label="Help"
-                  className="ml-auto rounded-full"
-                  size="icon-xs"
-                  variant="ghost"
-                >
-                  <InfoIcon />
-                </InputGroupButton>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>We'll use this to send you notifications</p>
-              </TooltipContent>
+              <TooltipTrigger
+                render={
+                  <InputGroupButton
+                    aria-label="Help"
+                    className="ml-auto rounded-full"
+                    size="icon-xs"
+                    variant="ghost"
+                  >
+                    <InfoIcon />
+                  </InputGroupButton>
+                }
+              />
+              <TooltipPositioner>
+                <TooltipContent>
+                  <p>We'll use this to send you notifications</p>
+                </TooltipContent>
+              </TooltipPositioner>
             </Tooltip>
           </InputGroupAddon>
         </InputGroup>
@@ -383,16 +410,20 @@ export const WithDropdowns: Story = {
         <InputGroupInput placeholder="Enter file name" />
         <InputGroupAddon align="inline-end">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <InputGroupButton aria-label="More" size="icon-xs" variant="ghost">
-                <DotsHorizontalIcon />
-              </InputGroupButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Copy path</DropdownMenuItem>
-              <DropdownMenuItem>Open location</DropdownMenuItem>
-            </DropdownMenuContent>
+            <DropdownMenuTrigger
+              render={
+                <InputGroupButton aria-label="More" size="icon-xs" variant="ghost">
+                  <DotsHorizontalIcon />
+                </InputGroupButton>
+              }
+            />
+            <DropdownMenuPositioner align="end">
+              <DropdownMenuContent>
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Copy path</DropdownMenuItem>
+                <DropdownMenuItem>Open location</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenuPositioner>
           </DropdownMenu>
         </InputGroupAddon>
       </InputGroup>
@@ -400,16 +431,20 @@ export const WithDropdowns: Story = {
         <InputGroupInput placeholder="Enter search query" />
         <InputGroupAddon align="inline-end">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <InputGroupButton className="!pr-1.5 text-xs" variant="ghost">
-                Search In... <ChevronDownIcon className="size-3" />
-              </InputGroupButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="[--radius:0.95rem]">
-              <DropdownMenuItem>Documentation</DropdownMenuItem>
-              <DropdownMenuItem>Blog Posts</DropdownMenuItem>
-              <DropdownMenuItem>Changelog</DropdownMenuItem>
-            </DropdownMenuContent>
+            <DropdownMenuTrigger
+              render={
+                <InputGroupButton className="!pr-1.5 text-xs" variant="ghost">
+                  Search In... <ChevronDownIcon className="size-3" />
+                </InputGroupButton>
+              }
+            />
+            <DropdownMenuPositioner align="end">
+              <DropdownMenuContent className="[--radius:0.95rem]">
+                <DropdownMenuItem>Documentation</DropdownMenuItem>
+                <DropdownMenuItem>Blog Posts</DropdownMenuItem>
+                <DropdownMenuItem>Changelog</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenuPositioner>
           </DropdownMenu>
         </InputGroupAddon>
       </InputGroup>

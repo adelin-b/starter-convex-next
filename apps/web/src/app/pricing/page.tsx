@@ -48,8 +48,8 @@ export default function PricingPage() {
             <p className="mb-4 text-muted-foreground">
               Need a custom plan for your enterprise? We've got you covered.
             </p>
-            <Button asChild variant="outline">
-              <Link href="mailto:sales@example.com">Contact Sales</Link>
+            <Button render={<Link href="mailto:sales@example.com" />} variant="outline">
+              Contact Sales
             </Button>
           </div>
         </section>

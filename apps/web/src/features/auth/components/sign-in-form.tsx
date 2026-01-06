@@ -25,10 +25,7 @@ type SignInFormProps = {
   callbackUrl?: string;
 };
 
-export default function SignInForm({
-  onSwitchToSignUp,
-  callbackUrl = "/todos",
-}: SignInFormProps) {
+export default function SignInForm({ onSwitchToSignUp, callbackUrl = "/todos" }: SignInFormProps) {
   const router = useRouter();
   const { t } = useLingui();
 

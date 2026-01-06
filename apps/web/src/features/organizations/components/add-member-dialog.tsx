@@ -109,12 +109,14 @@ export function AddMemberDialog({
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger asChild>
-        <Button data-testid="add-member-button">
-          <Mail className="mr-2 h-4 w-4" />
-          <Trans>Invite Member</Trans>
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Button data-testid="add-member-button">
+            <Mail className="mr-2 h-4 w-4" />
+            <Trans>Invite Member</Trans>
+          </Button>
+        }
+      />
       <DialogContent data-testid="add-member-dialog">
         <DialogHeader>
           <DialogTitle>
