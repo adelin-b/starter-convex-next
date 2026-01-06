@@ -35,7 +35,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-{/* Dev tools loaded via DevToolsLoader component to avoid duplicate script loading */}
+        {/* Dev tools loaded via DevToolsLoader component to avoid duplicate script loading */}
       </head>
       <body className={cn(geistSans.variable, geistMono.variable, "antialiased")}>
         <Providers locale={locale} messages={messages}>

@@ -49,6 +49,7 @@ export function CreateTodoDialog() {
           title: title.trim(),
           description: description.trim() || undefined,
           priority: priority || undefined,
+          dueDate: undefined,
         });
         setOpen(false);
         setTitle("");

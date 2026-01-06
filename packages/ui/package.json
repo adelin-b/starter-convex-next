@@ -126,6 +126,7 @@
   },
   "dependencies": {
     "@autoform/react": "^4.0.0",
+    "@base-ui/react": "^1.0.0",
     "@fn-sphere/filter": "^1.1.0",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -166,7 +167,7 @@
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.25",
     "input-otp": "^1.4.2",
-    "lucide-react": "^0.552.0",
+    "lucide-react": "^0.562.0",
     "motion": "^12.23.24",
     "next-themes": "^0.4.6",
     "react-big-calendar": "^1.19.4",

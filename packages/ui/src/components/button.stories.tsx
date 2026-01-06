@@ -26,11 +26,6 @@ const meta: Meta<typeof Button> = {
     disabled: {
       control: "boolean",
     },
-    asChild: {
-      table: {
-        disable: true,
-      },
-    },
   },
   parameters: {
     layout: "centered",

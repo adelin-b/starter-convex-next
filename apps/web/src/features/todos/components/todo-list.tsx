@@ -7,7 +7,7 @@ import { useQueryWithStatus } from "@/lib/convex-hooks";
 import { TodoItem } from "./todo-item";
 
 export function TodoList() {
-  const { data: todos, isPending } = useQueryWithStatus(api.todos.list, {});
+  const { data: todos, isPending } = useQueryWithStatus(api.todos.list, { status: undefined });
 
   if (isPending) {
     return (

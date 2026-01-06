@@ -17,23 +17,16 @@ const meta = {
   component: Accordion,
   tags: ["autodocs"],
   argTypes: {
-    type: {
-      control: "radio",
-      description: "Type of accordion behavior",
-      options: ["single", "multiple"],
-    },
-    collapsible: {
+    multiple: {
       control: "boolean",
-      description: "Can an open accordion be collapsed using the trigger",
-      if: { arg: "type", eq: "single" },
+      description: "Allow multiple panels to be open at once",
     },
     disabled: {
       control: "boolean",
     },
   },
   args: {
-    type: "single",
-    collapsible: true,
+    multiple: false,
     disabled: false,
   },
   render: (args: any) => (
@@ -70,7 +63,7 @@ export const Default: Story = {};
 export const ShouldOnlyOpenOneWhenSingleType: Story = {
   name: "when accordions are clicked, should open only one item at a time",
   args: {
-    type: "single" as const,
+    multiple: false,
   },
   tags: ["!dev", "!autodocs"],
   play: async ({ canvasElement }: any) => {
@@ -98,7 +91,7 @@ export const ShouldOnlyOpenOneWhenSingleType: Story = {
 export const ShouldOpenAllWhenMultipleType: Story = {
   name: "when accordions are clicked, should open all items one at a time",
   args: {
-    type: "multiple",
+    multiple: true,
   },
   tags: ["!dev", "!autodocs"],
   play: async ({ canvasElement }: any) => {

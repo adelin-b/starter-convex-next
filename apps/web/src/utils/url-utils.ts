@@ -17,10 +17,7 @@ export function isValidCallbackUrl(url: string): boolean {
  * Get a safe callback URL, falling back to a default if invalid.
  * Logs a warning when a potentially malicious URL is rejected.
  */
-export function getSafeCallbackUrl(
-  url: string | null | undefined,
-  defaultUrl = "/todos",
-): string {
+export function getSafeCallbackUrl(url: string | null | undefined, defaultUrl = "/todos"): string {
   if (url && isValidCallbackUrl(url)) {
     return url;
   }

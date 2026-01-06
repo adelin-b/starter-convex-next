@@ -27,12 +27,9 @@ export function proxy(request: NextRequest) {
   }
 
   // Check if the current path matches protected routes
-  const isProtectedRoute = protectedRoutes.some((route) => {
-    if (route === "/") {
-      return pathname === "/";
-    }
-    return pathname === route || pathname.startsWith(`${route}/`);
-  });
+  const isProtectedRoute = protectedRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
+  );
 
   // Check if the current path is an auth route
   const isAuthRoute = authRoutes.some(
