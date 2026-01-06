@@ -148,83 +148,87 @@ export function SortButton<TData>({
             "max-h-[min(calc(100vh-100px),400px)]",
           )}
         >
-        <div className="flex items-center justify-between border-b pb-2">
-          <span className="font-semibold text-sm">{mergedLabels.addSort}</span>
-          {activeSortCount > 0 && (
-            <Button className="h-auto p-0 text-xs" onClick={handleClearAll} variant="ghost">
-              {mergedLabels.clearAll}
-            </Button>
-          )}
-        </div>
-
-        {/* Scrollable area with automatic scroll shadows */}
-        <ScrollArea className="max-h-[300px]">
-          {sortableColumns.length === 0 ? (
-            <div className="p-4 text-center text-muted-foreground text-sm">
-              {mergedLabels.noSortableColumns}
-            </div>
-          ) : (
-            <div className="p-1">
-              {sortableColumns.map((column) => {
-                const isActive = sorting.some((s) => s.id === column.id);
-                return (
-                  <button
-                    className="flex w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-left text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
-                    key={column.id}
-                    onClick={() => handleAddSort(column.id)}
-                    type="button"
-                  >
-                    {isActive ? getSortIcon(column.id) : <Plus className="size-4" />}
-                    <span className="flex-1 truncate">
-                      {typeof column.header === "string" ? column.header : column.id}
-                    </span>
-                    {isActive && (
-                      <span className="text-muted-foreground text-xs">
-                        {sorting.find((s) => s.id === column.id)?.desc
-                          ? mergedLabels.desc
-                          : mergedLabels.asc}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </ScrollArea>
-
-        {/* Show active sorts if any */}
-        {activeSortCount > 0 && (
-          <div className="border-t pt-2">
-            <div className="p-2">
-              <div className="font-medium text-muted-foreground text-xs">
-                {mergedLabels.activeSorts}
-              </div>
-              <div className="mt-1 space-y-1">
-                {sorting.map((sort, index) => (
-                  <div
-                    className="flex items-center gap-2 rounded-md bg-muted px-2 py-1 text-xs"
-                    key={sort.id}
-                  >
-                    <span aria-hidden="true" className="text-muted-foreground">
-                      {index + 1}.
-                    </span>
-                    {sort.desc ? <ArrowDown className="size-3" /> : <ArrowUp className="size-3" />}
-                    <span className="flex-1 truncate font-medium">{getColumnName(sort.id)}</span>
-                    <Button
-                      aria-label={`${mergedLabels.removeSort} ${getColumnName(sort.id)}`}
-                      className="size-4 p-0"
-                      onClick={() => handleRemoveSort(sort.id)}
-                      size="sm"
-                      variant="ghost"
-                    >
-                      <X className="size-3" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="flex items-center justify-between border-b pb-2">
+            <span className="font-semibold text-sm">{mergedLabels.addSort}</span>
+            {activeSortCount > 0 && (
+              <Button className="h-auto p-0 text-xs" onClick={handleClearAll} variant="ghost">
+                {mergedLabels.clearAll}
+              </Button>
+            )}
           </div>
-        )}
+
+          {/* Scrollable area with automatic scroll shadows */}
+          <ScrollArea className="max-h-[300px]">
+            {sortableColumns.length === 0 ? (
+              <div className="p-4 text-center text-muted-foreground text-sm">
+                {mergedLabels.noSortableColumns}
+              </div>
+            ) : (
+              <div className="p-1">
+                {sortableColumns.map((column) => {
+                  const isActive = sorting.some((s) => s.id === column.id);
+                  return (
+                    <button
+                      className="flex w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-left text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                      key={column.id}
+                      onClick={() => handleAddSort(column.id)}
+                      type="button"
+                    >
+                      {isActive ? getSortIcon(column.id) : <Plus className="size-4" />}
+                      <span className="flex-1 truncate">
+                        {typeof column.header === "string" ? column.header : column.id}
+                      </span>
+                      {isActive && (
+                        <span className="text-muted-foreground text-xs">
+                          {sorting.find((s) => s.id === column.id)?.desc
+                            ? mergedLabels.desc
+                            : mergedLabels.asc}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </ScrollArea>
+
+          {/* Show active sorts if any */}
+          {activeSortCount > 0 && (
+            <div className="border-t pt-2">
+              <div className="p-2">
+                <div className="font-medium text-muted-foreground text-xs">
+                  {mergedLabels.activeSorts}
+                </div>
+                <div className="mt-1 space-y-1">
+                  {sorting.map((sort, index) => (
+                    <div
+                      className="flex items-center gap-2 rounded-md bg-muted px-2 py-1 text-xs"
+                      key={sort.id}
+                    >
+                      <span aria-hidden="true" className="text-muted-foreground">
+                        {index + 1}.
+                      </span>
+                      {sort.desc ? (
+                        <ArrowDown className="size-3" />
+                      ) : (
+                        <ArrowUp className="size-3" />
+                      )}
+                      <span className="flex-1 truncate font-medium">{getColumnName(sort.id)}</span>
+                      <Button
+                        aria-label={`${mergedLabels.removeSort} ${getColumnName(sort.id)}`}
+                        className="size-4 p-0"
+                        onClick={() => handleRemoveSort(sort.id)}
+                        size="sm"
+                        variant="ghost"
+                      >
+                        <X className="size-3" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </PopoverContent>
       </PopoverPositioner>
     </Popover>

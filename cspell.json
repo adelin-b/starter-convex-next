@@ -56,6 +56,7 @@
     }
   ],
   "ignorePaths": [
+    "repo-examples",
     "megalinter-output.txt",
     "node_modules",
     "**/node_modules",

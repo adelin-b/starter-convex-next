@@ -181,6 +181,8 @@ export default [
       // Web app has its own ESLint config with feature-boundaries rules
       // Root config doesn't have eslint-plugin-import configured
       "apps/web/src/**",
+      // External examples, not part of this project
+      "repo-examples/**",
     ],
   },
   {

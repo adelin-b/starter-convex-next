@@ -1,5 +1,6 @@
 "use client";
 
+import { t } from "@lingui/core/macro";
 import { api } from "@starter-saas/backend/convex/_generated/api";
 import type { TodoStatus } from "@starter-saas/backend/convex/schema";
 import { assertNever } from "@starter-saas/shared/assert-never";
@@ -47,7 +48,7 @@ export function TodoList() {
     return (
       <div className="flex items-center gap-2 rounded-md bg-destructive/10 p-4 text-destructive">
         <AlertCircle className="size-4 shrink-0" />
-        <span>{error?.message ?? "Failed to load todos"}</span>
+        <span>{error?.message ?? t`Failed to load todos`}</span>
       </div>
     );
   }

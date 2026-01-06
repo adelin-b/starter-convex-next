@@ -176,8 +176,8 @@ export default {
 
           // === E2E INTERNAL ===
 
-          // e2e-lib: can import from itself, shared, backend
-          { from: "e2e-lib", allow: ["e2e-lib", "shared", "backend"] },
+          // e2e-lib: can import from itself, shared, backend, and e2e catch-all
+          { from: "e2e-lib", allow: ["e2e-lib", "shared", "backend", "e2e"] },
 
           // e2e-tests: can use lib, itself, shared, backend, e2e catch-all
           { from: "e2e-tests", allow: ["e2e-tests", "e2e-lib", "shared", "backend", "e2e"] },

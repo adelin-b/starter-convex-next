@@ -13,6 +13,7 @@ function Slider({
   ...props
 }: SliderPrimitive.Root.Props) {
   const _values = React.useMemo(
+    // eslint-disable-next-line unicorn/no-nested-ternary
     () => (Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]),
     [value, defaultValue, min, max],
   );

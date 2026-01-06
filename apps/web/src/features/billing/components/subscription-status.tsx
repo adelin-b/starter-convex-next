@@ -51,6 +51,7 @@ export function SubscriptionStatus() {
           <p className="text-muted-foreground text-sm">
             You're on the free plan. Upgrade to unlock more features.
           </p>
+          {/* biome-ignore lint/a11y/useAnchorContent: Button component provides children as anchor content */}
           <Button render={<a href="/pricing" />}>View Plans</Button>
         </CardContent>
       </Card>
@@ -99,7 +100,10 @@ export function SubscriptionStatus() {
             </Button>
           </CustomerPortalLink>
 
-          <Button render={<a href="/pricing" />} variant="ghost">Change Plan</Button>
+          {/* biome-ignore lint/a11y/useAnchorContent: Button component provides children as anchor content */}
+          <Button render={<a href="/pricing" />} variant="ghost">
+            Change Plan
+          </Button>
         </div>
       </CardContent>
     </Card>

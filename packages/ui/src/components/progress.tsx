@@ -10,9 +10,7 @@ function Progress({ className, children, ...props }: ProgressPrimitive.Root.Prop
       data-slot="progress"
       {...props}
     >
-      {children ? (
-        children
-      ) : (
+      {children || (
         <ProgressTrack>
           <ProgressIndicator />
         </ProgressTrack>

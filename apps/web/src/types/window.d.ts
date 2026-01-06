@@ -2,6 +2,7 @@
  * Window interface extensions for development tools and optional globals.
  */
 declare global {
+  // biome-ignore lint/style/useConsistentTypeDefinitions: Interface required for declaration merging with Window
   interface Window {
     /**
      * Capacitor object present when running in native WebView.

@@ -17,6 +17,6 @@ export async function hideNextjsDevOverlay(page: Page): Promise<void> {
         pointer-events: none !important;
       }
     `;
-    document.head.appendChild(style);
+    document.head.append(style);
   });
 }

@@ -113,146 +113,148 @@ export function ViewsManager({
         />
         <DropdownMenuPositioner align="end">
           <DropdownMenuContent className="w-72">
-          <DropdownMenuLabel className="flex items-center justify-between">
-            <span>{mergedLabels.savedViews}</span>
-            <Dialog onOpenChange={setCreateDialogOpen} open={createDialogOpen}>
-              <DialogTrigger
-                render={
-                  <Button size="sm" variant="ghost">
-                    <Plus className="mr-1 size-3" />
-                    {mergedLabels.new}
-                  </Button>
-                }
-              />
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>{mergedLabels.createNewView}</DialogTitle>
-                  <DialogDescription>{mergedLabels.saveCurrentConfig}</DialogDescription>
-                </DialogHeader>
-
-                <div className="space-y-4 py-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="view-name">{mergedLabels.name}</Label>
-                    <Input
-                      id="view-name"
-                      onChange={(e) => setNewViewName(e.target.value)}
-                      placeholder={mergedLabels.viewNamePlaceholder}
-                      value={newViewName}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="view-description">{mergedLabels.descriptionOptional}</Label>
-                    <Input
-                      id="view-description"
-                      onChange={(e) => setNewViewDescription(e.target.value)}
-                      placeholder={mergedLabels.describeView}
-                      value={newViewDescription}
-                    />
-                  </div>
-                </div>
-
-                <DialogFooter>
-                  <Button onClick={() => setCreateDialogOpen(false)} variant="outline">
-                    {mergedLabels.cancel}
-                  </Button>
-                  <Button disabled={!newViewName.trim()} onClick={handleCreateView}>
-                    {mergedLabels.createView}
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-
-          {views.length === 0 ? (
-            <div className="p-4 text-center text-muted-foreground text-sm">
-              {mergedLabels.noSavedViews}
-            </div>
-          ) : (
-            <ScrollArea className="max-h-96">
-              <div className="space-y-1 p-1">
-                {views.map((view) => (
-                  <div
-                    className={cn(
-                      "group flex items-center gap-2 rounded-md p-2 hover:bg-accent",
-                      activeViewId === view.id && "bg-accent",
-                    )}
-                    key={view.id}
-                  >
-                    <Button
-                      className="flex-1 justify-start gap-2 font-normal"
-                      onClick={() => onApplyView(view.id)}
-                      size="sm"
-                      variant="ghost"
-                    >
-                      {view.isDefault && <Star className="size-3 fill-current" />}
-                      {activeViewId === view.id && <Check className="size-3" />}
-                      <div className="flex-1 truncate text-left">
-                        <div className="font-medium text-sm">{view.name}</div>
-                        {view.description && (
-                          <div className="truncate text-muted-foreground text-xs">
-                            {view.description}
-                          </div>
-                        )}
-                      </div>
+            <DropdownMenuLabel className="flex items-center justify-between">
+              <span>{mergedLabels.savedViews}</span>
+              <Dialog onOpenChange={setCreateDialogOpen} open={createDialogOpen}>
+                <DialogTrigger
+                  render={
+                    <Button size="sm" variant="ghost">
+                      <Plus className="mr-1 size-3" />
+                      {mergedLabels.new}
                     </Button>
+                  }
+                />
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>{mergedLabels.createNewView}</DialogTitle>
+                    <DialogDescription>{mergedLabels.saveCurrentConfig}</DialogDescription>
+                  </DialogHeader>
 
-                    <DropdownMenu>
-                      <DropdownMenuTrigger
-                        render={
-                          <Button
-                            aria-label={`Actions for ${view.name}`}
-                            className="opacity-0 group-hover:opacity-100"
-                            size="sm"
-                            variant="ghost"
-                          >
-                            <MoreVertical className="size-4" />
-                          </Button>
-                        }
+                  <div className="space-y-4 py-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="view-name">{mergedLabels.name}</Label>
+                      <Input
+                        id="view-name"
+                        onChange={(e) => setNewViewName(e.target.value)}
+                        placeholder={mergedLabels.viewNamePlaceholder}
+                        value={newViewName}
                       />
-                      <DropdownMenuPositioner align="end">
-                        <DropdownMenuContent>
-                        <DropdownMenuItem onClick={() => onApplyView(view.id)}>
-                          <Check className="mr-2 size-4" />
-                          {mergedLabels.applyView}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => onSetDefaultView(view.isDefault ? null : view.id)}
-                        >
-                          <Star className="mr-2 size-4" />
-                          {view.isDefault ? mergedLabels.unsetAsDefault : mergedLabels.setAsDefault}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => onDuplicateView(view.id)}>
-                          <Copy className="mr-2 size-4" />
-                          {mergedLabels.duplicate}
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          className="text-destructive focus:text-destructive"
-                          onClick={() => onDeleteView(view.id)}
-                        >
-                          <Trash2 className="mr-2 size-4" />
-                          {mergedLabels.delete}
-                        </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenuPositioner>
-                    </DropdownMenu>
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
-          )}
+                    </div>
 
-          {defaultView && (
-            <>
-              <DropdownMenuSeparator />
-              <div className="p-2 text-muted-foreground text-xs">
-                <Star className="mr-1 inline size-3 fill-current" />
-                {mergedLabels.defaultView} {defaultView.name}
+                    <div className="space-y-2">
+                      <Label htmlFor="view-description">{mergedLabels.descriptionOptional}</Label>
+                      <Input
+                        id="view-description"
+                        onChange={(e) => setNewViewDescription(e.target.value)}
+                        placeholder={mergedLabels.describeView}
+                        value={newViewDescription}
+                      />
+                    </div>
+                  </div>
+
+                  <DialogFooter>
+                    <Button onClick={() => setCreateDialogOpen(false)} variant="outline">
+                      {mergedLabels.cancel}
+                    </Button>
+                    <Button disabled={!newViewName.trim()} onClick={handleCreateView}>
+                      {mergedLabels.createView}
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            {views.length === 0 ? (
+              <div className="p-4 text-center text-muted-foreground text-sm">
+                {mergedLabels.noSavedViews}
               </div>
-            </>
-          )}
+            ) : (
+              <ScrollArea className="max-h-96">
+                <div className="space-y-1 p-1">
+                  {views.map((view) => (
+                    <div
+                      className={cn(
+                        "group flex items-center gap-2 rounded-md p-2 hover:bg-accent",
+                        activeViewId === view.id && "bg-accent",
+                      )}
+                      key={view.id}
+                    >
+                      <Button
+                        className="flex-1 justify-start gap-2 font-normal"
+                        onClick={() => onApplyView(view.id)}
+                        size="sm"
+                        variant="ghost"
+                      >
+                        {view.isDefault && <Star className="size-3 fill-current" />}
+                        {activeViewId === view.id && <Check className="size-3" />}
+                        <div className="flex-1 truncate text-left">
+                          <div className="font-medium text-sm">{view.name}</div>
+                          {view.description && (
+                            <div className="truncate text-muted-foreground text-xs">
+                              {view.description}
+                            </div>
+                          )}
+                        </div>
+                      </Button>
+
+                      <DropdownMenu>
+                        <DropdownMenuTrigger
+                          render={
+                            <Button
+                              aria-label={`Actions for ${view.name}`}
+                              className="opacity-0 group-hover:opacity-100"
+                              size="sm"
+                              variant="ghost"
+                            >
+                              <MoreVertical className="size-4" />
+                            </Button>
+                          }
+                        />
+                        <DropdownMenuPositioner align="end">
+                          <DropdownMenuContent>
+                            <DropdownMenuItem onClick={() => onApplyView(view.id)}>
+                              <Check className="mr-2 size-4" />
+                              {mergedLabels.applyView}
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => onSetDefaultView(view.isDefault ? null : view.id)}
+                            >
+                              <Star className="mr-2 size-4" />
+                              {view.isDefault
+                                ? mergedLabels.unsetAsDefault
+                                : mergedLabels.setAsDefault}
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => onDuplicateView(view.id)}>
+                              <Copy className="mr-2 size-4" />
+                              {mergedLabels.duplicate}
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                              className="text-destructive focus:text-destructive"
+                              onClick={() => onDeleteView(view.id)}
+                            >
+                              <Trash2 className="mr-2 size-4" />
+                              {mergedLabels.delete}
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenuPositioner>
+                      </DropdownMenu>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
+            )}
+
+            {defaultView && (
+              <>
+                <DropdownMenuSeparator />
+                <div className="p-2 text-muted-foreground text-xs">
+                  <Star className="mr-1 inline size-3 fill-current" />
+                  {mergedLabels.defaultView} {defaultView.name}
+                </div>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenuPositioner>
       </DropdownMenu>
