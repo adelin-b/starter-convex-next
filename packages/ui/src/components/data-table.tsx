@@ -324,6 +324,7 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
+  DropdownMenuPositioner,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
@@ -337,29 +338,33 @@ export function DataTableViewOptions<TData>({ table, labels }: DataTableViewOpti
   const mergedLabels = { ...defaultDataTableLabels, ...labels };
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className="ml-auto h-8" size="sm" variant="outline">
-          <ChevronDown className="mr-2 size-4" />
-          {mergedLabels.view}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[150px]">
-        <DropdownMenuLabel>{mergedLabels.columns}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {table
-          .getAllColumns()
-          .filter((column) => column.accessorFn !== undefined && column.getCanHide())
-          .map((column) => (
-            <DropdownMenuCheckboxItem
-              checked={column.getIsVisible()}
-              className="capitalize"
-              key={column.id}
-              onCheckedChange={(value) => column.toggleVisibility(!!value)}
-            >
-              {column.id}
-            </DropdownMenuCheckboxItem>
-          ))}
-      </DropdownMenuContent>
+      <DropdownMenuTrigger
+        render={
+          <Button className="ml-auto h-8" size="sm" variant="outline">
+            <ChevronDown className="mr-2 size-4" />
+            {mergedLabels.view}
+          </Button>
+        }
+      />
+      <DropdownMenuPositioner align="end">
+        <DropdownMenuContent className="w-[150px]">
+          <DropdownMenuLabel>{mergedLabels.columns}</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {table
+            .getAllColumns()
+            .filter((column) => column.accessorFn !== undefined && column.getCanHide())
+            .map((column) => (
+              <DropdownMenuCheckboxItem
+                checked={column.getIsVisible()}
+                className="capitalize"
+                key={column.id}
+                onCheckedChange={(value) => column.toggleVisibility(!!value)}
+              >
+                {column.id}
+              </DropdownMenuCheckboxItem>
+            ))}
+        </DropdownMenuContent>
+      </DropdownMenuPositioner>
     </DropdownMenu>
   );
 }

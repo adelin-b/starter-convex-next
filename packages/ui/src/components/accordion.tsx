@@ -7,15 +7,10 @@ import { ChevronDownIcon } from "lucide-react";
 export type AccordionProps = AccordionPrimitive.Root.Props;
 
 function Accordion({ ...props }: AccordionProps) {
-  return (
-    <AccordionPrimitive.Root data-slot="accordion" keepMounted {...props} />
-  );
+  return <AccordionPrimitive.Root data-slot="accordion" keepMounted {...props} />;
 }
 
-function AccordionItem({
-  className,
-  ...props
-}: AccordionPrimitive.Item.Props) {
+function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
   return (
     <AccordionPrimitive.Item
       className={cn("border-b last:border-b-0", className)}
@@ -25,11 +20,7 @@ function AccordionItem({
   );
 }
 
-function AccordionTrigger({
-  className,
-  children,
-  ...props
-}: AccordionPrimitive.Trigger.Props) {
+function AccordionTrigger({ className, children, ...props }: AccordionPrimitive.Trigger.Props) {
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -47,11 +38,7 @@ function AccordionTrigger({
   );
 }
 
-function AccordionContent({
-  className,
-  children,
-  ...props
-}: AccordionPrimitive.Panel.Props) {
+function AccordionContent({ className, children, ...props }: AccordionPrimitive.Panel.Props) {
   return (
     <AccordionPrimitive.Panel
       className="overflow-hidden text-sm data-[closed]:animate-accordion-up data-[open]:animate-accordion-down"

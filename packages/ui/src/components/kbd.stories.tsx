@@ -4,7 +4,13 @@ import { Button } from "@/components/button";
 import { ButtonGroup } from "@/components/button-group";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/input-group";
 import { Kbd, KbdGroup } from "@/components/kbd";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/tooltip";
 
 /**
  * Used to display textual user input from keyboard.
@@ -65,32 +71,40 @@ export const WithTooltip: Story = {
       <TooltipProvider>
         <ButtonGroup>
           <Tooltip>
-            <TooltipTrigger asChild>
-              <Button size="sm" variant="outline">
-                Save
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <div className="flex items-center gap-2">
-                Save Changes <Kbd {...args}>S</Kbd>
-              </div>
-            </TooltipContent>
+            <TooltipTrigger
+              render={
+                <Button size="sm" variant="outline">
+                  Save
+                </Button>
+              }
+            />
+            <TooltipPositioner>
+              <TooltipContent>
+                <div className="flex items-center gap-2">
+                  Save Changes <Kbd {...args}>S</Kbd>
+                </div>
+              </TooltipContent>
+            </TooltipPositioner>
           </Tooltip>
           <Tooltip>
-            <TooltipTrigger asChild>
-              <Button size="sm" variant="outline">
-                Print
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <div className="flex items-center gap-2">
-                Print Document{" "}
-                <KbdGroup>
-                  <Kbd {...args}>Ctrl</Kbd>
-                  <Kbd {...args}>P</Kbd>
-                </KbdGroup>
-              </div>
-            </TooltipContent>
+            <TooltipTrigger
+              render={
+                <Button size="sm" variant="outline">
+                  Print
+                </Button>
+              }
+            />
+            <TooltipPositioner>
+              <TooltipContent>
+                <div className="flex items-center gap-2">
+                  Print Document{" "}
+                  <KbdGroup>
+                    <Kbd {...args}>Ctrl</Kbd>
+                    <Kbd {...args}>P</Kbd>
+                  </KbdGroup>
+                </div>
+              </TooltipContent>
+            </TooltipPositioner>
           </Tooltip>
         </ButtonGroup>{" "}
       </TooltipProvider>

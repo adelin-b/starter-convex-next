@@ -1,6 +1,7 @@
 "use client";
 /* eslint-disable lingui/no-unlocalized-strings */
 
+import { captureException } from "@sentry/nextjs";
 import { Avatar, AvatarFallback } from "@starter-saas/ui/avatar";
 import { Button } from "@starter-saas/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@starter-saas/ui/card";
@@ -67,7 +68,11 @@ export function DevQuickLogin({ callbackUrl = "/" }: DevQuickLoginProps) {
 
       router.push(callbackUrl as Parameters<typeof router.push>[0]);
     } catch (error) {
-      console.error("Quick login failed:", error);
+      // Track dev login issues for debugging environment problems
+      captureException(error, {
+        tags: { feature: "auth", action: "dev-quick-login" },
+        extra: { email: DEV_USER.email },
+      });
       const message = error instanceof Error ? error.message : "Quick login failed";
       toast.error(message);
     } finally {

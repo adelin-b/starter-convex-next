@@ -77,7 +77,8 @@ export function GroupButton<TData>({
     : [];
 
   // Handle selecting a column to group by
-  const handleColumnChange = (columnId: string) => {
+  const handleColumnChange = (columnId: string | null) => {
+    if (columnId === null) return;
     if (columnId === "__none__") {
       onGroupConfigChange(null);
     } else {

@@ -13,7 +13,7 @@ import {
   CommandItem,
   CommandList,
 } from "../../command";
-import { Popover, PopoverContent, PopoverTrigger } from "../../popover";
+import { Popover, PopoverContent, PopoverPositioner, PopoverTrigger } from "../../popover";
 import type { DataTableLabels } from "../labels";
 import { defaultDataTableLabels } from "../labels";
 import type { RelationConfig } from "../types";
@@ -228,19 +228,22 @@ export function RelationSelector({
 
       {/* Selector */}
       <Popover onOpenChange={setOpen} open={open}>
-        <PopoverTrigger asChild>
-          <Button
-            aria-expanded={open}
-            className="w-full justify-between"
-            disabled={disabled}
-            role="combobox"
-            variant="outline"
-          >
-            <span className="truncate">{getDisplayText()}</span>
-            <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent align="start" className="w-[400px] p-0">
+        <PopoverTrigger
+          render={
+            <Button
+              aria-expanded={open}
+              className="w-full justify-between"
+              disabled={disabled}
+              role="combobox"
+              variant="outline"
+            >
+              <span className="truncate">{getDisplayText()}</span>
+              <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
+            </Button>
+          }
+        />
+        <PopoverPositioner align="start">
+          <PopoverContent className="w-[400px] p-0">
           <Command shouldFilter={false}>
             <CommandInput
               onValueChange={handleSearch}
@@ -285,7 +288,8 @@ export function RelationSelector({
               })()}
             </CommandList>
           </Command>
-        </PopoverContent>
+          </PopoverContent>
+        </PopoverPositioner>
       </Popover>
     </div>
   );

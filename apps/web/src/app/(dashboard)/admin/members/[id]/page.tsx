@@ -175,10 +175,8 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
             <p className="mt-4 text-muted-foreground">
               <Trans>The member may have been removed or you don't have access.</Trans>
             </p>
-            <Button asChild className="mt-4">
-              <Link href="/admin/members">
-                <Trans>Back to Members</Trans>
-              </Link>
+            <Button className="mt-4" render={<Link href="/admin/members" />}>
+              <Trans>Back to Members</Trans>
             </Button>
           </CardContent>
         </Card>

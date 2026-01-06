@@ -28,15 +28,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 /**
- * Use the `inverted` prop to have the slider fill from right to left.
- */
-export const Inverted: Story = {
-  args: {
-    inverted: true,
-  },
-};
-
-/**
  * Use the `disabled` prop to disable the slider.
  */
 export const Disabled: Story = {

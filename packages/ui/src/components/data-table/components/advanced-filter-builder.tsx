@@ -209,7 +209,8 @@ function SingleFilterRule<TData>({
     [rule.operator],
   );
 
-  const handleFieldChange = (fieldId: string) => {
+  const handleFieldChange = (fieldId: string | null) => {
+    if (fieldId === null) return;
     const newColumn = columns.find((col) => col.id === fieldId);
     if (!newColumn) {
       return;
@@ -228,7 +229,8 @@ function SingleFilterRule<TData>({
     setLocalValue("");
   };
 
-  const handleOperatorChange = (operatorValue: string) => {
+  const handleOperatorChange = (operatorValue: string | null) => {
+    if (operatorValue === null) return;
     const newOperator = FILTER_OPERATORS.find((op) => op.value === operatorValue);
     if (!newOperator) {
       return;

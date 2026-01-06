@@ -5,7 +5,7 @@ import { ArrowDown, ArrowUp, ArrowUpDown, Plus, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../../../utils";
 import { Button } from "../../button";
-import { Popover, PopoverContent, PopoverTrigger } from "../../popover";
+import { Popover, PopoverContent, PopoverPositioner, PopoverTrigger } from "../../popover";
 import { ScrollArea } from "../../scroll-area";
 import type { DataTableLabels } from "../labels";
 import { defaultDataTableLabels } from "../labels";
@@ -104,49 +104,50 @@ export function SortButton<TData>({
 
   return (
     <Popover onOpenChange={setOpen} open={open}>
-      <PopoverTrigger asChild>
-        <Button
-          aria-label={
-            activeSortCount > 0
-              ? `${mergedLabels.sort} (${activeSortCount} ${mergedLabels.sortActive})`
-              : mergedLabels.sort
-          }
+      <PopoverTrigger
+        render={
+          <Button
+            aria-label={
+              activeSortCount > 0
+                ? `${mergedLabels.sort} (${activeSortCount} ${mergedLabels.sortActive})`
+                : mergedLabels.sort
+            }
+            className={cn(
+              "relative gap-2",
+              // Show label on larger containers, hide on small
+              "@md:gap-2",
+              className,
+            )}
+            size="sm"
+            variant="outline"
+          >
+            <ArrowUpDown aria-hidden="true" className="size-4" />
+            {/* Label - hidden on small screens via container query */}
+            {showLabel && (
+              <span aria-hidden="true" className="@md:inline hidden">
+                {mergedLabels.sort}
+              </span>
+            )}
+            {/* Active sort count badge */}
+            {activeSortCount > 0 && (
+              <span
+                aria-hidden="true"
+                className="flex size-5 items-center justify-center rounded-full bg-primary font-medium text-primary-foreground text-xs"
+              >
+                {activeSortCount}
+              </span>
+            )}
+          </Button>
+        }
+      />
+      <PopoverPositioner align="start">
+        <PopoverContent
           className={cn(
-            "relative gap-2",
-            // Show label on larger containers, hide on small
-            "@md:gap-2",
-            className,
+            "w-64",
+            // Limit height and enable scrolling for long lists
+            "max-h-[min(calc(100vh-100px),400px)]",
           )}
-          size="sm"
-          variant="outline"
         >
-          <ArrowUpDown aria-hidden="true" className="size-4" />
-          {/* Label - hidden on small screens via container query */}
-          {showLabel && (
-            <span aria-hidden="true" className="@md:inline hidden">
-              {mergedLabels.sort}
-            </span>
-          )}
-          {/* Active sort count badge */}
-          {activeSortCount > 0 && (
-            <span
-              aria-hidden="true"
-              className="flex size-5 items-center justify-center rounded-full bg-primary font-medium text-primary-foreground text-xs"
-            >
-              {activeSortCount}
-            </span>
-          )}
-        </Button>
-      </PopoverTrigger>
-
-      <PopoverContent
-        align="start"
-        className={cn(
-          "w-64",
-          // Limit height and enable scrolling for long lists
-          "max-h-[min(calc(100vh-100px),400px)]",
-        )}
-      >
         <div className="flex items-center justify-between border-b pb-2">
           <span className="font-semibold text-sm">{mergedLabels.addSort}</span>
           {activeSortCount > 0 && (
@@ -224,7 +225,8 @@ export function SortButton<TData>({
             </div>
           </div>
         )}
-      </PopoverContent>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

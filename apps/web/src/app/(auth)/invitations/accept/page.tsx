@@ -74,10 +74,8 @@ function InvitationContent() {
         icon={<AlertCircle className="h-12 w-12 text-amber-500" />}
         title={t`Invalid Invitation Link`}
       >
-        <Button asChild className="w-full">
-          <Link href="/">
-            <Trans>Go to Home</Trans>
-          </Link>
+        <Button className="w-full" render={<Link href="/" />}>
+          <Trans>Go to Home</Trans>
         </Button>
       </InvitationCard>
     );
@@ -102,10 +100,8 @@ function InvitationContent() {
         icon={<XCircle className="h-12 w-12 text-destructive" />}
         title={t`Invitation Not Found`}
       >
-        <Button asChild className="w-full">
-          <Link href="/">
-            <Trans>Go to Home</Trans>
-          </Link>
+        <Button className="w-full" render={<Link href="/" />}>
+          <Trans>Go to Home</Trans>
         </Button>
       </InvitationCard>
     );
@@ -124,10 +120,8 @@ function InvitationContent() {
         icon={<Clock className="h-12 w-12 text-amber-500" />}
         title={t`Invitation Expired`}
       >
-        <Button asChild className="w-full">
-          <Link href="/">
-            <Trans>Go to Home</Trans>
-          </Link>
+        <Button className="w-full" render={<Link href="/" />}>
+          <Trans>Go to Home</Trans>
         </Button>
       </InvitationCard>
     );
@@ -141,10 +135,8 @@ function InvitationContent() {
         icon={<CheckCircle className="h-12 w-12 text-green-500" />}
         title={t`Already Accepted`}
       >
-        <Button asChild className="w-full">
-          <Link href="/">
-            <Trans>Go to Dashboard</Trans>
-          </Link>
+        <Button className="w-full" render={<Link href="/" />}>
+          <Trans>Go to Dashboard</Trans>
         </Button>
       </InvitationCard>
     );
@@ -158,10 +150,8 @@ function InvitationContent() {
         icon={<XCircle className="h-12 w-12 text-destructive" />}
         title={t`Invitation Revoked`}
       >
-        <Button asChild className="w-full">
-          <Link href="/">
-            <Trans>Go to Home</Trans>
-          </Link>
+        <Button className="w-full" render={<Link href="/" />}>
+          <Trans>Go to Home</Trans>
         </Button>
       </InvitationCard>
     );
@@ -260,12 +250,16 @@ function InvitationContent() {
             </div>
           </div>
 
-          <Button asChild className="w-full" size="lg">
-            <Link
-              href={`/login?callbackUrl=${encodeURIComponent(`/invitations/accept?token=${token}`)}`}
-            >
-              <Trans>Sign In to Accept</Trans>
-            </Link>
+          <Button
+            className="w-full"
+            render={
+              <Link
+                href={`/login?callbackUrl=${encodeURIComponent(`/invitations/accept?token=${token}`)}`}
+              />
+            }
+            size="lg"
+          >
+            <Trans>Sign In to Accept</Trans>
           </Button>
         </InvitationCard>
       </Unauthenticated>

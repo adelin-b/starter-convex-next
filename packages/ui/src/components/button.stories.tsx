@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Loader2, Mail } from "lucide-react";
 
-import { Button } from "./button";
+import { Button, type ButtonProps } from "./button";
+
+type ButtonStoryProps = Pick<ButtonProps, "variant" | "size" | "disabled" | "children" | "title">;
 
 /**
  * Displays a button or a component that looks like a button.
  */
-const meta: Meta<typeof Button> = {
+const meta: Meta<ButtonStoryProps> = {
   title: "ui/Button",
   component: Button,
   tags: ["autodocs"],
@@ -36,11 +38,11 @@ const meta: Meta<typeof Button> = {
     children: "Button",
     disabled: false,
   },
-} satisfies Meta<typeof Button>;
+};
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<ButtonStoryProps>;
 
 /**
  * The default form of the button, used for primary actions and commands.
@@ -109,7 +111,7 @@ export const Loading: Story = {
     </Button>
   ),
   args: {
-    ...Outline.args,
+    variant: "outline",
     disabled: true,
   },
 };
@@ -125,7 +127,7 @@ export const WithIcon: Story = {
     </Button>
   ),
   args: {
-    ...Secondary.args,
+    variant: "secondary",
   },
 };
 
@@ -154,7 +156,7 @@ export const Large: Story = {
  */
 export const Icon: Story = {
   args: {
-    ...Secondary.args,
+    variant: "secondary",
     size: "icon",
     title: "Mail",
     children: <Mail />,
