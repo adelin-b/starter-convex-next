@@ -89,6 +89,7 @@ autodocs
 autoform
 bddgen
 berline
+basecn
 biome
 bun
 bunx
@@ -119,6 +120,7 @@ fourgonnette
 frontmatter
 ghos
 groupable
+httponly
 huskyrc
 johndoe
 junie
@@ -179,6 +181,7 @@ tsgo
 turbo
 turbopack
 turborepo
+tweakcn
 typesafe
 ultracite
 unauthed

@@ -616,7 +616,9 @@ function TaskToolbar({ filters, onAddFilter, onRemoveFilter, onClearFilters }: T
   };
 
   const handleStatusChange = (value: string | null) => {
-    if (value === null) return;
+    if (value === null) {
+      return;
+    }
     setStatusValue(value);
     onRemoveFilter("status", "eq");
     if (value && value !== "all") {
@@ -625,7 +627,9 @@ function TaskToolbar({ filters, onAddFilter, onRemoveFilter, onClearFilters }: T
   };
 
   const handlePriorityChange = (value: string | null) => {
-    if (value === null) return;
+    if (value === null) {
+      return;
+    }
     setPriorityValue(value);
     onRemoveFilter("priority", "eq");
     if (value && value !== "all") {

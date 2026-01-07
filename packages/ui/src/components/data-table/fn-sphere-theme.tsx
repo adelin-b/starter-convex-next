@@ -75,7 +75,9 @@ function ShadcnSelect<T>({
 
   const handleChange = useCallback(
     (indexStr: string | null) => {
-      if (indexStr === null) return;
+      if (indexStr === null) {
+        return;
+      }
       const idx = Number.parseInt(indexStr, 10);
       const option = options[idx];
       if (option) {
@@ -146,25 +148,25 @@ function ShadcnMultiSelect<T>({
       />
       <PopoverPositioner align="start">
         <PopoverContent className="w-48 p-2">
-        <div className="space-y-2">
-          {options.map((option, idx) => {
-            const checkboxId = `multi-select-${idx}`;
-            return (
-              <label
-                className="flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1 text-sm hover:bg-accent"
-                htmlFor={checkboxId}
-                key={idx}
-              >
-                <Checkbox
-                  checked={value.includes(option.value)}
-                  id={checkboxId}
-                  onCheckedChange={() => handleToggle(option.value)}
-                />
-                <span>{option.label}</span>
-              </label>
-            );
-          })}
-        </div>
+          <div className="space-y-2">
+            {options.map((option, idx) => {
+              const checkboxId = `multi-select-${idx}`;
+              return (
+                <label
+                  className="flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1 text-sm hover:bg-accent"
+                  htmlFor={checkboxId}
+                  key={idx}
+                >
+                  <Checkbox
+                    checked={value.includes(option.value)}
+                    id={checkboxId}
+                    onCheckedChange={() => handleToggle(option.value)}
+                  />
+                  <span>{option.label}</span>
+                </label>
+              );
+            })}
+          </div>
         </PopoverContent>
       </PopoverPositioner>
     </Popover>
@@ -199,18 +201,18 @@ const dateInputSpec: DataInputViewSpec = {
         />
         <PopoverPositioner align="start">
           <PopoverContent className="w-auto p-0">
-          <Calendar
-            mode="single"
-            onSelect={(date) => {
-              if (date) {
-                updateInput(date);
-              } else {
-                updateInput();
-              }
-              setOpen(false);
-            }}
-            selected={currentValue}
-          />
+            <Calendar
+              mode="single"
+              onSelect={(date) => {
+                if (date) {
+                  updateInput(date);
+                } else {
+                  updateInput();
+                }
+                setOpen(false);
+              }}
+              selected={currentValue}
+            />
           </PopoverContent>
         </PopoverPositioner>
       </Popover>

@@ -20,6 +20,7 @@
     "baseline-browser-mapping",
     "import-in-the-middle",
     "require-in-the-middle",
+    "@cucumber/cucumber",
     "@cucumber/gherkin",
     "lint-staged",
     "@vitest/coverage-v8",
@@ -109,7 +110,7 @@
       "entry": [
         "playwright.config.ts",
         "playwright.coverage.config.ts",
-        "lib/*.ts",
+        "lib/**/*.ts",
         "scripts/*.ts",
         "tests/**/*.ts"
       ],

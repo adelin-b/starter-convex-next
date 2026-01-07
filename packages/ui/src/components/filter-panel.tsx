@@ -112,34 +112,34 @@ function FilterPanelDateRange({
         />
         <PopoverPositioner align="start">
           <PopoverContent className="w-auto p-0">
-          <Calendar
-            defaultMonth={value?.from}
-            initialFocus
-            mode="range"
-            numberOfMonths={2}
-            onSelect={onChange}
-            selected={value}
-          />
-          {value && (
-            <>
-              <Separator />
-              <div className="p-3">
-                <Button
-                  className="w-full"
-                  onClick={() => {
-                    // eslint-disable-next-line unicorn/no-useless-undefined -- undefined clears the date range
-                    onChange(undefined);
-                    setOpen(false);
-                  }}
-                  size="sm"
-                  variant="outline"
-                >
-                  <X className="mr-2 size-4" />
-                  {clearDateText}
-                </Button>
-              </div>
-            </>
-          )}
+            <Calendar
+              defaultMonth={value?.from}
+              initialFocus
+              mode="range"
+              numberOfMonths={2}
+              onSelect={onChange}
+              selected={value}
+            />
+            {value && (
+              <>
+                <Separator />
+                <div className="p-3">
+                  <Button
+                    className="w-full"
+                    onClick={() => {
+                      // eslint-disable-next-line unicorn/no-useless-undefined -- undefined clears the date range
+                      onChange(undefined);
+                      setOpen(false);
+                    }}
+                    size="sm"
+                    variant="outline"
+                  >
+                    <X className="mr-2 size-4" />
+                    {clearDateText}
+                  </Button>
+                </div>
+              </>
+            )}
           </PopoverContent>
         </PopoverPositioner>
       </Popover>

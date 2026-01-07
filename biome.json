@@ -4,6 +4,7 @@
     "ignoreUnknown": false,
     "includes": [
       "**",
+      "!repo-examples",
       "!.worktrees",
       "!**/.next",
       "!**/.next-e2e",

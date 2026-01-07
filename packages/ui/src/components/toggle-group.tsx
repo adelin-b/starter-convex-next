@@ -13,13 +13,7 @@ const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariant
 
 type ToggleGroupProps = ToggleGroupPrimitive.Props & VariantProps<typeof toggleVariants>;
 
-function ToggleGroup({
-  className,
-  variant,
-  size,
-  children,
-  ...props
-}: ToggleGroupProps) {
+function ToggleGroup({ className, variant, size, children, ...props }: ToggleGroupProps) {
   return (
     <ToggleGroupPrimitive
       className={cn(

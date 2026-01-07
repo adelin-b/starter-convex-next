@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable lingui/no-unlocalized-strings */
 
 import { useEffect } from "react";
 import { scan } from "react-scan";

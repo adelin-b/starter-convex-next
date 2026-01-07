@@ -28,8 +28,8 @@ export async function waitForConvexConnection(page: Page, timeout = 30_000): Pro
 
   while (Date.now() - startTime < timeout) {
     // Check for connection overlays
-    const connectingOverlay = page.getByRole("heading", { name: /Connecting\.\.\./i });
-    const connectionProblem = page.getByRole("heading", { name: /Connection Problem/i });
+    const connectingOverlay = page.getByRole("heading", { name: /connecting\.\.\./i });
+    const connectionProblem = page.getByRole("heading", { name: /connection problem/i });
 
     const isConnecting = await connectingOverlay.isVisible().catch(() => false);
     const hasConnectionProblem = await connectionProblem.isVisible().catch(() => false);

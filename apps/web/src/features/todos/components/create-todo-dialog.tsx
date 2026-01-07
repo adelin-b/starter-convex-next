@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { api } from "@starter-saas/backend/convex/_generated/api";
 import { todoPriorities } from "@starter-saas/backend/convex/schema";
@@ -90,7 +91,7 @@ export function CreateTodoDialog() {
       });
       reset();
       setOpen(false);
-      toast.success("Todo created successfully");
+      toast.success(t`Todo created successfully`);
     } catch (error) {
       if (handleConvexError(error)) {
         return;

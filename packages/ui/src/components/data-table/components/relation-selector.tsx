@@ -244,50 +244,53 @@ export function RelationSelector({
         />
         <PopoverPositioner align="start">
           <PopoverContent className="w-[400px] p-0">
-          <Command shouldFilter={false}>
-            <CommandInput
-              onValueChange={handleSearch}
-              placeholder={searchPlaceholder}
-              value={search}
-            />
-            <CommandList>
-              {(() => {
-                if (isSearching) {
+            <Command shouldFilter={false}>
+              <CommandInput
+                onValueChange={handleSearch}
+                placeholder={searchPlaceholder}
+                value={search}
+              />
+              <CommandList>
+                {(() => {
+                  if (isSearching) {
+                    return (
+                      <div className="flex items-center justify-center p-4">
+                        <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                        <span className="ml-2 text-muted-foreground text-sm">
+                          {mergedLabels.searching}
+                        </span>
+                      </div>
+                    );
+                  }
+
+                  if (searchResults.length === 0) {
+                    return <CommandEmpty>{mergedLabels.noResultsFound}</CommandEmpty>;
+                  }
+
                   return (
-                    <div className="flex items-center justify-center p-4">
-                      <Loader2 className="size-4 animate-spin text-muted-foreground" />
-                      <span className="ml-2 text-muted-foreground text-sm">
-                        {mergedLabels.searching}
-                      </span>
-                    </div>
+                    <CommandGroup>
+                      {searchResults.map((item) => {
+                        const id = String(item.id);
+                        const displayValue = String(item[config.displayField] ?? id);
+                        const isSelected = selectedIds.includes(id);
+
+                        return (
+                          <CommandItem key={id} onSelect={() => handleSelect(id)} value={id}>
+                            <Check
+                              className={cn(
+                                "mr-2 size-4",
+                                isSelected ? "opacity-100" : "opacity-0",
+                              )}
+                            />
+                            <span className="truncate">{displayValue}</span>
+                          </CommandItem>
+                        );
+                      })}
+                    </CommandGroup>
                   );
-                }
-
-                if (searchResults.length === 0) {
-                  return <CommandEmpty>{mergedLabels.noResultsFound}</CommandEmpty>;
-                }
-
-                return (
-                  <CommandGroup>
-                    {searchResults.map((item) => {
-                      const id = String(item.id);
-                      const displayValue = String(item[config.displayField] ?? id);
-                      const isSelected = selectedIds.includes(id);
-
-                      return (
-                        <CommandItem key={id} onSelect={() => handleSelect(id)} value={id}>
-                          <Check
-                            className={cn("mr-2 size-4", isSelected ? "opacity-100" : "opacity-0")}
-                          />
-                          <span className="truncate">{displayValue}</span>
-                        </CommandItem>
-                      );
-                    })}
-                  </CommandGroup>
-                );
-              })()}
-            </CommandList>
-          </Command>
+                })()}
+              </CommandList>
+            </Command>
           </PopoverContent>
         </PopoverPositioner>
       </Popover>

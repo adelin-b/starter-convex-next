@@ -144,7 +144,9 @@ export function FilterEditor<TData>({
 
   // Handle column change
   const handleColumnChange = (columnId: string | null) => {
-    if (columnId === null) return;
+    if (columnId === null) {
+      return;
+    }
     const newColumn = columns.find((col) => col.id === columnId);
     if (!newColumn) {
       return;
@@ -167,7 +169,9 @@ export function FilterEditor<TData>({
 
   // Handle operator change
   const handleOperatorChange = (operatorValue: string | null) => {
-    if (operatorValue === null) return;
+    if (operatorValue === null) {
+      return;
+    }
     const newOperator = FILTER_OPERATORS.find((op) => op.value === operatorValue);
     if (!newOperator) {
       return;
@@ -190,7 +194,9 @@ export function FilterEditor<TData>({
 
   // Handle value change
   const handleValueChange = (value: string | string[] | null) => {
-    if (value === null) return;
+    if (value === null) {
+      return;
+    }
     onChange({
       ...filter,
       value,
