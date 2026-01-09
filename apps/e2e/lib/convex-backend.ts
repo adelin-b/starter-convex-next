@@ -1,4 +1,5 @@
-import { existsSync, mkdirSync, rmSync } from "node:fs";
+import { execSync } from "node:child_process";
+import { existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { ConvexHttpClient } from "convex/browser";
 import { execa, type ResultPromise } from "execa";
@@ -227,6 +228,10 @@ export class ConvexBackend {
 
     const backendDir = join(this.projectDir, "packages", "backend");
 
+    // Find Node path dynamically (Convex requires v18/20/22, not v25+)
+    const nodePath = this.findNodePath();
+    const envPath = nodePath ? `${nodePath}:${process.env.PATH}` : process.env.PATH;
+
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         const result = await execa(
@@ -236,6 +241,7 @@ export class ConvexBackend {
             cwd: backendDir,
             env: {
               ...process.env,
+              PATH: envPath,
               // Don't validate env vars during deploy
               SKIP_ENV_VALIDATION: "true",
             },
@@ -261,6 +267,72 @@ export class ConvexBackend {
         console.error("Deploy failed:", errorMsg);
         throw new Error(`Failed to deploy Convex functions: ${errorMsg}`);
       }
+    }
+  }
+
+  /**
+   * Find a compatible Node.js path for Convex deploy.
+   * Convex requires Node 18/20/22 - use fallback chain:
+   * 1. NVM installed versions (v22.x, v20.x, v18.x)
+   * 2. Homebrew Node 22
+   * 3. `which node` fallback
+   *
+   * Returns the bin directory containing node, or undefined to use system PATH.
+   */
+  private findNodePath(): string | undefined {
+    // Convex-compatible Node versions (as const for type safety)
+    const CONVEX_NODE_VERSIONS = [22, 20, 18] as const;
+    type ConvexNodeVersion = (typeof CONVEX_NODE_VERSIONS)[number];
+    const isConvexCompatible = (major: number): major is ConvexNodeVersion =>
+      (CONVEX_NODE_VERSIONS as readonly number[]).includes(major);
+
+    // 1. Check NVM versions directory
+    const nvmDir = process.env.NVM_DIR || join(process.env.HOME || "", ".nvm");
+    const nvmVersionsDir = join(nvmDir, "versions", "node");
+
+    if (existsSync(nvmVersionsDir)) {
+      try {
+        const versionPrefixes = CONVEX_NODE_VERSIONS.map((v) => `v${v}.`);
+        const versions = readdirSync(nvmVersionsDir)
+          .filter((v) => versionPrefixes.some((prefix) => v.startsWith(prefix)))
+          .sort()
+          .toReversed(); // Newest first
+
+        for (const version of versions) {
+          const binPath = join(nvmVersionsDir, version, "bin");
+          if (existsSync(join(binPath, "node"))) {
+            console.log(`[ConvexBackend] Using NVM Node: ${version}`);
+            return binPath;
+          }
+        }
+      } catch {
+        // Continue to next fallback
+      }
+    }
+
+    // 2. Check Homebrew Node 22
+    const homebrewPath = "/opt/homebrew/opt/node@22/bin";
+    if (existsSync(join(homebrewPath, "node"))) {
+      console.log("[ConvexBackend] Using Homebrew Node 22");
+      return homebrewPath;
+    }
+
+    // 3. Try `which node` and check version
+    try {
+      const nodePath = execSync("which node", { encoding: "utf8" }).trim();
+      if (nodePath) {
+        const version = execSync(`${nodePath} --version`, { encoding: "utf8" }).trim();
+        const major = Number.parseInt(version.slice(1).split(".")[0], 10);
+        if (isConvexCompatible(major)) {
+          console.log(`[ConvexBackend] Using system Node: ${version}`);
+          return; // Use system PATH
+        }
+        console.warn(
+          `[ConvexBackend] System Node ${version} not compatible (need v${CONVEX_NODE_VERSIONS.join("/")}), using PATH as-is`,
+        );
+      }
+    } catch {
+      // No node in PATH
     }
   }
 
