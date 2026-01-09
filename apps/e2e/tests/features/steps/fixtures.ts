@@ -1,6 +1,6 @@
-import type { BrowserContext, Page } from "@playwright/test";
-import { ConvexHttpClient } from "convex/browser";
+import type { BrowserContext, Page, TestInfo } from "@playwright/test";
 import { test as base, createBdd } from "playwright-bdd";
+import { createAdminClientFromEnv } from "../../../lib/convex-client";
 import { hideNextjsDevOverlay } from "../../../lib/nextjs-overlay-utils";
 
 // Re-export the Convex API for use in step definitions
@@ -47,9 +47,17 @@ export async function waitForConvexConnection(page: Page, timeout = 30_000): Pro
   throw new Error(`Convex connection not established within ${timeout}ms. Check backend logs.`);
 }
 
-// Admin key for direct DB access (same as in convex-backend.ts)
-const ADMIN_KEY =
-  "0135d8598650f8f5cb0f30c34ec2e2bb62793bc28717c8eb6fb577996d50be5f4281b59181095065c5d0f86a2c31ddbe9b597ec62b47ded69782cd";
+/**
+ * Generate a unique email for parallel test execution.
+ * Uses workerIndex + testId to ensure uniqueness across workers.
+ */
+export function generateUniqueEmail(testInfo: TestInfo, baseEmail: string): string {
+  const [localPart, domain] = baseEmail.split("@");
+  // workerIndex is unique per worker, testId is unique per test
+  // Combine both to ensure uniqueness across parallel runs
+  const uniqueId = `w${testInfo.parallelIndex}-${testInfo.testId.slice(-8)}`;
+  return `${localPart}+${uniqueId}@${domain}`;
+}
 
 /**
  * Context object that holds the authenticated page instance.
@@ -60,25 +68,17 @@ export type TestContext = {
   page: Page;
   /** Browser context for this test (fresh per test for isolation) */
   context: BrowserContext;
+  /** Base URL from Playwright config (supports dynamic ports in isolated mode) */
+  baseUrl: string;
   /** Unique email generated during account creation */
   accountEmail?: string;
   /** Password used during account creation */
   accountPassword?: string;
   /** Convex HTTP client with admin access for direct DB operations */
-  convex: ConvexHttpClient;
+  convex: ReturnType<typeof createAdminClientFromEnv>;
+  /** Test info for generating unique IDs */
+  testInfo: TestInfo;
 };
-
-/** Create an admin Convex client for direct DB access in tests */
-function createAdminConvexClient(): ConvexHttpClient {
-  // In isolated mode, use CONVEX_TEST_URL; otherwise fall back to CONVEX_URL
-  const convexUrl = process.env.CONVEX_TEST_URL || process.env.CONVEX_URL;
-  if (!convexUrl) {
-    throw new Error("Neither CONVEX_TEST_URL nor CONVEX_URL is set.");
-  }
-  const client = new ConvexHttpClient(convexUrl);
-  (client as unknown as { setAdminAuth: (key: string) => void }).setAdminAuth(ADMIN_KEY);
-  return client;
-}
 
 /**
  * Extended test fixture that provides a ctx object for auth-in-steps pattern.
@@ -87,20 +87,32 @@ function createAdminConvexClient(): ConvexHttpClient {
  */
 export const test = base.extend<{ ctx: TestContext }>({
   ctx: async ({ browser }, use, testInfo) => {
+    // Clipboard permissions only work on desktop browsers, not mobile
+    // Mobile projects have "mobile" in the name (e.g., "features-mobile")
+    const isMobile = testInfo.project.name.includes("mobile");
+
     // Create a fresh browser context for each test (isolated cookies/storage)
-    const context = await browser.newContext();
+    // Grant clipboard permissions for copy/paste tests (desktop only)
+    const context = await browser.newContext({
+      ...(isMobile ? {} : { permissions: ["clipboard-read", "clipboard-write"] }),
+    });
     const page = await context.newPage();
 
     // Hide Next.js dev overlay to prevent click interception
     await hideNextjsDevOverlay(page);
 
-    const context_: TestContext = {
+    // Get baseURL from Playwright config (supports dynamic ports in isolated mode)
+    const baseUrl = testInfo.project.use.baseURL ?? "http://localhost:3001";
+
+    const ctx: TestContext = {
       page,
       context,
-      convex: createAdminConvexClient(),
+      baseUrl,
+      convex: createAdminClientFromEnv(),
+      testInfo,
     };
 
-    await use(context_);
+    await use(ctx);
 
     // Clean up the browser context after test completes
     // Skip cleanup on timeout to avoid hanging (but log warning for visibility)

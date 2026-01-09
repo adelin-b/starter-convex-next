@@ -1,47 +1,44 @@
 #!/usr/bin/env node
 /**
- * Pre-test script to start Convex backend before Playwright starts.
+ * Start Convex backend with pre-allocated or dynamic port.
  *
- * This runs BEFORE playwright to ensure Convex is ready when webServer starts.
- * Writes .convex-ready flag file when Convex is up.
+ * If E2E_CONVEX_PORT env var is set, uses that port.
+ * Otherwise, finds available port in range [7200-7298] (even numbers).
  *
  * IMPORTANT: This script runs in background and should NOT exit.
  * It keeps Convex running during tests.
+ *
+ * Playwright health checks the port to know when Convex is ready.
+ * No file-based synchronization needed.
  */
-import { existsSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { E2E_WEB_PORT } from "../lib/constants";
 import { ConvexBackend } from "../lib/convex-backend";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = join(__dirname, "../../..");
-const E2E_DIR = join(__dirname, "..");
-const CONVEX_READY_FLAG = join(E2E_DIR, ".convex-ready");
-const WEB_URL = `http://localhost:${E2E_WEB_PORT}`;
 
-// Clean up any stale flag file
-if (existsSync(CONVEX_READY_FLAG)) {
-  rmSync(CONVEX_READY_FLAG);
-}
+// Read pre-allocated port from env (set by playwright.config.ts)
+const preAllocatedPort = process.env.E2E_CONVEX_PORT
+  ? Number.parseInt(process.env.E2E_CONVEX_PORT, 10)
+  : undefined;
 
-console.log("[start-convex] Starting Convex backend...");
+// Read web URL from env (for CORS/redirects)
+const webUrl = process.env.E2E_WEB_URL || "http://localhost:3001";
+
+console.log(
+  `[start-convex] Starting Convex backend ${preAllocatedPort ? `on port ${preAllocatedPort}` : "(dynamic port)"}...`,
+);
 const backend = new ConvexBackend(PROJECT_ROOT);
-await backend.init(WEB_URL);
 
-// ConvexBackend.init() now waits for both main port and HTTP actions port
+await backend.init({ siteUrl: webUrl, port: preAllocatedPort });
+
 console.log(`[start-convex] Convex ready at ${backend.url}`);
 console.log(`[start-convex] HTTP actions at ${backend.siteUrl}`);
-writeFileSync(CONVEX_READY_FLAG, backend.url);
-console.log(`[start-convex] Wrote ${CONVEX_READY_FLAG}`);
 
-// Keep process alive until killed (Playwright will kill it during teardown)
-// Also handle graceful shutdown
+// Graceful shutdown handler
 const cleanup = async () => {
   console.log("[start-convex] Shutting down...");
-  if (existsSync(CONVEX_READY_FLAG)) {
-    rmSync(CONVEX_READY_FLAG);
-  }
   await backend.stop();
   process.exit(0);
 };
@@ -49,8 +46,8 @@ const cleanup = async () => {
 process.on("SIGINT", cleanup);
 process.on("SIGTERM", cleanup);
 
-// Keep alive
+// Keep alive until killed
 console.log("[start-convex] Convex backend running. Waiting for SIGINT/SIGTERM...");
 await new Promise(() => {
-  // Never resolves - intentionally keeps process alive until SIGINT/SIGTERM
+  // Never resolves - keeps process alive until signal
 });

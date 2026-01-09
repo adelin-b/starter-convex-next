@@ -1,13 +1,20 @@
-import { existsSync, mkdirSync, rmSync } from "node:fs";
+import { execSync } from "node:child_process";
+import { existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { ConvexHttpClient } from "convex/browser";
+import type { ConvexHttpClient } from "convex/browser";
 import { execa, type ResultPromise } from "execa";
 import treeKill from "tree-kill";
-import { E2E_CONVEX_START_PORT } from "./constants";
+import {
+  E2E_ADMIN_KEY,
+  E2E_BETTER_AUTH_SECRET,
+  E2E_CONVEX_PORT_MAX,
+  E2E_CONVEX_PORT_MIN,
+} from "./constants";
+import { createAdminClient } from "./convex-client";
 import { downloadConvexBinary } from "./download-convex-binary";
-import { requirePort } from "./find-unused-port";
+import { findUnusedPort } from "./find-unused-port";
 
-const STORAGE_DIR = ".convex-e2e-test";
+const STORAGE_DIR_PREFIX = ".convex-e2e-test";
 const HEALTH_CHECK_TIMEOUT = 30_000;
 const HEALTH_CHECK_INTERVAL = 500;
 
@@ -15,23 +22,19 @@ const HEALTH_CHECK_INTERVAL = 500;
 // These are the pre-generated dev keys that work together
 const INSTANCE_NAME = "carnitas";
 const INSTANCE_SECRET = "4361726e697461732c206c69746572616c6c79206d65616e696e6720226c6974";
-const ADMIN_KEY =
-  "0135d8598650f8f5cb0f30c34ec2e2bb62793bc28717c8eb6fb577996d50be5f4281b59181095065c5d0f86a2c31ddbe9b597ec62b47ded69782cd";
-
-// Test secret for Better Auth (32 bytes base64)
-const TEST_BETTER_AUTH_SECRET = "dGVzdC1zZWNyZXQtZm9yLWUyZS10ZXN0aW5nLW9ubHkh";
 
 export class ConvexBackend {
   private subprocess: ResultPromise | null = null;
   private port: number | null = null;
   private _client: ConvexHttpClient | null = null;
   private _siteUrl: string | null = null;
-  private readonly storageDir: string;
+  private storageDir: string;
   private readonly projectDir: string;
 
   constructor(projectDir: string = process.cwd()) {
     this.projectDir = projectDir;
-    this.storageDir = join(this.projectDir, STORAGE_DIR);
+    // Storage dir is set in init() with port suffix for parallel run isolation
+    this.storageDir = join(this.projectDir, STORAGE_DIR_PREFIX);
   }
 
   /** Main Convex URL for queries/mutations (e.g., http://127.0.0.1:3210) */
@@ -57,22 +60,26 @@ export class ConvexBackend {
     return this._client;
   }
 
-  async init(siteUrl = "http://localhost:3001"): Promise<void> {
+  async init(options: { siteUrl?: string; port?: number } = {}): Promise<void> {
+    const { siteUrl = "http://localhost:3001", port: preAllocatedPort } = options;
     console.log("Initializing Convex backend...");
 
-    // Clean up previous storage
+    // Download binary first (can be slow on first run)
+    const binaryPath = await downloadConvexBinary();
+
+    // Use pre-allocated port or find available one in E2E range (step=2 for site URL port)
+    this.port = preAllocatedPort ?? (await findUnusedPort(E2E_CONVEX_PORT_MIN, E2E_CONVEX_PORT_MAX, 2));
+    this._siteUrl = siteUrl;
+    console.log(`Using port ${this.port} for Convex backend`);
+
+    // Create port-specific storage directory for parallel isolation
+    this.storageDir = join(this.projectDir, `${STORAGE_DIR_PREFIX}-${this.port}`);
+
+    // Clean up previous storage (if exists from crashed test)
     if (existsSync(this.storageDir)) {
       rmSync(this.storageDir, { recursive: true });
     }
     mkdirSync(this.storageDir, { recursive: true });
-
-    // Download binary
-    const binaryPath = await downloadConvexBinary();
-
-    // Require the specific E2E Convex port (strict - no fallback)
-    this.port = await requirePort(E2E_CONVEX_START_PORT, "Convex backend");
-    this._siteUrl = siteUrl;
-    console.log(`Using port ${this.port} for Convex backend`);
 
     // Start the backend process
     const sqlitePath = join(this.storageDir, "convex_local_backend.sqlite3");
@@ -139,7 +146,7 @@ export class ConvexBackend {
 
     // Set auth-related env vars required by Better Auth
     // Note: CONVEX_SITE_URL and CONVEX_CLOUD_URL are auto-provided by Convex
-    await this.setEnv("BETTER_AUTH_SECRET", TEST_BETTER_AUTH_SECRET);
+    await this.setEnv("BETTER_AUTH_SECRET", E2E_BETTER_AUTH_SECRET);
     await this.setEnv("SITE_URL", this._siteUrl ?? "http://localhost:3001");
 
     // Set Resend API key if available, otherwise enable SMTP mode for local testing
@@ -153,10 +160,8 @@ export class ConvexBackend {
       await this.setEnv("SMTP_PORT", process.env.SMTP_PORT || "2525");
     }
 
-    // Initialize HTTP client
-    this._client = new ConvexHttpClient(this.url);
-    // setAdminAuth exists at runtime but isn't in the public types
-    (this._client as unknown as { setAdminAuth: (key: string) => void }).setAdminAuth(ADMIN_KEY);
+    // Initialize HTTP client with admin auth
+    this._client = createAdminClient(this.url);
 
     console.log(`Convex backend ready at ${this.url}`);
   }
@@ -227,15 +232,20 @@ export class ConvexBackend {
 
     const backendDir = join(this.projectDir, "packages", "backend");
 
+    // Find Node path dynamically (Convex requires v18/20/22, not v25+)
+    const nodePath = this.findNodePath();
+    const envPath = nodePath ? `${nodePath}:${process.env.PATH}` : process.env.PATH;
+
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         const result = await execa(
           "bunx",
-          ["convex", "deploy", "--admin-key", ADMIN_KEY, "--url", this.url],
+          ["convex", "deploy", "--admin-key", E2E_ADMIN_KEY, "--url", this.url],
           {
             cwd: backendDir,
             env: {
               ...process.env,
+              PATH: envPath,
               // Don't validate env vars during deploy
               SKIP_ENV_VALIDATION: "true",
             },
@@ -264,12 +274,78 @@ export class ConvexBackend {
     }
   }
 
+  /**
+   * Find a compatible Node.js path for Convex deploy.
+   * Convex requires Node 18/20/22 - use fallback chain:
+   * 1. NVM installed versions (v22.x, v20.x, v18.x)
+   * 2. Homebrew Node 22
+   * 3. `which node` fallback
+   *
+   * Returns the bin directory containing node, or undefined to use system PATH.
+   */
+  private findNodePath(): string | undefined {
+    // Convex-compatible Node versions (as const for type safety)
+    const CONVEX_NODE_VERSIONS = [22, 20, 18] as const;
+    type ConvexNodeVersion = (typeof CONVEX_NODE_VERSIONS)[number];
+    const isConvexCompatible = (major: number): major is ConvexNodeVersion =>
+      (CONVEX_NODE_VERSIONS as readonly number[]).includes(major);
+
+    // 1. Check NVM versions directory
+    const nvmDir = process.env.NVM_DIR || join(process.env.HOME || "", ".nvm");
+    const nvmVersionsDir = join(nvmDir, "versions", "node");
+
+    if (existsSync(nvmVersionsDir)) {
+      try {
+        const versionPrefixes = CONVEX_NODE_VERSIONS.map((v) => `v${v}.`);
+        const versions = readdirSync(nvmVersionsDir)
+          .filter((v) => versionPrefixes.some((prefix) => v.startsWith(prefix)))
+          .sort()
+          .toReversed(); // Newest first
+
+        for (const version of versions) {
+          const binPath = join(nvmVersionsDir, version, "bin");
+          if (existsSync(join(binPath, "node"))) {
+            console.log(`[ConvexBackend] Using NVM Node: ${version}`);
+            return binPath;
+          }
+        }
+      } catch {
+        // Continue to next fallback
+      }
+    }
+
+    // 2. Check Homebrew Node 22
+    const homebrewPath = "/opt/homebrew/opt/node@22/bin";
+    if (existsSync(join(homebrewPath, "node"))) {
+      console.log("[ConvexBackend] Using Homebrew Node 22");
+      return homebrewPath;
+    }
+
+    // 3. Try `which node` and check version
+    try {
+      const nodePath = execSync("which node", { encoding: "utf8" }).trim();
+      if (nodePath) {
+        const version = execSync(`${nodePath} --version`, { encoding: "utf8" }).trim();
+        const major = Number.parseInt(version.slice(1).split(".")[0], 10);
+        if (isConvexCompatible(major)) {
+          console.log(`[ConvexBackend] Using system Node: ${version}`);
+          return; // Use system PATH
+        }
+        console.warn(
+          `[ConvexBackend] System Node ${version} not compatible (need v${CONVEX_NODE_VERSIONS.join("/")}), using PATH as-is`,
+        );
+      }
+    } catch {
+      // No node in PATH
+    }
+  }
+
   async setEnv(name: string, value: string): Promise<void> {
     const response = await fetch(`${this.url}/api/v1/update_environment_variables`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Convex ${ADMIN_KEY}`,
+        Authorization: `Convex ${E2E_ADMIN_KEY}`,
       },
       body: JSON.stringify({
         changes: [{ name, value }],
