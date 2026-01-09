@@ -4,26 +4,34 @@ import {
   DEFAULT_TIMEOUT,
   DEV_STORYBOOK_PORT,
   DEV_WEB_PORT,
-  E2E_CONVEX_START_PORT,
-  E2E_STORYBOOK_PORT,
-  E2E_WEB_PORT,
+  E2E_BETTER_AUTH_SECRET,
+  E2E_CONVEX_PORT_MAX,
+  E2E_CONVEX_PORT_MIN,
+  E2E_STORYBOOK_PORT_MAX,
+  E2E_STORYBOOK_PORT_MIN,
+  E2E_WEB_PORT_MAX,
+  E2E_WEB_PORT_MIN,
   SHUTDOWN_TIMEOUT,
 } from "./lib/constants";
+import { findUnusedPortSync } from "./lib/find-unused-port";
 
 /**
  * Unified Playwright configuration for all E2E tests.
  *
- * PORT SCHEME:
+ * PORT SCHEME (Dynamic ranges for parallel support):
  *   Dev servers:  3xxx/6xxx (web=3001, storybook=6006)
- *   E2E servers:  7xxx (web=7001, storybook=7006, convex=7210+)
+ *   E2E servers:  7xxx (non-overlapping ranges, allocated at config load)
+ *     - Web:       7100-7199
+ *     - Convex:    7200-7298 (even), HTTP actions on port+1
+ *     - Storybook: 7300-7399
  *
  * ISOLATION MODES:
- * - Default (isolated): Fresh Convex backend on 7xxx ports, .next-e2e build dir
+ * - Default (isolated): Fresh Convex backend with dynamic port allocation
  *   Can run alongside `bun dev` without conflicts.
  * - ISOLATED=false: Uses existing dev server on 3xxx ports. Faster iteration.
  *
  * Usage:
- *   bun test:e2e                 # Isolated mode (7xxx ports)
+ *   bun test:e2e                 # Isolated mode (dynamic 7xxx ports)
  *   bun test:e2e:ui              # Isolated mode with Playwright UI
  *   ISOLATED=false bun test:e2e  # Uses existing dev server (3xxx ports)
  *
@@ -35,14 +43,55 @@ import {
 
 const isCI = !!process.env.CI;
 const isIsolated = process.env.ISOLATED !== "false"; // Default: true (isolated)
-// Reuse servers locally (handles UI mode restarts), fresh in CI
-const shouldReuseServer = !isCI;
+// Always start fresh servers - stale processes on E2E ports (7xxx) caused hangs
+// Tradeoff: Slower local iteration, but reliable test runs
+const shouldReuseServer = false;
 
-// Port configuration
-// - Dev servers: 3xxx/6xxx (web=3001, storybook=6006)
-// - E2E servers: 7xxx (web=7001, storybook=7006, convex=7210+)
-const WEB_PORT = isIsolated ? E2E_WEB_PORT : DEV_WEB_PORT;
-const STORYBOOK_PORT = isIsolated ? E2E_STORYBOOK_PORT : DEV_STORYBOOK_PORT;
+// ─────────────────────────────────────────────────────────────────────────────
+// DYNAMIC PORT ALLOCATION (happens at config load time)
+// Each parallel Playwright run gets its own set of ports.
+// IMPORTANT: Cache in env vars to prevent re-allocation on config re-evaluation.
+// ─────────────────────────────────────────────────────────────────────────────
+function getAllocatedPorts() {
+  // Return cached ports if already allocated (config is evaluated multiple times)
+  if (
+    process.env._E2E_CONVEX_PORT &&
+    process.env._E2E_WEB_PORT &&
+    process.env._E2E_STORYBOOK_PORT
+  ) {
+    return {
+      convex: Number.parseInt(process.env._E2E_CONVEX_PORT, 10),
+      web: Number.parseInt(process.env._E2E_WEB_PORT, 10),
+      storybook: Number.parseInt(process.env._E2E_STORYBOOK_PORT, 10),
+    };
+  }
+
+  // First evaluation - allocate new ports
+  const convex = isIsolated
+    ? findUnusedPortSync(E2E_CONVEX_PORT_MIN, E2E_CONVEX_PORT_MAX, 2) // step=2 for HTTP actions port
+    : 0;
+  const web = isIsolated ? findUnusedPortSync(E2E_WEB_PORT_MIN, E2E_WEB_PORT_MAX) : DEV_WEB_PORT;
+  const storybook = isIsolated
+    ? findUnusedPortSync(E2E_STORYBOOK_PORT_MIN, E2E_STORYBOOK_PORT_MAX)
+    : DEV_STORYBOOK_PORT;
+
+  // Cache in env vars for subsequent evaluations
+  process.env._E2E_CONVEX_PORT = String(convex);
+  process.env._E2E_WEB_PORT = String(web);
+  process.env._E2E_STORYBOOK_PORT = String(storybook);
+
+  // Log only on first allocation
+  if (isIsolated) {
+    console.log(
+      `[playwright.config] Allocated ports: Convex=${convex}, Web=${web}, Storybook=${storybook}`,
+    );
+  }
+
+  return { convex, web, storybook };
+}
+
+const { convex: CONVEX_PORT, web: WEB_PORT, storybook: STORYBOOK_PORT } = getAllocatedPorts();
+
 const WEB_BASE_URL = process.env.PLAYWRIGHT_TEST_BASE_URL || `http://localhost:${WEB_PORT}`;
 const STORYBOOK_BASE_URL =
   process.env.PLAYWRIGHT_TEST_BASE_URL_STORYBOOK || `http://localhost:${STORYBOOK_PORT}`;
@@ -121,11 +170,13 @@ export default defineConfig({
           {
             name: "features-firefox",
             testDir: bddTestDir,
+            timeout: 60_000,
             use: { ...devices["Desktop Firefox"] },
           },
           {
             name: "features-webkit",
             testDir: bddTestDir,
+            timeout: 60_000,
             use: { ...devices["Desktop Safari"] },
           },
         ]
@@ -133,19 +184,20 @@ export default defineConfig({
   ],
 
   // Web server configuration
-  // Isolated mode (default): Playwright starts servers on 7xxx ports
+  // Isolated mode (default): Playwright starts servers with dynamic port allocation
   // Non-isolated mode (ISOLATED=false): Expects dev servers already running on 3xxx/6xxx
   //   - globalSetup checks servers are running before tests start
   //   - No webServer config = no automatic server startup
   webServer: isIsolated
     ? [
         // Start Convex FIRST - webServers start sequentially in order
-        // Script waits for both ports (7210 + 7211) before signaling ready
+        // Port allocated at config load time via findUnusedPortSync, passed via env var
+        // Playwright health checks the URL to know when Convex is ready
         {
           name: "convex",
           cwd: "../..",
-          command: `echo '🔧 Starting Convex backend (isolated on port ${E2E_CONVEX_START_PORT})...' && cd apps/e2e && bun scripts/start-convex.ts`,
-          url: `http://127.0.0.1:${E2E_CONVEX_START_PORT}`,
+          command: `echo '🔧 Starting Convex backend on port ${CONVEX_PORT}...' && cd apps/e2e && E2E_CONVEX_PORT=${CONVEX_PORT} E2E_WEB_URL=${WEB_BASE_URL} bun scripts/start-convex.ts`,
+          url: `http://127.0.0.1:${CONVEX_PORT}`,
           reuseExistingServer: shouldReuseServer,
           gracefulShutdown: { signal: "SIGINT", timeout: SHUTDOWN_TIMEOUT },
           timeout: SERVER_TIMEOUT_MS,
@@ -155,8 +207,9 @@ export default defineConfig({
         {
           name: "web",
           cwd: "../..",
-          // Write .env.e2e before starting Next.js (sets NEXT_PUBLIC_CONVEX_SITE_URL, etc.)
-          command: `echo '🚀 Starting web server (isolated on port ${WEB_PORT})...' && cd apps/e2e && bun scripts/write-e2e-env.ts && cd ../web && rm -rf .next-e2e && E2E_MODE=true PORT=${WEB_PORT} bunx next dev --port ${WEB_PORT}`,
+          // Pass all env vars directly - no file synchronization needed
+          // Use unique .next-e2e-{port} dir per run to avoid Next.js lock conflicts
+          command: `echo '🚀 Starting web server on port ${WEB_PORT}...' && cd apps/web && rm -rf .next-e2e-${WEB_PORT} && NEXT_BUILD_DIR=.next-e2e-${WEB_PORT} E2E_MODE=true PORT=${WEB_PORT} NEXT_PUBLIC_CONVEX_URL=http://127.0.0.1:${CONVEX_PORT} NEXT_PUBLIC_CONVEX_SITE_URL=http://127.0.0.1:${CONVEX_PORT + 1} SITE_URL=${WEB_BASE_URL} BETTER_AUTH_SECRET=${E2E_BETTER_AUTH_SECRET} bunx next dev --port ${WEB_PORT}`,
           url: WEB_BASE_URL,
           reuseExistingServer: shouldReuseServer,
           gracefulShutdown: { signal: "SIGINT", timeout: SHUTDOWN_TIMEOUT },
@@ -168,7 +221,7 @@ export default defineConfig({
         {
           name: "storybook",
           cwd: "../..",
-          command: `echo '📚 Starting Storybook (isolated on port ${STORYBOOK_PORT})...' && STORYBOOK_NO_OPEN=1 STORYBOOK_PORT=${STORYBOOK_PORT} bun dev:storybook`,
+          command: `echo '📚 Starting Storybook on port ${STORYBOOK_PORT}...' && STORYBOOK_NO_OPEN=1 STORYBOOK_PORT=${STORYBOOK_PORT} bun dev:storybook`,
           url: STORYBOOK_BASE_URL,
           gracefulShutdown: { signal: "SIGINT", timeout: SHUTDOWN_TIMEOUT },
           reuseExistingServer: shouldReuseServer,

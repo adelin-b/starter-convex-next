@@ -1,14 +1,20 @@
 import { execSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { ConvexHttpClient } from "convex/browser";
+import type { ConvexHttpClient } from "convex/browser";
 import { execa, type ResultPromise } from "execa";
 import treeKill from "tree-kill";
-import { E2E_CONVEX_START_PORT } from "./constants";
+import {
+  E2E_ADMIN_KEY,
+  E2E_BETTER_AUTH_SECRET,
+  E2E_CONVEX_PORT_MAX,
+  E2E_CONVEX_PORT_MIN,
+} from "./constants";
+import { createAdminClient } from "./convex-client";
 import { downloadConvexBinary } from "./download-convex-binary";
-import { requirePort } from "./find-unused-port";
+import { findUnusedPort } from "./find-unused-port";
 
-const STORAGE_DIR = ".convex-e2e-test";
+const STORAGE_DIR_PREFIX = ".convex-e2e-test";
 const HEALTH_CHECK_TIMEOUT = 30_000;
 const HEALTH_CHECK_INTERVAL = 500;
 
@@ -16,23 +22,19 @@ const HEALTH_CHECK_INTERVAL = 500;
 // These are the pre-generated dev keys that work together
 const INSTANCE_NAME = "carnitas";
 const INSTANCE_SECRET = "4361726e697461732c206c69746572616c6c79206d65616e696e6720226c6974";
-const ADMIN_KEY =
-  "0135d8598650f8f5cb0f30c34ec2e2bb62793bc28717c8eb6fb577996d50be5f4281b59181095065c5d0f86a2c31ddbe9b597ec62b47ded69782cd";
-
-// Test secret for Better Auth (32 bytes base64)
-const TEST_BETTER_AUTH_SECRET = "dGVzdC1zZWNyZXQtZm9yLWUyZS10ZXN0aW5nLW9ubHkh";
 
 export class ConvexBackend {
   private subprocess: ResultPromise | null = null;
   private port: number | null = null;
   private _client: ConvexHttpClient | null = null;
   private _siteUrl: string | null = null;
-  private readonly storageDir: string;
+  private storageDir: string;
   private readonly projectDir: string;
 
   constructor(projectDir: string = process.cwd()) {
     this.projectDir = projectDir;
-    this.storageDir = join(this.projectDir, STORAGE_DIR);
+    // Storage dir is set in init() with port suffix for parallel run isolation
+    this.storageDir = join(this.projectDir, STORAGE_DIR_PREFIX);
   }
 
   /** Main Convex URL for queries/mutations (e.g., http://127.0.0.1:3210) */
@@ -58,22 +60,26 @@ export class ConvexBackend {
     return this._client;
   }
 
-  async init(siteUrl = "http://localhost:3001"): Promise<void> {
+  async init(options: { siteUrl?: string; port?: number } = {}): Promise<void> {
+    const { siteUrl = "http://localhost:3001", port: preAllocatedPort } = options;
     console.log("Initializing Convex backend...");
 
-    // Clean up previous storage
+    // Download binary first (can be slow on first run)
+    const binaryPath = await downloadConvexBinary();
+
+    // Use pre-allocated port or find available one in E2E range (step=2 for site URL port)
+    this.port = preAllocatedPort ?? (await findUnusedPort(E2E_CONVEX_PORT_MIN, E2E_CONVEX_PORT_MAX, 2));
+    this._siteUrl = siteUrl;
+    console.log(`Using port ${this.port} for Convex backend`);
+
+    // Create port-specific storage directory for parallel isolation
+    this.storageDir = join(this.projectDir, `${STORAGE_DIR_PREFIX}-${this.port}`);
+
+    // Clean up previous storage (if exists from crashed test)
     if (existsSync(this.storageDir)) {
       rmSync(this.storageDir, { recursive: true });
     }
     mkdirSync(this.storageDir, { recursive: true });
-
-    // Download binary
-    const binaryPath = await downloadConvexBinary();
-
-    // Require the specific E2E Convex port (strict - no fallback)
-    this.port = await requirePort(E2E_CONVEX_START_PORT, "Convex backend");
-    this._siteUrl = siteUrl;
-    console.log(`Using port ${this.port} for Convex backend`);
 
     // Start the backend process
     const sqlitePath = join(this.storageDir, "convex_local_backend.sqlite3");
@@ -140,7 +146,7 @@ export class ConvexBackend {
 
     // Set auth-related env vars required by Better Auth
     // Note: CONVEX_SITE_URL and CONVEX_CLOUD_URL are auto-provided by Convex
-    await this.setEnv("BETTER_AUTH_SECRET", TEST_BETTER_AUTH_SECRET);
+    await this.setEnv("BETTER_AUTH_SECRET", E2E_BETTER_AUTH_SECRET);
     await this.setEnv("SITE_URL", this._siteUrl ?? "http://localhost:3001");
 
     // Set Resend API key if available, otherwise enable SMTP mode for local testing
@@ -154,10 +160,8 @@ export class ConvexBackend {
       await this.setEnv("SMTP_PORT", process.env.SMTP_PORT || "2525");
     }
 
-    // Initialize HTTP client
-    this._client = new ConvexHttpClient(this.url);
-    // setAdminAuth exists at runtime but isn't in the public types
-    (this._client as unknown as { setAdminAuth: (key: string) => void }).setAdminAuth(ADMIN_KEY);
+    // Initialize HTTP client with admin auth
+    this._client = createAdminClient(this.url);
 
     console.log(`Convex backend ready at ${this.url}`);
   }
@@ -236,7 +240,7 @@ export class ConvexBackend {
       try {
         const result = await execa(
           "bunx",
-          ["convex", "deploy", "--admin-key", ADMIN_KEY, "--url", this.url],
+          ["convex", "deploy", "--admin-key", E2E_ADMIN_KEY, "--url", this.url],
           {
             cwd: backendDir,
             env: {
@@ -341,7 +345,7 @@ export class ConvexBackend {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Convex ${ADMIN_KEY}`,
+        Authorization: `Convex ${E2E_ADMIN_KEY}`,
       },
       body: JSON.stringify({
         changes: [{ name, value }],

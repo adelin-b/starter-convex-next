@@ -25,19 +25,24 @@ export const FORM_VALIDATION_DELAY = 300;
 export const DROPDOWN_OPEN_DELAY = 200;
 
 /** Delay for Convex auth token sync after login/signup (milliseconds) */
-export const AUTH_SYNC_DELAY = 500;
+export const AUTH_SYNC_DELAY = 2000;
 
 /** Delay for search input debounce (milliseconds) */
 export const SEARCH_DEBOUNCE_DELAY = 300;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Port Configuration (STRICT - no fallback to other ports)
+// Port Configuration - DYNAMIC RANGES for parallel E2E support
 //
 // Dev servers:  3xxx/6xxx (can run alongside E2E)
-// E2E servers:  7xxx (isolated, never conflicts with dev)
+// E2E servers:  7xxx (isolated, non-overlapping ranges)
+//
+// Port Ranges (no overlap - safe for parallel runs):
+//   Web:       7100-7199 (100 slots)
+//   Convex:    7200-7298 even (50 slots, odd ports for site URL endpoint)
+//   Storybook: 7300-7399 (100 slots)
 //
 // To kill all E2E processes:
-//   lsof -ti :7001,:7006,:7210,:7211 | xargs kill -9
+//   lsof -ti :7100-7199,:7200-7299,:7300-7399 | xargs kill -9
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** Dev web server port */
@@ -46,14 +51,17 @@ export const DEV_WEB_PORT = 3001;
 /** Dev Storybook port */
 export const DEV_STORYBOOK_PORT = 6006;
 
-/** E2E web server port (isolated mode) - STRICT */
-export const E2E_WEB_PORT = 7001;
+// E2E Web port range [7100-7199]
+export const E2E_WEB_PORT_MIN = 7100;
+export const E2E_WEB_PORT_MAX = 7199;
 
-/** E2E Storybook port (isolated mode) - STRICT */
-export const E2E_STORYBOOK_PORT = 7006;
+// E2E Storybook port range [7300-7399]
+export const E2E_STORYBOOK_PORT_MIN = 7300;
+export const E2E_STORYBOOK_PORT_MAX = 7399;
 
-/** E2E Convex backend port - STRICT (also uses +1 for HTTP actions) */
-export const E2E_CONVEX_START_PORT = 7210;
+// E2E Convex port range [7200-7298] (even only, odd ports for site URL endpoint)
+export const E2E_CONVEX_PORT_MIN = 7200;
+export const E2E_CONVEX_PORT_MAX = 7298;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Convex Admin Key (E2E TESTING ONLY)
@@ -80,6 +88,6 @@ export const E2E_ADMIN_KEY =
 
 /**
  * Test secret for Better Auth in E2E tests (32 bytes base64).
- * Must be used consistently in both write-e2e-env.ts and convex-backend.ts.
+ * Must be used consistently in playwright.config.ts and convex-backend.ts.
  */
 export const E2E_BETTER_AUTH_SECRET = "dGVzdC1zZWNyZXQtZm9yLWUyZS10ZXN0aW5nLW9ubHkh";

@@ -3,15 +3,17 @@
  * Uses programmatic auth via better-auth API for fast, reliable authentication.
  */
 import type { BrowserContext, Page } from "@playwright/test";
-import { AUTH_SYNC_DELAY, DEV_WEB_PORT, E2E_WEB_PORT } from "./constants";
+import { AUTH_SYNC_DELAY, DEV_WEB_PORT, E2E_WEB_PORT_MIN } from "./constants";
 import { signUpProgrammatic } from "./programmatic-auth";
 
 /**
- * Get base URL for programmatic auth (works in both isolated and dev modes)
+ * Get base URL for programmatic auth (works in both isolated and dev modes).
+ * In isolated mode, uses E2E_WEB_PORT_MIN as default (actual port may vary for parallel runs).
+ * Prefer passing baseUrl from Playwright config for accurate port.
  */
 export function getBaseUrl(): string {
   const isIsolated = process.env.ISOLATED !== "false";
-  const port = isIsolated ? E2E_WEB_PORT : DEV_WEB_PORT;
+  const port = isIsolated ? E2E_WEB_PORT_MIN : DEV_WEB_PORT;
   return process.env.PLAYWRIGHT_TEST_BASE_URL ?? `http://localhost:${port}`;
 }
 
