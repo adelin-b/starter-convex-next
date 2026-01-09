@@ -120,6 +120,7 @@ fourgonnette
 frontmatter
 ghos
 groupable
+hotfixes
 httponly
 huskyrc
 johndoe
@@ -142,6 +143,7 @@ moto
 mozjpeg
 msvc
 networkidle
+nextauth
 nextjs
 njsproj
 ntvs
