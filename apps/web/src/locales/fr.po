@@ -13,8 +13,8 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:154
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:225
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:230
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:155
 msgid "..."
 msgstr "..."
 
@@ -22,11 +22,11 @@ msgstr "..."
 #~ msgid "{0, plural, =0 {No vehicles in inventory} one {# vehicle in inventory} other {# vehicles in inventory}}"
 #~ msgstr "{0, plural, =0 {Aucun véhicule en stock} one {# véhicule en stock} other {# véhicules en stock}}"
 
-#: src/features/agencies/components/agency-form-fields.tsx:87
+#: src/features/organizations/components/organization-form-fields.tsx:91
 msgid "+33 1 23 45 67 89"
 msgstr "+33 1 23 45 67 89"
 
-#: src/features/agencies/components/agency-form-fields.tsx:120
+#: src/features/organizations/components/organization-form-fields.tsx:124
 msgid "123 Street, City"
 msgstr "123 Rue, Ville"
 
@@ -46,45 +46,58 @@ msgstr "123 Rue, Ville"
 #~ msgid "ABC-1234"
 #~ msgstr "AB-123-CD"
 
-#: src/app/(auth)/invitations/accept/page.tsx:236
+#: src/app/(auth)/invitations/accept/page.tsx:230
 msgid "Accept Invitation"
 msgstr "Accepter l'invitation"
 
-#: src/features/agencies/i18n.ts:20
+#: src/features/organizations/i18n.ts:23
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: src/app/(auth)/invitations/accept/page.tsx:233
+#: src/app/(auth)/invitations/accept/page.tsx:227
 msgid "Accepting..."
 msgstr "Acceptation..."
 
-#: src/components/ui/auth-guard.tsx:127
+#: src/components/ui/auth-guard.tsx:131
 msgid "Access Denied"
 msgstr "Accès refusé"
 
-#: src/features/users/components/user-menu.tsx:121
+#: src/features/users/components/user-menu.tsx:120
 msgid "Account"
 msgstr "Compte"
 
-#: src/features/agencies/i18n.ts:7
+#: src/features/organizations/i18n.ts:8
+#: src/features/organizations/i18n.ts:21
 msgid "Active"
 msgstr "Actif"
 
 #: src/features/agencies/components/create-agency-dialog.tsx:90
-msgid "Add a new agency to the system"
-msgstr "Ajouter une nouvelle agence au système"
+#~ msgid "Add a new agency to the system"
+#~ msgstr "Ajouter une nouvelle agence au système"
+
+#: src/features/organizations/components/create-organization-dialog.tsx:95
+msgid "Add a new organization to the system"
+msgstr ""
+
+#: src/features/todos/components/create-todo-dialog.tsx:119
+msgid "Add a new todo to your list. Fill in the details below."
+msgstr ""
 
 #: src/app/(dashboard)/vehicles/page.tsx:70
 #~ msgid "Add a new vehicle to your inventory"
 #~ msgstr "Ajouter un nouveau véhicule à votre inventaire"
 
 #: src/features/agencies/components/create-agency-dialog.tsx:81
-msgid "Add Agency"
-msgstr "Ajouter une agence"
+#~ msgid "Add Agency"
+#~ msgstr "Ajouter une agence"
+
+#: src/features/organizations/components/create-organization-dialog.tsx:85
+msgid "Add Organization"
+msgstr ""
 
 #: src/app/(dashboard)/vehicles/page.tsx:84
-msgid "Add Vehicle"
-msgstr "Ajouter un véhicule"
+#~ msgid "Add Vehicle"
+#~ msgstr "Ajouter un véhicule"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:252
 #~ msgid "Added {addedDate}"
@@ -94,147 +107,164 @@ msgstr "Ajouter un véhicule"
 #~ msgid "Adding..."
 #~ msgstr "Ajout..."
 
-#: src/features/agencies/components/agency-form-fields.tsx:117
+#: src/features/organizations/components/organization-form-fields.tsx:121
 msgid "Address"
 msgstr "Adresse"
 
-#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:140
-#: src/app/(dashboard)/admin/agencies/page.tsx:75
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:211
-#: src/app/(dashboard)/admin/members/page.tsx:316
-#: src/components/layouts/app-sidebar.tsx:42
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:216
+#: src/app/(dashboard)/admin/members/page.tsx:341
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:141
+#: src/app/(dashboard)/admin/organizations/page.tsx:76
+#: src/components/layouts/app-sidebar.tsx:39
+#: src/features/organizations/i18n.ts:15
 msgid "Admin"
 msgstr "Admin"
 
 #: src/app/(dashboard)/admin/page.tsx:33
-#: src/components/layouts/app-sidebar.tsx:91
+#: src/components/layouts/app-sidebar.tsx:83
 msgid "Administration"
 msgstr "Administration"
+
+#: src/features/organizations/components/role-selector.tsx:82
+msgid "Administrators with management permissions."
+msgstr ""
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:148
 #: src/app/(dashboard)/admin/agencies/page.tsx:82
 #: src/app/(dashboard)/admin/agencies/page.tsx:90
 #: src/app/(dashboard)/admin/page.tsx:15
 #: src/components/layouts/app-sidebar.tsx:47
-msgid "Agencies"
-msgstr "Agences"
+#~ msgid "Agencies"
+#~ msgstr "Agences"
 
 #: src/app/(auth)/invitations/accept/page.tsx:200
 #: src/app/(dashboard)/admin/members/page.tsx:79
 #: src/app/(dashboard)/admin/members/page.tsx:169
 #: src/components/layouts/app-sidebar.tsx:62
-msgid "Agency"
-msgstr "Agence"
+#~ msgid "Agency"
+#~ msgstr "Agence"
 
 #: src/features/agencies/components/add-member-dialog.tsx:132
-msgid "Agency *"
-msgstr "Agence *"
+#~ msgid "Agency *"
+#~ msgstr "Agence *"
 
 #: src/features/agencies/components/agency-form-fields.tsx:70
-msgid "Agency description"
-msgstr "Description de l'agence"
+#~ msgid "Agency description"
+#~ msgstr "Description de l'agence"
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:47
-msgid "Agency Information"
-msgstr "Informations de l'agence"
+#~ msgid "Agency Information"
+#~ msgstr "Informations de l'agence"
 
 #: src/features/agencies/i18n.ts:14
-msgid "Agency Manager"
-msgstr "Responsable d'agence"
+#~ msgid "Agency Manager"
+#~ msgstr "Responsable d'agence"
 
 #: src/features/agencies/components/role-selector.tsx:82
-msgid "Agency managers with full management permissions."
-msgstr "Responsables d'agence avec toutes les permissions de gestion."
+#~ msgid "Agency managers with full management permissions."
+#~ msgstr "Responsables d'agence avec toutes les permissions de gestion."
 
 #: src/features/agencies/components/agency-members-tab.tsx:68
-msgid "Agency Members"
-msgstr "Membres de l'agence"
+#~ msgid "Agency Members"
+#~ msgstr "Membres de l'agence"
 
 #: src/app/(dashboard)/admin/members/[id]/page.tsx:285
-msgid "Agency Membership"
-msgstr "Appartenance à l'agence"
+#~ msgid "Agency Membership"
+#~ msgstr "Appartenance à l'agence"
 
 #: src/features/agencies/components/agency-form-fields.tsx:54
-msgid "Agency name"
-msgstr "Nom de l'agence"
+#~ msgid "Agency name"
+#~ msgstr "Nom de l'agence"
 
 #: src/app/(dashboard)/admin/members/[id]/page.tsx:320
-msgid "Agency not found"
-msgstr "Agence introuvable"
+#~ msgid "Agency not found"
+#~ msgstr "Agence introuvable"
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:94
-msgid "Agency Not Found"
-msgstr "Agence introuvable"
+#~ msgid "Agency Not Found"
+#~ msgstr "Agence introuvable"
 
 #: src/app/(dashboard)/admin/members/page.tsx:357
-msgid "All Invitations"
-msgstr "Toutes les invitations"
+#~ msgid "All Invitations"
+#~ msgstr "Toutes les invitations"
 
-#: src/app/(dashboard)/admin/members/page.tsx:331
+#: src/app/(dashboard)/admin/members/page.tsx:356
 msgid "All Members"
 msgstr "Tous les membres"
 
-#: src/app/(auth)/invitations/accept/page.tsx:138
+#: src/app/(auth)/invitations/accept/page.tsx:136
 msgid "Already Accepted"
 msgstr "Déjà acceptée"
 
-#: src/features/auth/components/sign-up-form.tsx:167
+#: src/features/auth/components/sign-up-form.tsx:164
 msgid "Already have an account? Sign In"
 msgstr "Vous avez déjà un compte ? Se connecter"
 
-#: src/features/auth/components/sign-in-form.tsx:80
-#: src/features/auth/components/sign-up-form.tsx:82
+#: src/features/auth/components/sign-in-form.tsx:77
+#: src/features/auth/components/sign-up-form.tsx:79
 msgid "An unexpected error occurred. Please try again."
 msgstr "Une erreur inattendue s'est produite. Veuillez réessayer."
 
-#: src/app/(auth)/invitations/accept/page.tsx:216
+#: src/app/(auth)/invitations/accept/page.tsx:210
 msgid "Assigned Roles"
 msgstr "Rôles attribués"
 
 #: src/features/vehicles/i18n.ts:29
-msgid "Automatic"
-msgstr ""
+#~ msgid "Automatic"
+#~ msgstr ""
 
 #: src/features/vehicles/i18n.ts:8
-msgid "Available"
-msgstr "Disponible"
+#~ msgid "Available"
+#~ msgstr "Disponible"
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:104
-msgid "Back to Agencies"
-msgstr "Retour aux agences"
+#~ msgid "Back to Agencies"
+#~ msgstr "Retour aux agences"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:173
+#: src/components/ui/auth-guard.tsx:142
+msgid "Back to Home"
+msgstr ""
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:179
 msgid "Back to Members"
 msgstr "Retour aux membres"
 
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:106
+msgid "Back to Organizations"
+msgstr ""
+
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:306
 #: src/components/ui/auth-guard.tsx:139
-msgid "Back to Vehicles"
-msgstr "Retour aux véhicules"
+#~ msgid "Back to Vehicles"
+#~ msgstr "Retour aux véhicules"
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:78
 #~ msgid "Camry"
 #~ msgstr "Camry"
 
-#: src/app/(dashboard)/vehicles/[id]/page.tsx:227
+#: src/features/todos/components/create-todo-dialog.tsx:186
 msgid "Cancel"
 msgstr ""
 
 #: src/features/vehicles/i18n.ts:42
-msgid "Change vehicle status"
-msgstr "Changer le statut du véhicule"
+#~ msgid "Change vehicle status"
+#~ msgstr "Changer le statut du véhicule"
 
 #: src/app/(dashboard)/admin/page.tsx:49
-msgid "Click to manage agencies"
-msgstr "Cliquez pour gérer les agences"
+#~ msgid "Click to manage agencies"
+#~ msgstr "Cliquez pour gérer les agences"
 
 #: src/app/(dashboard)/admin/page.tsx:51
 msgid "Click to manage members"
 msgstr "Cliquez pour gérer les membres"
 
+#: src/app/(dashboard)/admin/page.tsx:49
+msgid "Click to manage organizations"
+msgstr ""
+
 #: src/features/agencies/i18n.ts:13
-msgid "Commercial"
-msgstr "Commercial"
+#~ msgid "Commercial"
+#~ msgstr "Commercial"
 
 #: src/components/ui/connection-status-overlay.tsx:97
 #: src/features/auth/components/google-sign-in-button.tsx:36
@@ -246,223 +276,254 @@ msgid "Connection Problem"
 msgstr "Problème de connexion"
 
 #: src/features/agencies/components/agency-form-fields.tsx:103
-msgid "contact@agency.com"
-msgstr "contact@agence.com"
+#~ msgid "contact@agency.com"
+#~ msgstr "contact@agence.com"
 
-#: src/features/auth/components/sign-up-form.tsx:104
+#: src/features/organizations/components/organization-form-fields.tsx:107
+msgid "contact@organization.com"
+msgstr ""
+
+#: src/features/auth/components/sign-up-form.tsx:101
 msgid "Create Account"
 msgstr "Créer un compte"
 
 #: src/features/agencies/components/create-agency-dialog.tsx:87
 #: src/features/agencies/components/create-agency-dialog.tsx:109
-msgid "Create Agency"
-msgstr "Créer une agence"
+#~ msgid "Create Agency"
+#~ msgstr "Créer une agence"
 
-#: src/app/(dashboard)/admin/members/page.tsx:259
-#: src/features/agencies/hooks/use-agency-columns.tsx:83
+#: src/features/organizations/components/create-organization-dialog.tsx:92
+#: src/features/organizations/components/create-organization-dialog.tsx:114
+msgid "Create Organization"
+msgstr ""
+
+#: src/features/todos/components/create-todo-dialog.tsx:116
+#: src/features/todos/components/create-todo-dialog.tsx:195
+msgid "Create Todo"
+msgstr ""
+
+#: src/features/organizations/hooks/use-organization-columns.tsx:83
 msgid "Created"
 msgstr "Créé"
 
-#: src/features/agencies/components/create-agency-dialog.tsx:106
+#: src/features/organizations/components/create-organization-dialog.tsx:111
+#: src/features/todos/components/create-todo-dialog.tsx:192
 msgid "Creating..."
 msgstr "Création..."
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:237
-msgid "Current Information"
-msgstr ""
+#~ msgid "Current Information"
+#~ msgstr ""
 
 #: src/features/agencies/hooks/use-member-columns.tsx:43
-msgid "Current Roles"
-msgstr "Rôles actuels"
+#~ msgid "Current Roles"
+#~ msgstr "Rôles actuels"
 
-#: src/features/users/components/user-menu.tsx:147
+#: src/features/users/components/user-menu.tsx:146
 msgid "Dark"
 msgstr "Sombre"
 
-#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:122
-#: src/features/agencies/hooks/use-agency-columns.tsx:94
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:123
+#: src/features/organizations/hooks/use-organization-columns.tsx:94
 msgid "Delete"
 msgstr "Supprimer"
 
 #: src/features/agencies/hooks/use-agency-columns.tsx:102
-msgid "Delete {agencyName}"
-msgstr "Supprimer {agencyName}"
+#~ msgid "Delete {agencyName}"
+#~ msgstr "Supprimer {agencyName}"
+
+#: src/features/organizations/hooks/use-organization-columns.tsx:102
+msgid "Delete {organizationName}"
+msgstr ""
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:125
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:130
 #: src/features/agencies/hooks/use-agency-columns.tsx:98
-msgid "Delete Agency"
-msgstr "Supprimer l'agence"
+#~ msgid "Delete Agency"
+#~ msgstr "Supprimer l'agence"
+
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:126
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:131
+#: src/features/organizations/hooks/use-organization-columns.tsx:98
+msgid "Delete Organization"
+msgstr ""
 
 #: src/features/vehicles/i18n.ts:43
-msgid "Delete vehicle"
-msgstr "Supprimer le véhicule"
+#~ msgid "Delete vehicle"
+#~ msgstr "Supprimer le véhicule"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:143
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:148
 #~ msgid "Delete Vehicle"
 #~ msgstr "Supprimer le véhicule"
 
-#: src/features/agencies/components/agency-form-fields.tsx:67
-#: src/features/vehicles/components/vehicle-form.tsx:359
+#: src/features/organizations/components/organization-form-fields.tsx:71
 msgid "Description"
 msgstr "Description"
 
+#: src/features/todos/components/create-todo-dialog.tsx:147
+msgid "Description (optional)"
+msgstr ""
+
 #: src/features/vehicles/i18n.ts:16
-msgid "Diesel"
-msgstr "Diesel"
+#~ msgid "Diesel"
+#~ msgstr "Diesel"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:372
-msgid "Documents"
-msgstr ""
+#~ msgid "Documents"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:405
-msgid "Documents - Coming Soon"
-msgstr ""
+#~ msgid "Documents - Coming Soon"
+#~ msgstr ""
 
 #: src/features/vehicles/i18n.ts:7
-msgid "Draft"
-msgstr ""
+#~ msgid "Draft"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:114
-msgid "Edit vehicle details. All fields are optional."
-msgstr ""
+#~ msgid "Edit vehicle details. All fields are optional."
+#~ msgstr ""
 
 #: src/features/vehicles/i18n.ts:17
-msgid "Electric"
-msgstr "Électrique"
+#~ msgid "Electric"
+#~ msgstr "Électrique"
 
-#: src/app/(dashboard)/admin/members/page.tsx:158
-#: src/features/agencies/components/agency-form-fields.tsx:100
-#: src/features/agencies/components/pending-invitations-card.tsx:91
-#: src/features/agencies/hooks/use-agency-columns.tsx:71
-#: src/features/auth/components/sign-in-form.tsx:109
-#: src/features/auth/components/sign-up-form.tsx:119
+#: src/app/(dashboard)/admin/members/page.tsx:154
+#: src/features/auth/components/sign-in-form.tsx:106
+#: src/features/auth/components/sign-up-form.tsx:116
+#: src/features/organizations/components/organization-form-fields.tsx:104
+#: src/features/organizations/hooks/use-organization-columns.tsx:71
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:72
 msgid "Email"
 msgstr "Email"
 
-#: src/features/agencies/components/add-member-dialog.tsx:160
+#: src/features/organizations/components/add-member-dialog.tsx:166
 msgid "Email Address *"
 msgstr "Adresse email *"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:192
-msgid "Engine"
-msgstr ""
+#~ msgid "Engine"
+#~ msgstr ""
 
-#: src/features/agencies/components/add-member-dialog.tsx:166
+#: src/features/organizations/components/add-member-dialog.tsx:172
 msgid "Enter email address"
 msgstr "Entrez l'adresse email"
 
 #: src/features/vehicles/components/vehicle-form.tsx:364
-msgid "Enter vehicle description..."
-msgstr ""
+#~ msgid "Enter vehicle description..."
+#~ msgstr ""
 
 #: src/components/ui/connection-status-overlay.tsx:100
 msgid "Establishing connection to the server"
 msgstr "Établissement de la connexion au serveur"
 
 #: src/features/vehicles/i18n.ts:21
-msgid "Ethanol"
-msgstr ""
+#~ msgid "Ethanol"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:275
-msgid "Ex: 15000"
-msgstr ""
+#~ msgid "Ex: 15000"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:192
-msgid "Ex: 2020"
-msgstr ""
+#~ msgid "Ex: 2020"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:301
-msgid "Ex: 50000"
-msgstr ""
+#~ msgid "Ex: 50000"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:149
 #: src/features/vehicles/components/vehicle-form.tsx:138
-msgid "Ex: BF582LN"
-msgstr ""
+#~ msgid "Ex: BF582LN"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:328
-msgid "Ex: Black"
-msgstr ""
+#~ msgid "Ex: Black"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:344
-msgid "Ex: Black leather"
-msgstr ""
+#~ msgid "Ex: Black leather"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:173
-msgid "Ex: Camry"
-msgstr ""
+#~ msgid "Ex: Camry"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:157
-msgid "Ex: Toyota"
-msgstr ""
+#~ msgid "Ex: Toyota"
+#~ msgstr ""
 
-#: src/features/agencies/i18n.ts:22
+#: src/features/organizations/i18n.ts:25
 msgid "Expired"
 msgstr "Expirée"
 
-#: src/app/(dashboard)/admin/members/page.tsx:216
-#: src/features/agencies/components/pending-invitations-card.tsx:116
+#: src/app/(dashboard)/admin/members/page.tsx:215
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:135
 msgid "Expires"
 msgstr "Expire"
 
 #: src/features/vehicles/components/vehicle-form.tsx:325
-msgid "Exterior Color"
-msgstr ""
+#~ msgid "Exterior Color"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:106
-msgid "Failed to apply SIV data"
+#~ msgid "Failed to apply SIV data"
+#~ msgstr ""
+
+#: src/features/todos/components/todo-list.tsx:51
+msgid "Failed to load todos"
 msgstr ""
 
 #: src/features/vehicles/i18n.ts:45
-msgid "Failed to load vehicles"
-msgstr "Échec du chargement des véhicules"
+#~ msgid "Failed to load vehicles"
+#~ msgstr "Échec du chargement des véhicules"
 
 #: src/app/(dashboard)/vehicles/page.tsx:106
 #~ msgid "Failed to load vehicles. Please try again."
 #~ msgstr "Échec du chargement des véhicules. Veuillez réessayer."
 
-#: src/features/users/components/user-menu.tsx:67
-#: src/features/users/components/user-menu.tsx:73
+#: src/features/users/components/user-menu.tsx:68
+#: src/features/users/components/user-menu.tsx:74
 msgid "Failed to sign out. Please try again."
 msgstr "Échec de la déconnexion. Veuillez réessayer."
 
-#: src/features/agencies/i18n.ts:27
+#: src/features/organizations/i18n.ts:30
 msgid "Failed to update roles"
 msgstr "Échec de la mise à jour des rôles"
 
 #: src/features/vehicles/components/vehicle-form.tsx:102
-msgid "Failed to update vehicle"
-msgstr ""
+#~ msgid "Failed to update vehicle"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:166
-msgid "For example: BF582LN"
-msgstr ""
+#~ msgid "For example: BF582LN"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:198
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:260
 #: src/features/vehicles/components/vehicle-form.tsx:213
 #: src/features/vehicles/i18n.ts:40
-msgid "Fuel Type"
-msgstr "Type de carburant"
+#~ msgid "Fuel Type"
+#~ msgstr "Type de carburant"
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:200
 #~ msgid "Fuel Type *"
 #~ msgstr "Type de carburant *"
 
 #: src/features/vehicles/i18n.ts:15
-msgid "Gasoline"
-msgstr "Essence"
+#~ msgid "Gasoline"
+#~ msgstr "Essence"
 
-#: src/app/(auth)/invitations/accept/page.tsx:142
+#: src/app/(auth)/invitations/accept/page.tsx:139
 msgid "Go to Dashboard"
 msgstr "Aller au tableau de bord"
 
-#: src/app/(auth)/invitations/accept/page.tsx:75
-#: src/app/(auth)/invitations/accept/page.tsx:103
-#: src/app/(auth)/invitations/accept/page.tsx:125
-#: src/app/(auth)/invitations/accept/page.tsx:159
+#: src/app/(auth)/invitations/accept/page.tsx:78
+#: src/app/(auth)/invitations/accept/page.tsx:104
+#: src/app/(auth)/invitations/accept/page.tsx:124
+#: src/app/(auth)/invitations/accept/page.tsx:154
 msgid "Go to Home"
 msgstr "Aller à l'accueil"
 
@@ -475,42 +536,42 @@ msgid "Google sign in failed. Please try again."
 msgstr "Échec de la connexion Google. Veuillez réessayer."
 
 #: src/features/vehicles/i18n.ts:18
-msgid "Hybrid"
-msgstr "Hybride"
+#~ msgid "Hybrid"
+#~ msgstr "Hybride"
 
 #: src/features/vehicles/i18n.ts:22
-msgid "Hydrogen"
-msgstr ""
+#~ msgid "Hydrogen"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:135
-msgid "Import vehicle information directly from the prefecture"
-msgstr ""
+#~ msgid "Import vehicle information directly from the prefecture"
+#~ msgstr ""
 
-#: src/features/agencies/i18n.ts:8
+#: src/features/organizations/i18n.ts:9
 msgid "Inactive"
 msgstr "Inactif"
 
-#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:172
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:173
 msgid "Info"
 msgstr "Info"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:363
-msgid "Information"
-msgstr ""
+#~ msgid "Information"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:341
-msgid "Interior Color"
-msgstr ""
+#~ msgid "Interior Color"
+#~ msgstr ""
 
-#: src/app/(auth)/invitations/accept/page.tsx:71
+#: src/app/(auth)/invitations/accept/page.tsx:75
 msgid "Invalid Invitation Link"
 msgstr "Lien d'invitation invalide"
 
 #: src/features/vehicles/components/vehicle-form-schema.ts:26
-msgid "Invalid license plate format"
-msgstr ""
+#~ msgid "Invalid license plate format"
+#~ msgstr ""
 
-#: src/app/(auth)/invitations/accept/page.tsx:174
+#: src/app/(auth)/invitations/accept/page.tsx:168
 msgid "Invitation Accepted!"
 msgstr "Invitation acceptée !"
 
@@ -518,71 +579,71 @@ msgstr "Invitation acceptée !"
 msgid "Invitation Expired"
 msgstr "Invitation expirée"
 
-#: src/app/(auth)/invitations/accept/page.tsx:99
+#: src/app/(auth)/invitations/accept/page.tsx:101
 msgid "Invitation Not Found"
 msgstr "Invitation introuvable"
 
-#: src/app/(auth)/invitations/accept/page.tsx:155
+#: src/app/(auth)/invitations/accept/page.tsx:151
 msgid "Invitation Revoked"
 msgstr "Invitation révoquée"
 
 #: src/features/agencies/components/pending-invitations-card.tsx:222
-msgid "Invitations that have been sent but not yet accepted"
-msgstr "Invitations envoyées mais pas encore acceptées"
+#~ msgid "Invitations that have been sent but not yet accepted"
+#~ msgstr "Invitations envoyées mais pas encore acceptées"
 
-#: src/features/agencies/components/add-member-dialog.tsx:111
-#: src/features/agencies/components/add-member-dialog.tsx:117
+#: src/features/organizations/components/add-member-dialog.tsx:116
+#: src/features/organizations/components/add-member-dialog.tsx:123
 msgid "Invite Member"
 msgstr "Inviter un membre"
 
 #: src/app/(dashboard)/admin/members/page.tsx:248
 #: src/features/agencies/components/pending-invitations-card.tsx:145
-msgid "Invited By"
-msgstr "Invité par"
+#~ msgid "Invited By"
+#~ msgstr "Invité par"
 
 #: src/features/agencies/components/pending-invitations-card.tsx:150
 #~ msgid "Invited by {0}"
 #~ msgstr "Invité par {0}"
 
 #: src/features/agencies/components/pending-invitations-card.tsx:150
-msgid "Invited by {inviterName}"
-msgstr "Invité par {inviterName}"
+#~ msgid "Invited by {inviterName}"
+#~ msgstr "Invité par {inviterName}"
 
-#: src/app/(auth)/invitations/accept/page.tsx:254
+#: src/app/(auth)/invitations/accept/page.tsx:248
 msgid "is inviting you to join their team"
 msgstr "vous invite à rejoindre son équipe"
 
 #: src/features/vehicles/components/vehicle-form.tsx:309
-msgid "Kilometers"
-msgstr ""
+#~ msgid "Kilometers"
+#~ msgstr ""
 
-#: src/features/users/components/user-menu.tsx:162
+#: src/features/users/components/user-menu.tsx:161
 msgid "Language"
 msgstr "Langue"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:142
 #: src/features/vehicles/components/vehicle-form.tsx:135
 #: src/features/vehicles/i18n.ts:41
-msgid "License Plate"
-msgstr "Plaque d'immatriculation"
+#~ msgid "License Plate"
+#~ msgstr "Plaque d'immatriculation"
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:130
 #~ msgid "License Plate *"
 #~ msgstr "Plaque d'immatriculation *"
 
-#: src/features/users/components/user-menu.tsx:143
+#: src/features/users/components/user-menu.tsx:142
 msgid "Light"
 msgstr "Clair"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:376
-msgid "Listings"
-msgstr ""
+#~ msgid "Listings"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:413
-msgid "Listings - Coming Soon"
-msgstr ""
+#~ msgid "Listings - Coming Soon"
+#~ msgstr ""
 
-#: src/components/ui/auth-guard.tsx:38
+#: src/components/ui/auth-guard.tsx:39
 msgid "Loading"
 msgstr "Chargement"
 
@@ -590,73 +651,90 @@ msgstr "Chargement"
 msgid "Loading authentication"
 msgstr "Chargement de l'authentification"
 
-#: src/app/(auth)/invitations/accept/page.tsx:88
+#: src/app/(auth)/invitations/accept/page.tsx:90
 msgid "Loading Invitation"
 msgstr "Chargement de l'invitation"
 
 #: src/features/vehicles/i18n.ts:44
-msgid "Loading vehicles"
-msgstr "Chargement des véhicules"
+#~ msgid "Loading vehicles"
+#~ msgstr "Chargement des véhicules"
 
-#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:161
-#: src/app/(dashboard)/admin/agencies/page.tsx:105
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:232
-#: src/app/(dashboard)/admin/members/page.tsx:347
-#: src/app/(dashboard)/admin/members/page.tsx:371
-#: src/app/(dashboard)/vehicles/page.tsx:115
-#: src/components/ui/auth-guard.tsx:40
-#: src/features/agencies/components/agency-members-tab.tsx:93
-#: src/features/agencies/components/pending-invitations-card.tsx:233
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:237
+#: src/app/(dashboard)/admin/members/page.tsx:372
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:162
+#: src/app/(dashboard)/admin/organizations/page.tsx:106
+#: src/components/ui/auth-guard.tsx:41
+#: src/features/organizations/components/organization-members-tab.tsx:229
 msgid "Loading..."
 msgstr "Chargement..."
 
 #: src/features/vehicles/i18n.ts:20
-msgid "LPG"
-msgstr ""
+#~ msgid "LPG"
+#~ msgstr ""
 
 #: src/features/vehicles/i18n.ts:35
-msgid "Make"
-msgstr "Marque"
+#~ msgid "Make"
+#~ msgstr "Marque"
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:59
 #~ msgid "Make *"
 #~ msgstr "Marque *"
 
 #: src/app/(dashboard)/admin/page.tsx:16
-msgid "Manage agencies and their settings"
-msgstr "Gérer les agences et leurs paramètres"
+#~ msgid "Manage agencies and their settings"
+#~ msgstr "Gérer les agences et leurs paramètres"
 
 #: src/app/(dashboard)/admin/members/[id]/page.tsx:288
-msgid "Manage agency membership and roles"
-msgstr "Gérer l'appartenance et les rôles de l'agence"
+#~ msgid "Manage agency membership and roles"
+#~ msgstr "Gérer l'appartenance et les rôles de l'agence"
 
-#: src/features/agencies/components/agency-members-tab.tsx:71
+#: src/features/organizations/components/organization-members-tab.tsx:209
 msgid "Manage members and their roles"
 msgstr "Gérer les membres et leurs rôles"
 
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:293
+msgid "Manage organization membership and roles"
+msgstr ""
+
+#: src/app/(dashboard)/admin/page.tsx:16
+msgid "Manage organizations and their settings"
+msgstr ""
+
 #: src/app/(dashboard)/admin/agencies/page.tsx:88
-msgid "Manage your agencies and their settings"
-msgstr "Gérez vos agences et leurs paramètres"
+#~ msgid "Manage your agencies and their settings"
+#~ msgstr "Gérez vos agences et leurs paramètres"
 
 #: src/app/(dashboard)/admin/page.tsx:31
-msgid "Manage your agencies, members, and roles"
-msgstr "Gérez vos agences, membres et rôles"
+#~ msgid "Manage your agencies, members, and roles"
+#~ msgstr "Gérez vos agences, membres et rôles"
+
+#: src/app/(dashboard)/admin/organizations/page.tsx:89
+msgid "Manage your organizations and their settings"
+msgstr ""
+
+#: src/app/(dashboard)/admin/page.tsx:31
+msgid "Manage your organizations, members, and roles"
+msgstr ""
 
 #: src/app/(dashboard)/vehicles/page.tsx:98
-msgid "Manage your vehicle inventory"
-msgstr ""
+#~ msgid "Manage your vehicle inventory"
+#~ msgstr ""
 
 #: src/features/vehicles/i18n.ts:28
-msgid "Manual"
-msgstr ""
+#~ msgid "Manual"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:183
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:242
 #: src/features/vehicles/components/vehicle-form.tsx:154
-msgid "Manufacturer"
+#~ msgid "Manufacturer"
+#~ msgstr ""
+
+#: src/features/organizations/i18n.ts:14
+msgid "Member"
 msgstr ""
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:163
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:170
 msgid "Member Not Found"
 msgstr "Membre introuvable"
 
@@ -664,22 +742,22 @@ msgstr "Membre introuvable"
 #~ msgid "Member since {0}"
 #~ msgstr "Membre depuis le {0}"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:274
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:279
 msgid "Member since {memberSince}"
 msgstr "Membre depuis le {memberSince}"
 
-#: src/app/(dashboard)/admin/agencies/[id]/page.tsx:176
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:219
-#: src/app/(dashboard)/admin/members/page.tsx:323
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:224
+#: src/app/(dashboard)/admin/members/page.tsx:348
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:177
 #: src/app/(dashboard)/admin/page.tsx:21
-#: src/components/layouts/app-sidebar.tsx:52
+#: src/components/layouts/app-sidebar.tsx:49
 msgid "Members"
 msgstr "Membres"
 
 #: src/features/vehicles/components/vehicle-form.tsx:296
 #: src/features/vehicles/i18n.ts:39
-msgid "Mileage"
-msgstr "Kilométrage"
+#~ msgid "Mileage"
+#~ msgstr "Kilométrage"
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:177
 #~ msgid "Mileage *"
@@ -689,19 +767,19 @@ msgstr "Kilométrage"
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:248
 #: src/features/vehicles/components/vehicle-form.tsx:170
 #: src/features/vehicles/i18n.ts:36
-msgid "Model"
-msgstr "Modèle"
+#~ msgid "Model"
+#~ msgstr "Modèle"
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:75
 #~ msgid "Model *"
 #~ msgstr "Modèle *"
 
-#: src/features/agencies/hooks/use-agency-columns.tsx:34
-#: src/features/auth/components/sign-up-form.tsx:111
+#: src/features/auth/components/sign-up-form.tsx:108
+#: src/features/organizations/hooks/use-organization-columns.tsx:34
 msgid "Name"
 msgstr "Nom"
 
-#: src/features/agencies/components/agency-form-fields.tsx:51
+#: src/features/organizations/components/organization-form-fields.tsx:51
 msgid "Name *"
 msgstr "Nom *"
 
@@ -709,124 +787,198 @@ msgstr "Nom *"
 #~ msgid "Navigation"
 #~ msgstr "Navigation"
 
-#: src/features/auth/components/sign-in-form.tsx:157
+#: src/features/auth/components/sign-in-form.tsx:154
 msgid "Need an account? Sign Up"
 msgstr "Besoin d'un compte ? S'inscrire"
+
+#: src/features/todos/components/create-todo-dialog.tsx:109
+msgid "New Todo"
+msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:323
 #: src/components/layouts/app-sidebar.tsx:77
 #: src/features/vehicles/hooks/use-vehicle-columns.tsx:37
-msgid "New Vehicle"
-msgstr ""
+#~ msgid "New Vehicle"
+#~ msgstr ""
 
 #: src/app/(dashboard)/admin/agencies/page.tsx:102
-msgid "No agencies found."
-msgstr "Aucune agence trouvée."
+#~ msgid "No agencies found."
+#~ msgstr "Aucune agence trouvée."
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:315
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:320
 msgid "No email"
 msgstr "Pas d'email"
 
-#: src/app/(auth)/invitations/accept/page.tsx:69
+#: src/app/(auth)/invitations/accept/page.tsx:73
 msgid "No invitation token was provided in the URL."
 msgstr "Aucun jeton d'invitation n'a été fourni dans l'URL."
 
 #: src/app/(dashboard)/admin/members/page.tsx:368
-msgid "No invitations sent yet."
-msgstr "Aucune invitation envoyée."
+#~ msgid "No invitations sent yet."
+#~ msgstr "Aucune invitation envoyée."
 
 #: src/features/agencies/components/agency-members-tab.tsx:90
-msgid "No members found."
-msgstr "Aucun membre trouvé."
+#~ msgid "No members found."
+#~ msgstr "Aucun membre trouvé."
 
 #: src/app/(dashboard)/admin/members/page.tsx:344
-msgid "No members found. Add members to agencies first."
-msgstr "Aucun membre trouvé. Ajoutez d'abord des membres aux agences."
+#~ msgid "No members found. Add members to agencies first."
+#~ msgstr "Aucun membre trouvé. Ajoutez d'abord des membres aux agences."
+
+#: src/features/organizations/components/organization-members-tab.tsx:226
+msgid "No members or pending invitations."
+msgstr ""
+
+#: src/app/(dashboard)/admin/members/page.tsx:369
+msgid "No members or pending invitations. Add members to organizations first."
+msgstr ""
+
+#: src/app/(dashboard)/admin/organizations/page.tsx:103
+msgid "No organizations found."
+msgstr ""
 
 #: src/features/agencies/components/pending-invitations-card.tsx:230
-msgid "No pending invitations."
-msgstr "Aucune invitation en attente."
+#~ msgid "No pending invitations."
+#~ msgstr "Aucune invitation en attente."
 
 #: src/app/(dashboard)/vehicles/page.tsx:112
-msgid "No vehicles found."
-msgstr "Aucun véhicule trouvé."
+#~ msgid "No vehicles found."
+#~ msgstr "Aucun véhicule trouvé."
 
 #: src/features/auth/components/auth-divider.tsx:14
 msgid "Or continue with"
 msgstr "Ou continuer avec"
 
-#: src/features/vehicles/i18n.ts:23
-msgid "Other"
+#: src/app/(auth)/invitations/accept/page.tsx:194
+#: src/app/(dashboard)/admin/members/page.tsx:129
+#: src/components/layouts/app-sidebar.tsx:59
+msgid "Organization"
 msgstr ""
 
-#: src/features/auth/components/sign-in-form.tsx:123
-#: src/features/auth/components/sign-up-form.tsx:133
+#: src/features/organizations/components/add-member-dialog.tsx:138
+msgid "Organization *"
+msgstr ""
+
+#: src/features/organizations/components/organization-form-fields.tsx:74
+msgid "Organization description"
+msgstr ""
+
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:48
+msgid "Organization Information"
+msgstr ""
+
+#: src/features/organizations/components/organization-members-tab.tsx:206
+msgid "Organization Members"
+msgstr ""
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:290
+msgid "Organization Membership"
+msgstr ""
+
+#: src/features/organizations/components/organization-form-fields.tsx:56
+msgid "Organization name"
+msgstr ""
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:325
+msgid "Organization not found"
+msgstr ""
+
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:97
+msgid "Organization Not Found"
+msgstr ""
+
+#: src/features/organizations/components/role-selector.tsx:85
+msgid "Organization owners with full control."
+msgstr ""
+
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:149
+#: src/app/(dashboard)/admin/organizations/page.tsx:83
+#: src/app/(dashboard)/admin/organizations/page.tsx:91
+#: src/app/(dashboard)/admin/page.tsx:15
+#: src/components/layouts/app-sidebar.tsx:44
+msgid "Organizations"
+msgstr ""
+
+#: src/features/vehicles/i18n.ts:23
+#~ msgid "Other"
+#~ msgstr ""
+
+#: src/features/organizations/i18n.ts:16
+msgid "Owner"
+msgstr ""
+
+#: src/features/auth/components/sign-in-form.tsx:120
+#: src/features/auth/components/sign-up-form.tsx:130
 msgid "Password"
 msgstr "Mot de passe"
 
-#: src/features/agencies/i18n.ts:19
+#: src/features/organizations/i18n.ts:22
 msgid "Pending"
 msgstr "En attente"
 
 #: src/features/agencies/components/pending-invitations-card.tsx:219
-msgid "Pending Invitations"
-msgstr "Invitations en attente"
+#~ msgid "Pending Invitations"
+#~ msgstr "Invitations en attente"
 
-#: src/features/agencies/components/agency-form-fields.tsx:84
-#: src/features/agencies/hooks/use-agency-columns.tsx:77
+#: src/features/organizations/components/organization-form-fields.tsx:88
+#: src/features/organizations/hooks/use-organization-columns.tsx:77
 msgid "Phone"
 msgstr "Téléphone"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:367
-msgid "Photos"
-msgstr ""
+#~ msgid "Photos"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:396
-msgid "Photos - Coming Soon"
-msgstr ""
+#~ msgid "Photos - Coming Soon"
+#~ msgstr ""
 
-#: src/app/(auth)/invitations/accept/page.tsx:244
+#: src/app/(auth)/invitations/accept/page.tsx:238
 msgid "Please sign in or create an account to accept this invitation."
 msgstr "Veuillez vous connecter ou créer un compte pour accepter cette invitation."
 
 #: src/features/vehicles/i18n.ts:19
-msgid "Plug-in Hybrid"
-msgstr ""
+#~ msgid "Plug-in Hybrid"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:270
-msgid "Price"
-msgstr "Prix"
+#~ msgid "Price"
+#~ msgstr "Prix"
 
 #: src/features/vehicles/i18n.ts:38
-msgid "Price ($)"
-msgstr "Prix (€)"
+#~ msgid "Price ($)"
+#~ msgstr "Prix (€)"
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:156
 #~ msgid "Price ($) *"
 #~ msgstr "Prix (€) *"
 
 #: src/features/vehicles/components/vehicle-form.tsx:283
-msgid "Price in euros"
+#~ msgid "Price in euros"
+#~ msgstr ""
+
+#: src/features/todos/components/create-todo-dialog.tsx:163
+msgid "Priority (optional)"
 msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:189
-msgid "Production Period"
-msgstr ""
+#~ msgid "Production Period"
+#~ msgstr ""
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:245
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:250
 msgid "Profile"
 msgstr "Profil"
 
 #: src/app/(auth)/_components/redirect-on-auth.tsx:28
-#: src/components/ui/auth-guard.tsx:63
+#: src/components/ui/auth-guard.tsx:64
 msgid "Redirecting"
 msgstr "Redirection"
 
-#: src/app/(auth)/invitations/accept/page.tsx:178
+#: src/app/(auth)/invitations/accept/page.tsx:172
 msgid "Redirecting to dashboard..."
 msgstr "Redirection vers le tableau de bord..."
 
-#: src/components/ui/auth-guard.tsx:67
+#: src/components/ui/auth-guard.tsx:68
 msgid "Redirecting to login..."
 msgstr "Redirection vers la connexion..."
 
@@ -834,42 +986,53 @@ msgstr "Redirection vers la connexion..."
 msgid "Redirecting..."
 msgstr "Redirection..."
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:193
-#: src/app/(dashboard)/admin/members/page.tsx:128
-#: src/features/agencies/hooks/use-member-columns.tsx:72
+#: src/features/organizations/components/role-selector.tsx:79
+msgid "Regular members with basic access."
+msgstr ""
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:198
+#: src/app/(dashboard)/admin/members/page.tsx:261
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:202
 msgid "Remove"
 msgstr "Retirer"
 
-#: src/app/(dashboard)/admin/members/page.tsx:138
-#: src/features/agencies/hooks/use-member-columns.tsx:79
+#: src/app/(dashboard)/admin/members/page.tsx:268
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:209
 msgid "Remove member"
 msgstr "Retirer le membre"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:196
 #: src/app/(dashboard)/admin/members/[id]/page.tsx:201
-#: src/app/(dashboard)/admin/members/page.tsx:135
-#: src/features/agencies/hooks/use-member-columns.tsx:76
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:206
+#: src/app/(dashboard)/admin/members/page.tsx:265
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:206
 msgid "Remove Member"
 msgstr "Retirer le membre"
 
 #: src/features/agencies/components/pending-invitations-card.tsx:175
-msgid "Resend"
-msgstr "Renvoyer"
+#~ msgid "Resend"
+#~ msgstr "Renvoyer"
+
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:222
+msgid "Resend invitation"
+msgstr ""
 
 #: src/features/vehicles/i18n.ts:10
-msgid "Reserved"
-msgstr "Réservé"
+#~ msgid "Reserved"
+#~ msgstr "Réservé"
 
-#: src/features/agencies/components/pending-invitations-card.tsx:179
-#: src/features/agencies/components/pending-invitations-card.tsx:195
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:233
 msgid "Revoke"
 msgstr "Révoquer"
 
-#: src/features/agencies/components/pending-invitations-card.tsx:185
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:240
+msgid "Revoke invitation"
+msgstr ""
+
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:237
 msgid "Revoke Invitation"
 msgstr "Révoquer l'invitation"
 
-#: src/features/agencies/i18n.ts:21
+#: src/features/organizations/i18n.ts:24
 msgid "Revoked"
 msgstr "Révoquée"
 
@@ -877,125 +1040,147 @@ msgstr "Révoquée"
 #~ msgid "Role Descriptions"
 #~ msgstr "Description des rôles"
 
-#: src/app/(dashboard)/admin/members/page.tsx:111
-#: src/app/(dashboard)/admin/members/page.tsx:189
-#: src/features/agencies/components/pending-invitations-card.tsx:102
+#: src/app/(dashboard)/admin/members/page.tsx:200
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:119
 msgid "Roles"
 msgstr "Rôles"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:105
-#: src/features/agencies/components/add-member-dialog.tsx:175
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:110
+#: src/features/organizations/components/add-member-dialog.tsx:181
 msgid "Roles *"
 msgstr "Rôles *"
 
 #: src/features/agencies/components/role-selector.tsx:76
-msgid "Sales representatives who manage leads and client relationships."
-msgstr "Commerciaux qui gèrent les prospects et les relations clients."
+#~ msgid "Sales representatives who manage leads and client relationships."
+#~ msgstr "Commerciaux qui gèrent les prospects et les relations clients."
 
-#: src/features/agencies/components/agency-form.tsx:98
-#: src/features/vehicles/components/vehicle-form.tsx:382
+#: src/features/organizations/components/organization-form.tsx:101
 msgid "Save Changes"
 msgstr "Enregistrer"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:131
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:136
 msgid "Save Roles"
 msgstr "Enregistrer les rôles"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:126
-#: src/features/agencies/components/agency-form.tsx:93
-#: src/features/vehicles/components/vehicle-form.tsx:377
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:131
+#: src/features/organizations/components/organization-form.tsx:96
 msgid "Saving..."
 msgstr "Enregistrement..."
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:162
-msgid "Search"
-msgstr ""
+#~ msgid "Search"
+#~ msgstr ""
 
 #: src/app/(dashboard)/admin/agencies/page.tsx:107
-msgid "Search agencies..."
-msgstr "Rechercher des agences..."
+#~ msgid "Search agencies..."
+#~ msgstr "Rechercher des agences..."
 
 #: src/app/(dashboard)/admin/members/page.tsx:349
-msgid "Search by agency or user..."
-msgstr "Rechercher par agence ou utilisateur..."
+#~ msgid "Search by agency or user..."
+#~ msgstr "Rechercher par agence ou utilisateur..."
 
 #: src/app/(dashboard)/admin/members/page.tsx:372
-msgid "Search by email or agency..."
-msgstr "Rechercher par email ou agence..."
+#~ msgid "Search by email or agency..."
+#~ msgstr "Rechercher par email ou agence..."
+
+#: src/features/organizations/components/organization-members-tab.tsx:230
+msgid "Search by email or name..."
+msgstr ""
+
+#: src/app/(dashboard)/admin/members/page.tsx:378
+msgid "Search by organization, email, or name..."
+msgstr ""
 
 #: src/features/agencies/components/pending-invitations-card.tsx:234
-msgid "Search invitations..."
-msgstr "Rechercher des invitations..."
+#~ msgid "Search invitations..."
+#~ msgstr "Rechercher des invitations..."
 
 #: src/features/agencies/components/agency-members-tab.tsx:94
-msgid "Search members..."
-msgstr "Rechercher des membres..."
+#~ msgid "Search members..."
+#~ msgstr "Rechercher des membres..."
+
+#: src/app/(dashboard)/admin/organizations/page.tsx:108
+msgid "Search organizations..."
+msgstr ""
 
 #: src/app/(dashboard)/vehicles/page.tsx:117
 #~ msgid "Search vehicles..."
 #~ msgstr "Rechercher des véhicules..."
 
 #: src/app/(dashboard)/vehicles/page.tsx:117
-msgid "Search..."
-msgstr ""
+#~ msgid "Search..."
+#~ msgstr ""
 
 #: src/features/agencies/components/add-member-dialog.tsx:140
-msgid "Select an agency"
-msgstr "Sélectionner une agence"
+#~ msgid "Select an agency"
+#~ msgstr "Sélectionner une agence"
+
+#: src/features/organizations/components/add-member-dialog.tsx:146
+msgid "Select an organization"
+msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:218
-msgid "Select fuel type"
-msgstr ""
+#~ msgid "Select fuel type"
+#~ msgstr ""
 
 #: src/features/vehicles/components/vehicle-form.tsx:245
-msgid "Select transmission"
-msgstr ""
+#~ msgid "Select transmission"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:174
-msgid "Select your model from the list below"
-msgstr ""
+#~ msgid "Select your model from the list below"
+#~ msgstr ""
 
 #: src/features/vehicles/i18n.ts:30
-msgid "Semi-Automatic"
-msgstr ""
+#~ msgid "Semi-Automatic"
+#~ msgstr ""
 
 #: src/features/agencies/components/add-member-dialog.tsx:123
-msgid "Send an invitation email to add a new member to an agency"
-msgstr "Envoyer un email d'invitation pour ajouter un nouveau membre à une agence"
+#~ msgid "Send an invitation email to add a new member to an agency"
+#~ msgstr "Envoyer un email d'invitation pour ajouter un nouveau membre à une agence"
+
+#: src/features/organizations/components/add-member-dialog.tsx:129
+msgid "Send an invitation email to add a new member to an organization"
+msgstr ""
 
 #: src/features/agencies/components/add-member-dialog.tsx:121
-msgid "Send an invitation email to add a new member to this agency"
-msgstr "Envoyer un email d'invitation pour ajouter un nouveau membre à cette agence"
+#~ msgid "Send an invitation email to add a new member to this agency"
+#~ msgstr "Envoyer un email d'invitation pour ajouter un nouveau membre à cette agence"
 
-#: src/features/agencies/components/add-member-dialog.tsx:197
+#: src/features/organizations/components/add-member-dialog.tsx:127
+msgid "Send an invitation email to add a new member to this organization"
+msgstr ""
+
+#: src/features/organizations/components/add-member-dialog.tsx:203
 msgid "Send Invitation"
 msgstr "Envoyer l'invitation"
 
-#: src/features/agencies/components/add-member-dialog.tsx:194
+#: src/features/organizations/components/add-member-dialog.tsx:200
 msgid "Sending..."
 msgstr "Envoi..."
 
-#: src/features/users/components/user-menu.tsx:125
+#: src/components/layouts/app-sidebar.tsx:31
+#: src/features/users/components/user-menu.tsx:124
 msgid "Settings"
 msgstr "Paramètres"
 
-#: src/features/auth/components/sign-in-form.tsx:142
+#: src/features/auth/components/sign-in-form.tsx:139
 msgid "Sign In"
 msgstr "Se connecter"
 
-#: src/features/auth/components/sign-in-form.tsx:92
+#: src/features/auth/components/sign-in-form.tsx:89
 msgid "Sign in failed. Please check your connection and try again."
 msgstr "Échec de la connexion. Veuillez vérifier votre connexion et réessayer."
 
-#: src/features/auth/components/sign-in-form.tsx:67
+#: src/features/auth/components/sign-in-form.tsx:64
 msgid "Sign in successful"
 msgstr "Connexion réussie"
 
-#: src/app/(auth)/invitations/accept/page.tsx:246
+#: src/app/(auth)/invitations/accept/page.tsx:240
 msgid "Sign in to Accept"
 msgstr "Connectez-vous pour accepter"
 
-#: src/app/(auth)/invitations/accept/page.tsx:263
+#: src/app/(auth)/invitations/accept/page.tsx:262
 msgid "Sign In to Accept"
 msgstr "Se connecter pour accepter"
 
@@ -1003,50 +1188,50 @@ msgstr "Se connecter pour accepter"
 msgid "Sign in with Google"
 msgstr "Se connecter avec Google"
 
-#: src/features/users/components/user-menu.tsx:184
+#: src/features/users/components/user-menu.tsx:183
 msgid "Sign out"
 msgstr "Se déconnecter"
 
-#: src/features/auth/components/sign-up-form.tsx:152
+#: src/features/auth/components/sign-up-form.tsx:149
 msgid "Sign Up"
 msgstr "S'inscrire"
 
-#: src/features/auth/components/sign-up-form.tsx:94
+#: src/features/auth/components/sign-up-form.tsx:91
 msgid "Sign up failed. Please check your connection and try again."
 msgstr "Échec de l'inscription. Veuillez vérifier votre connexion et réessayer."
 
-#: src/features/auth/components/sign-up-form.tsx:69
+#: src/features/auth/components/sign-up-form.tsx:66
 msgid "Sign up successful"
 msgstr "Inscription réussie"
 
-#: src/features/users/components/user-menu.tsx:64
+#: src/features/users/components/user-menu.tsx:65
 msgid "Signed out successfully"
 msgstr "Déconnexion réussie"
 
-#: src/features/auth/components/sign-in-form.tsx:139
+#: src/features/auth/components/sign-in-form.tsx:136
 msgid "Signing in..."
 msgstr "Connexion..."
 
-#: src/features/auth/components/sign-up-form.tsx:149
+#: src/features/auth/components/sign-up-form.tsx:146
 msgid "Signing up..."
 msgstr "Inscription..."
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:132
-msgid "SIV Import"
-msgstr ""
+#~ msgid "SIV Import"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:83
-msgid "SIV lookup error"
-msgstr ""
+#~ msgid "SIV lookup error"
+#~ msgstr ""
 
 #: src/features/vehicles/i18n.ts:9
-msgid "Sold"
-msgstr "Vendu"
+#~ msgid "Sold"
+#~ msgstr "Vendu"
 
-#: src/app/(dashboard)/admin/members/page.tsx:203
-#: src/features/agencies/components/agency-form-fields.tsx:134
-#: src/features/agencies/hooks/use-agency-columns.tsx:48
-#: src/features/vehicles/hooks/use-vehicle-columns.tsx:60
+#: src/app/(dashboard)/admin/members/page.tsx:188
+#: src/features/organizations/components/organization-form-fields.tsx:138
+#: src/features/organizations/hooks/use-organization-columns.tsx:48
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:105
 msgid "Status"
 msgstr "Statut"
 
@@ -1054,7 +1239,7 @@ msgstr "Statut"
 #~ msgid "Status *"
 #~ msgstr "Statut *"
 
-#: src/features/users/components/user-menu.tsx:151
+#: src/features/users/components/user-menu.tsx:150
 msgid "System"
 msgstr "Système"
 
@@ -1062,62 +1247,85 @@ msgstr "Système"
 #: src/app/(auth)/invitations/accept/page.tsx:168
 #: src/app/(dashboard)/admin/members/[id]/page.tsx:186
 #: src/app/(dashboard)/admin/members/page.tsx:130
-msgid "the agency"
-msgstr "l'agence"
+#~ msgid "the agency"
+#~ msgstr "l'agence"
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:100
-msgid "The agency may have been deleted or you don't have access to it."
-msgstr "L'agence a peut-être été supprimée ou vous n'y avez pas accès."
+#~ msgid "The agency may have been deleted or you don't have access to it."
+#~ msgstr "L'agence a peut-être été supprimée ou vous n'y avez pas accès."
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:92
-msgid "The agency you're looking for doesn't exist"
-msgstr "L'agence que vous recherchez n'existe pas"
+#~ msgid "The agency you're looking for doesn't exist"
+#~ msgstr "L'agence que vous recherchez n'existe pas"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:169
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:176
 msgid "The member may have been removed or you don't have access."
 msgstr "Le membre a peut-être été retiré ou vous n'y avez pas accès."
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:161
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:168
 msgid "The member you're looking for doesn't exist"
 msgstr "Le membre que vous recherchez n'existe pas"
+
+#: src/app/(auth)/invitations/accept/page.tsx:115
+#: src/app/(auth)/invitations/accept/page.tsx:162
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:191
+#: src/app/(dashboard)/admin/members/page.tsx:258
+msgid "the organization"
+msgstr ""
+
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:103
+msgid "The organization may have been deleted or you don't have access to it."
+msgstr ""
+
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:95
+msgid "The organization you're looking for doesn't exist"
+msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:116
 #~ msgid "The vehicle may have been deleted or you don't have access to it."
 #~ msgstr "Le véhicule a peut-être été supprimé ou vous n'y avez pas accès."
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:302
-msgid "The vehicle may have been deleted."
-msgstr ""
+#~ msgid "The vehicle may have been deleted."
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:294
-msgid "The vehicle you are looking for does not exist"
-msgstr ""
+#~ msgid "The vehicle you are looking for does not exist"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:108
 #~ msgid "The vehicle you're looking for doesn't exist"
 #~ msgstr "Le véhicule que vous recherchez n'existe pas"
 
-#: src/features/users/components/user-menu.tsx:136
+#: src/features/users/components/user-menu.tsx:135
 msgid "Theme"
 msgstr "Thème"
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:115
-msgid "this agency"
-msgstr "cette agence"
+#~ msgid "this agency"
+#~ msgstr "cette agence"
 
-#: src/app/(auth)/invitations/accept/page.tsx:136
+#: src/app/(auth)/invitations/accept/page.tsx:134
 msgid "This invitation has already been accepted."
 msgstr "Cette invitation a déjà été acceptée."
 
 #: src/app/(auth)/invitations/accept/page.tsx:153
-msgid "This invitation has been revoked by the agency administrator."
-msgstr "Cette invitation a été révoquée par l'administrateur de l'agence."
+#~ msgid "This invitation has been revoked by the agency administrator."
+#~ msgstr "Cette invitation a été révoquée par l'administrateur de l'agence."
+
+#: src/app/(auth)/invitations/accept/page.tsx:149
+msgid "This invitation has been revoked by the organization administrator."
+msgstr ""
 
 #: src/app/(auth)/invitations/accept/page.tsx:116
-msgid "This invitation has expired. Please ask {expiredAgencyName} to send you a new one."
-msgstr "Cette invitation a expiré. Veuillez demander à {expiredAgencyName} de vous en envoyer une nouvelle."
+#~ msgid "This invitation has expired. Please ask {expiredAgencyName} to send you a new one."
+#~ msgstr "Cette invitation a expiré. Veuillez demander à {expiredAgencyName} de vous en envoyer une nouvelle."
 
-#: src/app/(auth)/invitations/accept/page.tsx:97
+#: src/app/(auth)/invitations/accept/page.tsx:116
+msgid "This invitation has expired. Please ask {expiredOrganizationName} to send you a new one."
+msgstr ""
+
+#: src/app/(auth)/invitations/accept/page.tsx:99
 msgid "This invitation may have been revoked or the link is incorrect. Please contact the person who invited you."
 msgstr "Cette invitation a peut-être été révoquée ou le lien est incorrect. Veuillez contacter la personne qui vous a invité."
 
@@ -1125,63 +1333,107 @@ msgstr "Cette invitation a peut-être été révoquée ou le lien est incorrect.
 #~ msgid "This license plate already exists"
 #~ msgstr "Cette plaque d'immatriculation existe déjà"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:185
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:190
 msgid "this member"
 msgstr "ce membre"
+
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:116
+msgid "this organization"
+msgstr ""
 
 #: src/features/agencies/components/pending-invitations-card.tsx:179
 #~ msgid "This will cancel the invitation for {0}. They will no longer be able to join using this link."
 #~ msgstr "Cela annulera l'invitation pour {0}. Cette personne ne pourra plus rejoindre avec ce lien."
 
 #: src/features/agencies/components/pending-invitations-card.tsx:182
-msgid "This will cancel the invitation for {email}. They will no longer be able to join using this link."
-msgstr "Cela annulera l'invitation pour {email}. Cette personne ne pourra plus rejoindre avec ce lien."
+#~ msgid "This will cancel the invitation for {email}. They will no longer be able to join using this link."
+#~ msgstr "Cela annulera l'invitation pour {email}. Cette personne ne pourra plus rejoindre avec ce lien."
+
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:234
+msgid "This will invalidate the invitation. The recipient will no longer be able to join."
+msgstr ""
 
 #: src/features/agencies/hooks/use-agency-columns.tsx:95
-msgid "This will permanently delete {agencyName} and remove all its members. This action cannot be undone."
-msgstr "Cela supprimera définitivement {agencyName} et tous ses membres. Cette action est irréversible."
+#~ msgid "This will permanently delete {agencyName} and remove all its members. This action cannot be undone."
+#~ msgstr "Cela supprimera définitivement {agencyName} et tous ses membres. Cette action est irréversible."
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:116
-msgid "This will permanently delete {deleteAgencyName} and remove all its members. This action cannot be undone."
-msgstr "Cela supprimera définitivement {deleteAgencyName} et tous ses membres. Cette action est irréversible."
+#~ msgid "This will permanently delete {deleteAgencyName} and remove all its members. This action cannot be undone."
+#~ msgstr "Cela supprimera définitivement {deleteAgencyName} et tous ses membres. Cette action est irréversible."
+
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:117
+msgid "This will permanently delete {deleteOrganizationName} and remove all its members. This action cannot be undone."
+msgstr ""
+
+#: src/features/organizations/hooks/use-organization-columns.tsx:95
+msgid "This will permanently delete {organizationName} and remove all its members. This action cannot be undone."
+msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:140
 #~ msgid "This will permanently delete the {year} {make} {model}. This action cannot be undone."
 #~ msgstr "Cela supprimera définitivement le {year} {make} {model}. Cette action est irréversible."
 
 #: src/app/(dashboard)/admin/members/[id]/page.tsx:187
-msgid "This will remove {removeMemberName} from {removeAgencyName}. They will lose access to agency resources."
-msgstr "Cela retirera {removeMemberName} de {removeAgencyName}. Cette personne perdra l'accès aux ressources de l'agence."
+#~ msgid "This will remove {removeMemberName} from {removeAgencyName}. They will lose access to agency resources."
+#~ msgstr "Cela retirera {removeMemberName} de {removeAgencyName}. Cette personne perdra l'accès aux ressources de l'agence."
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:192
+msgid "This will remove {removeMemberName} from {removeOrganizationName}. They will lose access to organization resources."
+msgstr ""
 
 #: src/features/agencies/hooks/use-member-columns.tsx:73
-msgid "This will remove the member from this agency. They will lose access to agency resources."
-msgstr "Cela retirera ce membre de l'agence. Cette personne perdra l'accès aux ressources de l'agence."
+#~ msgid "This will remove the member from this agency. They will lose access to agency resources."
+#~ msgstr "Cela retirera ce membre de l'agence. Cette personne perdra l'accès aux ressources de l'agence."
+
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:203
+msgid "This will remove the member from this organization. They will lose access to organization resources."
+msgstr ""
 
 #: src/app/(dashboard)/admin/members/page.tsx:131
-msgid "This will remove this member from {agencyName}. They will lose access to agency resources."
-msgstr "Cela retirera ce membre de {agencyName}. Cette personne perdra l'accès aux ressources de l'agence."
+#~ msgid "This will remove this member from {agencyName}. They will lose access to agency resources."
+#~ msgstr "Cela retirera ce membre de {agencyName}. Cette personne perdra l'accès aux ressources de l'agence."
+
+#: src/app/(dashboard)/admin/members/page.tsx:262
+msgid "This will remove this member from {displayOrganization}. They will lose access to organization resources."
+msgstr ""
+
+#: src/features/todos/components/create-todo-dialog.tsx:131
+msgid "Title"
+msgstr ""
+
+#: src/features/todos/components/create-todo-dialog.tsx:94
+msgid "Todo created successfully"
+msgstr ""
+
+#: src/components/layouts/app-sidebar.tsx:26
+msgid "Todos"
+msgstr ""
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:62
 #~ msgid "Toyota"
 #~ msgstr "Toyota"
 
 #: src/features/vehicles/components/vehicle-form.tsx:240
-msgid "Transmission"
-msgstr ""
+#~ msgid "Transmission"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:195
-msgid "Trim"
-msgstr ""
+#~ msgid "Trim"
+#~ msgstr ""
 
 #: src/components/ui/connection-status-overlay.tsx:123
 msgid "Unable to connect to the server. Please check your internet connection and try again."
 msgstr "Impossible de se connecter au serveur. Veuillez vérifier votre connexion internet et réessayer."
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:50
-msgid "Update agency details and settings"
-msgstr "Mettre à jour les détails et paramètres de l'agence"
+#~ msgid "Update agency details and settings"
+#~ msgstr "Mettre à jour les détails et paramètres de l'agence"
 
-#: src/features/agencies/hooks/use-member-columns.tsx:56
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:51
+msgid "Update organization details and settings"
+msgstr ""
+
+#: src/features/organizations/hooks/use-unified-member-columns.tsx:169
 msgid "Update Roles"
 msgstr "Modifier les rôles"
 
@@ -1191,37 +1443,37 @@ msgstr "Modifier les rôles"
 
 #: src/app/(dashboard)/admin/members/page.tsx:103
 #: src/features/agencies/hooks/use-member-columns.tsx:31
-msgid "User"
-msgstr "Utilisateur"
+#~ msgid "User"
+#~ msgstr "Utilisateur"
 
 #: src/features/vehicles/hooks/use-vehicle-columns.tsx:31
-msgid "Vehicle"
-msgstr "Véhicule"
+#~ msgid "Vehicle"
+#~ msgstr "Véhicule"
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:95
 #~ msgid "Vehicle description..."
 #~ msgstr "Description du véhicule..."
 
 #: src/features/vehicles/components/vehicle-form.tsx:111
-msgid "Vehicle Information"
-msgstr "Informations du véhicule"
+#~ msgid "Vehicle Information"
+#~ msgstr "Informations du véhicule"
 
 #: src/app/(dashboard)/vehicles/page.tsx:90
 #~ msgid "Vehicle Inventory"
 #~ msgstr "Inventaire des véhicules"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:296
-msgid "Vehicle Not Found"
-msgstr "Véhicule introuvable"
+#~ msgid "Vehicle Not Found"
+#~ msgstr "Véhicule introuvable"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:335
 #: src/app/(dashboard)/vehicles/page.tsx:92
 #: src/app/(dashboard)/vehicles/page.tsx:100
 #: src/components/layouts/app-sidebar.tsx:34
-msgid "Vehicles"
-msgstr "Véhicules"
+#~ msgid "Vehicles"
+#~ msgstr "Véhicules"
 
-#: src/app/(auth)/invitations/accept/page.tsx:86
+#: src/app/(auth)/invitations/accept/page.tsx:88
 msgid "Verifying your invitation..."
 msgstr "Vérification de votre invitation..."
 
@@ -1230,38 +1482,50 @@ msgstr "Vérification de votre invitation..."
 #~ msgstr "Voir"
 
 #: src/app/(dashboard)/admin/members/page.tsx:360
-msgid "View all invitation activity across agencies"
-msgstr "Voir toutes les invitations de toutes les agences"
+#~ msgid "View all invitation activity across agencies"
+#~ msgstr "Voir toutes les invitations de toutes les agences"
 
 #: src/app/(dashboard)/admin/agencies/[id]/page.tsx:159
-msgid "View and manage agency details"
-msgstr "Voir et gérer les détails de l'agence"
+#~ msgid "View and manage agency details"
+#~ msgstr "Voir et gérer les détails de l'agence"
 
 #: src/app/(dashboard)/admin/page.tsx:22
-msgid "View and manage agency members and roles"
-msgstr "Voir et gérer les membres et rôles des agences"
+#~ msgid "View and manage agency members and roles"
+#~ msgstr "Voir et gérer les membres et rôles des agences"
 
 #: src/app/(dashboard)/admin/members/page.tsx:329
-msgid "View and manage all agency members across all agencies"
-msgstr "Voir et gérer tous les membres de toutes les agences"
+#~ msgid "View and manage all agency members across all agencies"
+#~ msgstr "Voir et gérer tous les membres de toutes les agences"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:230
+#: src/app/(dashboard)/admin/members/page.tsx:354
+msgid "View and manage all organization members and pending invitations"
+msgstr ""
+
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:235
 msgid "View and manage member profile"
 msgstr "Voir et gérer le profil du membre"
+
+#: src/app/(dashboard)/admin/organizations/[id]/page.tsx:160
+msgid "View and manage organization details"
+msgstr ""
+
+#: src/app/(dashboard)/admin/page.tsx:22
+msgid "View and manage organization members and roles"
+msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:171
 #~ msgid "View and manage vehicle details"
 #~ msgstr "Voir et gérer les détails du véhicule"
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:358
-msgid "VO Sheet"
-msgstr ""
+#~ msgid "VO Sheet"
+#~ msgstr ""
 
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:383
-msgid "VO Sheet - Coming Soon"
-msgstr ""
+#~ msgid "VO Sheet - Coming Soon"
+#~ msgstr ""
 
-#: src/features/auth/components/sign-in-form.tsx:102
+#: src/features/auth/components/sign-in-form.tsx:99
 msgid "Welcome Back"
 msgstr "Bienvenue"
 
@@ -1269,25 +1533,33 @@ msgstr "Bienvenue"
 #: src/app/(dashboard)/vehicles/[id]/page.tsx:254
 #: src/features/vehicles/components/vehicle-form.tsx:186
 #: src/features/vehicles/i18n.ts:37
-msgid "Year"
-msgstr "Année"
+#~ msgid "Year"
+#~ msgstr "Année"
 
 #: src/features/vehicles/components/vehicle-form-fields.tsx:109
 #~ msgid "Year *"
 #~ msgstr "Année *"
 
 #: src/app/(auth)/invitations/accept/page.tsx:169
-msgid "You are now a member of {successAgencyName}. Redirecting..."
-msgstr "Vous êtes maintenant membre de {successAgencyName}. Redirection..."
+#~ msgid "You are now a member of {successAgencyName}. Redirecting..."
+#~ msgstr "Vous êtes maintenant membre de {successAgencyName}. Redirection..."
 
-#: src/components/ui/auth-guard.tsx:130
+#: src/app/(auth)/invitations/accept/page.tsx:163
+msgid "You are now a member of {successOrganizationName}. Redirecting..."
+msgstr ""
+
+#: src/components/ui/auth-guard.tsx:134
 msgid "You need owner permissions to access the admin area. Please contact an administrator if you believe this is an error."
 msgstr "Vous avez besoin des permissions propriétaire pour accéder à l'espace admin. Veuillez contacter un administrateur si vous pensez qu'il s'agit d'une erreur."
 
-#: src/app/(auth)/invitations/accept/page.tsx:191
+#: src/app/(auth)/invitations/accept/page.tsx:185
 msgid "You're Invited!"
 msgstr "Vous êtes invité !"
 
 #: src/app/(auth)/invitations/accept/page.tsx:189
-msgid "You've been invited to join this agency."
-msgstr "Vous avez été invité à rejoindre cette agence."
+#~ msgid "You've been invited to join this agency."
+#~ msgstr "Vous avez été invité à rejoindre cette agence."
+
+#: src/app/(auth)/invitations/accept/page.tsx:183
+msgid "You've been invited to join this organization."
+msgstr ""
