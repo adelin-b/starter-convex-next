@@ -98,12 +98,15 @@ export function DashboardLayout({
 }
 
 /**
- * DashboardMain - Main content wrapper with consistent padding
+ * DashboardMain - Main content wrapper with consistent padding and spacing
  */
 export function DashboardMain({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("flex flex-1 flex-col gap-4 p-4 md:gap-6 md:p-6", className)}
+      className={cn(
+        "flex flex-1 flex-col gap-6 p-4 pt-6 sm:p-6 sm:pt-8 lg:gap-8 lg:p-8 lg:pt-10",
+        className,
+      )}
       data-slot="dashboard-main"
       {...props}
     />

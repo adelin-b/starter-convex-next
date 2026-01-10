@@ -1,27 +1,19 @@
 /* eslint-disable lingui/no-unlocalized-strings */
-import {
-  PageHeader,
-  PageHeaderActions,
-  PageHeaderContent,
-  PageHeaderDescription,
-  PageHeaderTitle,
-} from "@starter-saas/ui/page-header";
+import { CheckSquare } from "lucide-react";
+import { PageLayout } from "@/components/layouts/page-layout";
 import { CreateTodoDialog, TodoList } from "@/features/todos";
 
 export default function TodosPage() {
   return (
-    <div className="container space-y-6 py-6">
-      <PageHeader>
-        <PageHeaderContent>
-          <PageHeaderTitle>Todos</PageHeaderTitle>
-          <PageHeaderDescription>Manage your tasks and stay organized</PageHeaderDescription>
-        </PageHeaderContent>
-        <PageHeaderActions>
-          <CreateTodoDialog />
-        </PageHeaderActions>
-      </PageHeader>
-
-      <TodoList />
-    </div>
+    <PageLayout
+      actions={<CreateTodoDialog />}
+      description="Manage your tasks and stay organized"
+      icon={CheckSquare}
+      title="Todos"
+    >
+      <div className="max-w-3xl">
+        <TodoList />
+      </div>
+    </PageLayout>
   );
 }

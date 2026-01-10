@@ -72,8 +72,12 @@ export function PageLayout({
         {breadcrumb && <PageHeaderBreadcrumb>{breadcrumb}</PageHeaderBreadcrumb>}
         <PageHeader>
           <PageHeaderContent>
-            <PageHeaderTitle className="flex items-center gap-2">
-              {Icon && <Icon className="h-8 w-8" />}
+            <PageHeaderTitle className="flex items-center gap-3">
+              {Icon && (
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary sm:size-10">
+                  <Icon className="size-5 sm:size-6" />
+                </span>
+              )}
               {title}
             </PageHeaderTitle>
             {description && <PageHeaderDescription>{description}</PageHeaderDescription>}

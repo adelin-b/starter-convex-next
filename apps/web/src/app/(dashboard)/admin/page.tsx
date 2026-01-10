@@ -32,25 +32,27 @@ export default function AdminPage() {
         icon={Settings}
         title={<Trans>Administration</Trans>}
       >
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid max-w-4xl gap-5 sm:grid-cols-2">
           {adminSections.map((section) => (
             <Link href={section.href} key={section.href}>
-              <Card className="h-full transition-colors hover:bg-accent/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <section.icon className="h-5 w-5" />
-                    {section.title}
-                  </CardTitle>
-                  <CardDescription>{section.description}</CardDescription>
+              <Card className="group h-full border-border/60 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
+                <CardHeader className="pb-3">
+                  <div className="mb-2 flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
+                    <section.icon className="size-5" />
+                  </div>
+                  <CardTitle className="text-lg">{section.title}</CardTitle>
+                  <CardDescription className="text-[0.8125rem]">
+                    {section.description}
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-sm">
+                <CardContent className="pt-0">
+                  <span className="inline-flex items-center font-medium text-primary text-sm opacity-0 transition-opacity group-hover:opacity-100">
                     {section.href === "/admin/organizations" ? (
-                      <Trans>Click to manage organizations</Trans>
+                      <Trans>Manage organizations →</Trans>
                     ) : (
-                      <Trans>Click to manage members</Trans>
+                      <Trans>Manage members →</Trans>
                     )}
-                  </p>
+                  </span>
                 </CardContent>
               </Card>
             </Link>
