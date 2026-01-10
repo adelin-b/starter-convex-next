@@ -5,6 +5,7 @@ import tsParser from "@typescript-eslint/parser";
 import betterTailwindcss from "eslint-plugin-better-tailwindcss";
 import importPlugin from "eslint-plugin-import";
 import lingui from "eslint-plugin-lingui";
+import reactYouMightNotNeedAnEffect from "eslint-plugin-react-you-might-not-need-an-effect";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const featuresDir = path.join(__dirname, "src", "features");
@@ -43,6 +44,13 @@ export default [
       // Text is intentionally hardcoded as last-resort fallback
       "src/app/global-error.tsx",
     ],
+  },
+
+  // React effects best practices (detect unnecessary useEffect)
+  // https://github.com/NickvanDyke/eslint-plugin-react-you-might-not-need-an-effect
+  {
+    ...reactYouMightNotNeedAnEffect.configs.recommended,
+    files: ["src/**/*.tsx"],
   },
 
   // Lingui rules for i18n
