@@ -1,4 +1,5 @@
 import { customMutation, customQuery } from "convex-helpers/server/customFunctions";
+import { zMutationBuilder, zQueryBuilder } from "zodvex";
 import { mutation, query } from "../_generated/server";
 
 /**
@@ -16,6 +17,7 @@ export const testingMutation = customMutation(mutation, {
     return { ctx: {}, args };
   },
 });
+export const zodTestingMutation = zMutationBuilder(testingMutation);
 
 /**
  * Wrapper for queries that should only be available in test mode.
@@ -32,3 +34,4 @@ export const testingQuery = customQuery(query, {
     return { ctx: {}, args };
   },
 });
+export const zodTestingQuery = zQueryBuilder(testingQuery);

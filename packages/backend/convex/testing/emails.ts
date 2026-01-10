@@ -3,10 +3,10 @@
 import { type EmailId, Resend } from "@convex-dev/resend";
 import { render } from "@react-email/render";
 import { WelcomeEmail } from "@starter-saas/emails/templates";
-import { v } from "convex/values";
 import nodemailer from "nodemailer";
+import { z } from "zod";
 import { components } from "../_generated/api";
-import { action } from "../_generated/server";
+import { zodAction } from "../lib/functions";
 
 // Initialize Resend in test mode (only allows test addresses like delivered@resend.dev)
 const resend = new Resend(components.resend, {
@@ -63,11 +63,10 @@ async function sendViaSmtp(options: {
  *
  * Only works when IS_TEST=true (guarded for security)
  */
-export const sendTestEmail = action({
+export const sendTestEmail = zodAction({
   args: {
-    label: v.optional(v.string()),
+    label: z.string().optional(),
   },
-  returns: v.string(),
   handler: async (context, args) => {
     // biome-ignore lint/style/noProcessEnv: Test mode guard for E2E testing
     if (process.env.IS_TEST !== "true") {
@@ -112,11 +111,10 @@ export const sendTestEmail = action({
  *
  * Only works when IS_TEST=true (guarded for security)
  */
-export const getTestEmailStatus = action({
+export const getTestEmailStatus = zodAction({
   args: {
-    emailId: v.string(),
+    emailId: z.string(),
   },
-  returns: v.union(v.string(), v.null()),
   handler: async (context, args) => {
     // biome-ignore lint/style/noProcessEnv: Test mode guard for E2E testing
     if (process.env.IS_TEST !== "true") {

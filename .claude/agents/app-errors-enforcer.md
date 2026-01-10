@@ -113,7 +113,7 @@ export const createVehicle = mutation({
 Use `isAppError` type guard when catching errors.
 
 ```typescript
-import { isAppError } from "@vm/backend/convex/lib/errors";
+import { isAppError } from "@starter-saas/backend/convex/lib/errors";
 
 try {
   await doSomething();
@@ -207,7 +207,7 @@ Skip these without flagging:
 </exclusions>
 
 <project_context>
-**AppErrors location**: `@vm/backend/convex/lib/errors`
+**AppErrors location**: `@starter-saas/backend/convex/lib/errors`
 
 **Error codes defined in**: `packages/backend/convex/lib/errors.ts`
 

@@ -68,7 +68,8 @@ export class ConvexBackend {
     const binaryPath = await downloadConvexBinary();
 
     // Use pre-allocated port or find available one in E2E range (step=2 for site URL port)
-    this.port = preAllocatedPort ?? (await findUnusedPort(E2E_CONVEX_PORT_MIN, E2E_CONVEX_PORT_MAX, 2));
+    this.port =
+      preAllocatedPort ?? (await findUnusedPort(E2E_CONVEX_PORT_MIN, E2E_CONVEX_PORT_MAX, 2));
     this._siteUrl = siteUrl;
     console.log(`Using port ${this.port} for Convex backend`);
 

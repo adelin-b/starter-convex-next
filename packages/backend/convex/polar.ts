@@ -1,7 +1,6 @@
 // Server-only enforcement handled by package.json exports
 
 import { Polar } from "@convex-dev/polar";
-import { v } from "convex/values";
 import { api, components } from "./_generated/api";
 import type { DataModel } from "./_generated/dataModel";
 import { query } from "./_generated/server";
@@ -93,7 +92,6 @@ export const {
  */
 export const getCurrentSubscription = query({
   args: {},
-  returns: v.any(),
   // biome-ignore lint/suspicious/noExplicitAny: Polar subscription type is complex
   handler: async (ctx): Promise<any> => {
     // biome-ignore lint/suspicious/noExplicitAny: better-auth user type is complex

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@vm/ui/utils";
+import { cn } from "@starter-saas/ui/utils";
 import { ChevronLeft } from "lucide-react";
 import type * as React from "react";
 import { useIsMobile } from "../hooks/use-mobile";

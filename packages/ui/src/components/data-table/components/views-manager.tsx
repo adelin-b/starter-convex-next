@@ -16,6 +16,7 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuPositioner,
@@ -113,56 +114,58 @@ export function ViewsManager({
         />
         <DropdownMenuPositioner align="end">
           <DropdownMenuContent className="w-72">
-            <DropdownMenuLabel className="flex items-center justify-between">
-              <span>{mergedLabels.savedViews}</span>
-              <Dialog onOpenChange={setCreateDialogOpen} open={createDialogOpen}>
-                <DialogTrigger
-                  render={
-                    <Button size="sm" variant="ghost">
-                      <Plus className="mr-1 size-3" />
-                      {mergedLabels.new}
-                    </Button>
-                  }
-                />
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>{mergedLabels.createNewView}</DialogTitle>
-                    <DialogDescription>{mergedLabels.saveCurrentConfig}</DialogDescription>
-                  </DialogHeader>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="flex items-center justify-between">
+                <span>{mergedLabels.savedViews}</span>
+                <Dialog onOpenChange={setCreateDialogOpen} open={createDialogOpen}>
+                  <DialogTrigger
+                    render={
+                      <Button size="sm" variant="ghost">
+                        <Plus className="mr-1 size-3" />
+                        {mergedLabels.new}
+                      </Button>
+                    }
+                  />
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>{mergedLabels.createNewView}</DialogTitle>
+                      <DialogDescription>{mergedLabels.saveCurrentConfig}</DialogDescription>
+                    </DialogHeader>
 
-                  <div className="space-y-4 py-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="view-name">{mergedLabels.name}</Label>
-                      <Input
-                        id="view-name"
-                        onChange={(e) => setNewViewName(e.target.value)}
-                        placeholder={mergedLabels.viewNamePlaceholder}
-                        value={newViewName}
-                      />
+                    <div className="space-y-4 py-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="view-name">{mergedLabels.name}</Label>
+                        <Input
+                          id="view-name"
+                          onChange={(e) => setNewViewName(e.target.value)}
+                          placeholder={mergedLabels.viewNamePlaceholder}
+                          value={newViewName}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="view-description">{mergedLabels.descriptionOptional}</Label>
+                        <Input
+                          id="view-description"
+                          onChange={(e) => setNewViewDescription(e.target.value)}
+                          placeholder={mergedLabels.describeView}
+                          value={newViewDescription}
+                        />
+                      </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="view-description">{mergedLabels.descriptionOptional}</Label>
-                      <Input
-                        id="view-description"
-                        onChange={(e) => setNewViewDescription(e.target.value)}
-                        placeholder={mergedLabels.describeView}
-                        value={newViewDescription}
-                      />
-                    </div>
-                  </div>
-
-                  <DialogFooter>
-                    <Button onClick={() => setCreateDialogOpen(false)} variant="outline">
-                      {mergedLabels.cancel}
-                    </Button>
-                    <Button disabled={!newViewName.trim()} onClick={handleCreateView}>
-                      {mergedLabels.createView}
-                    </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-            </DropdownMenuLabel>
+                    <DialogFooter>
+                      <Button onClick={() => setCreateDialogOpen(false)} variant="outline">
+                        {mergedLabels.cancel}
+                      </Button>
+                      <Button disabled={!newViewName.trim()} onClick={handleCreateView}>
+                        {mergedLabels.createView}
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </DropdownMenuLabel>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
 
             {views.length === 0 ? (

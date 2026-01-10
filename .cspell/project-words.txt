@@ -95,6 +95,7 @@ bun
 bunx
 cabine
 calen
+capgo
 carnitas
 citadine
 claudecode
@@ -139,6 +140,7 @@ middlewares
 mockuser
 monocart
 monorepo
+navigations
 moto
 mozjpeg
 msvc
@@ -150,6 +152,8 @@ ntvs
 nums
 oneline
 opencode
+pids
+pkill
 prefetch
 qwen
 radix

@@ -60,7 +60,7 @@ function formatCurrency(amount: number) {
 export function formatPrice(amount: number, currency = 'EUR') { ... }
 
 // Recommended approach
-import { formatPrice } from "@vm/shared/formatters";
+import { formatPrice } from "@starter-saas/shared/formatters";
 ```
 </category>
 
@@ -79,10 +79,10 @@ function LoadingIndicator() {
 }
 
 // Existing in packages/ui:
-export { Spinner } from "@vm/ui/spinner";
+export { Spinner } from "@starter-saas/ui/spinner";
 
 // Recommended approach
-import { Spinner } from "@vm/ui/spinner";
+import { Spinner } from "@starter-saas/ui/spinner";
 ```
 </category>
 
@@ -125,7 +125,7 @@ Use libraries already in `package.json` instead of reimplementing:
 const className = `base ${condition ? 'active' : ''} ${extraClass}`;
 
 // Recommended approach
-import { cn } from "@vm/ui/lib/utils";
+import { cn } from "@starter-saas/ui/lib/utils";
 const className = cn("base", condition && "active", extraClass);
 ```
 </category>
@@ -144,7 +144,7 @@ type Vehicle = {
 };
 
 // Recommended approach
-import type { Doc } from "@vm/backend/convex/_generated/dataModel";
+import type { Doc } from "@starter-saas/backend/convex/_generated/dataModel";
 type Vehicle = Doc<"vehicles">;
 ```
 </category>
@@ -187,7 +187,7 @@ Structure your review in `<coherence_review>` tags:
 import { formatDate } from "../utils/formatDate";
 
 // Use:
-import { formatDateTime } from "@vm/shared/formatters";
+import { formatDateTime } from "@starter-saas/shared/formatters";
 \`\`\`
 
 ### Pattern Inconsistencies (75-89 confidence)

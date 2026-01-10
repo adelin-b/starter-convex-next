@@ -323,6 +323,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuPositioner,
   DropdownMenuSeparator,
@@ -348,7 +349,9 @@ export function DataTableViewOptions<TData>({ table, labels }: DataTableViewOpti
       />
       <DropdownMenuPositioner align="end">
         <DropdownMenuContent className="w-[150px]">
-          <DropdownMenuLabel>{mergedLabels.columns}</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>{mergedLabels.columns}</DropdownMenuLabel>
+          </DropdownMenuGroup>
           <DropdownMenuSeparator />
           {table
             .getAllColumns()

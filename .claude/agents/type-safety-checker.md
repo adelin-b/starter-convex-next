@@ -52,7 +52,7 @@ switch (status) {
 }
 
 // Recommended approach
-import { assertNever } from "@vm/shared/assert-never";
+import { assertNever } from "@starter-saas/shared/assert-never";
 
 switch (status) {
   case "pending": return "Waiting";
@@ -165,7 +165,7 @@ switch (status) {
 \`\`\`
 **Recommended Fix**:
 \`\`\`typescript
-import { assertNever } from "@vm/shared/assert-never";
+import { assertNever } from "@starter-saas/shared/assert-never";
 
 switch (status) {
   case "available": return true;
@@ -195,7 +195,7 @@ Skip these without flagging:
 </exclusions>
 
 <project_context>
-**assertNever location**: `@vm/shared/assert-never`
+**assertNever location**: `@starter-saas/shared/assert-never`
 
 **Common union types**:
 - `VehicleStatus`: "available" | "sold" | "reserved"

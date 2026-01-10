@@ -36,7 +36,9 @@ const meta: Meta<typeof DropdownMenu> = {
     <DropdownMenu {...args}>
       <DropdownMenuTrigger>Open</DropdownMenuTrigger>
       <DropdownMenuContent className="w-44">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Profile</DropdownMenuItem>
         <DropdownMenuItem>Billing</DropdownMenuItem>
@@ -67,7 +69,9 @@ export const WithShortcuts: Story = {
     <DropdownMenu {...args}>
       <DropdownMenuTrigger>Open</DropdownMenuTrigger>
       <DropdownMenuContent className="w-44">
-        <DropdownMenuLabel>Controls</DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Controls</DropdownMenuLabel>
+        </DropdownMenuGroup>
         <DropdownMenuItem>
           Back
           <DropdownMenuShortcut>⌘[</DropdownMenuShortcut>
@@ -133,7 +137,9 @@ export const WithRadioItems: Story = {
     <DropdownMenu {...args}>
       <DropdownMenuTrigger>Open</DropdownMenuTrigger>
       <DropdownMenuContent className="w-44">
-        <DropdownMenuLabel inset>Status</DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel inset>Status</DropdownMenuLabel>
+        </DropdownMenuGroup>
         <DropdownMenuRadioGroup value="warning">
           <DropdownMenuRadioItem value="info">Info</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="warning">Warning</DropdownMenuRadioItem>

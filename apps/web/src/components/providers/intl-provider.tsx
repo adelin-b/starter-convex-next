@@ -4,7 +4,7 @@ import type { Messages } from "@lingui/core";
 import { i18n } from "@lingui/core";
 import { I18nProvider as LinguiProvider } from "@lingui/react";
 import type { ReactNode } from "react";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useMemo } from "react";
 import { z } from "zod";
 import { en, fr } from "zod/locales";
 import type { Locale } from "@/lib/i18n";
@@ -18,14 +18,18 @@ type IntlProviderProps = {
 };
 
 export function IntlProvider({ locale, messages, children }: IntlProviderProps) {
-  // useLayoutEffect runs synchronously after DOM mutations but before paint
-  // This ensures translations are loaded before the browser paints
-  useLayoutEffect(() => {
+  // Activate i18n synchronously during render (before first paint)
+  // This ensures SSR has translations available immediately
+  useMemo(() => {
     i18n.load({ [locale]: messages });
     i18n.activate(locale);
+  }, [locale, messages]);
+
+  // useLayoutEffect for client-side updates (locale changes, Zod sync)
+  useLayoutEffect(() => {
     // Sync Zod validation error messages with current locale
     z.config(zodLocales[locale]());
-  }, [locale, messages]);
+  }, [locale]);
 
   return <LinguiProvider i18n={i18n}>{children}</LinguiProvider>;
 }

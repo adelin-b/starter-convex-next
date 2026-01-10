@@ -4,11 +4,12 @@ import { createClient, type GenericCtx } from "@convex-dev/better-auth";
 import { convex } from "@convex-dev/better-auth/plugins";
 import { betterAuth } from "better-auth";
 import { oAuthProxy, oneTap } from "better-auth/plugins";
-import { v } from "convex/values";
+import { z } from "zod";
 import { components, internal } from "./_generated/api";
 import type { DataModel } from "./_generated/dataModel";
-import { internalMutation, query } from "./_generated/server";
+import { query } from "./_generated/server";
 import { env } from "./env";
+import { zodInternalMutation } from "./lib/functions";
 
 // Mutable state to prevent repeated console.warn on every request
 const warningState = { hasLoggedGoogleOAuth: false, hasLoggedEmailConfig: false };
@@ -147,8 +148,7 @@ export { createAuth };
 
 export const getCurrentUser = query({
   args: {},
-  returns: v.any(),
-  async handler(context, _args) {
+  async handler(context) {
     return await authComponent.safeGetAuthUser(context);
   },
 });
@@ -157,8 +157,8 @@ export const getCurrentUser = query({
  * Make first user a system admin.
  * Called from databaseHooks.user.create.after.
  */
-export const makeFirstUserAdmin = internalMutation({
-  args: { userId: v.string() },
+export const makeFirstUserAdmin = zodInternalMutation({
+  args: { userId: z.string() },
   async handler(context, { userId }) {
     // Check if any admin exists
     const existingAdmin = await context.db.query("admins").first();

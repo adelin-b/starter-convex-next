@@ -83,7 +83,7 @@ import { Controller } from "react-hook-form";
 Convex mutation errors should use `useConvexFormErrors` hook.
 
 ```typescript
-import { getConvexErrorMessage, useConvexFormErrors } from "@vm/ui/use-convex-form-errors";
+import { getConvexErrorMessage, useConvexFormErrors } from "@starter-saas/ui/use-convex-form-errors";
 
 function MyForm() {
   const form = useForm<FormData>({...});
@@ -421,7 +421,7 @@ function Data({ promise }) {
 Use `cn()` utility for class composition instead of manual string concatenation.
 
 ```typescript
-import { cn } from "@vm/ui/lib/utils";
+import { cn } from "@starter-saas/ui/lib/utils";
 
 function Button({ variant, className }) {
   return (
@@ -457,7 +457,7 @@ function Button({ variant, className }) {
 DataTable uses a centralized labels system for all user-facing text:
 
 ```typescript
-import { type DataTableLabels } from "@vm/ui/data-table/labels";
+import { type DataTableLabels } from "@starter-saas/ui/data-table/labels";
 import { useLingui } from "@lingui/react/macro";
 
 // In component
@@ -482,13 +482,13 @@ const labels: Partial<DataTableLabels> = {
 **Reference implementation**: `apps/web/src/app/vehicles/page.tsx`
 
 **Key imports**:
-- `@vm/ui/use-convex-form-errors` - Error handling
+- `@starter-saas/ui/use-convex-form-errors` - Error handling
 - `@lingui/react/macro` - i18n (Trans, useLingui, t)
 - `@lingui/core/macro` - i18n (msg, plural)
 - `react-hook-form` - Form state
 - `@hookform/resolvers/zod` - Validation
 
-**UI components from**: `@vm/ui/*`
+**UI components from**: `@starter-saas/ui/*`
 
 **Extracted admin components**:
 - `apps/web/src/components/admin/user-cell.tsx` - UserCell for DataTable columns

@@ -117,7 +117,7 @@ Convex mutation errors should use `useConvexFormErrors` hook.
 
 ```typescript
 // Recommended approach
-import { getConvexErrorMessage, useConvexFormErrors } from "@vm/ui/use-convex-form-errors";
+import { getConvexErrorMessage, useConvexFormErrors } from "@starter-saas/ui/use-convex-form-errors";
 
 function MyForm() {
   const form = useForm<FormData>({...});
@@ -364,10 +364,10 @@ Skip these without flagging:
 **Reference implementation**: `apps/web/src/app/vehicles/page.tsx`
 
 **Key imports**:
-- `@vm/ui/use-convex-form-errors` - Error handling
+- `@starter-saas/ui/use-convex-form-errors` - Error handling
 - `react-intl` - i18n (FormattedMessage, defineMessages, useIntl)
 - `react-hook-form` - Form state
 - `@hookform/resolvers/zod` - Validation
 
-**UI components from**: `@vm/ui/*`
+**UI components from**: `@starter-saas/ui/*`
 </project_context>

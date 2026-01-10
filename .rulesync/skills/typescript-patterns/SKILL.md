@@ -25,7 +25,7 @@ switch (status) {
 }
 
 // Recommended approach
-import { assertNever } from "@vm/shared/assert-never";
+import { assertNever } from "@starter-saas/shared/assert-never";
 
 switch (status) {
   case "pending": return "Waiting";
@@ -151,7 +151,7 @@ export function getBestLocale(preferredLocales: string[]): SupportedLocale {
 
 ## Project Context
 
-**assertNever location**: `@vm/shared/assert-never`
+**assertNever location**: `@starter-saas/shared/assert-never`
 
 **Common union types**:
 - `VehicleStatus`: "available" | "sold" | "reserved"

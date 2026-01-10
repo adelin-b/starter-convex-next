@@ -8,12 +8,12 @@ import {
   VerificationEmail,
   WelcomeEmail,
 } from "@starter-saas/emails/templates";
-import { v } from "convex/values";
 import nodemailer from "nodemailer";
+import { z } from "zod";
 import { components } from "../_generated/api";
 import type { ActionCtx as ActionContext } from "../_generated/server";
-import { internalAction } from "../_generated/server";
 import { env } from "../env";
+import { zodInternalAction } from "../lib/functions";
 
 // Initialize Resend component - testMode prevents sending to real addresses in dev
 const resend = new Resend(components.resend, {
@@ -82,11 +82,11 @@ async function sendEmail(
 /**
  * Send email verification link to user
  */
-export const sendVerificationEmail = internalAction({
+export const sendVerificationEmail = zodInternalAction({
   args: {
-    to: v.string(),
-    name: v.string(),
-    url: v.string(),
+    to: z.string(),
+    name: z.string(),
+    url: z.string(),
   },
   async handler(context, args) {
     const html = await render(
@@ -108,11 +108,11 @@ export const sendVerificationEmail = internalAction({
 /**
  * Send password reset link to user
  */
-export const sendPasswordResetEmail = internalAction({
+export const sendPasswordResetEmail = zodInternalAction({
   args: {
-    to: v.string(),
-    name: v.string(),
-    url: v.string(),
+    to: z.string(),
+    name: z.string(),
+    url: z.string(),
   },
   async handler(context, args) {
     const html = await render(
@@ -134,10 +134,10 @@ export const sendPasswordResetEmail = internalAction({
 /**
  * Send welcome email after successful registration
  */
-export const sendWelcomeEmail = internalAction({
+export const sendWelcomeEmail = zodInternalAction({
   args: {
-    to: v.string(),
-    name: v.string(),
+    to: z.string(),
+    name: z.string(),
   },
   async handler(context, args) {
     const html = await render(
@@ -158,14 +158,14 @@ export const sendWelcomeEmail = internalAction({
 /**
  * Send organization invitation email
  */
-export const sendInvitationEmail = internalAction({
+export const sendInvitationEmail = zodInternalAction({
   args: {
-    to: v.string(),
-    inviterName: v.string(),
-    organizationName: v.string(),
-    invitationUrl: v.string(),
-    roles: v.array(v.string()),
-    expiresInDays: v.number(),
+    to: z.string(),
+    inviterName: z.string(),
+    organizationName: z.string(),
+    invitationUrl: z.string(),
+    roles: z.array(z.string()),
+    expiresInDays: z.number(),
   },
   async handler(context, args) {
     const html = await render(

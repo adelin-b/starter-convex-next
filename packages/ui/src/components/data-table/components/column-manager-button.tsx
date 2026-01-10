@@ -7,6 +7,7 @@ import { Button } from "../../button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuPositioner,
   DropdownMenuSeparator,
@@ -100,29 +101,31 @@ export function ColumnManagerButton<TData>({
       />
       <DropdownMenuPositioner align="start">
         <DropdownMenuContent className="w-64">
-          <DropdownMenuLabel className="flex items-center justify-between">
-            <span>{mergedLabels.manageColumns}</span>
-            <div className="flex gap-1">
-              <Button
-                className="h-6 px-2 text-xs"
-                onClick={showAll}
-                size="sm"
-                type="button"
-                variant="ghost"
-              >
-                {mergedLabels.showAll}
-              </Button>
-              <Button
-                className="h-6 px-2 text-xs"
-                onClick={hideAll}
-                size="sm"
-                type="button"
-                variant="ghost"
-              >
-                {mergedLabels.hideAll}
-              </Button>
-            </div>
-          </DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuLabel className="flex items-center justify-between">
+              <span>{mergedLabels.manageColumns}</span>
+              <div className="flex gap-1">
+                <Button
+                  className="h-6 px-2 text-xs"
+                  onClick={showAll}
+                  size="sm"
+                  type="button"
+                  variant="ghost"
+                >
+                  {mergedLabels.showAll}
+                </Button>
+                <Button
+                  className="h-6 px-2 text-xs"
+                  onClick={hideAll}
+                  size="sm"
+                  type="button"
+                  variant="ghost"
+                >
+                  {mergedLabels.hideAll}
+                </Button>
+              </div>
+            </DropdownMenuLabel>
+          </DropdownMenuGroup>
           <DropdownMenuSeparator />
 
           {sortedColumns.length === 0 ? (

@@ -1,7 +1,6 @@
-import { v } from "convex/values";
 import { z } from "zod";
 import { Todos, todoPriorities, todoStatuses } from "../schema";
-import { testingMutation, testingQuery } from "./lib";
+import { zodTestingMutation, zodTestingQuery } from "./lib";
 
 // Create schema for todo insertion (without system fields)
 const todoInsertSchema = z.object(Todos.shape);
@@ -10,9 +9,8 @@ const todoInsertSchema = z.object(Todos.shape);
  * Clear all data from the database.
  * This is called before each test to ensure isolation.
  */
-export const clearAll = testingMutation({
+export const clearAll = zodTestingMutation({
   args: {},
-  returns: v.null(),
   handler: async (context) => {
     // Clear todos table
     const todos = await context.db.query("todos").collect();
@@ -35,17 +33,12 @@ export const clearAll = testingMutation({
  *
  * This mutation returns the info needed to set up auth cookies.
  */
-export const createTestUser = testingMutation({
+export const createTestUser = zodTestingMutation({
   args: {
-    email: v.string(),
-    name: v.string(),
-    password: v.optional(v.string()),
+    email: z.string(),
+    name: z.string(),
+    password: z.string().optional(),
   },
-  returns: v.object({
-    userId: v.string(),
-    email: v.string(),
-    name: v.string(),
-  }),
   // biome-ignore lint/suspicious/useAwait: Convex handler signature requires async
   handler: async (_context, args) => {
     // Note: Since better-auth is a Convex component, direct DB access
@@ -71,12 +64,11 @@ export const createTestUser = testingMutation({
 /**
  * Seed the database with test todos.
  */
-export const seedTodos = testingMutation({
+export const seedTodos = zodTestingMutation({
   args: {
-    count: v.number(),
-    userId: v.string(),
+    count: z.number(),
+    userId: z.string(),
   },
-  returns: v.array(v.id("todos")),
   handler: async (context, args) => {
     const todoIds: Awaited<ReturnType<typeof context.db.insert<"todos">>>[] = [];
     const now = Date.now();
@@ -106,8 +98,7 @@ export const seedTodos = testingMutation({
 /**
  * Get all todos (for test assertions).
  */
-export const listTodos = testingQuery({
+export const listTodos = zodTestingQuery({
   args: {},
-  returns: v.array(v.any()),
   handler: async (context) => await context.db.query("todos").collect(),
 });

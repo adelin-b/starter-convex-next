@@ -17,13 +17,17 @@ function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
   return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
 }
 
-function TooltipPositioner({ className, ...props }: TooltipPrimitive.Positioner.Props) {
+function TooltipPositioner({
+  className,
+  sideOffset = 8,
+  ...props
+}: TooltipPrimitive.Positioner.Props) {
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Positioner
         className={cn("z-50", className)}
         data-slot="tooltip-positioner"
-        sideOffset={8}
+        sideOffset={sideOffset}
         {...props}
       />
     </TooltipPrimitive.Portal>

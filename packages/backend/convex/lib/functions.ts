@@ -12,6 +12,7 @@ import { zActionBuilder, zMutationBuilder, zQueryBuilder } from "zodvex";
 import type { DataModel } from "../_generated/dataModel";
 import {
   action as baseAction,
+  internalAction as baseInternalAction,
   internalMutation as baseInternalMutation,
   internalQuery as baseInternalQuery,
   mutation as baseMutation,
@@ -89,3 +90,9 @@ const internalMutation = customMutation(
   })),
 );
 export const zodInternalMutation = zMutationBuilder(internalMutation);
+
+/**
+ * Internal action
+ */
+const internalAction = customAction(baseInternalAction, NoOp);
+export const zodInternalAction = zActionBuilder(internalAction);
