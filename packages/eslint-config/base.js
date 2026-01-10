@@ -5,11 +5,14 @@ import playwright from "eslint-plugin-playwright";
 import sonarjs from "eslint-plugin-sonarjs";
 import unicorn from "eslint-plugin-unicorn";
 import vitest from "@vitest/eslint-plugin";
+import biomeConfig from "eslint-config-biome";
 import monorepoConfig from "./monorepo-boundaries.js";
 import preferCn from "./rules/prefer-cn.js";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  // Disable ESLint rules that overlap with Biome (formatting, syntax checks)
+  biomeConfig,
   // Zod-x plugin for zod schema best practices
   {
     files: ["**/*.ts", "**/*.tsx"],
@@ -40,7 +43,8 @@ export default [
       "sonarjs/prefer-immediate-return": "error",
       "sonarjs/no-nested-switch": "error",
       "sonarjs/max-switch-cases": ["error", 20],
-      // SonarJS - disable noisy rules
+      // SonarJS - disable noisy/slow rules
+      "sonarjs/aws-restricted-ip-admin-access": "off", // Not using AWS, rule is slow (~300ms)
       "sonarjs/no-duplicate-string": "off",
       "sonarjs/todo-tag": "off", // TODOs are fine
       "sonarjs/fixme-tag": "off", // FIXMEs are fine
@@ -60,6 +64,7 @@ export default [
       "sonarjs/table-header": "off", // component library issue
 
       // Unicorn overrides
+      "unicorn/no-unnecessary-polyfills": "off", // Next.js handles polyfills, rule is slow (~600ms)
       "unicorn/no-keyword-prefix": "off",
       // Disabled: null vs undefined has semantic meaning in this codebase
       // null = "not found" (orphaned record), undefined = "not yet loaded"
@@ -79,7 +84,7 @@ export default [
       "unicorn/consistent-destructuring": "off",
       // Disabled: these are style preferences
       "unicorn/consistent-function-scoping": "off",
-      "unicorn/no-unused-properties": "off",
+      "unicorn/no-unused-properties": "warn",
       "unicorn/explicit-length-check": "off",
       "unicorn/prefer-ternary": "off", // sometimes if/else is clearer
       "unicorn/no-object-as-default-parameter": "off", // valid pattern
@@ -140,6 +145,27 @@ export default [
     },
   },
   {
+    // Block v validator import from convex/values (use Zod instead)
+    // Exception: crud.ts legitimately needs v for dynamic validator building
+    files: ["**/*.ts", "**/*.tsx"],
+    ignores: ["**/utils/crud.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "convex/values",
+              importNames: ["v"],
+              message:
+                "Use Zod schemas instead of v validator. See packages/backend/convex/vehicles.ts for examples.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: ["**/*.tsx"],
     languageOptions: {
       parser: tsParser,
@@ -169,6 +195,8 @@ export default [
       "**/node_modules/**",
       "**/.next/**",
       "**/.next-e2e/**",
+      "**/.next-e2e-*/**", // Dynamic port E2E build directories
+      "**/.convex-e2e-test*/**", // Dynamic port Convex test directories
       "**/dist/**",
       "**/convex/_generated/**",
       "**/.worktree/**",
@@ -181,8 +209,6 @@ export default [
       // Web app has its own ESLint config with feature-boundaries rules
       // Root config doesn't have eslint-plugin-import configured
       "apps/web/src/**",
-      // External examples, not part of this project
-      "repo-examples/**",
     ],
   },
   {

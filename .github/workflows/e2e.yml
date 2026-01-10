@@ -1,5 +1,6 @@
 # E2E Tests GitHub Action
 # Runs Playwright E2E tests on pull requests
+# Skips when only non-e2e-relevant files change (docs, configs, etc.)
 ---
 name: E2E Tests
 
@@ -15,14 +16,64 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  detect-changes:
+    name: Detect E2E-relevant Changes
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.filter.outputs.e2e_relevant }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Check for E2E-relevant file changes
+        id: filter
+        run: |
+          # Get changed files between base and head
+          BASE_SHA=${{ github.event.pull_request.base.sha }}
+          HEAD_SHA=${{ github.event.pull_request.head.sha }}
+
+          # Define E2E-relevant paths (apps/web, apps/e2e, packages that affect UI)
+          E2E_PATHS="apps/web apps/e2e packages/backend packages/ui packages/shared"
+
+          # Check if any E2E-relevant files changed
+          CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+
+          E2E_RELEVANT="false"
+          for path in $E2E_PATHS; do
+            if echo "$CHANGED_FILES" | grep -q "^$path/"; then
+              E2E_RELEVANT="true"
+              echo "Found changes in $path"
+              break
+            fi
+          done
+
+          # Also run if workflow itself changed
+          if echo "$CHANGED_FILES" | grep -q "^\.github/workflows/e2e\.yml$"; then
+            E2E_RELEVANT="true"
+            echo "E2E workflow changed"
+          fi
+
+          # Also run if playwright config changed
+          if echo "$CHANGED_FILES" | grep -q "playwright\.config\.ts$"; then
+            E2E_RELEVANT="true"
+            echo "Playwright config changed"
+          fi
+
+          echo "e2e_relevant=$E2E_RELEVANT" >> "$GITHUB_OUTPUT"
+          echo "E2E-relevant changes: $E2E_RELEVANT"
+
   e2e:
     name: E2E Tests
     runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.should_run == 'true'
     timeout-minutes: 20
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -63,26 +114,15 @@ jobs:
           cd apps/e2e
           bun run bddgen
 
-          # Run globalSetup with Bun (Playwright/Node can't resolve Bun's packages)
-          echo "=== Running globalSetup with Bun ==="
-          bun -e "
-            const { default: setup } = await import('./lib/isolated-setup.ts');
-            await setup();
-          "
-
-          # Verify .env.e2e was created
-          echo "=== Checking .env.e2e ==="
-          cat ../../apps/web/.env.e2e
-
-          # Run tests with globalSetup disabled (already ran above)
+          # Run Playwright tests (webServer passes env vars directly to Next.js)
           echo "=== Starting Playwright tests ==="
-          DEBUG=pw:webserver bunx playwright test --grep-invert '@requires-user' --global-setup='' --global-teardown=''
+          DEBUG=pw:webserver bunx playwright test --grep-invert '@requires-user'
         env:
           CI: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Test Results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: playwright-report
@@ -90,7 +130,7 @@ jobs:
           retention-days: 7
 
       - name: Upload Test Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: test-results

@@ -8,32 +8,28 @@ description: >-
 targets:
   - '*'
 ---
-<skill_identity>
-You are a Convex documentation specialist for StarterSaaS.
-Your goal: provide accurate Convex information with proper citations using text-fragment URLs.
-</skill_identity>
+# Convex Documentation Skill
 
-<context_and_motivation>
-Convex has specific patterns and behaviors that differ from traditional databases. Citing documentation with exact URLs prevents misinformation and helps developers verify claims. Text-fragment URLs point to exact passages for quick verification.
-</context_and_motivation>
+Provides Convex documentation lookup and proper citation with text-fragment URLs.
 
-<when_to_use>
+## When to Use
+
 - Answering questions about Convex features
 - Implementing Convex functions (queries, mutations, actions)
 - Configuring Convex (schema, auth, HTTP)
 - Citing Convex behavior with documentation links
-</when_to_use>
 
-<documentation_lookup>
+## Documentation Lookup
+
 Use Context7 MCP to fetch Convex docs:
 
 ```
 mcp__context7__resolve-library-id(libraryName: "convex")
 mcp__context7__get-library-docs(context7CompatibleLibraryID: "/convex/convex", topic: "queries")
 ```
-</documentation_lookup>
 
-<text_fragment_urls>
+## Text Fragment URLs
+
 When citing Convex documentation, use text-fragments format:
 
 ```
@@ -56,9 +52,8 @@ https://docs.convex.dev/functions/query-functions#:~:text=Queries%20are%20the%20
 ```
 https://docs.convex.dev/database/schemas#:~:text=defineSchema
 ```
-</text_fragment_urls>
 
-<key_concepts>
+## Key Convex Concepts
 
 ### Built-in Environment Variables
 Convex automatically provides in functions:
@@ -98,9 +93,8 @@ This project uses Better-Auth with Convex adapter:
 - Auth config in `packages/backend/convex/auth.ts`
 - HTTP routes in `packages/backend/convex/http.ts`
 
-</key_concepts>
+## Common Documentation Topics
 
-<common_topics>
 | Topic            | URL                                                        |
 |------------------|------------------------------------------------------------|
 | Queries          | <https://docs.convex.dev/functions/query-functions>        |
@@ -113,12 +107,11 @@ This project uses Better-Auth with Convex adapter:
 | Authentication   | <https://docs.convex.dev/auth>                             |
 | Environment Vars | <https://docs.convex.dev/production/environment-variables> |
 | Deployment       | <https://docs.convex.dev/production>                       |
-</common_topics>
 
-<best_practices>
-1. Cite documentation with URLs when making claims
+## Best Practices
+
+1. Always cite documentation with URLs
 2. Use text-fragments for specific quotes
 3. Verify claims against actual docs via Context7
 4. Check Convex version compatibility
 5. Reference project schema at `packages/backend/convex/schema.ts`
-</best_practices>

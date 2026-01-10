@@ -8,7 +8,7 @@ targets:
 ---
 # React Component Patterns
 
-This skill documents React patterns for Starter SaaS components: forms, error handling, i18n, and component extraction.
+This skill documents React patterns for VroomMarket components: forms, error handling, i18n, and component extraction.
 
 ## Patterns
 
@@ -83,7 +83,7 @@ import { Controller } from "react-hook-form";
 Convex mutation errors should use `useConvexFormErrors` hook.
 
 ```typescript
-import { getConvexErrorMessage, useConvexFormErrors } from "@starter-saas/ui/use-convex-form-errors";
+import { getConvexErrorMessage, useConvexFormErrors } from "@vm/ui/use-convex-form-errors";
 
 function MyForm() {
   const form = useForm<FormData>({...});
@@ -183,7 +183,7 @@ import { msg } from "@lingui/core/macro";
 function Component() {
   return (
     <h1>
-      <Trans>Welcome to Starter SaaS</Trans>
+      <Trans>Welcome to VroomMarket</Trans>
     </h1>
   );
 }
@@ -421,7 +421,7 @@ function Data({ promise }) {
 Use `cn()` utility for class composition instead of manual string concatenation.
 
 ```typescript
-import { cn } from "@starter-saas/ui/lib/utils";
+import { cn } from "@vm/ui/lib/utils";
 
 function Button({ variant, className }) {
   return (
@@ -457,7 +457,7 @@ function Button({ variant, className }) {
 DataTable uses a centralized labels system for all user-facing text:
 
 ```typescript
-import { type DataTableLabels } from "@starter-saas/ui/data-table/labels";
+import { type DataTableLabels } from "@vm/ui/data-table/labels";
 import { useLingui } from "@lingui/react/macro";
 
 // In component
@@ -482,14 +482,17 @@ const labels: Partial<DataTableLabels> = {
 **Reference implementation**: `apps/web/src/app/vehicles/page.tsx`
 
 **Key imports**:
-- `@starter-saas/ui/use-convex-form-errors` - Error handling
+- `@vm/ui/use-convex-form-errors` - Error handling
 - `@lingui/react/macro` - i18n (Trans, useLingui, t)
 - `@lingui/core/macro` - i18n (msg, plural)
 - `react-hook-form` - Form state
 - `@hookform/resolvers/zod` - Validation
 
-**UI components from**: `@starter-saas/ui/*`
+**UI components from**: `@vm/ui/*`
 
 **Extracted admin components**:
 - `apps/web/src/components/admin/user-cell.tsx` - UserCell for DataTable columns
 - `apps/web/src/components/admin/role-selector.tsx` - RoleSelector for role checkboxes
+
+**Related skills**:
+- [react-effects](../react-effects/SKILL.md) - useEffect decision tree, when NOT to use effects
