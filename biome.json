@@ -61,7 +61,7 @@
             "paths": {
               "convex/values": {
                 "importNames": ["v"],
-                "message": "Use Zod schemas instead of v validator. See packages/backend/convex/vehicles.ts for examples."
+                "message": "Use Zod schemas instead of v validator. See packages/backend/convex/schema.ts for examples."
               }
             }
           }

@@ -183,13 +183,13 @@ describe("GroupHeader component", () => {
       <GroupHeader
         count={5}
         isCollapsed={false}
-        labels={{ formatGroupCount: (n) => `${n} vehicles` }}
+        labels={{ formatGroupCount: (n) => `${n} items` }}
         onToggle={vi.fn()}
         value="Active"
       />,
     );
 
-    expect(screen.getByText("5 vehicles")).toBeInTheDocument();
+    expect(screen.getByText("5 items")).toBeInTheDocument();
   });
 
   it("renders collapsed state with ChevronRight", () => {

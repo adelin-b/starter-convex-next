@@ -158,7 +158,7 @@ export default [
               name: "convex/values",
               importNames: ["v"],
               message:
-                "Use Zod schemas instead of v validator. See packages/backend/convex/vehicles.ts for examples.",
+                "Use Zod schemas instead of v validator. See packages/backend/convex/schema.ts for examples.",
             },
           ],
         },

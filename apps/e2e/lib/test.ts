@@ -19,7 +19,7 @@
  *     await auth.createAndSignInTestUser();
  *
  *     // Test your app
- *     await page.goto("/vehicles");
+ *     await page.goto("/dashboard");
  *   });
  */
 import { test as baseTest, type Page } from "@playwright/test";

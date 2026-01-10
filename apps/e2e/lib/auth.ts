@@ -49,8 +49,8 @@ export async function signUp(page: Page, { email, name, password }: SignUpOption
   await submitButton.scrollIntoViewIfNeeded();
   await submitButton.click({ force: true });
 
-  // Wait for authenticated content - after successful signup, user is redirected to /vehicles
-  // (the home page at / redirects to /vehicles)
+  // Wait for authenticated content - after successful signup, user is redirected to dashboard
+  // (the home page at / redirects to dashboard)
   await page.waitForSelector('[data-testid="user-menu"]', { timeout: 15_000 });
 }
 

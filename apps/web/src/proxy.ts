@@ -43,7 +43,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Redirect authenticated users from auth routes to vehicles
+  // Redirect authenticated users from auth routes to dashboard
   if (isAuthRoute && isAuthenticated) {
     const rawCallbackUrl = request.nextUrl.searchParams.get("callbackUrl");
     const callbackUrl = getSafeCallbackUrl(rawCallbackUrl);

@@ -35,7 +35,7 @@ export function detectFeatures(featuresDir) {
  * 1. Itself (own feature)
  * 2. Other features' @x/{thisFeature} public API folders
  *
- * Example: agencies can import from vehicles/@x/agencies but NOT from vehicles/components
+ * Example: orders can import from items/@x/orders but NOT from items/components
  *
  * @param {string[]} features - Array of feature folder names
  * @param {string} featuresPath - Relative path to features (e.g., "./src/features")

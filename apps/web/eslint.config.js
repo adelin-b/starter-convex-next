@@ -278,7 +278,7 @@ export default [
             "^(warning|info|fatal|critical)$",
             // Route-like paths starting with / (including with query params)
             "^/[a-z][a-z0-9/-]*(\\?[a-zA-Z]+=[^\\s]*)?$",
-            // kebab-case identifiers (technical names like "vehicle-id", "user-role")
+            // kebab-case identifiers (technical names like "item-id", "user-role")
             "^[a-z]+(-[a-z]+)+$",
             // Unicode escapes (e.g., "\u2014" em-dash, "\u2022" bullet)
             "^\\\\u[0-9a-fA-F]{4}$",
@@ -296,7 +296,7 @@ export default [
             "^[a-z]+(_[a-z]+)+$",
             // Agency role values (commercial, owner, etc.) - 10 chars max
             "^(commercial|owner|manager|admin|member|viewer|editor)$",
-            // Form field placeholders - brand names and example values (e.g., "Toyota", "Camry", "ABC-1234")
+            // Form field placeholders - brand names and example values (e.g., "Acme", "Widget", "ABC-1234")
             // Single capitalized word ≤10 chars (brand names in form examples)
             "^[A-Z][a-z]{1,9}$",
             // Example patterns (e.g., "ABC-1234", "+33 1 23 45 67 89")
@@ -313,7 +313,7 @@ export default [
 
   // Feature boundaries - Bulletproof React architecture
   // Enforces:
-  // 1. No cross-feature imports (features/auth cannot import from features/vehicles)
+  // 1. No cross-feature imports (features/auth cannot import from features/dashboard)
   // 2. Unidirectional data flow (shared -> features -> app)
   {
     files: ["src/**/*.{ts,tsx}"],

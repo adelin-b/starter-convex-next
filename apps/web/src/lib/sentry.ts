@@ -1,6 +1,6 @@
 import { captureException, captureMessage } from "@sentry/nextjs";
 
-type Feature = "auth" | "admin" | "organizations" | "vehicles" | "users";
+type Feature = "auth" | "admin" | "organizations" | "dashboard" | "users";
 
 type SentryLogOptions = {
   feature: Feature;

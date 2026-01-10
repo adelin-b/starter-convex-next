@@ -18,9 +18,9 @@ const PROJECT_ROOT = process.cwd();
 const API_DTS_PATH = join(CONVEX_DIR, "_generated/api.d.ts");
 
 type Endpoint = {
-  module: string; // e.g., "vehicles", "testing/testing"
+  module: string; // e.g., "items", "testing/testing"
   name: string; // e.g., "list", "createTestUser"
-  apiPath: string; // e.g., "api.vehicles.list", "api.testing.testing.createTestUser"
+  apiPath: string; // e.g., "api.items.list", "api.testing.testing.createTestUser"
   isInternal: boolean;
   file: string; // absolute path to source file
   funcType: string; // e.g., "mutation", "query", "internalMutation"

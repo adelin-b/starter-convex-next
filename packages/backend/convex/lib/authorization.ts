@@ -29,7 +29,7 @@ export async function isSystemAdmin(
  *
  * @returns The user's subject (userId)
  * @example
- * const userId = await requireAuth(ctx, "view vehicles");
+ * const userId = await requireAuth(ctx, "view items");
  */
 export async function requireAuth(
   context: QueryContext | MutationContext,

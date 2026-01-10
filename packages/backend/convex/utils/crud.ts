@@ -81,8 +81,8 @@ export type FieldType<T, Path extends string> = Path extends `${infer K}.${infer
  * Uses Convex's built-in Indexes type to get the index map, then extracts keys.
  *
  * @example
- * type VehicleIndexNames = IndexNames<DataModel, "vehicles">;
- * // => "by_status" | "by_make" | "by_license_plate"
+ * type ItemIndexNames = IndexNames<DataModel, "items">;
+ * // => "by_status" | "by_category" | "by_name"
  */
 export type IndexNames<
   DataModel,
@@ -94,7 +94,7 @@ export type IndexNames<
  * Convex indexes are stored as arrays of field names.
  *
  * @example
- * type StatusIndexFields = IndexFields<DataModel, "vehicles", "by_status">;
+ * type StatusIndexFields = IndexFields<DataModel, "items", "by_status">;
  * // => "status"
  *
  * type ChannelUserFields = IndexFields<DataModel, "messages", "by_channel_user">;
@@ -157,10 +157,10 @@ type TypedFilterForField<Document, Field extends string> = {
  * Creates a discriminated union where each field has its correct value type.
  *
  * @example
- * // For by_status index on vehicles table:
- * type StatusFilter = IndexFieldFilter<DataModel, "vehicles", "by_status">;
+ * // For by_status index on items table:
+ * type StatusFilter = IndexFieldFilter<DataModel, "items", "by_status">;
  * // field: "status" | "_creationTime"
- * // If field is "status", value autocompletes to "available" | "reserved" | "sold"
+ * // If field is "status", value autocompletes to "active" | "inactive" | "draft"
  */
 export type IndexFieldFilter<
   DataModel,
@@ -213,10 +213,10 @@ type FieldFilter = {
  * Creates a discriminated union where each field has its correct value type.
  *
  * @example
- * type VehicleFilter = TypedFieldFilter<Vehicle>;
- * // When field is "status", value autocompletes to "available" | "reserved" | "sold"
+ * type ItemFilter = TypedFieldFilter<Item>;
+ * // When field is "status", value autocompletes to "active" | "inactive" | "draft"
  * // When field is "price", value must be number
- * // When operator is "in" and field is "status", value must be ("available" | "reserved" | "sold")[]
+ * // When operator is "in" and field is "status", value must be ("active" | "inactive" | "draft")[]
  */
 export type TypedFieldFilter<T> = {
   [F in FieldPaths<T>]: TypedFilterForField<T, F>;
@@ -892,39 +892,39 @@ export function crud<
      * Supports: eq, neq, gt, gte, lt, lte, in, contains
      *
      * @example
-     * // Range query: price between 1000 and 5000
-     * await ctx.runQuery(internal.vehicles.queryAdvanced, {
+     * // Range query: price between 100 and 500
+     * await ctx.runQuery(internal.items.queryAdvanced, {
      *   advancedFilter: {
      *     postFilters: [
-     *       { field: "price", operator: "gte", value: 1000 },
-     *       { field: "price", operator: "lte", value: 5000 }
+     *       { field: "price", operator: "gte", value: 100 },
+     *       { field: "price", operator: "lte", value: 500 }
      *     ]
      *   }
      * })
      *
      * @example
-     * // Index query with range: status = "available" AND year >= 2020
-     * await ctx.runQuery(internal.vehicles.queryAdvanced, {
+     * // Index query with range: status = "active" AND year >= 2020
+     * await ctx.runQuery(internal.items.queryAdvanced, {
      *   advancedFilter: {
      *     indexName: "by_status",
-     *     indexConditions: [{ field: "status", operator: "eq", value: "available" }],
+     *     indexConditions: [{ field: "status", operator: "eq", value: "active" }],
      *     postFilters: [{ field: "year", operator: "gte", value: 2020 }]
      *   }
      * })
      *
      * @example
-     * // Search with "in" operator: find vehicles with specific statuses
-     * await ctx.runQuery(internal.vehicles.queryAdvanced, {
+     * // Search with "in" operator: find items with specific statuses
+     * await ctx.runQuery(internal.items.queryAdvanced, {
      *   advancedFilter: {
-     *     postFilters: [{ field: "status", operator: "in", value: ["available", "reserved"] }]
+     *     postFilters: [{ field: "status", operator: "in", value: ["active", "draft"] }]
      *   }
      * })
      *
      * @example
-     * // Text search with "contains": find by make
-     * await ctx.runQuery(internal.vehicles.queryAdvanced, {
+     * // Text search with "contains": find by name
+     * await ctx.runQuery(internal.items.queryAdvanced, {
      *   advancedFilter: {
-     *     postFilters: [{ field: "make", operator: "contains", value: "toyota" }]
+     *     postFilters: [{ field: "name", operator: "contains", value: "widget" }]
      *   }
      * })
      */

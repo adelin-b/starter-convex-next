@@ -12,7 +12,7 @@ export const useQueryWithStatus = makeUseQueryWithStatus(useQueries);
  * @example
  * ```tsx
  * const { results, status, isLoading, loadMore } = usePaginatedQuery(
- *   api.vehicles.paginate,
+ *   api.items.paginate,
  *   { advancedFilter: { postFilters: [...] } },
  *   { initialNumItems: 20 }
  * );

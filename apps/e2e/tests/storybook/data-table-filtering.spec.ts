@@ -14,23 +14,23 @@ test.describe("DataTable Server-Side Filtering", () => {
     await page.locator('[data-slot="data-table"]').waitFor({ timeout: QUICK_TIMEOUT });
   });
 
-  test("should display initial data with all 50 vehicles", async ({ page }) => {
+  test("should display initial data with all 50 items", async ({ page }) => {
     const resultsCount = page.locator('[data-testid="results-count"]');
-    await expect(resultsCount).toContainText("50 vehicles");
+    await expect(resultsCount).toContainText("50 items");
   });
 
-  test("should filter by make using search input", async ({ page }) => {
-    const searchInput = page.locator('[data-testid="vehicle-search-input"]');
+  test("should filter by name using search input", async ({ page }) => {
+    const searchInput = page.locator('[data-testid="item-search-input"]');
     const resultsCount = page.locator('[data-testid="results-count"]');
     const activeFilters = page.locator('[data-testid="active-filters"]');
 
-    // Search for Toyota - Playwright assertions auto-wait for debounce
-    await searchInput.fill("Toyota");
+    // Search for Acme - Playwright assertions auto-wait for debounce
+    await searchInput.fill("Acme");
 
     // Assertions auto-retry until passing (handles debounce naturally)
-    await expect(resultsCount).not.toHaveText("50 vehicles");
-    await expect(activeFilters).toContainText("make contains");
-    await expect(activeFilters).toContainText("Toyota");
+    await expect(resultsCount).not.toHaveText("50 items");
+    await expect(activeFilters).toContainText("name contains");
+    await expect(activeFilters).toContainText("Acme");
   });
 
   test("should filter by status dropdown", async ({ page }) => {
@@ -38,58 +38,58 @@ test.describe("DataTable Server-Side Filtering", () => {
     const activeFilters = page.locator('[data-testid="active-filters"]');
 
     await statusTrigger.click();
-    await page.getByRole("option", { name: "Available" }).click();
+    await page.getByRole("option", { name: "Active", exact: true }).click();
 
     // Assertions auto-retry until filter applies
     await expect(activeFilters).toContainText("status eq");
-    await expect(activeFilters).toContainText("available");
+    await expect(activeFilters).toContainText("active");
   });
 
-  test("should filter by fuel type dropdown", async ({ page }) => {
-    const fuelTrigger = page.locator('[data-testid="fuel-trigger"]');
+  test("should filter by category dropdown", async ({ page }) => {
+    const categoryTrigger = page.locator('[data-testid="category-trigger"]');
     const activeFilters = page.locator('[data-testid="active-filters"]');
 
-    await fuelTrigger.click();
-    await page.getByRole("option", { name: "Electric" }).click();
+    await categoryTrigger.click();
+    await page.getByRole("option", { name: "Premium" }).click();
 
     // Assertions auto-retry until filter applies
-    await expect(activeFilters).toContainText("fuelType eq");
-    await expect(activeFilters).toContainText("electric");
+    await expect(activeFilters).toContainText("category eq");
+    await expect(activeFilters).toContainText("premium");
   });
 
   test("should combine multiple filters", async ({ page }) => {
-    const searchInput = page.locator('[data-testid="vehicle-search-input"]');
+    const searchInput = page.locator('[data-testid="item-search-input"]');
     const statusTrigger = page.locator('[data-testid="status-trigger"]');
     const activeFilters = page.locator('[data-testid="active-filters"]');
 
     // Apply search filter
-    await searchInput.fill("BMW");
-    await expect(activeFilters).toContainText("make contains");
+    await searchInput.fill("Widget");
+    await expect(activeFilters).toContainText("name contains");
 
     // Apply status filter
     await statusTrigger.click();
-    await page.getByRole("option", { name: "Available" }).click();
+    await page.getByRole("option", { name: "Active", exact: true }).click();
 
     // Both filters should be active
     await expect(activeFilters).toContainText("status eq");
   });
 
   test("should clear all filters", async ({ page }) => {
-    const searchInput = page.locator('[data-testid="vehicle-search-input"]');
+    const searchInput = page.locator('[data-testid="item-search-input"]');
     const clearButton = page.locator('[data-testid="clear-filters-btn"]');
     const activeFilters = page.locator('[data-testid="active-filters"]');
     const resultsCount = page.locator('[data-testid="results-count"]');
 
     // Apply a filter first
-    await searchInput.fill("Honda");
-    await expect(activeFilters).toContainText("make contains");
+    await searchInput.fill("Gadget");
+    await expect(activeFilters).toContainText("name contains");
 
     // Click clear button
     await clearButton.click();
 
     // Filters should be cleared and results back to 50
     await expect(activeFilters).toContainText("None");
-    await expect(resultsCount).toContainText("50 vehicles");
+    await expect(resultsCount).toContainText("50 items");
   });
 
   test("should sort by clicking column headers", async ({ page }) => {
@@ -103,16 +103,16 @@ test.describe("DataTable Server-Side Filtering", () => {
   });
 
   test("should toggle sort direction on double click", async ({ page }) => {
-    const yearHeader = page.getByRole("button", { name: "Year" });
+    const dateHeader = page.getByRole("button", { name: "Date" });
     const activeSort = page.locator('[data-testid="active-sort"]');
 
     // First click - ascending
-    await yearHeader.click();
-    await expect(activeSort).toHaveText(/year asc/i);
+    await dateHeader.click();
+    await expect(activeSort).toHaveText(/date asc/i);
 
     // Second click - descending
-    await yearHeader.click();
-    await expect(activeSort).toHaveText(/year desc/i);
+    await dateHeader.click();
+    await expect(activeSort).toHaveText(/date desc/i);
   });
 
   test("should show loading state", async ({ page, baseURL }) => {

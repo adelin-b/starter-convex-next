@@ -408,58 +408,55 @@ export const CustomCellRendering: Story = {
 };
 
 // ============================================================================
-// Server-Side Filtering Stories (Task DataTable)
+// Server-Side Filtering Stories (Item DataTable)
 // ============================================================================
 
-// Task data type (generic example)
-type Task = {
+// Item data type (generic example for any SaaS)
+type Item = {
   _id: string;
-  title: string;
-  project: string;
-  priority: "low" | "medium" | "high" | "critical";
-  status: "pending" | "in_progress" | "completed";
-  assignee: string;
-  dueDate: string;
-  estimatedHours: number;
+  name: string;
+  category: "basic" | "standard" | "premium" | "enterprise";
+  status: "active" | "inactive" | "draft";
+  price: number;
+  date: string;
 };
 
-// Mock task data generator
-const projects = [
-  "Website Redesign",
-  "Mobile App",
-  "API Development",
-  "Dashboard",
-  "Analytics",
-  "DevOps",
-  "Security",
-  "Documentation",
+// Mock item data generator
+const itemNames = [
+  "Acme Widget",
+  "Acme Pro",
+  "Widget Basic",
+  "Widget Plus",
+  "Gadget Starter",
+  "Gadget Pro",
+  "Service Basic",
+  "Service Premium",
+  "Tool Standard",
+  "Tool Enterprise",
 ];
-const assignees = ["Alice", "Bob", "Carol", "Dave", "Eve", "Frank", "Grace", "Henry"];
-const priorities = ["low", "medium", "high", "critical"] as const;
-const taskStatuses = ["pending", "in_progress", "completed"] as const;
+const categories = ["basic", "standard", "premium", "enterprise"] as const;
+const itemStatuses = ["active", "inactive", "draft"] as const;
 
-function generateMockTasks(count: number): Task[] {
+function generateMockItems(count: number): Item[] {
   return Array.from({ length: count }, (_, i) => {
-    const BASE_HOURS = 2;
-    const HOURS_RANGE = 38;
-    const DAYS_OFFSET = 30;
+    const BASE_PRICE = 10;
+    const PRICE_RANGE = 990;
+    const DAYS_OFFSET = 365;
     const MS_PER_DAY = 86_400_000;
     return {
-      _id: `task-${i + 1}`,
-      title: `Task ${i + 1}: ${["Implement feature", "Fix bug", "Review code", "Write tests", "Update docs"][i % 5]}`,
-      project: projects[i % projects.length],
-      priority: priorities[i % priorities.length],
-      status: taskStatuses[i % taskStatuses.length],
-      assignee: assignees[i % assignees.length],
-      dueDate: new Date(Date.now() + Math.floor(Math.random() * DAYS_OFFSET) * MS_PER_DAY)
+      _id: `item-${i + 1}`,
+      name: itemNames[i % itemNames.length],
+      category: categories[i % categories.length],
+      status: itemStatuses[i % itemStatuses.length],
+      price: BASE_PRICE + Math.floor(Math.random() * PRICE_RANGE),
+      date: new Date(Date.now() - Math.floor(Math.random() * DAYS_OFFSET) * MS_PER_DAY)
         .toISOString()
         .split("T")[0],
-      estimatedHours: BASE_HOURS + Math.floor(Math.random() * HOURS_RANGE),
     };
   });
 }
 
-const mockTasks = generateMockTasks(50);
+const mockItems = generateMockItems(50);
 
 // Filter types (for server-side filtering)
 type FilterOperator = "eq" | "contains" | "gte" | "lte" | "in";
@@ -471,11 +468,11 @@ type FieldFilter = {
 };
 
 // Client-side filter simulation (mimics server behavior)
-function applyTaskFilters(data: Task[], filters: FieldFilter[]): Task[] {
+function applyItemFilters(data: Item[], filters: FieldFilter[]): Item[] {
   // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Filter simulation requires handling multiple operators
   return data.filter((item) => {
     for (const f of filters) {
-      const fieldValue = item[f.field as keyof Task];
+      const fieldValue = item[f.field as keyof Item];
 
       switch (f.operator) {
         case "eq":
@@ -515,14 +512,14 @@ function applyTaskFilters(data: Task[], filters: FieldFilter[]): Task[] {
   });
 }
 
-function applyTaskSort(data: Task[], sortField?: string, sortDirection?: "asc" | "desc"): Task[] {
+function applyItemSort(data: Item[], sortField?: string, sortDirection?: "asc" | "desc"): Item[] {
   if (!sortField) {
     return data;
   }
 
   return [...data].sort((a, b) => {
-    const aVal = a[sortField as keyof Task];
-    const bVal = b[sortField as keyof Task];
+    const aVal = a[sortField as keyof Item];
+    const bVal = b[sortField as keyof Item];
     if (aVal === bVal) {
       return 0;
     }
@@ -537,81 +534,77 @@ function applyTaskSort(data: Task[], sortField?: string, sortDirection?: "asc" |
   });
 }
 
-// Task columns with server-side sort support
-const taskColumns: ColumnDef<Task>[] = [
+// Item columns with server-side sort support
+const itemColumns: ColumnDef<Item>[] = [
   {
-    accessorKey: "title",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
+    accessorKey: "name",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
   },
   {
-    accessorKey: "project",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Project" />,
-  },
-  {
-    accessorKey: "priority",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Priority" />,
+    accessorKey: "category",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Category" />,
     cell: ({ row }) => {
-      const priority = row.getValue("priority") as Task["priority"];
-      const variantMap: Record<Task["priority"], "default" | "secondary" | "destructive"> = {
-        low: "secondary",
-        medium: "default",
-        high: "destructive",
-        critical: "destructive",
+      const category = row.getValue("category") as Item["category"];
+      const variantMap: Record<Item["category"], "default" | "secondary" | "destructive"> = {
+        basic: "secondary",
+        standard: "default",
+        premium: "default",
+        enterprise: "destructive",
       };
-      return <Badge variant={variantMap[priority]}>{priority}</Badge>;
+      return <Badge variant={variantMap[category]}>{category}</Badge>;
     },
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status") as Task["status"];
-      const variantMap: Record<Task["status"], "default" | "secondary" | "destructive"> = {
-        pending: "secondary",
-        in_progress: "default",
-        completed: "destructive",
+      const status = row.getValue("status") as Item["status"];
+      const variantMap: Record<Item["status"], "default" | "secondary" | "destructive"> = {
+        active: "default",
+        inactive: "secondary",
+        draft: "secondary",
       };
       return <Badge variant={variantMap[status]}>{status}</Badge>;
     },
   },
   {
-    accessorKey: "assignee",
-    header: "Assignee",
-  },
-  {
-    accessorKey: "dueDate",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Due Date" />,
-  },
-  {
-    accessorKey: "estimatedHours",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Est. Hours" />,
+    accessorKey: "price",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Price" />,
     cell: ({ row }) => {
-      const hours = row.getValue("estimatedHours") as number;
-      return `${hours}h`;
+      const price = row.getValue("price") as number;
+      return `$${price}`;
+    },
+  },
+  {
+    accessorKey: "date",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Date" />,
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("date"));
+      return <div>{date.toLocaleDateString()}</div>;
     },
   },
 ];
 
-// Task toolbar component
-type TaskToolbarProps = {
+// Item toolbar component
+type ItemToolbarProps = {
   filters: FieldFilter[];
   onAddFilter: (filter: FieldFilter) => void;
   onRemoveFilter: (field: string, operator?: FilterOperator) => void;
   onClearFilters: () => void;
 };
 
-function TaskToolbar({ filters, onAddFilter, onRemoveFilter, onClearFilters }: TaskToolbarProps) {
+function ItemToolbar({ filters, onAddFilter, onRemoveFilter, onClearFilters }: ItemToolbarProps) {
   const [searchValue, setSearchValue] = useState("");
   const [statusValue, setStatusValue] = useState<string>("");
-  const [priorityValue, setPriorityValue] = useState<string>("");
+  const [categoryValue, setCategoryValue] = useState<string>("");
 
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
     if (value) {
-      onRemoveFilter("title", "contains");
-      onAddFilter({ field: "title", operator: "contains", value });
+      onRemoveFilter("name", "contains");
+      onAddFilter({ field: "name", operator: "contains", value });
     } else {
-      onRemoveFilter("title", "contains");
+      onRemoveFilter("name", "contains");
     }
   };
 
@@ -626,21 +619,21 @@ function TaskToolbar({ filters, onAddFilter, onRemoveFilter, onClearFilters }: T
     }
   };
 
-  const handlePriorityChange = (value: string | null) => {
+  const handleCategoryChange = (value: string | null) => {
     if (value === null) {
       return;
     }
-    setPriorityValue(value);
-    onRemoveFilter("priority", "eq");
+    setCategoryValue(value);
+    onRemoveFilter("category", "eq");
     if (value && value !== "all") {
-      onAddFilter({ field: "priority", operator: "eq", value });
+      onAddFilter({ field: "category", operator: "eq", value });
     }
   };
 
   const handleClear = () => {
     setSearchValue("");
     setStatusValue("");
-    setPriorityValue("");
+    setCategoryValue("");
     onClearFilters();
   };
 
@@ -650,13 +643,13 @@ function TaskToolbar({ filters, onAddFilter, onRemoveFilter, onClearFilters }: T
     <div className="flex flex-wrap items-center gap-2">
       <Input
         className="w-[200px]"
-        data-testid="task-search-input"
+        data-testid="item-search-input"
         onChange={(e) => handleSearchChange(e.target.value)}
-        placeholder="Search by title..."
+        placeholder="Search by name..."
         value={searchValue}
       />
       <Select
-        data-testid="task-status-select"
+        data-testid="item-status-select"
         onValueChange={handleStatusChange}
         value={statusValue}
       >
@@ -665,25 +658,25 @@ function TaskToolbar({ filters, onAddFilter, onRemoveFilter, onClearFilters }: T
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All Statuses</SelectItem>
-          <SelectItem value="pending">Pending</SelectItem>
-          <SelectItem value="in_progress">In Progress</SelectItem>
-          <SelectItem value="completed">Completed</SelectItem>
+          <SelectItem value="active">Active</SelectItem>
+          <SelectItem value="inactive">Inactive</SelectItem>
+          <SelectItem value="draft">Draft</SelectItem>
         </SelectContent>
       </Select>
       <Select
-        data-testid="task-priority-select"
-        onValueChange={handlePriorityChange}
-        value={priorityValue}
+        data-testid="item-category-select"
+        onValueChange={handleCategoryChange}
+        value={categoryValue}
       >
-        <SelectTrigger className="w-[150px]" data-testid="priority-trigger">
-          <SelectValue placeholder="Priority" />
+        <SelectTrigger className="w-[150px]" data-testid="category-trigger">
+          <SelectValue placeholder="Category" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Priorities</SelectItem>
-          <SelectItem value="low">Low</SelectItem>
-          <SelectItem value="medium">Medium</SelectItem>
-          <SelectItem value="high">High</SelectItem>
-          <SelectItem value="critical">Critical</SelectItem>
+          <SelectItem value="all">All Categories</SelectItem>
+          <SelectItem value="basic">Basic</SelectItem>
+          <SelectItem value="standard">Standard</SelectItem>
+          <SelectItem value="premium">Premium</SelectItem>
+          <SelectItem value="enterprise">Enterprise</SelectItem>
         </SelectContent>
       </Select>
       {hasActiveFilters && (
@@ -696,27 +689,27 @@ function TaskToolbar({ filters, onAddFilter, onRemoveFilter, onClearFilters }: T
   );
 }
 
-// Wrapper that simulates useTaskFilters without Convex
-type TasksDataTableWrapperProps = {
+// Wrapper that simulates useItemFilters without Convex
+type ItemsDataTableWrapperProps = {
   isLoading?: boolean;
   showToolbar?: boolean;
-  initialData?: Task[];
+  initialData?: Item[];
 };
 
-function TasksDataTableWrapper({
+function ItemsDataTableWrapper({
   isLoading = false,
   showToolbar = true,
-  initialData = mockTasks,
-}: TasksDataTableWrapperProps) {
+  initialData = mockItems,
+}: ItemsDataTableWrapperProps) {
   const [filters, setFilters] = useState<FieldFilter[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
 
   // Simulate server-side processing
   const processedData = useMemo(() => {
-    let result = applyTaskFilters(initialData, filters);
+    let result = applyItemFilters(initialData, filters);
     if (sorting.length > 0) {
       const [sort] = sorting;
-      result = applyTaskSort(result, sort.id, sort.desc ? "desc" : "asc");
+      result = applyItemSort(result, sort.id, sort.desc ? "desc" : "asc");
     }
     return result;
   }, [initialData, filters, sorting]);
@@ -744,7 +737,7 @@ function TasksDataTableWrapper({
   return (
     <div className="space-y-4">
       <DataTable
-        columns={taskColumns}
+        columns={itemColumns}
         data={processedData}
         isLoading={isLoading}
         manualFiltering
@@ -752,7 +745,7 @@ function TasksDataTableWrapper({
         onSortingChange={handleSortingChange}
         toolbar={
           showToolbar ? (
-            <TaskToolbar
+            <ItemToolbar
               filters={filters}
               onAddFilter={addFilter}
               onClearFilters={clearFilters}
@@ -781,7 +774,7 @@ function TasksDataTableWrapper({
         </p>
         <p>
           <strong>Results:</strong>{" "}
-          <span data-testid="results-count">{processedData.length} tasks</span>
+          <span data-testid="results-count">{processedData.length} items</span>
         </p>
       </div>
     </div>
@@ -789,32 +782,32 @@ function TasksDataTableWrapper({
 }
 
 /**
- * Server-side filtered task data table.
+ * Server-side filtered item data table.
  * Demonstrates manual filtering/sorting modes that work with backend queries.
  */
 export const ServerSideFiltering: Story = {
-  render: () => <TasksDataTableWrapper />,
+  render: () => <ItemsDataTableWrapper />,
 };
 
 /**
  * Server-side filtering in loading state.
  */
 export const ServerSideLoading: Story = {
-  render: () => <TasksDataTableWrapper isLoading />,
+  render: () => <ItemsDataTableWrapper isLoading />,
 };
 
 /**
  * Server-side filtering without toolbar.
  */
 export const ServerSideNoToolbar: Story = {
-  render: () => <TasksDataTableWrapper showToolbar={false} />,
+  render: () => <ItemsDataTableWrapper showToolbar={false} />,
 };
 
 /**
  * Server-side filtering with empty results.
  */
 export const ServerSideEmpty: Story = {
-  render: () => <TasksDataTableWrapper initialData={[]} />,
+  render: () => <ItemsDataTableWrapper initialData={[]} />,
 };
 
 /**
@@ -826,13 +819,13 @@ export const ServerSideInteractiveDemo: Story = {
       <div className="rounded-md bg-muted p-4">
         <h3 className="mb-2 font-semibold">Server-Side Filtering Demo</h3>
         <ol className="list-inside list-decimal space-y-1 text-sm">
-          <li>Search by make name (e.g., "Toyota", "BMW")</li>
-          <li>Filter by status or fuel type dropdowns</li>
+          <li>Search by name (e.g., "Acme", "Widget")</li>
+          <li>Filter by status or category dropdowns</li>
           <li>Click column headers to sort (simulated server-side)</li>
           <li>Watch the debug panel below for filter/sort state</li>
         </ol>
       </div>
-      <TasksDataTableWrapper />
+      <ItemsDataTableWrapper />
     </div>
   ),
 };

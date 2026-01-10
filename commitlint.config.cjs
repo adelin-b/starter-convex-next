@@ -36,16 +36,14 @@ const baseScopes = [
   "release",
   "mobile",
   // Business/feature scopes
-  "vehicle",
-  "agency",
-  "sdr",
+  "dashboard",
   "admin",
   "auth",
   "billing",
-  "after-sale-service",
   "documents",
-  "booking",
-  "research",
+  "users",
+  "organizations",
+  "settings",
 ];
 
 // Combine dynamic packages with base scopes (deduplicated)

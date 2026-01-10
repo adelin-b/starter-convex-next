@@ -13,17 +13,17 @@ import type { DataTableColumn } from "../types";
 // ============================================
 // Test Data Types
 // ============================================
-type TestVehicle = {
+type TestItem = {
   id: string;
-  make: string;
-  model: string;
+  name: string;
+  description: string;
   year: number;
   price: number;
   createdAt: Date;
   updatedAt: Date;
   isActive: boolean;
-  hasWarranty: boolean;
-  mileage: number;
+  hasFeature: boolean;
+  quantity: number;
   status: "available" | "sold";
 };
 
@@ -99,7 +99,7 @@ describe("inferIsBoolean", () => {
     expect(inferIsBoolean("isEnabled")).toBe(true);
     expect(inferIsBoolean("isVerified")).toBe(true);
     expect(inferIsBoolean("hasChildren")).toBe(true);
-    expect(inferIsBoolean("hasWarranty")).toBe(true);
+    expect(inferIsBoolean("hasFeature")).toBe(true);
     expect(inferIsBoolean("hasPermission")).toBe(true);
   });
 
@@ -127,25 +127,25 @@ describe("inferIsBoolean", () => {
 
 describe("getColumnLabel", () => {
   test("returns header string when header is a string", () => {
-    const column: DataTableColumn<TestVehicle> = {
-      id: "make",
-      accessorKey: "make",
-      header: "Vehicle Make",
+    const column: DataTableColumn<TestItem> = {
+      id: "name",
+      accessorKey: "name",
+      header: "Item Name",
     };
-    expect(getColumnLabel(column)).toBe("Vehicle Make");
+    expect(getColumnLabel(column)).toBe("Item Name");
   });
 
   test("returns column id when header is not a string", () => {
-    const column: DataTableColumn<TestVehicle> = {
-      id: "make",
-      accessorKey: "make",
+    const column: DataTableColumn<TestItem> = {
+      id: "name",
+      accessorKey: "name",
       header: () => "Function Header",
     };
-    expect(getColumnLabel(column)).toBe("make");
+    expect(getColumnLabel(column)).toBe("name");
   });
 
   test("returns column id when header is undefined", () => {
-    const column: DataTableColumn<TestVehicle> = {
+    const column: DataTableColumn<TestItem> = {
       id: "price",
       accessorKey: "price",
     };
@@ -158,27 +158,32 @@ describe("getColumnLabel", () => {
 // ============================================
 describe("columnsToZodSchema", () => {
   test("creates schema with string fields by default", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
-      { id: "make", accessorKey: "make", header: "Make", enableFiltering: true },
-      { id: "model", accessorKey: "model", header: "Model", enableFiltering: true },
+    const columns: DataTableColumn<TestItem>[] = [
+      { id: "name", accessorKey: "name", header: "Name", enableFiltering: true },
+      {
+        id: "description",
+        accessorKey: "description",
+        header: "Description",
+        enableFiltering: true,
+      },
     ];
 
     const schema = columnsToZodSchema(columns);
     const shape = schema.shape;
 
-    expect(shape.make).toBeDefined();
-    expect(shape.model).toBeDefined();
+    expect(shape.name).toBeDefined();
+    expect(shape.description).toBeDefined();
 
     // Verify it's a string schema
-    const makeResult = shape.make.safeParse("Toyota");
-    expect(makeResult.success).toBe(true);
+    const nameResult = shape.name.safeParse("Acme Widget");
+    expect(nameResult.success).toBe(true);
   });
 
   test("infers number type from key names", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
+    const columns: DataTableColumn<TestItem>[] = [
       { id: "year", accessorKey: "year", header: "Year", enableFiltering: true },
       { id: "price", accessorKey: "price", header: "Price", enableFiltering: true },
-      { id: "mileage", accessorKey: "mileage", header: "Mileage", enableFiltering: true },
+      { id: "quantity", accessorKey: "quantity", header: "Quantity", enableFiltering: true },
     ];
 
     const schema = columnsToZodSchema(columns);
@@ -189,11 +194,11 @@ describe("columnsToZodSchema", () => {
     expect(shape.year.safeParse("2024").success).toBe(false);
 
     expect(shape.price.safeParse(50_000).success).toBe(true);
-    expect(shape.mileage.safeParse(10_000).success).toBe(true);
+    expect(shape.quantity.safeParse(10_000).success).toBe(true);
   });
 
   test("infers date type from key names", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
+    const columns: DataTableColumn<TestItem>[] = [
       { id: "createdAt", accessorKey: "createdAt", header: "Created", enableFiltering: true },
       { id: "updatedAt", accessorKey: "updatedAt", header: "Updated", enableFiltering: true },
     ];
@@ -209,9 +214,9 @@ describe("columnsToZodSchema", () => {
   });
 
   test("infers boolean type from key names", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
+    const columns: DataTableColumn<TestItem>[] = [
       { id: "isActive", accessorKey: "isActive", header: "Active", enableFiltering: true },
-      { id: "hasWarranty", accessorKey: "hasWarranty", header: "Warranty", enableFiltering: true },
+      { id: "hasFeature", accessorKey: "hasFeature", header: "Feature", enableFiltering: true },
     ];
 
     const schema = columnsToZodSchema(columns);
@@ -222,11 +227,11 @@ describe("columnsToZodSchema", () => {
     expect(shape.isActive.safeParse(false).success).toBe(true);
     expect(shape.isActive.safeParse("true").success).toBe(false);
 
-    expect(shape.hasWarranty.safeParse(true).success).toBe(true);
+    expect(shape.hasFeature.safeParse(true).success).toBe(true);
   });
 
   test("respects explicit filterType in column meta", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
+    const columns: DataTableColumn<TestItem>[] = [
       {
         id: "status",
         accessorKey: "status",
@@ -236,21 +241,21 @@ describe("columnsToZodSchema", () => {
       },
       {
         id: "rating",
-        accessorKey: "rating" as keyof TestVehicle,
+        accessorKey: "rating" as keyof TestItem,
         header: "Rating",
         enableFiltering: true,
         meta: { filterType: "number" },
       },
       {
         id: "purchaseDate",
-        accessorKey: "purchaseDate" as keyof TestVehicle,
+        accessorKey: "purchaseDate" as keyof TestItem,
         header: "Purchase Date",
         enableFiltering: true,
         meta: { filterType: "date" },
       },
       {
         id: "verified",
-        accessorKey: "verified" as keyof TestVehicle,
+        accessorKey: "verified" as keyof TestItem,
         header: "Verified",
         enableFiltering: true,
         meta: { filterType: "boolean" },
@@ -268,35 +273,40 @@ describe("columnsToZodSchema", () => {
   });
 
   test("skips columns with enableFiltering: false", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
-      { id: "make", accessorKey: "make", header: "Make", enableFiltering: true },
-      { id: "model", accessorKey: "model", header: "Model", enableFiltering: false },
+    const columns: DataTableColumn<TestItem>[] = [
+      { id: "name", accessorKey: "name", header: "Name", enableFiltering: true },
+      {
+        id: "description",
+        accessorKey: "description",
+        header: "Description",
+        enableFiltering: false,
+      },
       { id: "year", accessorKey: "year", header: "Year" }, // undefined enableFiltering
     ];
 
     const schema = columnsToZodSchema(columns);
     const shape = schema.shape;
 
-    expect(shape.make).toBeDefined();
-    expect(shape.model).toBeUndefined();
+    expect(shape.name).toBeDefined();
+    expect(shape.description).toBeUndefined();
     expect(shape.year).toBeDefined(); // undefined is not false
   });
 
   test("uses accessorKey as field name when present", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
-      { id: "vehicleMake", accessorKey: "make", header: "Make", enableFiltering: true },
+    const columns: DataTableColumn<TestItem>[] = [
+      { id: "itemName", accessorKey: "name", header: "Name", enableFiltering: true },
     ];
 
     const schema = columnsToZodSchema(columns);
     const shape = schema.shape;
 
-    // Should use accessorKey "make" not id "vehicleMake"
-    expect(shape.make).toBeDefined();
-    expect(shape.vehicleMake).toBeUndefined();
+    // Should use accessorKey "name" not id "itemName"
+    expect(shape.name).toBeDefined();
+    expect(shape.itemName).toBeUndefined();
   });
 
   test("uses column id when accessorKey is not present", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
+    const columns: DataTableColumn<TestItem>[] = [
       { id: "customField", header: "Custom", enableFiltering: true },
     ];
 
@@ -307,7 +317,7 @@ describe("columnsToZodSchema", () => {
   });
 
   test("skips columns without id or accessorKey", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
+    const columns: DataTableColumn<TestItem>[] = [
       { id: "", header: "Empty ID", enableFiltering: true },
     ];
 
@@ -318,19 +328,19 @@ describe("columnsToZodSchema", () => {
   });
 
   test("adds description from header to zod schema", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
-      { id: "make", accessorKey: "make", header: "Vehicle Make", enableFiltering: true },
+    const columns: DataTableColumn<TestItem>[] = [
+      { id: "name", accessorKey: "name", header: "Item Name", enableFiltering: true },
     ];
 
     const schema = columnsToZodSchema(columns);
     const shape = schema.shape;
 
     // The description is set via .meta({ description }) which sets the .description property
-    expect((shape.make as unknown as { description?: string }).description).toBe("Vehicle Make");
+    expect((shape.name as unknown as { description?: string }).description).toBe("Item Name");
   });
 
   test("handles empty columns array", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [];
+    const columns: DataTableColumn<TestItem>[] = [];
 
     const schema = columnsToZodSchema(columns);
     const keys = Object.keys(schema.shape);
@@ -340,8 +350,8 @@ describe("columnsToZodSchema", () => {
   });
 
   test("creates valid composite schema", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [
-      { id: "make", accessorKey: "make", header: "Make", enableFiltering: true },
+    const columns: DataTableColumn<TestItem>[] = [
+      { id: "name", accessorKey: "name", header: "Name", enableFiltering: true },
       { id: "year", accessorKey: "year", header: "Year", enableFiltering: true },
       { id: "isActive", accessorKey: "isActive", header: "Active", enableFiltering: true },
       { id: "createdAt", accessorKey: "createdAt", header: "Created", enableFiltering: true },
@@ -351,7 +361,7 @@ describe("columnsToZodSchema", () => {
 
     // Test parsing a complete object
     const validData = {
-      make: "Toyota",
+      name: "Acme Widget",
       year: 2024,
       isActive: true,
       createdAt: new Date(),
@@ -361,7 +371,7 @@ describe("columnsToZodSchema", () => {
 
     // Test with invalid types
     const invalidData = {
-      make: 123, // should be string
+      name: 123, // should be string
       year: "2024", // should be number
       isActive: "true", // should be boolean
       createdAt: "2024-01-01", // should be Date
@@ -376,25 +386,25 @@ describe("columnsToZodSchema", () => {
 // ============================================
 describe("Type utilities - FnSphereFilterBuilderProps", () => {
   test("columns property accepts DataTableColumn array", () => {
-    type Props = FunctionSphereFilterBuilderProps<TestVehicle>;
+    type Props = FunctionSphereFilterBuilderProps<TestItem>;
 
-    expectTypeOf<Props["columns"]>().toEqualTypeOf<DataTableColumn<TestVehicle>[]>();
+    expectTypeOf<Props["columns"]>().toEqualTypeOf<DataTableColumn<TestItem>[]>();
   });
 
   test("onFilterChange callback receives predicate function", () => {
-    type Props = FunctionSphereFilterBuilderProps<TestVehicle>;
+    type Props = FunctionSphereFilterBuilderProps<TestItem>;
     type OnFilterChange = Props["onFilterChange"];
 
     // onFilterChange should be optional
     expectTypeOf<OnFilterChange>().toBeNullable();
 
     // When defined, it should accept a predicate
-    type Predicate = (item: TestVehicle) => boolean;
+    type Predicate = (item: TestItem) => boolean;
     expectTypeOf<(predicate: Predicate) => void>().toMatchTypeOf<NonNullable<OnFilterChange>>();
   });
 
   test("className property is optional string", () => {
-    type Props = FunctionSphereFilterBuilderProps<TestVehicle>;
+    type Props = FunctionSphereFilterBuilderProps<TestItem>;
 
     expectTypeOf<Props["className"]>().toEqualTypeOf<string | undefined>();
   });
@@ -402,12 +412,12 @@ describe("Type utilities - FnSphereFilterBuilderProps", () => {
 
 describe("Type utilities - DataTableColumn for filtering", () => {
   test("accessorKey can be a key of TData", () => {
-    type Column = DataTableColumn<TestVehicle>;
+    type Column = DataTableColumn<TestItem>;
 
     // Valid accessor keys
     const validColumn: Column = {
-      id: "make",
-      accessorKey: "make",
+      id: "name",
+      accessorKey: "name",
     };
     assertType<Column>(validColumn);
 
@@ -419,33 +429,33 @@ describe("Type utilities - DataTableColumn for filtering", () => {
   });
 
   test("enableFiltering is optional boolean", () => {
-    type Column = DataTableColumn<TestVehicle>;
+    type Column = DataTableColumn<TestItem>;
 
     expectTypeOf<Column["enableFiltering"]>().toEqualTypeOf<boolean | undefined>();
   });
 
   test("meta.filterType accepts specific string values", () => {
     // This tests that the implementation correctly reads meta.filterType
-    const columnWithMeta: DataTableColumn<TestVehicle> = {
+    const columnWithMeta: DataTableColumn<TestItem> = {
       id: "status",
       accessorKey: "status",
       meta: { filterType: "string" },
     };
 
-    assertType<DataTableColumn<TestVehicle>>(columnWithMeta);
+    assertType<DataTableColumn<TestItem>>(columnWithMeta);
   });
 });
 
 describe("Type utilities - columnsToZodSchema return type", () => {
   test("returns ZodObject with ZodTypeAny values", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [];
+    const columns: DataTableColumn<TestItem>[] = [];
     const result = columnsToZodSchema(columns);
 
     expectTypeOf(result).toMatchTypeOf<z.ZodObject<Record<string, z.ZodTypeAny>>>();
   });
 
   test("schema shape has string keys", () => {
-    const columns: DataTableColumn<TestVehicle>[] = [];
+    const columns: DataTableColumn<TestItem>[] = [];
     const result = columnsToZodSchema(columns);
 
     expectTypeOf(result.shape).toMatchTypeOf<Record<string, z.ZodTypeAny>>();
@@ -472,7 +482,7 @@ describe("Type utilities - inference functions", () => {
   });
 
   test("getColumnLabel accepts DataTableColumn and returns string", () => {
-    expectTypeOf(getColumnLabel<TestVehicle>).toBeFunction();
-    expectTypeOf(getColumnLabel<TestVehicle>).returns.toBeString();
+    expectTypeOf(getColumnLabel<TestItem>).toBeFunction();
+    expectTypeOf(getColumnLabel<TestItem>).returns.toBeString();
   });
 });

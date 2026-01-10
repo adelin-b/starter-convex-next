@@ -3,7 +3,7 @@
  * Only allows relative paths that start with "/" and are not protocol-relative.
  *
  * @example
- * isValidCallbackUrl("/vehicles") // true
+ * isValidCallbackUrl("/dashboard") // true
  * isValidCallbackUrl("/admin/users") // true
  * isValidCallbackUrl("//evil.com") // false (protocol-relative)
  * isValidCallbackUrl("https://evil.com") // false (absolute URL)
