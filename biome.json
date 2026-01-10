@@ -3,12 +3,11 @@
   "files": {
     "ignoreUnknown": false,
     "includes": [
-      "**",
-      "!repo-examples",
       "!.worktrees",
       "!**/.next",
       "!**/.next-e2e*",
       "!**/.convex-e2e-test*",
+      "!**/.react-email",
       "!**/dist",
       "!**/.turbo",
       "!**/dev-dist",
@@ -27,7 +26,10 @@
       "!**/.source",
       "!bun.lock",
       "!**/tests/features/.generated",
-      "!**/packages/eslint-config"
+      "!**/packages/eslint-config",
+      "!chrome-data-dir",
+      "!**/templates/html",
+      "!**/templates/docx-source"
     ]
   },
   "extends": ["ultracite/core", "ultracite/react", "ultracite/next"],
@@ -48,11 +50,41 @@
         "noUnusedImports": "warn"
       },
       "style": {
-        "noProcessEnv": "error"
+        "noProcessEnv": "error",
+        "useConsistentTypeDefinitions": {
+          "level": "error",
+          "options": { "style": "type" }
+        },
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "paths": {
+              "convex/values": {
+                "importNames": ["v"],
+                "message": "Use Zod schemas instead of v validator. See packages/backend/convex/vehicles.ts for examples."
+              }
+            }
+          }
+        }
       }
     }
   },
   "overrides": [
+    {
+      "includes": [
+        "**/features/agencies/components/agency-form.tsx",
+        "**/features/agencies/components/create-agency-dialog.tsx",
+        "**/features/documents/components/document-form-modal.tsx",
+        "**/admin/documents/page.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          }
+        }
+      }
+    },
     {
       "includes": [
         "**/*.spec.ts",
@@ -73,7 +105,8 @@
           },
           "complexity": {
             "noForEach": "off",
-            "noBannedTypes": "off"
+            "noBannedTypes": "off",
+            "noExcessiveCognitiveComplexity": "off"
           },
           "nursery": {
             "noIncrementDecrement": "off"
@@ -165,7 +198,8 @@
             "noExplicitAny": "off"
           },
           "style": {
-            "noNonNullAssertion": "off"
+            "noNonNullAssertion": "off",
+            "noRestrictedImports": "off"
           }
         }
       }
@@ -193,8 +227,12 @@
     {
       "includes": [
         "apps/e2e/lib/test.ts",
+        "apps/e2e/lib/components/index.ts",
+        "apps/e2e/lib/pages/index.ts",
         "apps/web/src/lib/convex-hooks.ts",
-        "apps/web/src/lib/i18n.ts"
+        "apps/web/src/lib/i18n.ts",
+        "apps/web/src/features/**/index.ts",
+        "packages/backend/convex/integrations/**/index.ts"
       ],
       "linter": {
         "rules": {

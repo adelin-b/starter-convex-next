@@ -12,7 +12,7 @@ import { Button } from "../button";
 import { Calendar } from "../calendar";
 import { Checkbox } from "../checkbox";
 import { Input } from "../input";
-import { Popover, PopoverContent, PopoverPositioner, PopoverTrigger } from "../popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
 
 /**
@@ -74,10 +74,7 @@ function ShadcnSelect<T>({
   const selectedLabel = selectedIdx === -1 ? "" : options[selectedIdx].label;
 
   const handleChange = useCallback(
-    (indexStr: string | null) => {
-      if (indexStr === null) {
-        return;
-      }
+    (indexStr: string) => {
       const idx = Number.parseInt(indexStr, 10);
       const option = options[idx];
       if (option) {
@@ -139,36 +136,32 @@ function ShadcnMultiSelect<T>({
 
   return (
     <Popover onOpenChange={setOpen} open={open}>
-      <PopoverTrigger
-        render={
-          <Button className="h-8 w-40 justify-start font-normal text-sm" variant="outline">
-            <span className="truncate">{selectedLabels || "Select..."}</span>
-          </Button>
-        }
-      />
-      <PopoverPositioner align="start">
-        <PopoverContent className="w-48 p-2">
-          <div className="space-y-2">
-            {options.map((option, idx) => {
-              const checkboxId = `multi-select-${idx}`;
-              return (
-                <label
-                  className="flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1 text-sm hover:bg-accent"
-                  htmlFor={checkboxId}
-                  key={idx}
-                >
-                  <Checkbox
-                    checked={value.includes(option.value)}
-                    id={checkboxId}
-                    onCheckedChange={() => handleToggle(option.value)}
-                  />
-                  <span>{option.label}</span>
-                </label>
-              );
-            })}
-          </div>
-        </PopoverContent>
-      </PopoverPositioner>
+      <PopoverTrigger asChild>
+        <Button className="h-8 w-40 justify-start font-normal text-sm" variant="outline">
+          <span className="truncate">{selectedLabels || "Select..."}</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="start" className="w-48 p-2">
+        <div className="space-y-2">
+          {options.map((option, idx) => {
+            const checkboxId = `multi-select-${idx}`;
+            return (
+              <label
+                className="flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1 text-sm hover:bg-accent"
+                htmlFor={checkboxId}
+                key={idx}
+              >
+                <Checkbox
+                  checked={value.includes(option.value)}
+                  id={checkboxId}
+                  onCheckedChange={() => handleToggle(option.value)}
+                />
+                <span>{option.label}</span>
+              </label>
+            );
+          })}
+        </div>
+      </PopoverContent>
     </Popover>
   );
 }
@@ -185,36 +178,32 @@ const dateInputSpec: DataInputViewSpec = {
 
     return (
       <Popover onOpenChange={setOpen} open={open}>
-        <PopoverTrigger
-          render={
-            <Button
-              className={cn(
-                "h-8 w-40 justify-start font-normal text-sm",
-                !currentValue && "text-muted-foreground",
-              )}
-              variant="outline"
-            >
-              <CalendarIcon className="mr-2 size-4" />
-              {currentValue ? format(currentValue, "PPP") : "Pick a date"}
-            </Button>
-          }
-        />
-        <PopoverPositioner align="start">
-          <PopoverContent className="w-auto p-0">
-            <Calendar
-              mode="single"
-              onSelect={(date) => {
-                if (date) {
-                  updateInput(date);
-                } else {
-                  updateInput();
-                }
-                setOpen(false);
-              }}
-              selected={currentValue}
-            />
-          </PopoverContent>
-        </PopoverPositioner>
+        <PopoverTrigger asChild>
+          <Button
+            className={cn(
+              "h-8 w-40 justify-start font-normal text-sm",
+              !currentValue && "text-muted-foreground",
+            )}
+            variant="outline"
+          >
+            <CalendarIcon className="mr-2 size-4" />
+            {currentValue ? format(currentValue, "PPP") : "Pick a date"}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent align="start" className="w-auto p-0">
+          <Calendar
+            mode="single"
+            onSelect={(date) => {
+              if (date) {
+                updateInput(date);
+              } else {
+                updateInput();
+              }
+              setOpen(false);
+            }}
+            selected={currentValue}
+          />
+        </PopoverContent>
       </Popover>
     );
   },
@@ -236,6 +225,8 @@ export const shadcnFilterTheme: FilterTheme = {
     Input: ShadcnInput,
     Select: ShadcnSelect,
     MultipleSelect: ShadcnMultiSelect,
+    // Use preset's ErrorBoundary or provide fallback
+    ErrorBoundary: presetTheme.components.ErrorBoundary,
   },
   templates: {
     // Use preset templates but they'll use our shadcn components

@@ -8,7 +8,7 @@ targets:
 ---
 # TypeScript Type Safety Patterns
 
-This skill documents TypeScript patterns that ensure compile-time type safety in Starter SaaS.
+This skill documents TypeScript patterns that ensure compile-time type safety in VroomMarket.
 
 ## Patterns
 
@@ -25,7 +25,7 @@ switch (status) {
 }
 
 // Recommended approach
-import { assertNever } from "@starter-saas/shared/assert-never";
+import { assertNever } from "@vm/shared/assert-never";
 
 switch (status) {
   case "pending": return "Waiting";
@@ -151,7 +151,7 @@ export function getBestLocale(preferredLocales: string[]): SupportedLocale {
 
 ## Project Context
 
-**assertNever location**: `@starter-saas/shared/assert-never`
+**assertNever location**: `@vm/shared/assert-never`
 
 **Common union types**:
 - `VehicleStatus`: "available" | "sold" | "reserved"

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@starter-saas/ui/utils";
+import { cn } from "@vm/ui/utils";
 import { ChevronLeft } from "lucide-react";
 import type * as React from "react";
 import { useIsMobile } from "../hooks/use-mobile";
@@ -114,7 +114,7 @@ export function DetailLayout({
     <ResizablePanelGroup
       className={cn("h-full", className)}
       data-slot="detail-layout"
-      direction="horizontal"
+      orientation="horizontal"
     >
       <ResizablePanel defaultSize={defaultSize[0]} minSize={minSize[0]}>
         <div className="h-full overflow-auto" data-slot="detail-layout-list">
