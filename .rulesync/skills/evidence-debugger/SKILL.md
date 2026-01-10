@@ -8,29 +8,26 @@ description: >-
 targets:
   - '*'
 ---
-# Evidence-Based Debugger Skill
+<skill_identity>
+You are a systematic debugger for StarterSaaS.
+Your goal: gather evidence before proposing solutions to prevent hallucinated fixes.
+</skill_identity>
 
-Enforces systematic debugging workflow to prevent hallucinated solutions.
+<context_and_motivation>
+AI models predict tokens based on patterns, not truth. Without forcing verification first, solutions may sound plausible but miss the actual root cause. Evidence-based debugging ensures fixes address real problems rather than assumed ones.
+</context_and_motivation>
 
-## Core Principle
-
-```
-NEVER generate solutions before gathering evidence.
-The AI predicts tokens based on patterns, not truth.
-Force verification FIRST.
-```
-
-## Forbidden Patterns
-
-These phrases signal premature conclusions - STOP if you catch yourself saying:
+<warning_phrases>
+These phrases often precede premature conclusions. If you catch yourself about to say these, pause and gather more evidence:
 - "I got it! Here is the fix..."
 - "The problem is clearly X..."
 - "This should work..."
 - "Obviously..." / "Clearly..." / "Simply..." / "Just..."
+</warning_phrases>
 
-## Required Workflow
+<workflow>
 
-### Phase 1: INVESTIGATE (Gather Evidence)
+## Phase 1: INVESTIGATE (Gather Evidence)
 
 ```markdown
 ## INVESTIGATION
@@ -50,7 +47,7 @@ Tools to use:
 - `mcp__playwright__*` - UI inspection
 - `git log`, `git diff` - Recent changes
 
-### Phase 2: ANALYZE (Reason from Evidence)
+## Phase 2: ANALYZE (Reason from Evidence)
 
 ```markdown
 ## ANALYSIS
@@ -71,7 +68,7 @@ Evidence B: [specific evidence]
 **Conclusion**: Root cause is [X] because [evidence proves it]
 ```
 
-### Phase 3: HYPOTHESIZE (Connect Evidence)
+## Phase 3: HYPOTHESIZE (Connect Evidence)
 
 ```markdown
 ## HYPOTHESIS
@@ -84,7 +81,7 @@ Based on evidence:
 Therefore: [root cause statement]
 ```
 
-### Phase 4: IMPLEMENT (Only Now!)
+## Phase 4: IMPLEMENT (Only After Evidence)
 
 ```markdown
 ## SOLUTION
@@ -98,7 +95,7 @@ Based on confirmed root cause [X]:
 2. [Expected output]
 ```
 
-### Phase 5: VERIFY (Confirm Fix)
+## Phase 5: VERIFY (Confirm Fix)
 
 ```markdown
 ## VERIFICATION
@@ -108,9 +105,11 @@ Based on confirmed root cause [X]:
 ✓ No regressions: [test results]
 ```
 
-## Verification Checklist
+</workflow>
 
+<verification_checklist>
 Before claiming solution is correct:
+
 - [ ] Executed tool calls to gather evidence
 - [ ] Stated specific facts from outputs
 - [ ] Cross-referenced multiple sources
@@ -119,20 +118,10 @@ Before claiming solution is correct:
 - [ ] Can cite evidence for each claim
 - [ ] Verified fix works
 
-**If cannot check all boxes → DO NOT GENERATE SOLUTION YET**
+If you cannot check all boxes, gather more evidence before generating a solution.
+</verification_checklist>
 
-## Red Flags
-
-Stop and investigate more if about to say:
-- "Obviously..."
-- "Clearly..."
-- "It must be..."
-- "Simply..."
-- "Just..."
-- "Should..."
-
-## Template
-
+<template>
 ```markdown
 ## INVESTIGATION
 
@@ -164,3 +153,4 @@ Evidence:
 ## VERIFICATION
 ✓
 ```
+</template>

@@ -9,7 +9,7 @@ targets:
 ---
 # React Compiler Coding Guidelines
 
-This skill documents React Compiler patterns for VroomMarket. With React Compiler enabled, write React as if **every render is free and memoization is automatic**.
+This skill documents React Compiler patterns for Starter SaaS. With React Compiler enabled, write React as if **every render is free and memoization is automatic**.
 
 ## Core Mental Model
 
@@ -40,14 +40,14 @@ With React Compiler, do not use `useMemo`, `useCallback`, or `React.memo` for pe
 
 ```typescript
 // Improvement needed - manual memoization
-function VehicleList({ vehicles, filter }: Props) {
-  const filteredVehicles = useMemo(
-    () => vehicles.filter((v) => v.status === filter),
-    [vehicles, filter]
+function ItemList({ items, filter }: Props) {
+  const filteredItems = useMemo(
+    () => items.filter((v) => v.status === filter),
+    [items, filter]
   );
 
   const handleSelect = useCallback(
-    (id: Vehicle["_id"]) => {
+    (id: Item["_id"]) => {
       console.log("Selected:", id);
     },
     []
@@ -55,25 +55,25 @@ function VehicleList({ vehicles, filter }: Props) {
 
   return (
     <div>
-      {filteredVehicles.map((v) => (
-        <VehicleCard key={v._id} vehicle={v} onSelect={handleSelect} />
+      {filteredItems.map((v) => (
+        <ItemCard key={v._id} item={v} onSelect={handleSelect} />
       ))}
     </div>
   );
 }
 
 // Recommended approach - inline computation
-function VehicleList({ vehicles, filter }: Props) {
-  const filteredVehicles = vehicles.filter((v) => v.status === filter);
+function ItemList({ items, filter }: Props) {
+  const filteredItems = items.filter((v) => v.status === filter);
 
-  const handleSelect = (id: Vehicle["_id"]) => {
+  const handleSelect = (id: Item["_id"]) => {
     console.log("Selected:", id);
   };
 
   return (
     <div>
-      {filteredVehicles.map((v) => (
-        <VehicleCard key={v._id} vehicle={v} onSelect={handleSelect} />
+      {filteredItems.map((v) => (
+        <ItemCard key={v._id} item={v} onSelect={handleSelect} />
       ))}
     </div>
   );
@@ -91,23 +91,23 @@ Never store calculated or derived values in state. Compute them during render.
 
 ```typescript
 // Improvement needed - derived state stored
-function VehicleSearch({ vehicles }: Props) {
+function ItemSearch({ items }: Props) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Vehicle[]>([]);
+  const [results, setResults] = useState<Item[]>([]);
 
   useEffect(() => {
-    setResults(vehicles.filter((v) => v.model.includes(query)));
-  }, [vehicles, query]);
+    setResults(items.filter((v) => v.model.includes(query)));
+  }, [items, query]);
 
-  return <VehicleGrid vehicles={results} />;
+  return <ItemGrid items={results} />;
 }
 
 // Recommended approach - computed inline
-function VehicleSearch({ vehicles }: Props) {
+function ItemSearch({ items }: Props) {
   const [query, setQuery] = useState("");
-  const results = vehicles.filter((v) => v.model.includes(query));
+  const results = items.filter((v) => v.model.includes(query));
 
-  return <VehicleGrid vehicles={results} />;
+  return <ItemGrid items={results} />;
 }
 ```
 
@@ -166,24 +166,24 @@ Don't wrap components in `React.memo` for performance. The compiler determines o
 
 ```typescript
 // Improvement needed - manual memo wrapper
-const VehicleCard = React.memo(function VehicleCard({
-  vehicle,
+const ItemCard = React.memo(function ItemCard({
+  item,
   onSelect,
-}: VehicleCardProps) {
+}: ItemCardProps) {
   return (
-    <div onClick={() => onSelect(vehicle._id)}>
-      <h3>{vehicle.model}</h3>
-      <p>{vehicle.price}</p>
+    <div onClick={() => onSelect(item._id)}>
+      <h3>{item.model}</h3>
+      <p>{item.price}</p>
     </div>
   );
 });
 
 // Recommended approach - plain component
-function VehicleCard({ vehicle, onSelect }: VehicleCardProps) {
+function ItemCard({ item, onSelect }: ItemCardProps) {
   return (
-    <div onClick={() => onSelect(vehicle._id)}>
-      <h3>{vehicle.model}</h3>
-      <p>{vehicle.price}</p>
+    <div onClick={() => onSelect(item._id)}>
+      <h3>{item.model}</h3>
+      <p>{item.price}</p>
     </div>
   );
 }
@@ -195,10 +195,10 @@ Use multiple `useState` calls for independent values rather than one large state
 
 ```typescript
 // Improvement needed - single large state object
-function VehicleFilters() {
+function ItemFilters() {
   const [filters, setFilters] = useState({
     status: "all",
-    fuelType: "all",
+    category: "all",
     minPrice: 0,
     maxPrice: 100000,
   });
@@ -210,22 +210,22 @@ function VehicleFilters() {
   return (
     <>
       <Select value={filters.status} onValueChange={(v) => updateFilter("status", v)} />
-      <Select value={filters.fuelType} onValueChange={(v) => updateFilter("fuelType", v)} />
+      <Select value={filters.category} onValueChange={(v) => updateFilter("category", v)} />
     </>
   );
 }
 
 // Recommended approach - independent states
-function VehicleFilters() {
+function ItemFilters() {
   const [status, setStatus] = useState("all");
-  const [fuelType, setFuelType] = useState("all");
+  const [category, setCategory] = useState("all");
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(100000);
 
   return (
     <>
       <Select value={status} onValueChange={setStatus} />
-      <Select value={fuelType} onValueChange={setFuelType} />
+      <Select value={category} onValueChange={setCategory} />
     </>
   );
 }
@@ -242,22 +242,22 @@ Use stable, semantic keys (unique IDs) for list items. Never use index-based key
 
 ```typescript
 // Improvement needed - index keys
-function VehicleGrid({ vehicles }: Props) {
+function ItemGrid({ items }: Props) {
   return (
     <div>
-      {vehicles.map((vehicle, index) => (
-        <VehicleCard key={index} vehicle={vehicle} />
+      {items.map((item, index) => (
+        <ItemCard key={index} item={item} />
       ))}
     </div>
   );
 }
 
 // Recommended approach - stable ID keys
-function VehicleGrid({ vehicles }: Props) {
+function ItemGrid({ items }: Props) {
   return (
     <div>
-      {vehicles.map((vehicle) => (
-        <VehicleCard key={vehicle._id} vehicle={vehicle} />
+      {items.map((item) => (
+        <ItemCard key={item._id} item={item} />
       ))}
     </div>
   );
@@ -273,7 +273,7 @@ Use for true local UI state only. Prefer multiple small states over one large ob
 ```typescript
 // Appropriate useState usage
 const [isOpen, setIsOpen] = useState(false);
-const [selectedId, setSelectedId] = useState<Vehicle["_id"] | null>(null);
+const [selectedId, setSelectedId] = useState<Item["_id"] | null>(null);
 ```
 
 ### useEffect

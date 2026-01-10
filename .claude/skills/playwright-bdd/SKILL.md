@@ -21,7 +21,7 @@ apps/e2e/
 ├── tests/
 │   ├── features/           # Gherkin feature files
 │   │   ├── auth/           # Domain: authentication
-│   │   ├── vehicles/       # Domain: vehicle management
+│   │   ├── items/       # Domain: item management
 │   │   ├── homepage/       # Domain: landing page
 │   │   └── navigation/     # Domain: site navigation
 │   └── steps/              # Step definitions (TypeScript)
@@ -40,7 +40,7 @@ Single When clause triggers single behavior. Multiple Whens should be split into
 ```gherkin
 # Improvement needed - two behaviors
 Scenario: Search and filter
-  When user searches "car"
+  When user searches "product"
   Then results appear
   When user clicks filter
   Then filtered results appear
@@ -48,11 +48,11 @@ Scenario: Search and filter
 # Recommended approach - independent scenarios
 Scenario: Search returns results
   Given search page displayed
-  When user searches "car"
-  Then car-related results shown
+  When user searches "product"
+  Then product-related results shown
 
 Scenario: Filter narrows results
-  Given search results for "car" displayed
+  Given search results for "product" displayed
   When user applies price filter
   Then filtered results shown
 ```

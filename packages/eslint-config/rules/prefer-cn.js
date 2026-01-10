@@ -1,6 +1,6 @@
 /**
  * @fileoverview Enforce using cn() utility instead of manual className concatenation
- * @author VroomMarket
+ * @author Starter SaaS
  */
 
 /** @type {import('eslint').Rule.RuleModule} */
@@ -9,16 +9,16 @@ export default {
     type: "suggestion",
     docs: {
       description:
-        "Enforce using cn() from @vroommarket/ui/lib/utils instead of manual className concatenation",
+        "Enforce using cn() from @starter-saas/ui/utils instead of manual className concatenation",
       recommended: true,
     },
     messages: {
       preferCnTemplate:
-        "Use cn() from @vroommarket/ui/lib/utils instead of template literal for className",
+        "Use cn() from @starter-saas/ui/utils instead of template literal for className",
       preferCnConcat:
-        "Use cn() from @vroommarket/ui/lib/utils instead of string concatenation for className",
+        "Use cn() from @starter-saas/ui/utils instead of string concatenation for className",
       preferCnArray:
-        "Use cn() from @vroommarket/ui/lib/utils instead of array.join() for className",
+        "Use cn() from @starter-saas/ui/utils instead of array.join() for className",
     },
     schema: [],
   },

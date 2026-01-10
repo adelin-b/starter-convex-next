@@ -1,8 +1,6 @@
 
 # AI tools ignore patterns
 # Build/bundler terms
-# Car models
-# Car models (example data)
 # Convex
 # DataTable
 # DataTable/filtering
@@ -10,8 +8,6 @@
 # Email terms
 # File extensions/types
 # Font/typography terms
-# French domain terms (used in JSDoc comments for SIV - Système d'Immatriculation des Véhicules)
-# French vehicle body types (used as enum values in schema)
 # Git features
 # Git hooks
 # GitHub Actions
@@ -35,7 +31,6 @@ ACMR
 Autoform
 CNTBUG
 CNTFLT
-Camry
 EMPT
 Embla
 FINDNULL
@@ -46,7 +41,6 @@ IDDEL
 IDXDEL
 IDXINC
 INCLDEL
-Immatriculation
 Instyle
 Laithang
 Layou
@@ -58,7 +52,6 @@ OVERSCAN
 Oeser
 Oxlint
 PARTDEL
-Passat
 plateforme
 prereq
 QWEN
@@ -67,14 +60,11 @@ Segoe
 Semgrep
 Setuptools
 Signups
-Système
-Tiguan
 Timebreaker
 UPDMNY
 UPSNEW
 UPSNULL
 Uncategorized
-Véhicules
 adminpass
 agency
 aiignore
@@ -88,16 +78,13 @@ authed
 autodocs
 autoform
 bddgen
-berline
 basecn
 biome
 bun
 bunx
-cabine
 calen
 capgo
 carnitas
-citadine
 claudecode
 clineignore
 clinerules
@@ -106,7 +93,6 @@ cmdline
 codexignore
 convex
 cpes
-critair
 cursorignore
 cyclonedx
 datatable
@@ -117,7 +103,6 @@ dtree
 epicweb
 evilrabbit
 extralight
-fourgonnette
 frontmatter
 ghos
 groupable
@@ -141,7 +126,6 @@ mockuser
 monocart
 monorepo
 navigations
-moto
 mozjpeg
 msvc
 networkidle
@@ -198,8 +182,6 @@ utcp
 vaul
 vinxi
 visualise
-vroom
-vroommarket
 vueless
 worktree
 worktrees

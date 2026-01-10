@@ -7,8 +7,8 @@
  * Run with: bun setup.ts
  */
 
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { basename, join } from "node:path";
+import { copyFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { basename, extname, join } from "node:path";
 import { createInterface } from "node:readline";
 import { $ } from "bun";
 
@@ -82,6 +82,7 @@ function updateAllFiles(dir: string, oldScope: string, newScope: string) {
     ".next",
     "storybook-static",
     ".turbo",
+    ".worktrees",
   ]);
 
   // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: recursive directory traversal requires this structure
@@ -110,6 +111,86 @@ function updateAllFiles(dir: string, oldScope: string, newScope: string) {
   }
 
   processDir(dir);
+}
+
+function updateAppConfig(appName: string, description: string, scope: string) {
+  const configPath = join(process.cwd(), "packages/shared/src/app-config.ts");
+  if (!existsSync(configPath)) {
+    return;
+  }
+
+  const content = readFileSync(configPath, "utf8");
+  const updated = content
+    .replace(/name: "Starter SaaS"/, `name: "${appName}"`)
+    .replace(/description: "[^"]*"/, `description: "${description}"`)
+    .replace(/scope: "starter-saas"/, `scope: "${scope}"`);
+
+  writeFileSync(configPath, updated);
+}
+
+function updateBrandingStrings(dir: string, oldName: string, newName: string) {
+  const ignoreDirectories = new Set([
+    "node_modules",
+    ".git",
+    ".next",
+    "storybook-static",
+    ".turbo",
+    ".worktrees",
+  ]);
+
+  // Files that contain hardcoded branding strings
+  const targetFiles = [
+    "apps/web/src/app/layout.tsx",
+    "apps/web/src/app/(auth)/layout.tsx",
+    "apps/web/src/app/(dashboard)/admin/layout.tsx",
+    "apps/web/src/app/(auth)/_components/brand-logo.tsx",
+    "packages/emails/src/config.ts",
+  ];
+
+  for (const relativePath of targetFiles) {
+    const fullPath = join(dir, relativePath);
+    if (existsSync(fullPath)) {
+      try {
+        const content = readFileSync(fullPath, "utf8");
+        if (content.includes(oldName)) {
+          const updated = content.replaceAll(oldName, newName);
+          writeFileSync(fullPath, updated);
+        }
+      } catch {
+        // Skip files that can't be read
+      }
+    }
+  }
+}
+
+function copyLogos(sourcePath: string) {
+  if (!existsSync(sourcePath)) {
+    console.log(`⚠️  Logo file not found: ${sourcePath}`);
+    return false;
+  }
+
+  const ext = extname(sourcePath).toLowerCase();
+  const logosDir = join(process.cwd(), "apps/web/public/assets/logos");
+
+  // Copy to different logo variants
+  const logoTargets = [
+    "logo.png",
+    "logo-color.png",
+    "logo-small.png",
+    "logo-color-small.png",
+  ];
+
+  try {
+    for (const target of logoTargets) {
+      const targetPath = join(logosDir, target);
+      copyFileSync(sourcePath, targetPath);
+    }
+    console.log(`✅ Logo copied to ${logoTargets.length} locations`);
+    return true;
+  } catch (error) {
+    console.log(`⚠️  Failed to copy logo: ${error}`);
+    return false;
+  }
 }
 
 async function checkPrerequisites(): Promise<boolean> {
@@ -181,25 +262,37 @@ async function main() {
     console.log("📄 Found existing .env.local file\n");
   }
 
-  // Step 1: Project Name
+  // Step 1: Project Configuration
   printStep(1, totalSteps, "Project Configuration");
 
   const currentDirName = basename(process.cwd());
   const defaultName = currentDirName === "starter-convex-next" ? "my-saas-app" : currentDirName;
 
   console.log(`
-Choose a name for your project. This will be used for:
-• Package names (@your-project/backend, @your-project/ui, etc.)
-• Default branding
-• GitHub repository (if you create one)
+This step configures your project identity:
 
-Examples: my-app, acme-platform, todo-pro
+1. PACKAGE SCOPE - Used for imports (@your-scope/backend, @your-scope/ui)
+   Examples: my-app, acme-platform, todo-pro
+
+2. APP NAME - Display name shown in UI, emails, and browser tabs
+   Examples: "My App", "Acme Platform", "Todo Pro"
+
+3. LOGO - Your app's logo (optional)
 `);
 
-  const projectNameInput = await ask(`Project name (default: ${defaultName}): `);
+  // Package scope
+  const projectNameInput = await ask(`Package scope (default: ${defaultName}): `);
   const projectName = toKebabCase(projectNameInput || defaultName);
   const projectScope = projectName;
   const projectTitle = toPascalCase(projectName);
+
+  // App display name
+  const appNameInput = await ask(`App display name (default: ${projectTitle}): `);
+  const appName = appNameInput || projectTitle;
+
+  // App description
+  const appDescInput = await ask("App description (default: Your premium SaaS application): ");
+  const appDescription = appDescInput || "Your premium SaaS application";
 
   console.log(`\n📦 Updating package names to @${projectScope}/...`);
 
@@ -239,7 +332,39 @@ Examples: my-app, acme-platform, todo-pro
     }
   }
 
-  console.log(`✅ Project configured as "${projectName}"`);
+  // Update centralized app config
+  console.log(`\n🏷️  Updating app branding to "${appName}"...`);
+  updateAppConfig(appName, appDescription, projectScope);
+
+  // Update hardcoded branding strings
+  updateBrandingStrings(process.cwd(), "Starter SaaS", appName);
+
+  console.log(`✅ Project configured as "${projectName}" with display name "${appName}"`);
+
+  // Logo customization
+  console.log("\n🎨 Logo Customization");
+  console.log(`
+Your logo files are located in: apps/web/public/assets/logos/
+  • logo.png - Main logo
+  • logo-color.png - Colored variant
+  • logo-white.png - White/inverted variant
+  • logo-small.png - Small/icon variant
+  • favicon-16.png, favicon-32.png - Favicons
+  • apple-touch-icon.png - iOS icon
+`);
+
+  const setupLogo = await ask("Do you have a logo file to use? (y/n): ");
+  if (setupLogo.toLowerCase() === "y") {
+    const logoPath = await ask("Enter the path to your logo file (PNG recommended): ");
+    if (logoPath) {
+      const resolvedPath = logoPath.startsWith("/") ? logoPath : join(process.cwd(), logoPath);
+      copyLogos(resolvedPath);
+      console.log("\n💡 TIP: For best results, also create white/inverted variants manually.");
+      console.log("   Edit: apps/web/public/assets/logos/logo-white.png");
+    }
+  } else {
+    console.log("\n💡 You can update logos later in: apps/web/public/assets/logos/");
+  }
 
   // Step 2: Install dependencies
   printStep(2, totalSteps, "Installing Dependencies");
@@ -472,7 +597,7 @@ STORYBOOK_PORT=6006
 ║                    🎉 Setup Complete! 🎉                   ║
 ╚═══════════════════════════════════════════════════════════╝
 
-Your project "${projectTitle}" is ready!
+Your project "${appName}" is ready!
 
 Next steps:
 
@@ -483,6 +608,12 @@ Next steps:
    http://localhost:3001
 
 3. Create your first admin user and organization!
+
+Optional customization:
+• Email templates: packages/emails/src/templates/
+• Email translations: packages/emails/src/locales/ (run 'bun lingui compile' after changes)
+• Social links: packages/shared/src/app-config.ts
+• Preview auth config: apps/web/src/features/auth/lib/preview-auth.ts
 
 Useful commands:
 • bun run dev          - Start all services

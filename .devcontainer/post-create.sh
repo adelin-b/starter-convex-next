@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Setting up Better VroomMarket development environment..."
+echo "🚀 Setting up Starter SaaS development environment..."
 
 # Detect workspace directory (DevPod uses /workspaces/<name>, others use /workspace)
 if [ -d "/workspaces" ] && [ "$(ls -A /workspaces 2>/dev/null)" ]; then

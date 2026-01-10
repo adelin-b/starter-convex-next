@@ -253,23 +253,23 @@ type FilterForIndex<
  * indexConditions.field to only the fields in that specific index.
  *
  * @example
- * type VehicleFilter = TypedAdvancedFilterWithIndex<DataModel, "vehicles">;
+ * type ItemFilter = TypedAdvancedFilterWithIndex<DataModel, "items">;
  *
  * // ✅ Valid: by_status index uses "status" field
- * const filter1: VehicleFilter = {
+ * const filter1: ItemFilter = {
  *   indexName: "by_status",
- *   indexConditions: [{ field: "status", operator: "eq", value: "available" }]
+ *   indexConditions: [{ field: "status", operator: "eq", value: "active" }]
  * };
  *
- * // ❌ Type error: by_make index cannot use "status" field
- * const filter2: VehicleFilter = {
- *   indexName: "by_make",
- *   indexConditions: [{ field: "status", operator: "eq", value: "available" }] // Error!
+ * // ❌ Type error: by_category index cannot use "status" field
+ * const filter2: ItemFilter = {
+ *   indexName: "by_category",
+ *   indexConditions: [{ field: "status", operator: "eq", value: "active" }] // Error!
  * };
  *
  * // ✅ Valid: no index = no indexConditions, just postFilters
- * const filter3: VehicleFilter = {
- *   postFilters: [{ field: "make", operator: "contains", value: "Toyota" }]
+ * const filter3: ItemFilter = {
+ *   postFilters: [{ field: "name", operator: "contains", value: "Acme" }]
  * };
  */
 export type TypedAdvancedFilterWithIndex<

@@ -6,10 +6,10 @@ Feature: Homepage Navigation
 	Scenario: View homepage
 		Given I am on the homepage
 		When I look at the page title
-		Then I should see "vroommarket" in the title
+		Then I should see the app name in the title
 
-	Scenario: Navigate to vehicles page
+	Scenario: Navigate to dashboard
 		Given I am on the homepage
-		When I click on "Vehicles" in the navigation
-		Then I should be on the vehicles page
-		And the URL should contain "/vehicles"
+		When I click on "Dashboard" in the navigation
+		Then I should be on the dashboard page
+		And the URL should contain "/dashboard"

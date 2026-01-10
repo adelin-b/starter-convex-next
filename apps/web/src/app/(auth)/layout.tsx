@@ -5,7 +5,7 @@ export const metadata: Metadata = {
     default: "Sign In | Starter SaaS",
     template: "%s | Starter SaaS",
   },
-  description: "Sign in to Starter SaaS - Your premium vehicle marketplace",
+  description: "Sign in to access your account",
 };
 
 export default function AuthLayout({

@@ -284,8 +284,8 @@ export default [
             "^\\\\u[0-9a-fA-F]{4}$",
             // Single punctuation characters (em-dash, bullet, etc.)
             "^[\\u2010-\\u2027\\u2030-\\u205E]$",
-            // Brand name - vroommarket (technical, not translated)
-            "^vroommarket$",
+            // Brand names (technical, not translated)
+            "^starter-?saas$",
             // Full URLs (technical, not translated)
             "^https?://.*$",
             // Domain patterns (vercel.app, etc.)

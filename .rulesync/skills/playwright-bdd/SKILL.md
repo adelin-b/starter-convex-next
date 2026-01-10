@@ -8,7 +8,7 @@ targets:
 ---
 # Playwright BDD Patterns
 
-This skill documents BDD/Gherkin patterns for VroomMarket E2E tests: feature file structure, scenario design, and step definitions.
+This skill documents BDD/Gherkin patterns for Starter SaaS E2E tests: feature file structure, scenario design, and step definitions.
 
 ## Core Principles
 
@@ -18,28 +18,13 @@ Feature files serve three purposes: **specifications**, **documentation**, **tes
 
 ```
 apps/e2e/
-├── lib/
-│   ├── components/         # Component Object Model (COM)
-│   │   ├── index.ts        # Barrel export
-│   │   ├── sign-in-form.component.ts
-│   │   ├── sign-up-form.component.ts
-│   │   ├── toast.component.ts
-│   │   └── user-menu.component.ts
-│   ├── pages/              # Page Object Model (POM)
-│   │   ├── index.ts        # Barrel export
-│   │   ├── base.page.ts    # Abstract base class
-│   │   └── login.page.ts   # Login page object
-│   ├── form-utils.ts       # Shared form utilities
-│   ├── google-one-tap-utils.ts
-│   └── viewport-utils.ts
 ├── tests/
 │   ├── features/           # Gherkin feature files
 │   │   ├── auth/           # Domain: authentication
-│   │   ├── vehicles/       # Domain: vehicle management
-│   │   └── steps/          # Step definitions (TypeScript)
-│   │       ├── fixtures.ts # Test context & cleanup
-│   │       └── auth.steps.ts
-│   └── features-gen/       # Generated specs (bunx bddgen)
+│   │   ├── items/       # Domain: item management
+│   │   ├── homepage/       # Domain: landing page
+│   │   └── navigation/     # Domain: site navigation
+│   └── steps/              # Step definitions (TypeScript)
 ├── playwright.config.ts
 └── package.json
 ```
@@ -55,7 +40,7 @@ Single When clause triggers single behavior. Multiple Whens should be split into
 ```gherkin
 # Improvement needed - two behaviors
 Scenario: Search and filter
-  When user searches "car"
+  When user searches "product"
   Then results appear
   When user clicks filter
   Then filtered results appear
@@ -63,11 +48,11 @@ Scenario: Search and filter
 # Recommended approach - independent scenarios
 Scenario: Search returns results
   Given search page displayed
-  When user searches "car"
-  Then car-related results shown
+  When user searches "product"
+  Then product-related results shown
 
 Scenario: Filter narrows results
-  Given search results for "car" displayed
+  Given search results for "product" displayed
   When user applies price filter
   Then filtered results shown
 ```
@@ -183,7 +168,7 @@ When I sign in as "admin@realcompany.com" with password "RealPassword!"
 | Background > 4 lines                  | 75         | Split or use Given    |
 | > 10 steps in scenario                | 80         | Abstract or split     |
 
-## Existing VroomMarket Steps
+## Existing Starter SaaS Steps
 
 Common steps already defined in `apps/e2e/tests/steps/`:
 

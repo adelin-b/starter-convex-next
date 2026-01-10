@@ -15,8 +15,8 @@ function SpeedLine({ delay, top, width }: { delay: string; top: string; width: s
   );
 }
 
-/** Floating car silhouette SVG */
-function CarSilhouette() {
+/** Floating abstract shape SVG */
+function FloatingShape() {
   return (
     <div className="-translate-x-1/2 absolute bottom-[12%] left-1/2 h-32 w-[320px] animate-float">
       <svg
@@ -25,7 +25,8 @@ function CarSilhouette() {
         viewBox="0 0 200 80"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M20,50 Q30,35 60,35 L80,35 Q90,25 110,20 L140,20 Q160,20 170,35 L180,35 Q190,35 190,50 L190,55 Q190,60 185,60 L175,60 Q175,70 165,70 Q155,70 155,60 L55,60 Q55,70 45,70 Q35,70 35,60 L15,60 Q10,60 10,55 L10,50 Q10,45 20,50 Z" />
+        {/* Abstract geometric shape - waves/flow */}
+        <path d="M10,40 Q30,20 50,40 T90,40 T130,40 T170,40 T190,40 L190,60 Q170,80 130,60 Q90,40 50,60 Q30,80 10,60 Z" />
       </svg>
     </div>
   );
@@ -82,8 +83,8 @@ export function AuthVisualPanel() {
       {/* Brand content */}
       <BrandContent />
 
-      {/* Floating car */}
-      <CarSilhouette />
+      {/* Floating shape */}
+      <FloatingShape />
     </motion.div>
   );
 }

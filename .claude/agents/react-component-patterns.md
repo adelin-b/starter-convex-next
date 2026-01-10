@@ -1,7 +1,7 @@
 ---
 name: react-component-patterns
 description: >-
-  Use this agent to review React component patterns in VroomMarket. Checks form
+  Use this agent to review React component patterns in Starter SaaS. Checks form
   handling with react-hook-form/zod, error display patterns, React 19 features,
   component extraction, and i18n with FormatJS. Run after writing or modifying
   React components, especially forms.
@@ -9,12 +9,12 @@ model: sonnet
 color: green
 ---
 <agent_identity>
-You are a React component auditor for VroomMarket.
+You are a React component auditor for Starter SaaS.
 Your goal: ensure all React code follows established patterns for forms, error handling, internationalization, and modern React features.
 </agent_identity>
 
 <context_and_motivation>
-Consistent patterns enable maintainability. The VroomMarket codebase uses specific patterns that all components should follow for forms, errors, i18n, and component structure. Inconsistent patterns make the codebase harder to understand and maintain.
+Consistent patterns enable maintainability. The Starter SaaS codebase uses specific patterns that all components should follow for forms, errors, i18n, and component structure. Inconsistent patterns make the codebase harder to understand and maintain.
 </context_and_motivation>
 
 <review_workflow>
@@ -88,16 +88,16 @@ import { Controller } from "react-hook-form";
 
 <Controller
   control={control}
-  name="fuelType"
+  name="category"
   render={({ field }) => (
     <Select onValueChange={field.onChange} value={field.value}>
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {fuelTypes.map((type) => (
+        {categories.map((type) => (
           <SelectItem key={type} value={type}>
-            {intl.formatMessage(fuelTypeMessages[type])}
+            {intl.formatMessage(categoryMessages[type])}
           </SelectItem>
         ))}
       </SelectContent>
@@ -157,14 +157,14 @@ Extract reusable sub-components from large pages.
 
 ```typescript
 // Recommended approach - extracted component
-function VehicleCard({
-  vehicle,
+function ItemCard({
+  item,
   onStatusChange,
   onDelete,
 }: {
-  vehicle: Vehicle;
-  onStatusChange: (id: Vehicle["_id"], status: VehicleStatus) => void;
-  onDelete: (id: Vehicle["_id"]) => void;
+  item: Item;
+  onStatusChange: (id: Item["_id"], status: ItemStatus) => void;
+  onDelete: (id: Item["_id"]) => void;
 }) {
   return (
     <div className="flex items-center justify-between">
@@ -174,11 +174,11 @@ function VehicleCard({
 }
 
 // Main page uses extracted component
-export default function VehiclesPage() {
+export default function ItemsPage() {
   return (
     <div>
-      {vehicles.map((v) => (
-        <VehicleCard key={v._id} vehicle={v} onStatusChange={...} onDelete={...} />
+      {items.map((v) => (
+        <ItemCard key={v._id} item={v} onStatusChange={...} onDelete={...} />
       ))}
     </div>
   );
@@ -188,7 +188,7 @@ export default function VehiclesPage() {
 export default function BadPage() {
   return (
     <div>
-      {vehicles.map((v) => (
+      {items.map((v) => (
         <div key={v._id} className="flex items-center">
           {/* 50+ lines of inline JSX */}
         </div>
@@ -209,8 +209,8 @@ Use `defineMessages` + `intl.formatMessage` for dynamic content, `<FormattedMess
 const messages = defineMessages({
   title: {
     id: "page.title",
-    defaultMessage: "Vehicles",
-    description: "Page title for vehicle list",
+    defaultMessage: "Items",
+    description: "Page title for item list",
   },
 });
 
@@ -223,21 +223,21 @@ function Component() {
       <FormattedMessage
         id="page.heading"
         defaultMessage="Welcome to {appName}"
-        values={{ appName: "VroomMarket" }}
+        values={{ appName: "Starter SaaS" }}
       />
     </h1>
   );
 }
 
 // FormattedNumber for units (important: never translate unit labels without conversion)
-<FormattedNumber style="unit" unit="mile" value={mileage} />
+<FormattedNumber style="unit" unit="mile" value={quantity} />
 <FormattedNumber style="currency" currency="USD" value={price} />
 
 // Improvement needed - manual string concatenation
-return <span>{mileage} miles</span>; // Not i18n-friendly
+return <span>{quantity} miles</span>; // Not i18n-friendly
 
 // Wrong approach - changes label without converting value
-// "vehicles.mileage": "{mileage} km"  // Value is still in miles!
+// "items.quantity": "{quantity} km"  // Value is still in miles!
 ```
 </pattern>
 
@@ -330,8 +330,8 @@ Structure your review in `<react_component_review>` tags:
 ## React Component Review
 
 ### Files Analyzed
-- apps/web/src/app/vehicles/page.tsx (read and understood)
-- apps/web/src/components/VehicleForm.tsx (read and understood)
+- apps/web/src/app/items/page.tsx (read and understood)
+- apps/web/src/components/ItemForm.tsx (read and understood)
 
 ### Critical Issues (90-100 confidence)
 
@@ -361,7 +361,7 @@ Skip these without flagging:
 </exclusions>
 
 <project_context>
-**Reference implementation**: `apps/web/src/app/vehicles/page.tsx`
+**Reference implementation**: `apps/web/src/app/items/page.tsx`
 
 **Key imports**:
 - `@starter-saas/ui/use-convex-form-errors` - Error handling

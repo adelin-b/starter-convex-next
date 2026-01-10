@@ -8,7 +8,7 @@ targets:
 ---
 # Feature-Sliced Design (@x Pattern)
 
-VroomMarket uses Feature-Sliced Design for feature isolation with **@x public API folders** for explicit cross-feature communication.
+Starter SaaS uses Feature-Sliced Design for feature isolation with **@x public API folders** for explicit cross-feature communication.
 
 ## Core Principles
 
@@ -28,14 +28,14 @@ apps/web/src/
 │   │   ├── hooks/          # Internal hooks
 │   │   ├── @x/             # PUBLIC API FOLDER
 │   │   │   ├── admin.ts    # Exports for admin app pages
-│   │   │   └── vehicles.ts # Exports for vehicles feature
+│   │   │   └── items.ts # Exports for items feature
 │   │   ├── i18n.ts         # Internal i18n messages
 │   │   └── types.ts        # Internal types
 │   ├── users/
 │   │   ├── components/
 │   │   └── @x/
 │   │       └── agencies.ts # Exports for agencies feature
-│   └── vehicles/
+│   └── items/
 │       ├── components/
 │       └── @x/
 │           └── admin.ts
@@ -117,7 +117,7 @@ import { getServerSession } from "@/app/api/auth/[...nextauth]/route";
 
 // Shared modules importing from features
 // In components/ui/data-table.tsx
-import { VehicleStatus } from "@/features/vehicles/types";
+import { ItemStatus } from "@/features/items/types";
 // ERROR: Shared modules cannot import from features. Move to shared if needed.
 ```
 
@@ -128,7 +128,7 @@ import { VehicleStatus } from "@/features/vehicles/types";
 | Feature-specific component used by 1-2 other features | Generic component used by 3+ features |
 | Domain coupling is acceptable | Zero domain coupling required |
 | Example: `UserCell` for member tables | Example: `Button`, `DataTable`, `cn()` |
-| Example: `VehicleStatusBadge` | Example: `formatDate()`, `debounce()` |
+| Example: `ItemStatusBadge` | Example: `formatDate()`, `debounce()` |
 
 **Decision criteria**: If removing a feature would break shared code, it belongs in the feature's @x folder, not shared.
 
@@ -203,4 +203,4 @@ When refactoring to this pattern:
 
 - [Feature-Sliced Design](https://feature-sliced.design/docs/reference/public-api)
 - [Bulletproof React](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md)
-- VroomMarket implementation: `packages/eslint-config/feature-boundaries.js`
+- Starter SaaS implementation: `packages/eslint-config/feature-boundaries.js`

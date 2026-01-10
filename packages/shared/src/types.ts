@@ -5,8 +5,8 @@
  * @example
  * ```ts
  * const error: FieldError = {
- *   field: "licensePlate",
- *   message: "This license plate already exists",
+ *   field: "email",
+ *   message: "This email already exists",
  *   code: "DUPLICATE",
  * };
  * ```

@@ -14,24 +14,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/templates/invitation.tsx:57
-msgid "{inviterName} has invited you to join {agencyName} on VroomMarket."
-msgstr "{inviterName} vous a invité à rejoindre {agencyName} sur VroomMarket."
+msgid "{inviterName} has invited you to join {organizationName}."
+msgstr "{inviterName} vous a invité à rejoindre {organizationName}."
 
 #: src/templates/invitation.tsx:72
 msgid "Accept Invitation"
 msgstr "Accepter l'invitation"
 
 #: src/templates/welcome.tsx:49
-msgid "Browse thousands of vehicles"
-msgstr "Parcourir des milliers de véhicules"
+msgid "Access all features"
+msgstr "Accéder à toutes les fonctionnalités"
 
 #: src/templates/welcome.tsx:55
-msgid "Connect with buyers and sellers"
-msgstr "Entrer en contact avec acheteurs et vendeurs"
+msgid "Collaborate with your team"
+msgstr "Collaborer avec votre équipe"
 
 #: src/templates/welcome.tsx:58
-msgid "Get the best deals on the market"
-msgstr "Obtenir les meilleures offres du marché"
+msgid "Get started in minutes"
+msgstr "Démarrer en quelques minutes"
 
 #: src/templates/password-reset.tsx:38
 #: src/templates/verification.tsx:38
@@ -56,8 +56,8 @@ msgid "If you weren't expecting this invitation, you can safely ignore this emai
 msgstr "Si vous n'attendiez pas cette invitation, vous pouvez ignorer cet email."
 
 #: src/templates/welcome.tsx:52
-msgid "List your vehicles for sale"
-msgstr "Mettre vos véhicules en vente"
+msgid "Manage your organization"
+msgstr "Gérer votre organisation"
 
 #: src/templates/invitation.tsx:89
 #: src/templates/password-reset.tsx:58
@@ -75,15 +75,15 @@ msgstr "Réinitialisez votre mot de passe"
 
 #: src/templates/welcome.tsx:63
 msgid "Start Browsing"
-msgstr "Commencer à parcourir"
+msgstr "Commencer"
 
 #: src/templates/welcome.tsx:36
-msgid "Thanks for joining VroomMarket! We're excited to have you on board."
-msgstr "Merci d'avoir rejoint VroomMarket ! Nous sommes ravis de vous accueillir."
+msgid "Thanks for joining! We're excited to have you on board."
+msgstr "Merci de nous avoir rejoints ! Nous sommes ravis de vous accueillir."
 
 #: src/templates/verification.tsx:41
-msgid "Thanks for signing up for VroomMarket! Please verify your email address by clicking the button below."
-msgstr "Merci de vous être inscrit sur VroomMarket ! Veuillez vérifier votre adresse email en cliquant sur le bouton ci-dessous."
+msgid "Thanks for signing up! Please verify your email address by clicking the button below."
+msgstr "Merci de vous être inscrit ! Veuillez vérifier votre adresse email en cliquant sur le bouton ci-dessous."
 
 #: src/templates/invitation.tsx:76
 msgid "This invitation will expire in {expiresInDays} days."
@@ -102,16 +102,16 @@ msgid "Verify your email address"
 msgstr "Vérifiez votre adresse email"
 
 #: src/templates/welcome.tsx:42
-msgid "VroomMarket is your trusted marketplace for buying and selling vehicles. Here's what you can do:"
-msgstr "VroomMarket est votre marketplace de confiance pour acheter et vendre des véhicules. Voici ce que vous pouvez faire :"
+msgid "Here's what you can do to get started:"
+msgstr "Voici ce que vous pouvez faire pour commencer :"
 
 #: src/templates/password-reset.tsx:41
 msgid "We received a request to reset your password. Click the button below to choose a new password."
 msgstr "Nous avons reçu une demande de réinitialisation de votre mot de passe. Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe."
 
 #: src/templates/welcome.tsx:30
-msgid "Welcome to VroomMarket!"
-msgstr "Bienvenue sur VroomMarket !"
+msgid "Welcome!"
+msgstr "Bienvenue !"
 
 #: src/templates/invitation.tsx:47
 msgid "You're invited to join {agencyName}"

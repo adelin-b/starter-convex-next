@@ -14,14 +14,20 @@
  * 4. Preview receives token, sets cookie, and redirects to dashboard
  */
 
-/** Staging URL where Google OAuth callback is configured */
-const STAGING_BASE_URL = "https://better-vroom-web-git-develop-starter-saas.vercel.app";
+/**
+ * Staging URL where Google OAuth callback is configured.
+ * Update this when deploying to your own staging environment.
+ */
+const STAGING_BASE_URL = "https://your-app-staging.vercel.app";
 
-/** Production URL (main deployment) */
-const PRODUCTION_HOSTS = ["starter-saas.fr", "www.starter-saas.fr"] as const;
+/**
+ * Production URL (main deployment).
+ * Update these with your production domains.
+ */
+const PRODUCTION_HOSTS = ["your-app.com", "www.your-app.com"] as const;
 
 /** localStorage key for storing preview return URL */
-const PREVIEW_URL_KEY = "starter-saas_preview_return_url";
+const PREVIEW_URL_KEY = "starter_saas_preview_return_url";
 
 /**
  * Detects if the current deployment is a Vercel preview deployment.

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     default: "Starter SaaS",
     template: "%s | Starter SaaS",
   },
-  description: "Vehicle marketplace for organizations",
+  description: "Your premium SaaS application",
 };
 
 export default async function RootLayout({

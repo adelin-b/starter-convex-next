@@ -3,12 +3,12 @@ set -e
 
 echo "=== Starting bundle analysis ==="
 
-# Navigate to project root
-cd "/Users/adelinb/Documents/Projects/vroom/better-vroommarket"
+# Navigate to project root (use script directory)
+cd "$(dirname "$0")"
 
 # Run build
 echo "Building Next.js app..."
-/opt/homebrew/bin/bun run build
+bun run build
 
 # Check if build succeeded
 if [ $? -eq 0 ]; then

@@ -8,7 +8,7 @@ targets:
 ---
 # Vitest Testing Patterns for Convex Backend
 
-This skill documents testing patterns for VroomMarket's Convex backend tests using Vitest and convex-test.
+This skill documents testing patterns for Starter SaaS's Convex backend tests using Vitest and convex-test.
 
 ## Core Patterns
 
@@ -42,22 +42,22 @@ describe("feature", () => {
 Every test should have clear sections:
 
 ```typescript
-test("creates vehicle with equipment", async () => {
+test("creates item with equipment", async () => {
   // Arrange - setup test data
   const t = convexTest(schema, modules);
   const asUser = t.withIdentity({ name: "Test User", subject: "user-123" });
   const agencyId = await createTestAgency(t);
 
   // Act - perform the action
-  const { id } = await asUser.mutation(api.vehicles.createDraft, { agencyId });
-  await asUser.mutation(api.vehicles.updateVehicle, {
+  const { id } = await asUser.mutation(api.items.createDraft, { agencyId });
+  await asUser.mutation(api.items.updateItem, {
     id,
     updates: { equipment: ["bluetooth", "gps"] as const },
   });
 
   // Assert - verify results
-  const vehicle = await asUser.query(api.vehicles.getById, { id });
-  expect(vehicle?.equipment).toEqual(["bluetooth", "gps"]);
+  const item = await asUser.query(api.items.getById, { id });
+  expect(item?.equipment).toEqual(["bluetooth", "gps"]);
 });
 ```
 
@@ -71,7 +71,7 @@ async function setupTestData(
   options: {
     withMembership?: boolean;
     roles?: ("agency-manager" | "commercial")[];
-    vehicleCount?: number;
+    itemCount?: number;
   } = {},
 ) {
   const userId = "test-user-123";
@@ -117,20 +117,20 @@ Use `test.each` when testing multiple similar cases:
 ```typescript
 // Improvement needed - many assertions in one test
 test("maps all fuel types", () => {
-  expect(mapFuelType("gasoline")).toBe("1");
-  expect(mapFuelType("diesel")).toBe("2");
-  expect(mapFuelType("electric")).toBe("4");
+  expect(mapCategory("basic")).toBe("1");
+  expect(mapCategory("premium")).toBe("2");
+  expect(mapCategory("enterprise")).toBe("4");
   // ... more
 });
 
 // Recommended approach - each case is a separate test
 test.each([
-  ["gasoline", "1"],
-  ["diesel", "2"],
-  ["electric", "4"],
+  ["basic", "1"],
+  ["premium", "2"],
+  ["enterprise", "4"],
   ["hybrid", "5"],
 ] as const)("maps %s to LBC code %s", (input, expected) => {
-  expect(mapFuelType(input)).toBe(expected);
+  expect(mapCategory(input)).toBe(expected);
 });
 ```
 
@@ -149,7 +149,7 @@ test("requires authentication", async () => {
   const { agencyId } = await setupTestData(t);
 
   // Anonymous user (no identity)
-  await expect(t.query(api.vehicles.getByAgency, { agencyId })).rejects.toThrow(
+  await expect(t.query(api.items.getByAgency, { agencyId })).rejects.toThrow(
     /NOT_AUTHENTICATED/i,
   );
 });
@@ -161,7 +161,7 @@ test("requires agency membership", async () => {
   // Different user without membership
   const otherUser = t.withIdentity({ name: "Other", subject: "other-456" });
 
-  await expect(otherUser.query(api.vehicles.getByAgency, { agencyId })).rejects.toThrow(
+  await expect(otherUser.query(api.items.getByAgency, { agencyId })).rejects.toThrow(
     /INSUFFICIENT_PERMISSIONS/i,
   );
 });
@@ -240,12 +240,12 @@ Preserve literal types in test data:
 
 ```typescript
 // Improvement needed - types widen to string
-const vehicle = { status: "available", fuelType: "gasoline" };
+const item = { status: "available", category: "basic" };
 
 // Recommended approach - preserve literal types
-const vehicle = {
+const item = {
   status: "available" as const,
-  fuelType: "gasoline" as const,
+  category: "basic" as const,
 };
 
 // Or use typed arrays

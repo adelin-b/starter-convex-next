@@ -19,7 +19,7 @@ Use `zodTable` with Zod validators for schema definitions. zodTable provides run
 ```typescript
 // Improvement needed - raw defineTable without validation
 export default defineSchema({
-  vehicles: defineTable({
+  items: defineTable({
     make: v.string(),     // No min/max
     year: v.number(),     // No range check
     status: v.string(),   // Should be enum
@@ -30,15 +30,15 @@ export default defineSchema({
 import { z } from "zod";
 import { zodTable } from "zodvex";
 
-export const Vehicles = zodTable("vehicles", {
+export const Items = zodTable("items", {
   make: z.string().min(1, "Make required").max(255),
   year: z.number().min(1900).max(2026),
-  status: z.enum(vehicleStatuses),  // Uses const array
-  fuelType: z.enum(fuelTypes),
+  status: z.enum(itemStatuses),  // Uses const array
+  category: z.enum(categories),
 });
 
 export default defineSchema({
-  vehicles: Vehicles.table,
+  items: Items.table,
 });
 ```
 
@@ -48,21 +48,21 @@ Define indexes for all fields used in queries. Queries without indexes scan enti
 
 ```typescript
 // Improvement needed - querying without index
-const vehicle = await ctx.db.query("vehicles")
-  .filter(q => q.eq(q.field("licensePlate"), plate)) // Full table scan
+const item = await ctx.db.query("items")
+  .filter(q => q.eq(q.field("slug"), plate)) // Full table scan
   .first();
 
 // Recommended approach - using index
-const vehicle = await ctx.db.query("vehicles")
-  .withIndex("by_license_plate", q => q.eq("licensePlate", plate))
+const item = await ctx.db.query("items")
+  .withIndex("by_slug", q => q.eq("slug", plate))
   .first();
 ```
 
 Schema should define indexes:
 ```typescript
 export default defineSchema({
-  vehicles: defineTable({...})
-    .index("by_license_plate", ["licensePlate"])
+  items: defineTable({...})
+    .index("by_slug", ["slug"])
     .index("by_status", ["status"])
     .index("by_owner", ["ownerId"]),
 });
@@ -73,13 +73,13 @@ export default defineSchema({
 Check auth at the START of every mutation/query that requires it.
 
 ```typescript
-export const createVehicle = mutation({
-  args: { data: Vehicles.zodValidator },
+export const createItem = mutation({
+  args: { data: Items.zodValidator },
   handler: async (ctx, args) => {
     // FIRST: Auth check
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw AppErrors.notAuthenticated("create vehicle");
+      throw AppErrors.notAuthenticated("create item");
     }
 
     // THEN: Get user from database
@@ -91,7 +91,7 @@ export const createVehicle = mutation({
     }
 
     // FINALLY: Business logic
-    return await ctx.db.insert("vehicles", {
+    return await ctx.db.insert("items", {
       ...args.data,
       ownerId: user._id,
     });
@@ -199,14 +199,14 @@ Use zodValidator for complex argument validation.
 
 ```typescript
 // Simple args - use v.xxx()
-export const getVehicle = query({
-  args: { id: v.id("vehicles") },
+export const getItem = query({
+  args: { id: v.id("items") },
   handler: async (ctx, args) => {...},
 });
 
 // Complex args - use zodValidator
-export const createVehicle = mutation({
-  args: { data: Vehicles.zodValidator },
+export const createItem = mutation({
+  args: { data: Items.zodValidator },
   handler: async (ctx, args) => {
     // args.data is fully validated and typed
   },
@@ -221,16 +221,16 @@ Use `AppErrors` factories, not raw throws:
 import { AppErrors } from "./lib/errors";
 
 // Correct
-throw AppErrors.notAuthenticated("view vehicles");
-throw AppErrors.vehicleNotFound(vehicleId);
-throw AppErrors.duplicateValue("licensePlate", plate);
+throw AppErrors.notAuthenticated("view items");
+throw AppErrors.itemNotFound(itemId);
+throw AppErrors.duplicateValue("slug", plate);
 throw AppErrors.agencyNotFound(agencyId);
 throw AppErrors.agencyMemberNotFound(memberId);
 throw AppErrors.insufficientPermissions("admin", "create agency");
 
 // Wrong
 throw new Error("Not authenticated");
-throw new Error("Vehicle not found");
+throw new Error("Item not found");
 ```
 
 ### 9. Template: Admin Query with User Data

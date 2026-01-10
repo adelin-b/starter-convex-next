@@ -8,7 +8,7 @@ targets:
 ---
 # TypeScript Type Safety Patterns
 
-This skill documents TypeScript patterns that ensure compile-time type safety in VroomMarket.
+This skill documents TypeScript patterns that ensure compile-time type safety in Starter SaaS.
 
 ## Patterns
 
@@ -43,12 +43,12 @@ Arrays defining union types MUST use `as const`. Without it, TypeScript widens t
 
 ```typescript
 // Improvement needed - type becomes string[]
-export const fuelTypes = ["gasoline", "diesel", "electric"];
-type FuelType = typeof fuelTypes[number]; // string - loses type safety
+export const categories = ["basic", "premium", "enterprise"];
+type Category = typeof categories[number]; // string - loses type safety
 
 // Recommended approach
-export const fuelTypes = ["gasoline", "diesel", "electric"] as const;
-type FuelType = typeof fuelTypes[number]; // "gasoline" | "diesel" | "electric"
+export const categories = ["basic", "premium", "enterprise"] as const;
+type Category = typeof categories[number]; // "basic" | "premium" | "enterprise"
 ```
 
 **Exception**: Arrays that are actually meant to be mutable.
@@ -154,8 +154,8 @@ export function getBestLocale(preferredLocales: string[]): SupportedLocale {
 **assertNever location**: `@starter-saas/shared/assert-never`
 
 **Common union types**:
-- `VehicleStatus`: "available" | "sold" | "reserved"
-- `FuelType`: "gasoline" | "diesel" | "electric" | "hybrid"
+- `ItemStatus`: "available" | "sold" | "reserved"
+- `Category`: "basic" | "premium" | "enterprise" | "hybrid"
 - `TransmissionType`: "automatic" | "manual"
 - `AgencyRole`: "agency-manager" | "commercial"
 - `ErrorCode`: Various error codes in AppErrors

@@ -18,7 +18,7 @@
     "test:e2e:coverage": "rimraf .v8-coverage && bun run bddgen && playwright test --config=playwright.coverage.config.ts",
     "report": "playwright show-report",
     "report:coverage": "open coverage-report/index.html",
-    "lint:steps": "bun scripts/lint-steps.ts"
+    "check:steps": "bun scripts/lint-steps.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",

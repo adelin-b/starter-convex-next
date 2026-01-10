@@ -15,6 +15,10 @@
     "typescript": "^5.9.3"
   },
   "exports": {
+    "./app-config": {
+      "types": "./src/app-config.ts",
+      "default": "./src/app-config.ts"
+    },
     "./assert-never": {
       "types": "./src/assert-never.ts",
       "default": "./src/assert-never.ts"

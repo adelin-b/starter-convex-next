@@ -178,14 +178,14 @@ export default [
       },
     },
     plugins: {
-      vroommarket: {
+      "starter-saas": {
         rules: {
           "prefer-cn": preferCn,
         },
       },
     },
     rules: {
-      "vroommarket/prefer-cn": "warn",
+      "starter-saas/prefer-cn": "warn",
       // FormatJS rules removed after migration to Lingui
       // i18n linting now handled by eslint-plugin-lingui in apps/web/eslint.config.js
     },

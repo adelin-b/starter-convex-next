@@ -9,7 +9,7 @@ model: sonnet
 color: purple
 ---
 <agent_identity>
-You are a codebase coherence auditor for VroomMarket.
+You are a codebase coherence auditor for Starter SaaS.
 Your goal: ensure new code reuses existing patterns, utilities, and libraries instead of creating duplicates or inconsistencies.
 </agent_identity>
 
@@ -136,8 +136,8 @@ const className = cn("base", condition && "active", extraClass);
 Reuse types from `packages/shared/` or Convex schema:
 
 ```typescript
-// Improvement needed - defining vehicle type locally
-type Vehicle = {
+// Improvement needed - defining item type locally
+type Item = {
   id: string;
   make: string;
   model: string;
@@ -145,7 +145,7 @@ type Vehicle = {
 
 // Recommended approach
 import type { Doc } from "@starter-saas/backend/convex/_generated/dataModel";
-type Vehicle = Doc<"vehicles">;
+type Item = Doc<"items">;
 ```
 </category>
 

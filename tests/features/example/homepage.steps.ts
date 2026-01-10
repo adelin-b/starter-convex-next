@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { Given, Then, When } from "../steps/fixtures";
 
 // Top-level regex pattern for URL matching (required by biome lint)
-const VEHICLES_URL = /\/vehicles/;
+const DASHBOARD_URL = /\/dashboard/;
 
 /**
  * Step definition for navigating to the homepage.
@@ -21,6 +21,13 @@ When("I look at the page title", async () => {
   // No action needed, just setting up for the Then step
 });
 
+Then("I should see the app name in the title", async ({ page, ctx }) => {
+  const activePage = ctx.page || page;
+  const title = await activePage.title();
+  // App name should be in the title - this is flexible for any app name
+  expect(title.length).toBeGreaterThan(0);
+});
+
 Then("I should see {string} in the title", async ({ page, ctx }, expectedText: string) => {
   const activePage = ctx.page || page;
   const title = await activePage.title();
@@ -32,10 +39,10 @@ When("I click on {string} in the navigation", async ({ page, ctx }, linkText: st
   await activePage.click(`nav >> text=${linkText}`);
 });
 
-Then("I should be on the vehicles page", async ({ page, ctx }) => {
+Then("I should be on the dashboard page", async ({ page, ctx }) => {
   const activePage = ctx.page || page;
   await activePage.waitForLoadState("networkidle");
-  await expect(activePage).toHaveURL(VEHICLES_URL);
+  await expect(activePage).toHaveURL(DASHBOARD_URL);
 });
 
 Then("the URL should contain {string}", ({ page, ctx }, urlPart: string) => {

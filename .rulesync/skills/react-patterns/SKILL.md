@@ -8,7 +8,7 @@ targets:
 ---
 # React Component Patterns
 
-This skill documents React patterns for VroomMarket components: forms, error handling, i18n, and component extraction.
+This skill documents React patterns for Starter SaaS components: forms, error handling, i18n, and component extraction.
 
 ## Patterns
 
@@ -57,16 +57,16 @@ import { Controller } from "react-hook-form";
 
 <Controller
   control={control}
-  name="fuelType"
+  name="category"
   render={({ field }) => (
     <Select onValueChange={field.onChange} value={field.value}>
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {fuelTypes.map((type) => (
+        {categories.map((type) => (
           <SelectItem key={type} value={type}>
-            {i18n._(fuelTypeMessages[type])}
+            {i18n._(categoryMessages[type])}
           </SelectItem>
         ))}
       </SelectContent>
@@ -121,14 +121,14 @@ Extract reusable components when **2+ places** use the same UI pattern.
 
 ```typescript
 // Recommended approach - extracted component
-function VehicleCard({
-  vehicle,
+function ItemCard({
+  item,
   onStatusChange,
   onDelete,
 }: {
-  vehicle: Vehicle;
-  onStatusChange: (id: Vehicle["_id"], status: VehicleStatus) => void;
-  onDelete: (id: Vehicle["_id"]) => void;
+  item: Item;
+  onStatusChange: (id: Item["_id"], status: ItemStatus) => void;
+  onDelete: (id: Item["_id"]) => void;
 }) {
   return (
     <div className="flex items-center justify-between">
@@ -138,11 +138,11 @@ function VehicleCard({
 }
 
 // Main page uses extracted component
-export default function VehiclesPage() {
+export default function ItemsPage() {
   return (
     <div>
-      {vehicles.map((v) => (
-        <VehicleCard key={v._id} vehicle={v} onStatusChange={...} onDelete={...} />
+      {items.map((v) => (
+        <ItemCard key={v._id} item={v} onStatusChange={...} onDelete={...} />
       ))}
     </div>
   );
@@ -152,7 +152,7 @@ export default function VehiclesPage() {
 export default function BadPage() {
   return (
     <div>
-      {vehicles.map((v) => (
+      {items.map((v) => (
         <div key={v._id} className="flex items-center">
           {/* 50+ lines of inline JSX */}
         </div>
@@ -183,7 +183,7 @@ import { msg } from "@lingui/core/macro";
 function Component() {
   return (
     <h1>
-      <Trans>Welcome to VroomMarket</Trans>
+      <Trans>Welcome to Starter SaaS</Trans>
     </h1>
   );
 }
@@ -192,7 +192,7 @@ function Component() {
 function DynamicComponent() {
   const { t, i18n } = useLingui();
 
-  const title = t`Vehicles`;
+  const title = t`Items`;
   const greeting = t`Hello, ${userName}!`;
 
   // For locale-aware formatting
@@ -201,34 +201,34 @@ function DynamicComponent() {
     currency: "USD",
   }).format(price);
 
-  const formattedMileage = new Intl.NumberFormat(i18n.locale, {
+  const formattedQuantity = new Intl.NumberFormat(i18n.locale, {
     style: "unit",
     unit: "mile",
     unitDisplay: "short",
-  }).format(mileage);
+  }).format(quantity);
 
-  return <span>{formattedMileage}</span>;
+  return <span>{formattedQuantity}</span>;
 }
 
 // Pluralization with plural macro
 import { plural } from "@lingui/core/macro";
 
-function VehicleCount({ count }) {
+function ItemCount({ count }) {
   const { _ } = useLingui();
 
   return (
     <span>
       {_(plural(count, {
-        zero: "No vehicles",
-        one: "# vehicle",
-        other: "# vehicles",
+        zero: "No items",
+        one: "# item",
+        other: "# items",
       }))}
     </span>
   );
 }
 
 // Improvement needed - hardcoded strings
-return <span>{mileage} miles</span>; // Not i18n-friendly
+return <span>{quantity} miles</span>; // Not i18n-friendly
 ```
 
 ### 5.1 i18n Message Organization with msg macro
@@ -236,7 +236,7 @@ return <span>{mileage} miles</span>; // Not i18n-friendly
 Organize i18n messages by **semantic category**, not by component. Create `i18n.ts` files in feature folders.
 
 ```typescript
-// features/vehicles/i18n.ts
+// features/items/i18n.ts
 import { msg } from "@lingui/core/macro";
 
 /** Status label messages for i18n */
@@ -254,10 +254,10 @@ export const roleMessages = {
 
 /** Form field labels */
 export const formMessages = {
-  licensePlate: msg`License Plate`,
+  slug: msg`Slug`,
   price: msg`Price`,
-  mileage: msg`Mileage`,
-  fuelType: msg`Fuel Type`,
+  quantity: msg`Quantity`,
+  category: msg`Fuel Type`,
 } as const;
 ```
 
@@ -267,11 +267,11 @@ export const formMessages = {
 import { useLingui } from "@lingui/react/macro";
 import { statusMessages, formMessages } from "../i18n";
 
-function VehicleCard({ vehicle }) {
+function ItemCard({ item }) {
   const { i18n } = useLingui();
 
   return (
-    <Badge>{i18n._(statusMessages[vehicle.status])}</Badge>
+    <Badge>{i18n._(statusMessages[item.status])}</Badge>
   );
 }
 ```
@@ -463,11 +463,11 @@ import { useLingui } from "@lingui/react/macro";
 // In component
 const { t } = useLingui();
 const labels: Partial<DataTableLabels> = {
-  searchPlaceholder: t`Search vehicles by make, model, license plate...`,
-  loading: t`Loading vehicles`,
+  searchPlaceholder: t`Search items by make, model, slug...`,
+  loading: t`Loading items`,
 };
 
-<DataTable data={vehicles} columns={columns} labels={labels} />
+<DataTable data={items} columns={columns} labels={labels} />
 ```
 
 **Anti-pattern**:
@@ -479,7 +479,7 @@ const labels: Partial<DataTableLabels> = {
 
 ## Project Context
 
-**Reference implementation**: `apps/web/src/app/vehicles/page.tsx`
+**Reference implementation**: `apps/web/src/app/items/page.tsx`
 
 **Key imports**:
 - `@starter-saas/ui/use-convex-form-errors` - Error handling
@@ -493,6 +493,3 @@ const labels: Partial<DataTableLabels> = {
 **Extracted admin components**:
 - `apps/web/src/components/admin/user-cell.tsx` - UserCell for DataTable columns
 - `apps/web/src/components/admin/role-selector.tsx` - RoleSelector for role checkboxes
-
-**Related skills**:
-- [react-effects](../react-effects/SKILL.md) - useEffect decision tree, when NOT to use effects
