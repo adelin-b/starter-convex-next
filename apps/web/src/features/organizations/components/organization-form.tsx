@@ -50,6 +50,7 @@ export function OrganizationForm({ organization, onSuccess, onError }: Organizat
   const { handleConvexError } = useConvexFormErrors(form);
 
   // Reset form when organization changes
+  /* eslint-disable react-you-might-not-need-an-effect/no-pass-data-to-parent -- valid pattern: resetting form from props */
   useEffect(() => {
     reset({
       name: organization.name,
@@ -59,6 +60,7 @@ export function OrganizationForm({ organization, onSuccess, onError }: Organizat
       email: organization.email ?? "",
     });
   }, [organization, reset]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-pass-data-to-parent */
 
   const onSubmit = async (data: CreateOrganizationData) => {
     try {

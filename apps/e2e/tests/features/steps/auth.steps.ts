@@ -288,16 +288,6 @@ Then("I should be logged out", async ({ ctx }) => {
  */
 
 /**
- * Step definition for verifying current URL.
- *
- * Usage in feature files:
- *   Then the URL should be "/dashboard"
- */
-Then("the URL should be {string}", async ({ ctx }, expectedUrl: string) => {
-  await expect(ctx.page).toHaveURL(expectedUrl);
-});
-
-/**
  * Step definition for verifying sign-in option is visible.
  * When unauthenticated, the login page shows sign-up form with a link to sign-in.
  *

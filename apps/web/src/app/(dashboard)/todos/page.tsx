@@ -1,4 +1,3 @@
-/* eslint-disable lingui/no-unlocalized-strings */
 import { CheckSquare } from "lucide-react";
 import { PageLayout } from "@/components/layouts/page-layout";
 import { CreateTodoDialog, TodoList } from "@/features/todos";

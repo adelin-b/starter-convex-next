@@ -20,7 +20,6 @@ import type * as lib_functions from "../lib/functions.js";
 import type * as lib_users from "../lib/users.js";
 import type * as organizations from "../organizations.js";
 import type * as polar from "../polar.js";
-import type * as privateData from "../privateData.js";
 import type * as testing_emails from "../testing/emails.js";
 import type * as testing_lib from "../testing/lib.js";
 import type * as testing_testing from "../testing/testing.js";
@@ -46,7 +45,6 @@ declare const fullApi: ApiFromModules<{
   "lib/users": typeof lib_users;
   organizations: typeof organizations;
   polar: typeof polar;
-  privateData: typeof privateData;
   "testing/emails": typeof testing_emails;
   "testing/lib": typeof testing_lib;
   "testing/testing": typeof testing_testing;

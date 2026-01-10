@@ -77,11 +77,13 @@ function MemberRolesForm({
   const { handleConvexError } = useConvexFormErrors(form);
 
   // Reset form when member changes
+  /* eslint-disable react-you-might-not-need-an-effect/no-pass-data-to-parent -- valid pattern: resetting form from props */
   useEffect(() => {
     reset({
       roles: member.roles as OrganizationRole[],
     });
   }, [member, reset]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-pass-data-to-parent */
 
   const onSubmit = async (data: MemberFormData) => {
     try {

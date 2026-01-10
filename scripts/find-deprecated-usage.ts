@@ -24,9 +24,8 @@ const IMPORT_PATTERN = /import\s*{[^}]*}\s*from/;
 
 // Known deprecated items that are actively being migrated (don't fail check)
 // Remove from this list once migration is complete
-const MIGRATION_IN_PROGRESS = new Set<string>([
-  // Add deprecated items here that are being actively migrated
-]);
+// Add deprecated items here that are being actively migrated
+const MIGRATION_IN_PROGRESS = new Set<string>();
 
 type DeprecatedItem = {
   file: string;
@@ -215,6 +214,7 @@ function main() {
 
   // Count usages excluding items in migration
   const blockingUsages = deprecated
+    // eslint-disable-next-line sonarjs/no-empty-collection -- template: populate MIGRATION_IN_PROGRESS when needed
     .filter((item) => !MIGRATION_IN_PROGRESS.has(item.name))
     .reduce((sum, item) => sum + findUsages(item.name, item.file).length, 0);
 

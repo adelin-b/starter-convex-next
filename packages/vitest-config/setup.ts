@@ -7,7 +7,7 @@ afterEach(() => {
 });
 
 // Mock Element.getAnimations for base-ui scroll area components
-if (typeof Element.prototype.getAnimations === "undefined") {
+if (Element.prototype.getAnimations === undefined) {
   Element.prototype.getAnimations = vi.fn().mockReturnValue([]);
 }
 

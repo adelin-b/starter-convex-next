@@ -4,7 +4,6 @@ import { Given, Then, When, waitForConvexConnection } from "./fixtures";
 
 // Top-level regex pattern for URL matching (required by biome lint)
 const TODOS_URL = /\/todos/;
-const LOGIN_URL = /\/login/;
 
 /**
  * Step definition for navigating to the homepage.
@@ -134,13 +133,4 @@ Given("I am authenticated", async ({ page, ctx }) => {
   if (!ctx.page) {
     ctx.page = page;
   }
-});
-
-/**
- * Step definition for verifying redirect to login page.
- */
-Then("I should be redirected to login", async ({ page, ctx }) => {
-  const activePage = ctx.page || page;
-  await activePage.waitForLoadState("networkidle");
-  await expect(activePage).toHaveURL(LOGIN_URL);
 });

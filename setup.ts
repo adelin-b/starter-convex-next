@@ -8,7 +8,7 @@
  */
 
 import { copyFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { basename, extname, join } from "node:path";
+import { basename, join } from "node:path";
 import { createInterface } from "node:readline";
 import { $ } from "bun";
 
@@ -126,23 +126,14 @@ function updateAppConfig(appName: string, description: string, scope: string) {
 
   const content = readFileSync(configPath, "utf8");
   const updated = content
-    .replace(/name: "Starter SaaS"/, `name: "${appName}"`)
-    .replace(/description: "[^"]*"/, `description: "${description}"`)
-    .replace(/scope: "starter-saas"/, `scope: "${scope}"`);
+    .replace(APP_NAME_REGEX, `name: "${appName}"`)
+    .replace(APP_DESCRIPTION_REGEX, `description: "${description}"`)
+    .replace(APP_SCOPE_REGEX, `scope: "${scope}"`);
 
   writeFileSync(configPath, updated);
 }
 
 function updateBrandingStrings(dir: string, oldName: string, newName: string) {
-  const _ignoreDirectories = new Set([
-    "node_modules",
-    ".git",
-    ".next",
-    "storybook-static",
-    ".turbo",
-    ".worktrees",
-  ]);
-
   // Files that contain hardcoded branding strings
   const targetFiles = [
     "apps/web/src/app/layout.tsx",
@@ -174,7 +165,6 @@ function copyLogos(sourcePath: string) {
     return false;
   }
 
-  const _ext = extname(sourcePath).toLowerCase();
   const logosDir = join(process.cwd(), "apps/web/public/assets/logos");
 
   // Copy to different logo variants

@@ -52,8 +52,6 @@ OVERSCAN
 Oeser
 Oxlint
 PARTDEL
-plateforme
-prereq
 QWEN
 Reverdo
 Segoe
@@ -77,14 +75,16 @@ auth
 authed
 autodocs
 autoform
-bddgen
 basecn
+bddgen
 biome
 bun
 bunx
 calen
+caniemail
 capgo
 carnitas
+catchable
 claudecode
 clineignore
 clinerules
@@ -97,9 +97,11 @@ cursorignore
 cyclonedx
 datatable
 datatabletoolbar
+docstrings
 doesn
 domcontentloaded
 dtree
+emailonacid
 epicweb
 evilrabbit
 extralight
@@ -125,9 +127,9 @@ middlewares
 mockuser
 monocart
 monorepo
-navigations
 mozjpeg
 msvc
+navigations
 networkidle
 nextauth
 nextjs
@@ -138,7 +140,9 @@ oneline
 opencode
 pids
 pkill
+plateforme
 prefetch
+prereq
 qwen
 radix
 reques
@@ -164,6 +168,7 @@ tablename
 tailwind
 tanstack
 tauri
+temurin
 testuser
 textareas
 trpc
@@ -178,6 +183,7 @@ unauthed
 unhover
 unindexed
 unlocalized
+unvalidated
 utcp
 vaul
 vinxi
@@ -187,7 +193,3 @@ worktree
 worktrees
 zod
 zodvex
-catchable
-docstrings
-temurin
-unvalidated
