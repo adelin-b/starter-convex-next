@@ -469,7 +469,6 @@ type FieldFilter = {
 
 // Client-side filter simulation (mimics server behavior)
 function applyItemFilters(data: Item[], filters: FieldFilter[]): Item[] {
-  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Filter simulation requires handling multiple operators
   return data.filter((item) => {
     for (const f of filters) {
       const fieldValue = item[f.field as keyof Item];

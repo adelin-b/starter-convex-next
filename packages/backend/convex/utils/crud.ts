@@ -20,7 +20,6 @@ import {
   type TableNamesInDataModel,
   type WithoutSystemFields,
 } from "convex/server";
-// biome-ignore lint/style/noRestrictedImports: CRUD utility requires v for dynamic validator construction
 import { type GenericId, type Infer, v } from "convex/values"; // eslint-disable-line no-restricted-imports
 import { partial } from "convex-helpers/validators";
 import { AppErrors } from "../lib/errors";

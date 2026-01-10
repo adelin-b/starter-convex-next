@@ -313,7 +313,6 @@ function categorizeCommits(commits: Commit[]): ChangelogOutput["summary"] {
   return summary;
 }
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: multiple conditional sections for migration guide
 function generateMigrationGuide(changes: FileChange[], commits: Commit[]): string {
   const lines: string[] = [];
 
@@ -422,7 +421,6 @@ function getStatusIcon(status: FileChange["status"]): string {
   }
 }
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: markdown generation with multiple sections
 function formatMarkdown(output: ChangelogOutput): string {
   const lines: string[] = [
     "# Template Changelog",

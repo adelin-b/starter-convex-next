@@ -39,11 +39,12 @@
   --sidebar-accent-foreground: oklch(0% 0 0deg);
   --sidebar-border: oklch(87.17% 0.0093 258.3382deg);
   --sidebar-ring: oklch(47.36% 0.1434 256.2706deg);
-  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Noto Sans", Ubuntu, sans-serif;
+  --font-sans:
+    ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Noto Sans", Ubuntu, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas,
-    monospace;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
   --radius: 0.625rem;
   --shadow-x: 0rem;
   --shadow-y: 0.25rem;
@@ -106,11 +107,12 @@
   --sidebar-accent-foreground: oklch(100% 0 0deg);
   --sidebar-border: oklch(37.29% 0.0306 259.7328deg);
   --sidebar-ring: oklch(47.36% 0.1434 256.2706deg);
-  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Noto Sans", Ubuntu, sans-serif;
+  --font-sans:
+    ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Noto Sans", Ubuntu, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas,
-    monospace;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
   --radius: 0.625rem;
   --shadow-x: 0rem;
   --shadow-y: 0.25rem;

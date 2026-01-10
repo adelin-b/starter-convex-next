@@ -34,7 +34,6 @@ for (const [file, lines] of unusedByFile) {
  * Count parentheses in a line, ignoring string contents.
  * Returns { open, close } counts.
  */
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: string parsing requires nested conditions
 function countParens(line: string): { open: number; close: number } {
   let open = 0;
   let close = 0;

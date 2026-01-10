@@ -26,6 +26,30 @@
       "inputs": ["$TURBO_DEFAULT$", "knip.json"],
       "outputs": []
     },
+    "//#check:convex-unused": {
+      "inputs": [
+        "packages/backend/convex/**/*.ts",
+        "packages/backend/convex/_generated/api.d.ts",
+        "scripts/find-unused-convex-endpoints.ts"
+      ],
+      "outputs": []
+    },
+    "//#check:urls": {
+      "inputs": [
+        "apps/web/src/**/*.{ts,tsx}",
+        "packages/**/*.{ts,tsx}",
+        "scripts/find-hardcoded-urls.ts"
+      ],
+      "outputs": []
+    },
+    "//#check:deprecated": {
+      "inputs": [
+        "apps/**/*.{ts,tsx}",
+        "packages/**/*.{ts,tsx}",
+        "scripts/find-deprecated-usage.ts"
+      ],
+      "outputs": []
+    },
     "check:eslint": {
       "inputs": [
         "$TURBO_DEFAULT$",

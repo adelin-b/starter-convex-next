@@ -14,6 +14,11 @@ import { $ } from "bun";
 
 const WORD_SPLIT_REGEX = /[\s_-]+/;
 
+// App config regex patterns (biome: useTopLevelRegex)
+const APP_NAME_REGEX = /name: "Starter SaaS"/;
+const APP_DESCRIPTION_REGEX = /description: "[^"]*"/;
+const APP_SCOPE_REGEX = /scope: "starter-saas"/;
+
 const rl = createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -129,7 +134,7 @@ function updateAppConfig(appName: string, description: string, scope: string) {
 }
 
 function updateBrandingStrings(dir: string, oldName: string, newName: string) {
-  const ignoreDirectories = new Set([
+  const _ignoreDirectories = new Set([
     "node_modules",
     ".git",
     ".next",
@@ -169,16 +174,11 @@ function copyLogos(sourcePath: string) {
     return false;
   }
 
-  const ext = extname(sourcePath).toLowerCase();
+  const _ext = extname(sourcePath).toLowerCase();
   const logosDir = join(process.cwd(), "apps/web/public/assets/logos");
 
   // Copy to different logo variants
-  const logoTargets = [
-    "logo.png",
-    "logo-color.png",
-    "logo-small.png",
-    "logo-color-small.png",
-  ];
+  const logoTargets = ["logo.png", "logo-color.png", "logo-small.png", "logo-color-small.png"];
 
   try {
     for (const target of logoTargets) {
