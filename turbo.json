@@ -130,6 +130,44 @@
     },
     "lint:steps": {
       "inputs": ["tests/**/*.{ts,feature}"]
+    },
+    "cap:sync": {
+      "cache": false,
+      "inputs": ["capacitor.config.ts", "public/**", "package.json"]
+    },
+    "cap:sync:android": {
+      "cache": false,
+      "inputs": ["capacitor.config.ts", "public/**", "package.json"]
+    },
+    "cap:sync:ios": {
+      "cache": false,
+      "inputs": ["capacitor.config.ts", "public/**", "package.json"]
+    },
+    "cap:android": {
+      "dependsOn": ["cap:sync:android"],
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": [
+        "CAPACITOR_SERVER_URL",
+        "PORT",
+        "ANDROID_HOME",
+        "ANDROID_SDK_ROOT",
+        "JAVA_HOME",
+        "ANDROID_TARGET"
+      ]
+    },
+    "cap:android:logs": {
+      "cache": false,
+      "persistent": true
+    },
+    "cap:ios": {
+      "dependsOn": ["cap:sync:ios"],
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": ["CAPACITOR_SERVER_URL", "PORT"]
+    },
+    "check:capacitor": {
+      "cache": false
     }
   }
 }

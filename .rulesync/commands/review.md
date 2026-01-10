@@ -19,127 +19,135 @@ StarterSaaS comprehensive code review using specialized agents.
 Combines StarterSaaS-specific pattern checks with general code quality agents into a unified workflow.
 </command_identity>
 
-<context_and_motivation>
-Different code aspects require different expertise. Type safety issues differ from Convex patterns which differ from React best practices. Specialized agents catch issues that general reviewers miss. Running all applicable agents ensures comprehensive coverage before PR merge.
-</context_and_motivation>
-
 **Review Aspects:** "$ARGUMENTS"
 
-<review_workflow>
+<execution_instructions>
+**CRITICAL**: You MUST use the Task tool to invoke each agent. The `subagent_type` parameter determines which agent runs.
 
-## Step 1: Determine Review Scope
+## Step 1: Determine Scope
 
 ```bash
-git diff --name-only
-git diff --cached --name-only
-git diff main...HEAD --name-only
+git diff --name-only main...HEAD
 ```
 
-Parse arguments (default: all):
-- **types** - Type safety (assertNever, `as const`, type design)
-- **errors** - Error handling (AppErrors factories, silent failures)
-- **convex** - Convex backend patterns (zodTable, indexes, auth)
-- **react** - React component patterns (forms, i18n, loading states)
-- **bdd** - Playwright BDD/Gherkin best practices
-- **tests** - Test coverage quality and completeness
-- **comments** - Code comment accuracy and maintainability
-- **simplify** - Code simplification for clarity
-- **coherence** - Codebase consistency, duplicate detection
-- **skills** - Suggest additions to Claude skills/docs
-- **all** - Run all applicable reviews (default)
+Parse arguments (default: `all`):
+| Aspect       | What it covers                          |
+|--------------|-----------------------------------------|
+| `types`      | Type safety, assertNever, `as const`    |
+| `errors`     | Error handling, AppErrors, silent fails |
+| `convex`     | Convex backend patterns                 |
+| `react`      | React component patterns                |
+| `bdd`        | Playwright BDD/Gherkin                  |
+| `tests`      | Test coverage quality                   |
+| `comments`   | Comment accuracy                        |
+| `simplify`   | Code simplification                     |
+| `coherence`  | Codebase consistency                    |
+| `skills`     | Document learnings                      |
+| `all`        | All applicable (default)                |
 
-## Step 2: Identify Changed Files
+## Step 2: Invoke Agents via Task Tool
 
-Categorize by type:
-- `packages/backend/convex/*.ts` → types, errors, convex, coherence
-- `packages/shared/src/*.ts` → types, errors, coherence
-- `packages/ui/src/**/*.tsx` → types, react, coherence
-- `apps/web/src/**/*.tsx` → types, react, coherence
-- `apps/e2e/**/*.feature` → bdd
-- `**/*.test.ts`, `**/*.spec.ts` → tests
+**IMPORTANT**: Use the exact `subagent_type` values below. These are the only valid agent identifiers.
 
-## Step 3: Unified Agent Selection
+### Group A: StarterSaaS Pattern Agents (run first)
 
-Based on changed files and requested aspects, select from this consolidated list:
+| Aspect    | subagent_type                | When to use                            |
+|-----------|------------------------------|----------------------------------------|
+| `types`   | `type-safety-checker`        | TS/TSX with unions, switches, literals |
+| `errors`  | `app-errors-enforcer`        | Backend files with throw/catch         |
+| `convex`  | `convex-patterns-checker`    | `packages/backend/convex/` changed     |
+| `react`   | `react-component-patterns`   | React components (`.tsx`)              |
+| `bdd`     | `playwright-bdd-checker`     | `.feature` files                       |
 
-| Aspect        | Primary Agent                           | When Triggered                          |
-|---------------|-----------------------------------------|-----------------------------------------|
-| **types**     | type-safety-checker                     | TS/TSX files with unions/switches       |
-| **types**     | pr-review-toolkit:type-design-analyzer  | New types introduced                    |
-| **errors**    | app-errors-enforcer                     | Backend files with throw/catch          |
-| **errors**    | pr-review-toolkit:silent-failure-hunter | Any error handling code                 |
-| **convex**    | convex-patterns-checker                 | `packages/backend/convex/` changed      |
-| **react**     | react-component-patterns                | React components (`.tsx`)               |
-| **bdd**       | playwright-bdd-checker                  | `.feature` files                        |
-| **tests**     | pr-review-toolkit:pr-test-analyzer      | Test files changed or new tests needed  |
-| **comments**  | pr-review-toolkit:comment-analyzer      | Comments/docstrings added               |
-| **simplify**  | pr-review-toolkit:code-simplifier       | Large changes, after other reviews pass |
-| **coherence** | coherence-checker                       | Any code files                          |
-| **code**      | pr-review-toolkit:code-reviewer         | Always (general quality)                |
-| **skills**    | skills-suggester                        | Always (runs last)                      |
+### Group B: PR Review Toolkit Agents (run alongside)
 
-</review_workflow>
+| Aspect     | subagent_type                           | When to use                        |
+|------------|-----------------------------------------|------------------------------------|
+| `code`     | `pr-review-toolkit:code-reviewer`       | Always (general quality)           |
+| `errors`   | `pr-review-toolkit:silent-failure-hunter` | Any error handling code          |
+| `types`    | `pr-review-toolkit:type-design-analyzer`| New types introduced               |
+| `tests`    | `pr-review-toolkit:pr-test-analyzer`    | Test files or new tests needed     |
+| `comments` | `pr-review-toolkit:comment-analyzer`    | Comments/docstrings added          |
+| `simplify` | `pr-review-toolkit:code-simplifier`     | After other reviews pass           |
 
-<agent_grouping>
+### Group C: Final Polish Agents (run last)
 
-## Group A: Project Pattern Enforcement (StarterSaaS-specific)
-Run these first - they catch patterns generic reviewers miss:
+| Aspect      | subagent_type        | When to use           |
+|-------------|----------------------|-----------------------|
+| `coherence` | `coherence-checker`  | Any code files        |
+| `skills`    | `skills-suggester`   | Always (runs last)    |
 
-1. **type-safety-checker** - assertNever, `as const`, type derivation
-2. **app-errors-enforcer** - AppErrors factories, auth checks
-3. **convex-patterns-checker** - zodTable, indexes, Convex patterns
-4. **react-component-patterns** - react-hook-form, FormatJS, loading states
-5. **playwright-bdd-checker** - Gherkin structure, Given-When-Then
+## Step 3: Execution Mode
 
-## Group B: General Quality (from pr-review-toolkit)
-Run alongside or after project patterns:
+**Sequential (default)**: Run agents one at a time, address issues between.
 
-6. **pr-review-toolkit:code-reviewer** - CLAUDE.md compliance, bugs
-7. **pr-review-toolkit:silent-failure-hunter** - Silent failures, catch blocks
-8. **pr-review-toolkit:type-design-analyzer** - Type encapsulation, invariants
-9. **pr-review-toolkit:pr-test-analyzer** - Test coverage gaps
-10. **pr-review-toolkit:comment-analyzer** - Comment accuracy
+**Parallel (if "parallel" in arguments)**: Launch ALL agents simultaneously using multiple Task tool calls in a single message.
 
-## Group C: Polish & Knowledge
-Run last:
+### Example: Parallel Execution
 
-11. **pr-review-toolkit:code-simplifier** - Simplify after issues fixed
-12. **coherence-checker** - Duplicate detection, pattern consistency
-13. **skills-suggester** - Document learnings for future sessions
-
-</agent_grouping>
-
-<execution_strategy>
-
-**Sequential (default)**: Run agents in logical order, address issues between.
-
-**Parallel (request with "parallel")**: Launch all applicable agents simultaneously.
+When user says `/review all parallel`, invoke all agents in ONE message:
 
 ```
-# Example: Full review with all agents in parallel
-/review all parallel
+Task(subagent_type="type-safety-checker", prompt="Review for type safety...", description="Type safety check")
+Task(subagent_type="app-errors-enforcer", prompt="Review for AppErrors...", description="Error handling check")
+Task(subagent_type="convex-patterns-checker", prompt="Review Convex patterns...", description="Convex patterns check")
+Task(subagent_type="react-component-patterns", prompt="Review React patterns...", description="React patterns check")
+Task(subagent_type="pr-review-toolkit:code-reviewer", prompt="Review code quality...", description="Code quality check")
+Task(subagent_type="pr-review-toolkit:silent-failure-hunter", prompt="Find silent failures...", description="Silent failure check")
+Task(subagent_type="pr-review-toolkit:type-design-analyzer", prompt="Analyze type design...", description="Type design check")
+Task(subagent_type="coherence-checker", prompt="Check codebase coherence...", description="Coherence check")
+Task(subagent_type="skills-suggester", prompt="Suggest skill updates...", description="Skills suggestions")
 ```
 
-</execution_strategy>
+</execution_instructions>
 
-<agent_overlap_guide>
+<agent_prompt_templates>
 
-When both StarterSaaS and toolkit agents cover similar ground:
+### For StarterSaaS Agents
 
-| StarterSaaS Agent   | Toolkit Agent         | How They Differ                                                                     |
-|---------------------|-----------------------|-------------------------------------------------------------------------------------|
-| type-safety-checker | type-design-analyzer  | StarterSaaS checks assertNever/`as const`; toolkit checks encapsulation/invariants  |
-| app-errors-enforcer | silent-failure-hunter | StarterSaaS enforces AppErrors factory; toolkit catches silent failures generically |
+Each StarterSaaS agent receives context about this being a PR review. Pass the changed files:
 
-Both run - they're complementary.
+```
+Review the following files from this PR for [ASPECT]:
 
-</agent_overlap_guide>
+Changed files:
+[LIST OF FILES]
+
+Focus on [SPECIFIC PATTERNS FOR THIS AGENT].
+Report issues with confidence >= 80.
+```
+
+### For PR Review Toolkit Agents
+
+These agents already know their job. Just specify scope:
+
+```
+Review the PR changes. Files changed:
+[LIST OF FILES]
+
+This is a StarterSaaS project (Next.js + Convex monorepo).
+See CLAUDE.md for project patterns.
+```
+
+</agent_prompt_templates>
 
 <output_format>
+
+After ALL agents complete, consolidate into a single summary:
+
 ```markdown
 # PR Review Summary
 
+## Agents Run
+- ✅ type-safety-checker
+- ✅ app-errors-enforcer
+- ✅ pr-review-toolkit:code-reviewer
+- ✅ pr-review-toolkit:silent-failure-hunter
+- ✅ coherence-checker
+- ⏭️ playwright-bdd-checker (no .feature files changed)
+
 ## Critical Issues (must fix)
+
 ### Type Safety
 - [ ] Missing assertNever: `file:line` (type-safety-checker)
 - [ ] Poor encapsulation: `file:line` (type-design-analyzer)
@@ -152,6 +160,7 @@ Both run - they're complementary.
 - [ ] Missing index: `file:line` (convex-patterns-checker)
 
 ## Important Issues (should fix)
+
 ### React Patterns
 - [ ] Use react-hook-form: `file:line` (react-component-patterns)
 
@@ -162,6 +171,7 @@ Both run - they're complementary.
 - [ ] Missing edge case test: `file:line` (pr-test-analyzer)
 
 ## Suggestions
+
 ### Coherence
 - [ ] Duplicate utility exists: `file:line` (coherence-checker)
 
@@ -169,7 +179,6 @@ Both run - they're complementary.
 - [ ] Could be simplified: `file:line` (code-simplifier)
 
 ## Documentation Suggestions (skills-suggester)
-### High Priority
 - [ ] Add pattern X to CLAUDE.md
 
 ## Recommended Actions
@@ -178,12 +187,38 @@ Both run - they're complementary.
 3. Consider suggestions
 4. Run `bun run check` to verify
 ```
+
 </output_format>
 
+<aspect_to_agents_mapping>
+
+Quick reference for which agents to invoke per aspect:
+
+| Aspect      | Agents (subagent_type values)                                        |
+|-------------|----------------------------------------------------------------------|
+| `types`     | `type-safety-checker`, `pr-review-toolkit:type-design-analyzer`      |
+| `errors`    | `app-errors-enforcer`, `pr-review-toolkit:silent-failure-hunter`     |
+| `convex`    | `convex-patterns-checker`                                            |
+| `react`     | `react-component-patterns`                                           |
+| `bdd`       | `playwright-bdd-checker`                                             |
+| `tests`     | `pr-review-toolkit:pr-test-analyzer`                                 |
+| `comments`  | `pr-review-toolkit:comment-analyzer`                                 |
+| `simplify`  | `pr-review-toolkit:code-simplifier`                                  |
+| `coherence` | `coherence-checker`                                                  |
+| `skills`    | `skills-suggester`                                                   |
+| `code`      | `pr-review-toolkit:code-reviewer`                                    |
+| `all`       | All of the above                                                     |
+
+</aspect_to_agents_mapping>
+
 <usage_examples>
+
 ```bash
-# Full review - all agents
+# Full review with all agents
 /review
+
+# Full review, all agents in parallel
+/review all parallel
 
 # Type safety only (both agents)
 /review types
@@ -200,110 +235,17 @@ Both run - they're complementary.
 # Quick code quality check
 /review code errors
 
-# Full review, all in parallel
-/review all parallel
-
 # Specific combinations
 /review types errors convex
 /review react bdd tests
 ```
+
 </usage_examples>
-
-<quick_pattern_reference>
-
-### Type Safety
-
-```typescript
-// assertNever - required for exhaustive switches (type-safety-checker)
-import { assertNever } from "@starter-saas/shared/assert-never";
-switch (status) {
-  case "available": return true;
-  default: assertNever(status);
-}
-
-// as const - required for literal arrays (type-safety-checker)
-const statuses = ["a", "b"] as const;
-```
-
-### Error Handling
-
-```typescript
-// AppErrors - recommended for Convex errors (app-errors-enforcer)
-throw AppErrors.notAuthenticated("action");
-
-// Handle errors visibly (silent-failure-hunter)
-try {
-  await riskyOp();
-} catch (error) {
-  logger.error("Operation failed", { error }); // Log it
-  throw AppErrors.operationFailed("riskyOp");  // Re-throw or handle
-}
-```
-
-### Convex
-
-```typescript
-// zodTable + index (convex-patterns-checker)
-export const Vehicles = zodTable("vehicles", { ... })
-  .withIndex("by_status", q => q.eq("status", value));
-
-// Auth check
-const identity = await ctx.auth.getUserIdentity();
-if (!identity) throw AppErrors.notAuthenticated("action");
-```
-
-### Coherence
-
-```typescript
-// Reuse existing utilities (coherence-checker)
-import { cn } from "@starter-saas/ui/lib/utils";      // Not manual classes
-import { formatPrice } from "@starter-saas/shared";   // Not new formatter
-```
-
-### React Patterns
-
-```typescript
-// cn() for class names (react-component-patterns)
-import { cn } from "@starter-saas/ui/lib/utils";
-<div className={cn("base", isActive && "active", className)} />
-
-// Not manual concat
-<div className={`base ${isActive ? 'active' : ''}`} />  // BAD
-```
-
-</quick_pattern_reference>
-
-<agent_descriptions>
-
-### StarterSaaS-Specific
-
-| Agent                        | Focus                                                           |
-|------------------------------|-----------------------------------------------------------------|
-| **type-safety-checker**      | assertNever exhaustiveness, `as const`, type derivation, guards |
-| **app-errors-enforcer**      | AppErrors factories, auth checks, error type guards             |
-| **convex-patterns-checker**  | zodTable, indexes, auth patterns, query vs mutation             |
-| **react-component-patterns** | react-hook-form + zod, FormatJS i18n, loading states            |
-| **playwright-bdd-checker**   | Gherkin structure, Given-When-Then, tags                        |
-| **coherence-checker**        | Duplicates, pattern consistency, library reuse                  |
-| **skills-suggester**         | Document patterns, snippets, debugging tips                     |
-
-### General Quality (pr-review-toolkit)
-
-| Agent                     | Focus                                          |
-|---------------------------|------------------------------------------------|
-| **code-reviewer**         | CLAUDE.md compliance, bugs, code quality       |
-| **silent-failure-hunter** | Silent failures, catch blocks, error logging   |
-| **type-design-analyzer**  | Type encapsulation, invariants, design quality |
-| **pr-test-analyzer**      | Test coverage, edge cases, test quality        |
-| **comment-analyzer**      | Comment accuracy, documentation rot            |
-| **code-simplifier**       | Code clarity, maintainability                  |
-
-</agent_descriptions>
 
 <tips>
 - **Run early**: Before creating PR, not after
+- **Use parallel**: Faster for comprehensive reviews
 - **Fix critical first**: High-priority issues before lower
 - **Re-run after fixes**: Verify issues resolved
-- **Use specific aspects**: Target what you're concerned about
-- **skills-suggester last**: Captures learnings from the review process
+- **skills-suggester last**: Captures learnings from the review
 </tips>

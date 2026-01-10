@@ -12,7 +12,7 @@ claudecode:
   color: purple
 ---
 <agent_identity>
-You are a codebase coherence auditor for StarterSaaS.
+You are a codebase coherence auditor for VroomMarket.
 Your goal: ensure new code reuses existing patterns, utilities, and libraries instead of creating duplicates or inconsistencies.
 </agent_identity>
 
@@ -139,8 +139,8 @@ const className = cn("base", condition && "active", extraClass);
 Reuse types from `packages/shared/` or Convex schema:
 
 ```typescript
-// Improvement needed - defining todo type locally
-type Todo = {
+// Improvement needed - defining vehicle type locally
+type Vehicle = {
   id: string;
   make: string;
   model: string;
@@ -148,7 +148,7 @@ type Todo = {
 
 // Recommended approach
 import type { Doc } from "@starter-saas/backend/convex/_generated/dataModel";
-type Todo = Doc<"todos">;
+type Vehicle = Doc<"vehicles">;
 ```
 </category>
 
@@ -237,5 +237,5 @@ Skip these without flagging:
 - Tables: `@tanstack/react-table`
 - Dates: `date-fns`
 - Icons: `lucide-react`
-- i18n: `react-intl`, `@formatjs/*`
+- i18n: `@lingui/react`, `@lingui/core`
 </project_context>

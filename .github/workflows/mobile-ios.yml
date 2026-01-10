@@ -1,0 +1,103 @@
+# iOS Build and Deploy
+# Requires these secrets:
+# - APPLE_ID: Apple Developer email
+# - TEAM_ID: Apple Developer Team ID
+# - APP_STORE_CONNECT_API_KEY_ID: App Store Connect API Key ID
+# - APP_STORE_CONNECT_API_ISSUER_ID: App Store Connect API Issuer ID
+# - APP_STORE_CONNECT_API_KEY_CONTENT: Base64 encoded .p8 file content
+# - MATCH_PASSWORD: Password for match certificates repo
+# - MATCH_GIT_PRIVATE_KEY: SSH key for certificates repo (if private)
+# - APP_APPLE_ID: App's Apple ID from App Store Connect
+
+name: iOS Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      lane:
+        description: "Fastlane lane to run"
+        required: true
+        default: "build_debug"
+        type: choice
+        options:
+          - build_debug
+          - build_release
+          - beta
+          - release
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/web/ios/**"
+      - "apps/web/capacitor.config.ts"
+      - "apps/web/Gemfile*"
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-ios:
+    runs-on: macos-14
+    defaults:
+      run:
+        working-directory: apps/web
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+          working-directory: apps/web
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Capacitor sync
+        run: bunx cap sync ios
+
+      - name: Setup App Store Connect API Key
+        if: inputs.lane == 'beta' || inputs.lane == 'release' || inputs.lane == 'build_release'
+        env:
+          APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+        run: |
+          mkdir -p ~/private_keys
+          echo "$APP_STORE_CONNECT_API_KEY_CONTENT" | base64 -d > ~/private_keys/AuthKey.p8
+
+      - name: Run Fastlane
+        working-directory: apps/web/ios/App
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_PATH: ~/private_keys/AuthKey.p8
+          APP_APPLE_ID: ${{ secrets.APP_APPLE_ID }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
+          BUILD_NUMBER: ${{ github.run_number }}
+          CI: "true"
+        run: |
+          bundle exec fastlane ${{ inputs.lane || 'build_debug' }}
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v6
+        with:
+          name: ios-build
+          path: |
+            apps/web/ios/App/build/*.ipa
+            apps/web/ios/App/build/*.dSYM.zip
+          if-no-files-found: ignore
