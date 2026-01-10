@@ -1,3 +1,11 @@
+---
+name: laws-of-ux
+description: >-
+  Review UI/UX implementations against 30 established design principles from
+  lawsofux.com
+targets:
+  - '*'
+---
 # Laws of UX - Design Review Skill
 
 Use this skill to review UI/UX implementations against established design principles.
