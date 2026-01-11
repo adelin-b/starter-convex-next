@@ -85,28 +85,64 @@ export class ConvexBackend {
     // Start the backend process
     const sqlitePath = join(this.storageDir, "convex_local_backend.sqlite3");
 
+    // Find Node path for Convex (requires v18/20/22) and set in env
+    // The backend binary needs Node.js to run deployed "use node" actions
+    // IMPORTANT: Add multiple fallback paths at the front of PATH to ensure
+    // the Convex binary can find a compatible Node version
+    const nodePath = this.findNodePath();
+    const localBinPath = join(process.env.HOME || "", ".local", "bin");
+    const pathParts = [localBinPath, nodePath, process.env.PATH].filter(Boolean);
+    const envPath = pathParts.join(":");
+
+    // Build args array
+    const args = [
+      "--port",
+      String(this.port),
+      "--site-proxy-port",
+      String(this.port + 1),
+      "--instance-name",
+      INSTANCE_NAME,
+      "--instance-secret",
+      INSTANCE_SECRET,
+      "--local-storage",
+      this.storageDir,
+      sqlitePath,
+    ];
+
     // execa v9 returns a subprocess that is also a promise
     // Note: --site-proxy-port defaults to 3211, we set it to port+1 for consistency
-    this.subprocess = execa(
-      binaryPath,
-      [
-        "--port",
-        String(this.port),
-        "--site-proxy-port",
-        String(this.port + 1),
-        "--instance-name",
-        INSTANCE_NAME,
-        "--instance-secret",
-        INSTANCE_SECRET,
-        "--local-storage",
-        this.storageDir,
-        sqlitePath,
-      ],
-      {
+    // Use a wrapper script to ensure NVM-managed Node.js is available
+    // The Convex binary spawns its own shells that need Node in PATH
+    const nvmDir = process.env.NVM_DIR || join(process.env.HOME || "", ".nvm");
+    const nvmScript = join(nvmDir, "nvm.sh");
+    const usesNvm = existsSync(nvmScript);
+
+    if (usesNvm) {
+      // Wrap with bash that sources NVM and uses Node 22
+      const quotedBinaryPath = binaryPath.replace(/'/g, "'\\''");
+      const quotedArgs = args.map((a) => `'${a.replace(/'/g, "'\\''")}'`).join(" ");
+      const command = `source '${nvmScript}' && nvm use 22 --silent && '${quotedBinaryPath}' ${quotedArgs}`;
+
+      this.subprocess = execa("bash", ["-c", command], {
         stdio: "pipe",
         detached: false,
-      },
-    );
+        env: {
+          ...process.env,
+          PATH: envPath,
+        },
+      });
+    } else {
+      // Fallback: run directly with modified PATH
+      this.subprocess = execa(binaryPath, args, {
+        stdio: "pipe",
+        detached: false,
+        shell: true,
+        env: {
+          ...process.env,
+          PATH: envPath,
+        },
+      });
+    }
 
     // Track subprocess errors to provide better error messages
     let subprocessError: Error | null = null;

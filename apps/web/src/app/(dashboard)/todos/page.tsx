@@ -1,3 +1,5 @@
+"use client";
+
 import { CheckSquare } from "lucide-react";
 import { PageLayout } from "@/components/layouts/page-layout";
 import { CreateTodoDialog, TodoList } from "@/features/todos";
