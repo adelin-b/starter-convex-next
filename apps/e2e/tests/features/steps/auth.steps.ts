@@ -39,6 +39,45 @@ Given("I am on the login page", async ({ ctx }) => {
 });
 
 /**
+ * Step definition for logging in as a new test user.
+ * Creates a new account via sign-up and leaves the user logged in.
+ *
+ * Usage in feature files:
+ *   Given I am logged in
+ */
+Given("I am logged in", async ({ ctx }) => {
+  const uniqueEmail = `e2e-user+${Date.now()}@example.com`;
+
+  await ctx.page.goto("/login");
+  await waitForConvexConnection(ctx.page);
+
+  await ctx.page.waitForSelector('input[name="email"]', { state: "visible", timeout: 10_000 });
+
+  // Check if we need to switch to sign-up form
+  const nameField = ctx.page.locator('input[name="name"]');
+  const isOnSignUpForm = await nameField.isVisible().catch(() => false);
+
+  if (!isOnSignUpForm) {
+    const signUpButton = ctx.page.getByRole("button", { name: /sign up/i });
+    await signUpButton.waitFor({ state: "visible", timeout: 5000 });
+    await signUpButton.click();
+    await nameField.waitFor({ state: "visible", timeout: 5000 });
+  }
+
+  // Fill sign-up form
+  await ctx.page.locator('input[name="name"]').fill("E2E Test User");
+  await ctx.page.locator('input[name="email"]').fill(uniqueEmail);
+  await ctx.page.locator('input[name="password"]').fill("TestPassword123!");
+
+  // Submit
+  const submitButton = ctx.page.getByRole("button", { name: /sign up/i }).first();
+  await submitButton.click();
+
+  // Wait for authenticated state
+  await waitForAuthenticated(ctx.page, 15_000);
+});
+
+/**
  * Step definition for signing in manually during a test.
  * The sign-in form appears on /login when unauthenticated.
  * First clicks "Sign In" link to show the sign-in form (default is sign-up form).

@@ -110,6 +110,8 @@ export default defineConfig({
   fullyParallel: true, // Tests use unique emails, safe to run in parallel
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
+  // Skip WIP tests and tests requiring external services (Polar sandbox)
+  grepInvert: /@wip|@requires-polar-sandbox/,
   reporter: [
     ["html"],
     ["junit", { outputFile: `test-results/junit${isIsolated ? "-isolated" : ""}.xml` }],
