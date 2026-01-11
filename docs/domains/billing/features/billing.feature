@@ -1,11 +1,8 @@
-@billing @wip
+@billing
 Feature: Subscription and Billing
 	As a user
 	I want to manage my subscription
 	So that I can access premium features
-
-	# NOTE: These tests are marked @wip until the billing UI is implemented.
-	# Remove @wip tag from individual scenarios as UI components are added.
 
 	# ─────────────────────────────────────────────────────────────────
 	# Pricing Page Scenarios

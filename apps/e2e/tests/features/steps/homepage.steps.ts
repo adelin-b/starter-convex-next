@@ -17,11 +17,27 @@ Then("I should see the hero section", async ({ ctx }) => {
 
 /**
  * Step definition for verifying a button is visible by text.
- * Uses .first() since pages may have multiple buttons with similar text (e.g., "Get Started" in hero and pricing cards).
+ * Also checks for links styled as buttons (anchor tags with Button component).
+ * Uses .first() since pages may have multiple buttons with similar text.
  */
 Then("I should see {string} button", async ({ ctx }, buttonText: string) => {
-  const button = ctx.page.getByRole("button", { name: new RegExp(buttonText, "i") }).first();
-  await expect(button).toBeVisible();
+  const pattern = new RegExp(buttonText, "i");
+  // Try button first, then link (for anchor tags styled as buttons)
+  const button = ctx.page.getByRole("button", { name: pattern }).first();
+  const link = ctx.page.getByRole("link", { name: pattern }).first();
+
+  // Check if either is visible
+  const buttonVisible = await button.isVisible().catch(() => false);
+  const linkVisible = await link.isVisible().catch(() => false);
+
+  if (buttonVisible) {
+    await expect(button).toBeVisible();
+  } else if (linkVisible) {
+    await expect(link).toBeVisible();
+  } else {
+    // Force assertion failure with descriptive error
+    await expect(button).toBeVisible({ timeout: 5000 });
+  }
 });
 
 /**

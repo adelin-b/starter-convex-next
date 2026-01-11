@@ -16,7 +16,7 @@ export function SubscriptionStatus() {
   // Loading state
   if (isPending) {
     return (
-      <Card>
+      <Card data-testid="subscription-status">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <CreditCardIcon className="size-5" />
@@ -35,7 +35,7 @@ export function SubscriptionStatus() {
   // No subscription (free tier)
   if (!subscription) {
     return (
-      <Card>
+      <Card data-testid="subscription-status">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <CreditCardIcon className="size-5" />
@@ -46,7 +46,9 @@ export function SubscriptionStatus() {
         <CardContent className="space-y-4">
           <div className="flex items-center gap-2">
             <span className="font-medium">Current Plan:</span>
-            <Badge variant="secondary">Free</Badge>
+            <Badge data-testid="current-plan-badge" variant="secondary">
+              Free
+            </Badge>
           </div>
           <p className="text-muted-foreground text-sm">
             You're on the free plan. Upgrade to unlock more features.
@@ -63,7 +65,7 @@ export function SubscriptionStatus() {
   const isYearly = subscription.productKey?.includes("Yearly");
 
   return (
-    <Card>
+    <Card data-testid="subscription-status">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CreditCardIcon className="size-5" />
@@ -74,7 +76,7 @@ export function SubscriptionStatus() {
       <CardContent className="space-y-4">
         <div className="flex items-center gap-2">
           <span className="font-medium">Current Plan:</span>
-          <Badge className="capitalize" variant="default">
+          <Badge className="capitalize" data-testid="current-plan-badge" variant="default">
             {planName}
           </Badge>
           <Badge variant="outline">{isYearly ? "Yearly" : "Monthly"}</Badge>

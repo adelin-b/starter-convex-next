@@ -55,6 +55,8 @@ export function PricingCard({
         tier.highlighted && "border-primary shadow-lg",
         currentPlan && "border-green-500",
       )}
+      data-current-plan={currentPlan || undefined}
+      data-testid={`pricing-card-${tier.name.toLowerCase()}`}
     >
       {tier.highlighted && (
         <Badge className="-top-3 -translate-x-1/2 absolute left-1/2" variant="default">

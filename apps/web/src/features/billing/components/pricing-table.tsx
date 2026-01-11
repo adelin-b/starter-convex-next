@@ -79,7 +79,7 @@ export function PricingTable({
   return (
     <div className="space-y-8">
       {showBillingToggle && (
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4" data-testid="billing-toggle">
           <Label
             className={billingPeriod === "monthly" ? "font-semibold" : "text-muted-foreground"}
             htmlFor="billing-toggle"
