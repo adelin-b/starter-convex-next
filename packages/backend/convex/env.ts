@@ -14,10 +14,10 @@ export const env = {
     return value;
   },
   get SITE_URL(): string {
-    // SITE_URL is the user-configured site URL (e.g., https://starter-saas.fr, http://localhost:3001)
+    // SITE_URL is the user-configured site URL (e.g., https://starter-saas.fr, http://localhost:3000)
     // IMPORTANT: Do NOT fallback to CONVEX_SITE_URL - they serve different purposes
     // CONVEX_SITE_URL = Convex HTTP actions endpoint (e.g., https://xxx.convex.site)
-    // SITE_URL = Frontend app URL (e.g., http://localhost:3001, https://starter-saas.fr)
+    // SITE_URL = Frontend app URL (e.g., http://localhost:3000, https://starter-saas.fr)
     const value = process.env.SITE_URL;
     if (value) {
       return value;

@@ -120,10 +120,10 @@ When running multiple worktrees:
 bun run dev
 
 # Worktree 1: offset ports
-PORT=3001 bun run dev:web
+PORT=3100 bun run dev:web
 
 # Worktree 2: different offset
-PORT=3002 bun run dev:web
+PORT=3200 bun run dev:web
 ```
 </port_management>
 

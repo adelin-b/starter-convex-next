@@ -46,7 +46,7 @@ export const SEARCH_DEBOUNCE_DELAY = 300;
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** Dev web server port */
-export const DEV_WEB_PORT = 3001;
+export const DEV_WEB_PORT = 3000;
 
 /** Dev Storybook port */
 export const DEV_STORYBOOK_PORT = 6006;

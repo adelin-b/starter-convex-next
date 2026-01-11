@@ -43,7 +43,7 @@ Run the compound config:
 
 Notes:
 
-- Web app runs on **`http://localhost:3001`** in this repo (`apps/web/package.json` uses `--port ${PORT:-3001}`).
+- Web app runs on **`http://localhost:3000`** in this repo (`apps/web/package.json` uses `--port ${PORT:-3000}`).
 - The config uses `apps/web`’s **`dev:debug`** script (which uses `--inspect-brk` so VS Code can attach before any startup code runs, and **includes** the same `npx @react-grab/claude-code@latest` pre-step as `dev`).
 
 ### Convex: “dev” (logs)

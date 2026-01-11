@@ -18,7 +18,7 @@ import { DEFAULT_TIMEOUT, SHUTDOWN_TIMEOUT } from "./lib/constants";
 // Enable V8 coverage collection in lib/test.ts fixtures
 process.env.V8_COVERAGE = "true";
 
-const WEB_BASE_URL = process.env.PLAYWRIGHT_TEST_BASE_URL || "http://localhost:3001";
+const WEB_BASE_URL = process.env.PLAYWRIGHT_TEST_BASE_URL || "http://localhost:3000";
 const SERVER_TIMEOUT_MS = 120_000;
 const isCI = !!process.env.CI;
 

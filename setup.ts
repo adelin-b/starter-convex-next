@@ -397,8 +397,8 @@ Generating a secure secret...
   const secret = Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString("base64");
   console.log("✅ Generated BETTER_AUTH_SECRET");
 
-  const siteUrl = await ask("\nEnter your site URL (default: http://localhost:3001): ");
-  const finalSiteUrl = siteUrl || "http://localhost:3001";
+  const siteUrl = await ask("\nEnter your site URL (default: http://localhost:3000): ");
+  const finalSiteUrl = siteUrl || "http://localhost:3000";
 
   envContent += `
 # Better Auth
@@ -566,7 +566,7 @@ Product IDs can be added later to .env.local:
   // Add default port config
   envContent += `
 # Development Ports
-PORT=3001
+PORT=3000
 STORYBOOK_PORT=6006
 `;
 
@@ -595,7 +595,7 @@ Next steps:
    $ bun run dev
 
 2. Open your browser:
-   http://localhost:3001
+   http://localhost:3000
 
 3. Create your first admin user and organization!
 

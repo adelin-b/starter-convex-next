@@ -24,7 +24,7 @@ const preAllocatedPort = process.env.E2E_CONVEX_PORT
   : undefined;
 
 // Read web URL from env (for CORS/redirects)
-const webUrl = process.env.E2E_WEB_URL || "http://localhost:3001";
+const webUrl = process.env.E2E_WEB_URL || "http://localhost:3000";
 
 console.log(
   `[start-convex] Starting Convex backend ${preAllocatedPort ? `on port ${preAllocatedPort}` : "(dynamic port)"}...`,

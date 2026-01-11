@@ -102,7 +102,7 @@ export const test = base.extend<{ ctx: TestContext }>({
     await hideNextjsDevOverlay(page);
 
     // Get baseURL from Playwright config (supports dynamic ports in isolated mode)
-    const baseUrl = testInfo.project.use.baseURL ?? "http://localhost:3001";
+    const baseUrl = testInfo.project.use.baseURL ?? "http://localhost:3000";
 
     const ctx: TestContext = {
       page,

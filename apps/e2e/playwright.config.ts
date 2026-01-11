@@ -19,7 +19,7 @@ import { findUnusedPortSync } from "./lib/find-unused-port";
  * Unified Playwright configuration for all E2E tests.
  *
  * PORT SCHEME (Dynamic ranges for parallel support):
- *   Dev servers:  3xxx/6xxx (web=3001, storybook=6006)
+ *   Dev servers:  3xxx/6xxx (web=3000, storybook=6006)
  *   E2E servers:  7xxx (non-overlapping ranges, allocated at config load)
  *     - Web:       7100-7199
  *     - Convex:    7200-7298 (even), HTTP actions on port+1

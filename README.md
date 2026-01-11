@@ -44,7 +44,7 @@ This interactive wizard will:
 bun run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001) to see your app.
+Open [http://localhost:3000](http://localhost:3000) to see your app.
 
 ## Manual Setup
 
@@ -141,7 +141,7 @@ CONVEX_URL=https://xxx.convex.cloud
 
 # Better Auth
 BETTER_AUTH_SECRET=your-secret-here
-SITE_URL=http://localhost:3001
+SITE_URL=http://localhost:3000
 
 # OAuth (optional)
 GOOGLE_CLIENT_ID=

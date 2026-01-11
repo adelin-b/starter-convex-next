@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npx @react-grab/claude-code@latest && next dev --port ${PORT:-3001}",
-    "dev:debug": "npx @react-grab/claude-code@latest && NODE_OPTIONS='--inspect-brk=9229' next dev --port ${PORT:-3001}",
+    "dev": "npx @react-grab/claude-code@latest && next dev --port ${PORT:-3000}",
+    "dev:debug": "npx @react-grab/claude-code@latest && NODE_OPTIONS='--inspect-brk=9229' next dev --port ${PORT:-3000}",
     "build": "next build",
     "build:vercel": "(cd ../../packages/backend && ./scripts/sync-env-to-convex.sh && SKIP_ENV_VALIDATION=true npx convex deploy --check-build-environment disable) && next build",
     "start": "next start",

@@ -49,9 +49,9 @@
       }
     }
   },
-  "forwardPorts": [3001, 6006],
+  "forwardPorts": [3000, 6006],
   "portsAttributes": {
-    "3001": {
+    "3000": {
       "label": "Web",
       "onAutoForward": "notify"
     },

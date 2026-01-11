@@ -4,7 +4,7 @@
  */
 
 // biome-ignore lint/style/noProcessEnv: email config requires env access at module level
-const SITE_URL = process.env.SITE_URL || "http://localhost:3001";
+const SITE_URL = process.env.SITE_URL || "http://localhost:3000";
 // biome-ignore lint/style/noProcessEnv: email config requires env access at module level
 const EMAIL_FROM = process.env.EMAIL_FROM || "noreply@example.com";
 

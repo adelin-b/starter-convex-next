@@ -61,7 +61,7 @@ export class ConvexBackend {
   }
 
   async init(options: { siteUrl?: string; port?: number } = {}): Promise<void> {
-    const { siteUrl = "http://localhost:3001", port: preAllocatedPort } = options;
+    const { siteUrl = "http://localhost:3000", port: preAllocatedPort } = options;
     console.log("Initializing Convex backend...");
 
     // Download binary first (can be slow on first run)
@@ -184,7 +184,7 @@ export class ConvexBackend {
     // Set auth-related env vars required by Better Auth
     // Note: CONVEX_SITE_URL and CONVEX_CLOUD_URL are auto-provided by Convex
     await this.setEnv("BETTER_AUTH_SECRET", E2E_BETTER_AUTH_SECRET);
-    await this.setEnv("SITE_URL", this._siteUrl ?? "http://localhost:3001");
+    await this.setEnv("SITE_URL", this._siteUrl ?? "http://localhost:3000");
 
     // Set Resend API key if available, otherwise enable SMTP mode for local testing
     const resendApiKey = process.env.RESEND_API_KEY;
