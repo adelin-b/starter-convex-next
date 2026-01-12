@@ -14,14 +14,14 @@ A production-ready SaaS starter template built with Next.js, Convex, and Better-
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| Frontend | Next.js 15, React 19, TailwindCSS |
-| Backend | Convex (real-time database) |
-| Auth | Better-Auth |
-| Email | React Email, Resend |
-| Testing | Vitest, Playwright |
-| Tooling | Turborepo, Biome, TypeScript |
+| Category | Technology                        |
+| -------- | --------------------------------- |
+| Frontend | Next.js 16, React 19, TailwindCSS |
+| Backend  | Convex (real-time database)       |
+| Auth     | Better-Auth                       |
+| Email    | React Email, Resend               |
+| Testing  | Vitest, Playwright                |
+| Tooling  | Turborepo, Biome, TypeScript      |
 
 ## Quick Start
 
@@ -32,6 +32,7 @@ bun setup.ts
 ```
 
 This interactive wizard will:
+
 - Install dependencies
 - Configure Convex backend
 - Generate auth secrets
@@ -87,21 +88,22 @@ bun run dev
 
 ## Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `bun run dev` | Start all apps in development |
-| `bun run dev:web` | Start web app only |
-| `bun run dev:server` | Start Convex backend only |
-| `bun run build` | Build all apps |
-| `bun run test` | Run unit tests |
-| `bun run test:e2e` | Run E2E tests |
-| `bun run check` | Run linting & type checking |
+| Command              | Description                   |
+| -------------------- | ----------------------------- |
+| `bun run dev`        | Start all apps in development |
+| `bun run dev:web`    | Start web app only            |
+| `bun run dev:server` | Start Convex backend only     |
+| `bun run build`      | Build all apps                |
+| `bun run test`       | Run unit tests                |
+| `bun run test:e2e`   | Run E2E tests                 |
+| `bun run check`      | Run linting & type checking   |
 
 ## Schema Overview
 
 The template includes these data models:
 
 ### Todos (Example Domain)
+
 ```typescript
 {
   title: string
@@ -114,6 +116,7 @@ The template includes these data models:
 ```
 
 ### Organizations (Multi-tenancy)
+
 ```typescript
 {
   name: string
@@ -123,6 +126,7 @@ The template includes these data models:
 ```
 
 ### Organization Members
+
 ```typescript
 {
   userId: string
@@ -163,13 +167,6 @@ EMAIL_FROM=noreply@yourdomain.com
 3. Update web app pages in `apps/web/src/app/`
 
 ### Add New Features
-
-```bash
-# Add more Better-T-Stack features
-bunx create-better-t-stack add
-```
-
-Available addons: PWA, Tauri, Fumadocs, Starlight
 
 ## Deployment
 
