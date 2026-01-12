@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:230
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:232
 #: src/app/(dashboard)/admin/organizations/[id]/page.tsx:155
 msgid "..."
 msgstr "..."
@@ -67,7 +67,7 @@ msgstr "Add Organization"
 msgid "Address"
 msgstr "Address"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:216
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:218
 #: src/app/(dashboard)/admin/members/page.tsx:341
 #: src/app/(dashboard)/admin/organizations/[id]/page.tsx:141
 #: src/app/(dashboard)/admin/organizations/page.tsx:76
@@ -110,7 +110,7 @@ msgstr "Assigned Roles"
 msgid "Back to Home"
 msgstr "Back to Home"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:179
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:181
 msgid "Back to Members"
 msgstr "Back to Members"
 
@@ -123,12 +123,12 @@ msgid "Cancel"
 msgstr "Cancel"
 
 #: src/app/(dashboard)/admin/page.tsx:51
-msgid "Click to manage members"
-msgstr "Click to manage members"
+#~ msgid "Click to manage members"
+#~ msgstr "Click to manage members"
 
 #: src/app/(dashboard)/admin/page.tsx:49
-msgid "Click to manage organizations"
-msgstr "Click to manage organizations"
+#~ msgid "Click to manage organizations"
+#~ msgstr "Click to manage organizations"
 
 #: src/components/ui/connection-status-overlay.tsx:97
 #: src/features/auth/components/google-sign-in-button.tsx:36
@@ -312,7 +312,7 @@ msgstr "Loading authentication"
 msgid "Loading Invitation"
 msgstr "Loading Invitation"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:237
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:239
 #: src/app/(dashboard)/admin/members/page.tsx:372
 #: src/app/(dashboard)/admin/organizations/[id]/page.tsx:162
 #: src/app/(dashboard)/admin/organizations/page.tsx:106
@@ -321,13 +321,21 @@ msgstr "Loading Invitation"
 msgid "Loading..."
 msgstr "Loading..."
 
+#: src/app/(dashboard)/admin/page.tsx:53
+msgid "Manage members →"
+msgstr "Manage members →"
+
 #: src/features/organizations/components/organization-members-tab.tsx:209
 msgid "Manage members and their roles"
 msgstr "Manage members and their roles"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:293
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:295
 msgid "Manage organization membership and roles"
 msgstr "Manage organization membership and roles"
+
+#: src/app/(dashboard)/admin/page.tsx:51
+msgid "Manage organizations →"
+msgstr "Manage organizations →"
 
 #: src/app/(dashboard)/admin/page.tsx:16
 msgid "Manage organizations and their settings"
@@ -345,15 +353,15 @@ msgstr "Manage your organizations, members, and roles"
 msgid "Member"
 msgstr "Member"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:170
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:172
 msgid "Member Not Found"
 msgstr "Member Not Found"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:279
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:281
 msgid "Member since {memberSince}"
 msgstr "Member since {memberSince}"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:224
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:226
 #: src/app/(dashboard)/admin/members/page.tsx:348
 #: src/app/(dashboard)/admin/organizations/[id]/page.tsx:177
 #: src/app/(dashboard)/admin/page.tsx:21
@@ -378,7 +386,7 @@ msgstr "Need an account? Sign Up"
 msgid "New Todo"
 msgstr "New Todo"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:320
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:322
 msgid "No email"
 msgstr "No email"
 
@@ -424,7 +432,7 @@ msgstr "Organization Information"
 msgid "Organization Members"
 msgstr "Organization Members"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:290
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:292
 msgid "Organization Membership"
 msgstr "Organization Membership"
 
@@ -432,7 +440,7 @@ msgstr "Organization Membership"
 msgid "Organization name"
 msgstr "Organization name"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:325
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:327
 msgid "Organization not found"
 msgstr "Organization not found"
 
@@ -478,7 +486,7 @@ msgstr "Please sign in or create an account to accept this invitation."
 msgid "Priority (optional)"
 msgstr "Priority (optional)"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:250
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:252
 msgid "Profile"
 msgstr "Profile"
 
@@ -503,7 +511,7 @@ msgstr "Redirecting..."
 msgid "Regular members with basic access."
 msgstr "Regular members with basic access."
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:198
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:200
 #: src/app/(dashboard)/admin/members/page.tsx:261
 #: src/features/organizations/hooks/use-unified-member-columns.tsx:202
 msgid "Remove"
@@ -514,8 +522,8 @@ msgstr "Remove"
 msgid "Remove member"
 msgstr "Remove member"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:201
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:206
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:203
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:208
 #: src/app/(dashboard)/admin/members/page.tsx:265
 #: src/features/organizations/hooks/use-unified-member-columns.tsx:206
 msgid "Remove Member"
@@ -546,21 +554,21 @@ msgstr "Revoked"
 msgid "Roles"
 msgstr "Roles"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:110
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:112
 #: src/features/organizations/components/add-member-dialog.tsx:181
 msgid "Roles *"
 msgstr "Roles *"
 
-#: src/features/organizations/components/organization-form.tsx:101
+#: src/features/organizations/components/organization-form.tsx:103
 msgid "Save Changes"
 msgstr "Save Changes"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:136
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:138
 msgid "Save Roles"
 msgstr "Save Roles"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:131
-#: src/features/organizations/components/organization-form.tsx:96
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:133
+#: src/features/organizations/components/organization-form.tsx:98
 msgid "Saving..."
 msgstr "Saving..."
 
@@ -664,17 +672,17 @@ msgstr "Status"
 msgid "System"
 msgstr "System"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:176
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:178
 msgid "The member may have been removed or you don't have access."
 msgstr "The member may have been removed or you don't have access."
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:168
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:170
 msgid "The member you're looking for doesn't exist"
 msgstr "The member you're looking for doesn't exist"
 
 #: src/app/(auth)/invitations/accept/page.tsx:115
 #: src/app/(auth)/invitations/accept/page.tsx:162
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:191
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:193
 #: src/app/(dashboard)/admin/members/page.tsx:258
 msgid "the organization"
 msgstr "the organization"
@@ -707,7 +715,7 @@ msgstr "This invitation has expired. Please ask {expiredOrganizationName} to sen
 msgid "This invitation may have been revoked or the link is incorrect. Please contact the person who invited you."
 msgstr "This invitation may have been revoked or the link is incorrect. Please contact the person who invited you."
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:190
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:192
 msgid "this member"
 msgstr "this member"
 
@@ -727,7 +735,7 @@ msgstr "This will permanently delete {deleteOrganizationName} and remove all its
 msgid "This will permanently delete {organizationName} and remove all its members. This action cannot be undone."
 msgstr "This will permanently delete {organizationName} and remove all its members. This action cannot be undone."
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:192
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:194
 msgid "This will remove {removeMemberName} from {removeOrganizationName}. They will lose access to organization resources."
 msgstr "This will remove {removeMemberName} from {removeOrganizationName}. They will lose access to organization resources."
 
@@ -771,7 +779,7 @@ msgstr "Verifying your invitation..."
 msgid "View and manage all organization members and pending invitations"
 msgstr "View and manage all organization members and pending invitations"
 
-#: src/app/(dashboard)/admin/members/[id]/page.tsx:235
+#: src/app/(dashboard)/admin/members/[id]/page.tsx:237
 msgid "View and manage member profile"
 msgstr "View and manage member profile"
 

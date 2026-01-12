@@ -152,3 +152,4 @@ apps/web/src/locales/*.mjs
 
 repo-examples/
 .osgrep
+.automaker
