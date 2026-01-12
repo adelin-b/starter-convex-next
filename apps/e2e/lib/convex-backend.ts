@@ -119,8 +119,8 @@ export class ConvexBackend {
 
     if (usesNvm) {
       // Wrap with bash that sources NVM and uses Node 22
-      const quotedBinaryPath = binaryPath.replace(/'/g, "'\\''");
-      const quotedArgs = args.map((a) => `'${a.replace(/'/g, "'\\''")}'`).join(" ");
+      const quotedBinaryPath = binaryPath.replaceAll("'", String.raw`'\''`);
+      const quotedArgs = args.map((a) => `'${a.replaceAll("'", String.raw`'\''`)}'`).join(" ");
       const command = `source '${nvmScript}' && nvm use 22 --silent && '${quotedBinaryPath}' ${quotedArgs}`;
 
       this.subprocess = execa("bash", ["-c", command], {

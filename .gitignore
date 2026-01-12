@@ -151,3 +151,4 @@ apps/web/src/locales/*.mjs
 .auto-claude/
 
 repo-examples/
+.osgrep

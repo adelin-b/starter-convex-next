@@ -83,6 +83,7 @@ bunx
 calen
 caniemail
 capgo
+cardnumber
 carnitas
 catchable
 claudecode
@@ -138,6 +139,7 @@ ntvs
 nums
 oneline
 opencode
+osgrep
 pids
 pkill
 plateforme

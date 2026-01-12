@@ -1,0 +1,62 @@
+{
+  "manual_call_templates": [
+    {
+      "name": "claude_mcps",
+      "call_template_type": "mcp",
+      "config": {
+        "mcpServers": {
+          "playwright": {
+            "command": "bunx",
+            "args": [
+              "-y",
+              "@playwright/mcp@latest",
+              "--user-data-dir",
+              ".chrome-profile"
+            ],
+            "transport": "stdio"
+          },
+          "github": {
+            "command": "gh",
+            "args": ["mcp"],
+            "transport": "stdio"
+          },
+          "context7": {
+            "command": "bunx",
+            "args": ["-y", "@upstash/context7-mcp"],
+            "transport": "stdio"
+          },
+          "convex": {
+            "command": "bunx",
+            "args": ["-y", "convex@latest", "mcp", "start"],
+            "transport": "stdio",
+            "cwd": "packages/backend"
+          },
+          "shadcn": {
+            "command": "bunx",
+            "args": ["shadcn@latest", "mcp"],
+            "transport": "stdio"
+          },
+          "task-master-ai": {
+            "command": "bunx",
+            "args": ["-y", "task-master-ai"],
+            "transport": "stdio"
+          },
+          "playwright-test": {
+            "command": "bunx",
+            "args": ["playwright", "run-test-mcp-server"],
+            "transport": "stdio"
+          },
+          "next-devtools": {
+            "command": "bunx",
+            "args": ["-y", "next-devtools-mcp@latest"],
+            "transport": "stdio"
+          },
+          "better-auth": {
+            "url": "https://mcp.chonkie.ai/better-auth/better-auth-builder/mcp",
+            "transport": "http"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { cn } from "@starter-saas/ui/utils";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "@starter-saas/ui/globals.css";
 import Providers from "@/components/providers/providers";
 import { getLocale } from "@/lib/get-locale";
@@ -14,6 +14,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -37,7 +43,14 @@ export default async function RootLayout({
       <head>
         {/* Dev tools loaded via DevToolsLoader component to avoid duplicate script loading */}
       </head>
-      <body className={cn(geistSans.variable, geistMono.variable, "antialiased")}>
+      <body
+        className={cn(
+          geistSans.variable,
+          geistMono.variable,
+          playfairDisplay.variable,
+          "antialiased",
+        )}
+      >
         <Providers locale={locale} messages={messages}>
           {children}
         </Providers>

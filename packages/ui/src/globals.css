@@ -247,6 +247,13 @@
 
     letter-spacing: var(--tracking-normal);
   }
+
+  /* Use Playfair Display for serif headings */
+  .font-serif {
+    font-family:
+      var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman", Times,
+      serif;
+  }
 }
 
 /**

@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from "@playwright/test";
-import { BasePage } from "./base.page";
 import { BillingToggleComponent } from "../components/billing-toggle.component";
+import { BasePage } from "./base.page";
 
 /**
  * Page Object for the pricing page (/pricing).

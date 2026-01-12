@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
-import { BasePage } from "./base.page";
 import { SubscriptionStatusComponent } from "../components/subscription-status.component";
+import { BasePage } from "./base.page";
 
 /**
  * Page Object for the settings page (/settings).

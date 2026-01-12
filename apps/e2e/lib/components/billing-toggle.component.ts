@@ -15,8 +15,8 @@ export class BillingToggleComponent {
     this.page = page;
     this.container = page.locator('[data-testid="billing-toggle"]');
     this.toggle = page.locator("#billing-toggle");
-    this.monthlyLabel = page.getByText(/^Monthly$/i);
-    this.yearlyLabel = page.getByText(/^Yearly$/i);
+    this.monthlyLabel = page.getByText(/^monthly$/i);
+    this.yearlyLabel = page.getByText(/^yearly$/i);
   }
 
   async selectMonthly(): Promise<void> {
