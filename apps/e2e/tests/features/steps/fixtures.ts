@@ -1,7 +1,7 @@
 import type { BrowserContext, Page, TestInfo } from "@playwright/test";
 import { test as base, createBdd } from "playwright-bdd";
 import { createAdminClientFromEnv } from "../../../lib/convex-client";
-import { hideNextjsDevOverlay } from "../../../lib/nextjs-overlay-utils";
+import { hideNextjsDevOverlay } from "../../../lib/google-one-tap-utils";
 
 // Re-export the Convex API for use in step definitions
 // biome-ignore lint/performance/noBarrelFile: intentional re-export for step definitions convenience

@@ -8,8 +8,9 @@ import * as Sentry from "@sentry/nextjs";
 // biome-ignore lint/style/noProcessEnv: Environment check at initialization
 const isDev = process.env.NODE_ENV === "development";
 
-// Spotlight auto-enabled in dev - sidecar runs via `bun dev`
-const spotlightEnabled = isDev;
+const spotlightEnabled =
+  // biome-ignore lint/style/noProcessEnv: Spotlight config requires env var check
+  isDev && process.env.NEXT_PUBLIC_SENTRY_SPOTLIGHT === "true";
 
 Sentry.init({
   // biome-ignore lint/style/noProcessEnv: Sentry config requires direct env access at initialization
@@ -26,7 +27,7 @@ Sentry.init({
     Sentry.feedbackIntegration({
       colorScheme: "system",
       showBranding: false,
-      autoInject: false, // We'll control when to show the button
+      autoInject: true,
       useSentryUser: {
         email: "email",
         name: "username",
@@ -63,5 +64,5 @@ Sentry.init({
   spotlight: spotlightEnabled,
 
   // Debug mode for development
-  debug: false,
+  debug: isDev,
 });

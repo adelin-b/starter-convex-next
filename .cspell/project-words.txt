@@ -108,6 +108,7 @@ evilrabbit
 extralight
 frontmatter
 ghos
+gstatic
 groupable
 hotfixes
 httponly
@@ -192,6 +193,7 @@ utcp
 vaul
 vinxi
 visualise
+vroommarket
 vueless
 wlan
 worktree
