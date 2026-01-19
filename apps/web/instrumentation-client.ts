@@ -66,3 +66,7 @@ Sentry.init({
   // Debug mode for development
   debug: isDev,
 });
+
+// Export for navigation instrumentation (required by @sentry/nextjs)
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

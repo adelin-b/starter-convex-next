@@ -193,7 +193,6 @@ utcp
 vaul
 vinxi
 visualise
-vroommarket
 vueless
 wlan
 worktree
