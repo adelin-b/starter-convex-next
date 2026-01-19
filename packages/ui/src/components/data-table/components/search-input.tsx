@@ -109,7 +109,7 @@ export function SearchInput({
         {/* Search icon */}
         <Search
           aria-hidden="true"
-          className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-2.5 size-4 text-muted-foreground"
+          className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground"
         />
 
         {/* Input field */}
@@ -131,7 +131,7 @@ export function SearchInput({
         {localValue && !disabled && (
           <Button
             aria-label={mergedLabels.clearSearchLabel}
-            className="-translate-y-1/2 absolute top-1/2 right-1 size-7 p-0"
+            className="absolute top-1/2 right-1 size-7 -translate-y-1/2 p-0"
             onClick={handleClear}
             size="sm"
             type="button"
@@ -146,7 +146,7 @@ export function SearchInput({
       {isLoading && (
         <div
           aria-live="polite"
-          className="-translate-y-1/2 absolute top-1/2 right-2.5"
+          className="absolute top-1/2 right-2.5 -translate-y-1/2"
           role="status"
         >
           <span className="sr-only">{mergedLabels.loadingSearchResults}</span>

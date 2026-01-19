@@ -51,7 +51,7 @@ export function UserCell<T extends string>(props: UserCellProps<T>) {
     const initials = getInitials(userData.name);
     return (
       <div className="flex items-center gap-2">
-        <Avatar className="h-8 w-8">
+        <Avatar className="size-8">
           {userData.image && <AvatarImage alt={userData.name} src={userData.image} />}
           <AvatarFallback className="text-xs">{initials}</AvatarFallback>
         </Avatar>

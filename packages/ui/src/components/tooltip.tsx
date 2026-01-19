@@ -55,10 +55,10 @@ function TooltipArrow({ className, ...props }: TooltipPrimitive.Arrow.Props) {
     <TooltipPrimitive.Arrow
       className={cn(
         "z-50 size-2.5 rotate-45 rounded-[2px] bg-primary fill-primary",
-        "data-[side=bottom]:-translate-y-1/2 data-[side=bottom]:top-px",
+        "data-[side=bottom]:top-px data-[side=bottom]:-translate-y-1/2",
         "data-[side=top]:bottom-px data-[side=top]:translate-y-1/2",
         "data-[side=left]:right-px data-[side=left]:translate-x-1/2",
-        "data-[side=right]:-translate-x-1/2 data-[side=right]:left-px",
+        "data-[side=right]:left-px data-[side=right]:-translate-x-1/2",
         className,
       )}
       data-slot="tooltip-arrow"

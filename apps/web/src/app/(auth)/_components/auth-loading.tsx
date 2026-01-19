@@ -14,7 +14,7 @@ export function AuthLoading() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[oklch(12%_0.02_280deg)] light:from-[oklch(98%_0.01_280deg)] light:to-[oklch(95%_0.015_260deg)] to-[oklch(8%_0.015_260deg)] dark:from-[oklch(12%_0.02_280deg)] dark:to-[oklch(8%_0.015_260deg)]">
       <Loader2
         aria-label={t`Loading authentication`}
-        className="h-10 w-10 animate-spin text-primary"
+        className="size-10 animate-spin text-primary"
       />
     </div>
   );
@@ -27,10 +27,7 @@ export function AuthLoading() {
 export function SuspenseLoadingFallback() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[oklch(12%_0.02_280deg)] to-[oklch(8%_0.015_260deg)] dark:from-[oklch(12%_0.02_280deg)] dark:to-[oklch(8%_0.015_260deg)]">
-      <Loader2
-        aria-label="Loading authentication"
-        className="h-10 w-10 animate-spin text-primary"
-      />
+      <Loader2 aria-label="Loading authentication" className="size-10 animate-spin text-primary" />
     </div>
   );
 }

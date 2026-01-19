@@ -85,7 +85,7 @@ export function useUnifiedMemberColumns(
         // For invitations, show email with icon
         return (
           <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 text-muted-foreground" />
+            <Mail className="size-4 text-muted-foreground" />
             <span className="font-medium">{email}</span>
           </div>
         );
@@ -155,7 +155,7 @@ export function useUnifiedMemberColumns(
 
         return (
           <span className={className}>
-            <Clock className="h-3 w-3" />
+            <Clock className="size-3" />
             {new Intl.RelativeTimeFormat(i18n.locale, { numeric: "auto" }).format(diffDays, "day")}
           </span>
         );
@@ -207,7 +207,7 @@ export function useUnifiedMemberColumns(
               variant="destructive"
             >
               <Button aria-label={t`Remove member`} size="icon" variant="ghost">
-                <Trash2 className="h-4 w-4" />
+                <Trash2 className="size-4" />
               </Button>
             </ConfirmDialog>
           );
@@ -225,7 +225,7 @@ export function useUnifiedMemberColumns(
                   size="icon"
                   variant="ghost"
                 >
-                  <RotateCcw className={cn("h-4 w-4", resendingId === _id && "animate-spin")} />
+                  <RotateCcw className={cn("size-4", resendingId === _id && "animate-spin")} />
                 </Button>
               )}
               {onRevoke && (
@@ -238,7 +238,7 @@ export function useUnifiedMemberColumns(
                   variant="destructive"
                 >
                   <Button aria-label={t`Revoke invitation`} size="icon" variant="ghost">
-                    <X className="h-4 w-4" />
+                    <X className="size-4" />
                   </Button>
                 </ConfirmDialog>
               )}

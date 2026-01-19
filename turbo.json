@@ -50,6 +50,14 @@
       ],
       "outputs": []
     },
+    "//#check:bundle": {
+      "dependsOn": ["build"],
+      "inputs": [
+        "apps/web/.next/static/chunks/**/*.js",
+        "scripts/check-bundle-size.ts"
+      ],
+      "outputs": []
+    },
     "check:eslint": {
       "inputs": [
         "$TURBO_DEFAULT$",

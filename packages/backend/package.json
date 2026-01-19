@@ -21,6 +21,7 @@
     "@types/nodemailer": "^7.0.4",
     "@types/react": "^19.2.7",
     "@vitest/ui": "^4.0.14",
+    "convex-test": "^0.0.41",
     "typescript": "catalog:",
     "vite": "^7.2.4",
     "vitest": "^4.0.14"
@@ -36,6 +37,6 @@
     "convex-helpers": "^0.1.105",
     "nodemailer": "^7.0.11",
     "zod": "^4.1.13",
-    "zodvex": "^0.2.5"
+    "zodvex": "^0.3.2"
   }
 }

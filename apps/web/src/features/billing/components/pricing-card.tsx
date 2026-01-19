@@ -59,12 +59,12 @@ export function PricingCard({
       data-testid={`pricing-card-${tier.name.toLowerCase()}`}
     >
       {tier.highlighted && (
-        <Badge className="-top-3 -translate-x-1/2 absolute left-1/2" variant="default">
+        <Badge className="absolute -top-3 left-1/2 -translate-x-1/2" variant="default">
           Most Popular
         </Badge>
       )}
       {currentPlan && (
-        <Badge className="-top-3 -translate-x-1/2 absolute left-1/2" variant="secondary">
+        <Badge className="absolute -top-3 left-1/2 -translate-x-1/2" variant="secondary">
           Current Plan
         </Badge>
       )}

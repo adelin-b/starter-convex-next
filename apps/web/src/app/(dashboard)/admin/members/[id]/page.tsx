@@ -129,12 +129,12 @@ function MemberRolesForm({
       >
         {isSubmitting ? (
           <>
-            <Loader2 aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 aria-hidden="true" className="mr-2 size-4 animate-spin" />
             <Trans>Saving...</Trans>
           </>
         ) : (
           <>
-            <Save className="mr-2 h-4 w-4" />
+            <Save className="mr-2 size-4" />
             <Trans>Save Roles</Trans>
           </>
         )}
@@ -173,7 +173,7 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
       >
         <Card>
           <CardContent className="py-12 text-center">
-            <AlertCircle className="mx-auto h-12 w-12 text-muted-foreground" />
+            <AlertCircle className="mx-auto size-12 text-muted-foreground" />
             <p className="mt-4 text-muted-foreground">
               <Trans>The member may have been removed or you don't have access.</Trans>
             </p>
@@ -204,7 +204,7 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
           variant="destructive"
         >
           <Button data-testid="remove-member-button" variant="destructive">
-            <Trash2 className="mr-2 h-4 w-4" />
+            <Trash2 className="mr-2 size-4" />
             <Trans>Remove Member</Trans>
           </Button>
         </ConfirmDialog>
@@ -240,7 +240,7 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
     >
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <Loader2 className="size-8 animate-spin text-muted-foreground" />
         </div>
       ) : (
         <div className="grid gap-6 lg:grid-cols-3">
@@ -248,12 +248,12 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
           <Card className="lg:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <User className="h-5 w-5" />
+                <User className="size-5" />
                 <Trans>Profile</Trans>
               </CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col items-center text-center">
-              <Avatar className="h-24 w-24">
+              <Avatar className="size-24">
                 {member.user?.image && (
                   <AvatarImage alt={member.user.name} src={member.user.image} />
                 )}
@@ -262,7 +262,7 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
               <h3 className="mt-4 font-semibold text-lg">{member.user?.name ?? member.userId}</h3>
               {member.user?.email && (
                 <div className="mt-1 flex items-center gap-1 text-muted-foreground text-sm">
-                  <Mail className="h-4 w-4" />
+                  <Mail className="size-4" />
                   {member.user.email}
                 </div>
               )}
@@ -288,7 +288,7 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
           <Card className="lg:col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Building2 className="h-5 w-5" />
+                <Building2 className="size-5" />
                 <Trans>Organization Membership</Trans>
               </CardTitle>
               <CardDescription>
@@ -298,7 +298,7 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
             <CardContent>
               {error && (
                 <Alert className="mb-4" variant="destructive">
-                  <AlertCircle className="h-4 w-4" />
+                  <AlertCircle className="size-4" />
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
@@ -306,8 +306,8 @@ function MemberDetailContent({ memberId }: { memberId: Id<"organizationMembers">
               {/* Organization Info */}
               <div className="mb-6 rounded-lg border p-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                    <Building2 className="h-5 w-5 text-primary" />
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+                    <Building2 className="size-5 text-primary" />
                   </div>
                   <div>
                     {member.organization ? (

@@ -17,6 +17,11 @@
     ".worktrees/**"
   ],
   "ignoreDependencies": [
+    "convex-test",
+    "@types/qrcode-terminal",
+    "bonjour-service",
+    "eslint-config-biome",
+    "qrcode-terminal",
     "baseline-browser-mapping",
     "import-in-the-middle",
     "require-in-the-middle",
@@ -61,7 +66,10 @@
         "src/assert-never.ts",
         "src/types.ts",
         "src/normalize-license-plate.ts",
-        "src/i18n-types.ts"
+        "src/i18n-types.ts",
+        "src/formatters.ts",
+        "src/file-utils.ts",
+        "src/get-local-ip.ts"
       ],
       "project": ["src/**/*.ts"]
     },

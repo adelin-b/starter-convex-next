@@ -91,7 +91,7 @@ export function ConnectionStatusOverlay({ children }: { children: React.ReactNod
           {children}
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
             <div className="flex flex-col items-center gap-4 rounded-lg border bg-card p-8 shadow-lg">
-              <Loader2 className="h-12 w-12 animate-spin text-primary" />
+              <Loader2 className="size-12 animate-spin text-primary" />
               <div className="text-center">
                 <h2 className="font-semibold text-lg">
                   <Trans>Connecting...</Trans>
@@ -112,8 +112,8 @@ export function ConnectionStatusOverlay({ children }: { children: React.ReactNod
           {children}
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
             <div className="flex flex-col items-center gap-4 rounded-lg border bg-card p-8 shadow-lg">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
-                <WifiOff className="h-8 w-8 text-destructive" />
+              <div className="flex size-16 items-center justify-center rounded-full bg-destructive/10">
+                <WifiOff className="size-8 text-destructive" />
               </div>
               <div className="text-center">
                 <h2 className="font-semibold text-lg">

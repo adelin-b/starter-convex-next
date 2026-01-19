@@ -94,12 +94,12 @@ export function OrganizationForm({ organization, onSuccess, onError }: Organizat
         >
           {isSubmitting ? (
             <>
-              <Loader2 aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 aria-hidden="true" className="mr-2 size-4 animate-spin" />
               <Trans>Saving...</Trans>
             </>
           ) : (
             <>
-              <Save className="mr-2 h-4 w-4" />
+              <Save className="mr-2 size-4" />
               <Trans>Save Changes</Trans>
             </>
           )}

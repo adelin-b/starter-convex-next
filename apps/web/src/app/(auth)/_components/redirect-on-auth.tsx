@@ -25,7 +25,7 @@ export function RedirectOnAuth({ callbackUrl }: RedirectOnAuthProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[oklch(12%_0.02_280deg)] to-[oklch(8%_0.015_260deg)] dark:from-[oklch(12%_0.02_280deg)] dark:to-[oklch(8%_0.015_260deg)]">
       <div className="flex flex-col items-center gap-4">
-        <Loader2 aria-label={t`Redirecting`} className="h-10 w-10 animate-spin text-primary" />
+        <Loader2 aria-label={t`Redirecting`} className="size-10 animate-spin text-primary" />
         <p className="text-muted-foreground text-sm">
           <Trans>Redirecting...</Trans>
         </p>

@@ -113,6 +113,8 @@ hotfixes
 httponly
 huskyrc
 johndoe
+janvier
+juin
 junie
 kiro
 kwargs
@@ -191,6 +193,7 @@ vaul
 vinxi
 visualise
 vueless
+wlan
 worktree
 worktrees
 zod

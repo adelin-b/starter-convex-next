@@ -55,20 +55,20 @@
   --shadow-2xs: 0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 5%);
   --shadow-xs: 0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 5%);
   --shadow-sm:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%), 0rem 1px 2px -1px
-    hsl(0deg 0% 0% / 10%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%),
+    0rem 1px 2px -1px hsl(0deg 0% 0% / 10%);
   --shadow:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%), 0rem 1px 2px -1px
-    hsl(0deg 0% 0% / 10%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%),
+    0rem 1px 2px -1px hsl(0deg 0% 0% / 10%);
   --shadow-md:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%), 0rem 2px 4px -1px
-    hsl(0deg 0% 0% / 10%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%),
+    0rem 2px 4px -1px hsl(0deg 0% 0% / 10%);
   --shadow-lg:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%), 0rem 4px 6px -1px
-    hsl(0deg 0% 0% / 10%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%),
+    0rem 4px 6px -1px hsl(0deg 0% 0% / 10%);
   --shadow-xl:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%), 0rem 8px 10px -1px
-    hsl(0deg 0% 0% / 10%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 10%),
+    0rem 8px 10px -1px hsl(0deg 0% 0% / 10%);
   --shadow-2xl: 0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 25%);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
@@ -123,20 +123,20 @@
   --shadow-2xs: 0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 15%);
   --shadow-xs: 0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 15%);
   --shadow-sm:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%), 0rem 1px 2px -1px
-    hsl(0deg 0% 0% / 30%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%),
+    0rem 1px 2px -1px hsl(0deg 0% 0% / 30%);
   --shadow:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%), 0rem 1px 2px -1px
-    hsl(0deg 0% 0% / 30%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%),
+    0rem 1px 2px -1px hsl(0deg 0% 0% / 30%);
   --shadow-md:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%), 0rem 2px 4px -1px
-    hsl(0deg 0% 0% / 30%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%),
+    0rem 2px 4px -1px hsl(0deg 0% 0% / 30%);
   --shadow-lg:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%), 0rem 4px 6px -1px
-    hsl(0deg 0% 0% / 30%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%),
+    0rem 4px 6px -1px hsl(0deg 0% 0% / 30%);
   --shadow-xl:
-    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%), 0rem 8px 10px -1px
-    hsl(0deg 0% 0% / 30%);
+    0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 30%),
+    0rem 8px 10px -1px hsl(0deg 0% 0% / 30%);
   --shadow-2xl: 0rem 0.25rem 0.5rem 0rem hsl(0deg 0% 0% / 75%);
 }
 
@@ -251,8 +251,8 @@
   /* Use Playfair Display for serif headings */
   .font-serif {
     font-family:
-      var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman", Times,
-      serif;
+      var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman",
+      Times, serif;
   }
 }
 

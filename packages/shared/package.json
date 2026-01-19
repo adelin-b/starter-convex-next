@@ -34,6 +34,18 @@
     "./i18n-types": {
       "types": "./src/i18n-types.ts",
       "default": "./src/i18n-types.ts"
+    },
+    "./formatters": {
+      "types": "./src/formatters.ts",
+      "default": "./src/formatters.ts"
+    },
+    "./file-utils": {
+      "types": "./src/file-utils.ts",
+      "default": "./src/file-utils.ts"
+    },
+    "./get-local-ip": {
+      "types": "./src/get-local-ip.ts",
+      "default": "./src/get-local-ip.ts"
     }
   }
 }

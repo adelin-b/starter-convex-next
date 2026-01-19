@@ -111,17 +111,17 @@ export function DevQuickLogin({ callbackUrl = "/" }: DevQuickLoginProps) {
           variant="outline"
         >
           {isLoading ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 size-4 animate-spin" />
           ) : (
-            <Avatar className="mr-2 h-6 w-6">
+            <Avatar className="mr-2 size-6">
               <AvatarFallback className="text-xs">{initials}</AvatarFallback>
             </Avatar>
           )}
           <span className="flex-1 text-left">{DEV_USER.name}</span>
           {isLoading ? (
-            <UserPlus className="h-3 w-3 opacity-50" />
+            <UserPlus className="size-3 opacity-50" />
           ) : (
-            <LogIn className="h-3 w-3 opacity-50" />
+            <LogIn className="size-3 opacity-50" />
           )}
         </Button>
 

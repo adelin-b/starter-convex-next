@@ -142,7 +142,7 @@ export default function SignUpForm({ onSwitchToSignIn, callbackUrl = "/todos" }:
         <Button className="w-full" disabled={isFormDisabled} type="submit">
           {isSubmitting ? (
             <>
-              <Loader2 aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 aria-hidden="true" className="mr-2 size-4 animate-spin" />
               <Trans>Signing up...</Trans>
             </>
           ) : (

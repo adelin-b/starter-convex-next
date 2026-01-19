@@ -81,7 +81,7 @@ export function CreateOrganizationDialog({ onSuccess, onError }: CreateOrganizat
       <DialogTrigger
         render={
           <Button data-testid="add-organization-button">
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-2 size-4" />
             <Trans>Add Organization</Trans>
           </Button>
         }
@@ -107,7 +107,7 @@ export function CreateOrganizationDialog({ onSuccess, onError }: CreateOrganizat
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 aria-hidden="true" className="mr-2 size-4 animate-spin" />
                   <Trans>Creating...</Trans>
                 </>
               ) : (

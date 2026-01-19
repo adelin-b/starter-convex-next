@@ -26,9 +26,9 @@ export default function LandingPage() {
       {/* Atmospheric background */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         {/* Primary gradient orb */}
-        <div className="-top-[40%] -translate-x-1/2 absolute left-1/2 size-[80vw] rounded-full bg-gradient-to-br from-primary/20 via-primary/5 to-transparent blur-3xl" />
+        <div className="absolute -top-[40%] left-1/2 size-[80vw] -translate-x-1/2 rounded-full bg-gradient-to-br from-primary/20 via-primary/5 to-transparent blur-3xl" />
         {/* Secondary accent orb */}
-        <div className="-right-[20%] absolute top-[30%] size-[50vw] rounded-full bg-gradient-to-bl from-secondary/15 via-secondary/5 to-transparent blur-3xl" />
+        <div className="absolute top-[30%] -right-[20%] size-[50vw] rounded-full bg-gradient-to-bl from-secondary/15 via-secondary/5 to-transparent blur-3xl" />
         {/* Subtle grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.02]"
@@ -126,7 +126,7 @@ export default function LandingPage() {
 
               {/* Social proof */}
               <div className="mt-16 flex flex-col items-center gap-4">
-                <div className="-space-x-3 flex">
+                <div className="flex -space-x-3">
                   {[1, 2, 3, 4, 5].map((i) => (
                     <div
                       className="size-10 rounded-full border-2 border-background bg-gradient-to-br from-muted to-muted-foreground/20"
@@ -379,7 +379,7 @@ function PricingPreviewCard({
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
       )}
       {highlighted && (
-        <Badge className="-top-3 -translate-x-1/2 absolute left-1/2 shadow-lg" variant="default">
+        <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 shadow-lg" variant="default">
           Most Popular
         </Badge>
       )}

@@ -129,7 +129,7 @@ function useUnifiedMemberColumnsAdmin(
         header: t`Organization`,
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
-            <Building2 className="h-4 w-4 text-muted-foreground" />
+            <Building2 className="size-4 text-muted-foreground" />
             {row.original.organizationName ? (
               <Link
                 className="font-medium hover:underline"
@@ -169,7 +169,7 @@ function useUnifiedMemberColumnsAdmin(
           // For invitations, show email with icon
           return (
             <div className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-muted-foreground" />
+              <Mail className="size-4 text-muted-foreground" />
               <span className="font-medium">{email}</span>
             </div>
           );
@@ -233,7 +233,7 @@ function useUnifiedMemberColumnsAdmin(
                 !isExpired && diffDays <= 2 && "text-amber-600",
               )}
             >
-              <Clock className="h-3 w-3" />
+              <Clock className="size-3" />
               {new Intl.RelativeTimeFormat(i18n.locale, { numeric: "auto" }).format(
                 diffDays,
                 "day",
@@ -266,7 +266,7 @@ function useUnifiedMemberColumnsAdmin(
               variant="destructive"
             >
               <Button aria-label={t`Remove member`} size="icon" variant="ghost">
-                <Trash2 className="h-4 w-4" />
+                <Trash2 className="size-4" />
               </Button>
             </ConfirmDialog>
           );
@@ -357,7 +357,7 @@ function MembersContent() {
     >
       {error && (
         <Alert className="mb-6" variant="destructive">
-          <AlertCircle className="h-4 w-4" />
+          <AlertCircle className="size-4" />
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}

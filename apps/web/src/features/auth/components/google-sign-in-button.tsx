@@ -29,9 +29,9 @@ export function GoogleSignInButton({ onClick, isLoading, disabled }: GoogleSignI
       variant="outline"
     >
       {isLoading ? (
-        <Loader2 aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />
+        <Loader2 aria-hidden="true" className="mr-2 size-4 animate-spin" />
       ) : (
-        <SiGoogle aria-hidden="true" className="mr-2 h-4 w-4" />
+        <SiGoogle aria-hidden="true" className="mr-2 size-4" />
       )}
       {isLoading ? <Trans>Connecting...</Trans> : <Trans>Google</Trans>}
     </Button>

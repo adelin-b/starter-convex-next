@@ -71,7 +71,7 @@ function InvitationContent() {
     return (
       <InvitationCard
         description={t`No invitation token was provided in the URL.`}
-        icon={<AlertCircle className="h-12 w-12 text-amber-500" />}
+        icon={<AlertCircle className="size-12 text-amber-500" />}
         title={t`Invalid Invitation Link`}
       >
         <Button className="w-full" render={<Link href="/" />}>
@@ -86,7 +86,7 @@ function InvitationContent() {
     return (
       <InvitationCard
         description={t`Verifying your invitation...`}
-        icon={<Loader2 className="h-12 w-12 animate-spin text-primary" />}
+        icon={<Loader2 className="size-12 animate-spin text-primary" />}
         title={t`Loading Invitation`}
       />
     );
@@ -97,7 +97,7 @@ function InvitationContent() {
     return (
       <InvitationCard
         description={t`This invitation may have been revoked or the link is incorrect. Please contact the person who invited you.`}
-        icon={<XCircle className="h-12 w-12 text-destructive" />}
+        icon={<XCircle className="size-12 text-destructive" />}
         title={t`Invitation Not Found`}
       >
         <Button className="w-full" render={<Link href="/" />}>
@@ -117,7 +117,7 @@ function InvitationContent() {
     return (
       <InvitationCard
         description={expiredDescription}
-        icon={<Clock className="h-12 w-12 text-amber-500" />}
+        icon={<Clock className="size-12 text-amber-500" />}
         title={t`Invitation Expired`}
       >
         <Button className="w-full" render={<Link href="/" />}>
@@ -132,7 +132,7 @@ function InvitationContent() {
     return (
       <InvitationCard
         description={t`This invitation has already been accepted.`}
-        icon={<CheckCircle className="h-12 w-12 text-green-500" />}
+        icon={<CheckCircle className="size-12 text-green-500" />}
         title={t`Already Accepted`}
       >
         <Button className="w-full" render={<Link href="/" />}>
@@ -147,7 +147,7 @@ function InvitationContent() {
     return (
       <InvitationCard
         description={t`This invitation has been revoked by the organization administrator.`}
-        icon={<XCircle className="h-12 w-12 text-destructive" />}
+        icon={<XCircle className="size-12 text-destructive" />}
         title={t`Invitation Revoked`}
       >
         <Button className="w-full" render={<Link href="/" />}>
@@ -164,11 +164,11 @@ function InvitationContent() {
     return (
       <InvitationCard
         description={successDescription}
-        icon={<CheckCircle className="h-12 w-12 text-green-500" />}
+        icon={<CheckCircle className="size-12 text-green-500" />}
         title={t`Invitation Accepted!`}
       >
         <div className="flex items-center justify-center gap-2 text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <Loader2 className="size-4 animate-spin" />
           <Trans>Redirecting to dashboard...</Trans>
         </div>
       </InvitationCard>
@@ -181,13 +181,13 @@ function InvitationContent() {
       <Authenticated>
         <InvitationCard
           description={t`You've been invited to join this organization.`}
-          icon={<Mail className="h-12 w-12 text-primary" />}
+          icon={<Mail className="size-12 text-primary" />}
           title={t`You're Invited!`}
         >
           {/* Invitation details */}
           <div className="space-y-4">
             <div className="flex items-center gap-3 rounded-lg bg-muted p-4">
-              <Building2 className="h-8 w-8 text-muted-foreground" />
+              <Building2 className="size-8 text-muted-foreground" />
               <div>
                 <p className="font-semibold">{invitation.organization?.name}</p>
                 <p className="text-muted-foreground text-sm">
@@ -197,7 +197,7 @@ function InvitationContent() {
             </div>
 
             <div className="flex items-center gap-3 rounded-lg bg-muted p-4">
-              <ShieldCheck className="h-8 w-8 text-muted-foreground" />
+              <ShieldCheck className="size-8 text-muted-foreground" />
               <div>
                 <div className="flex flex-wrap gap-1">
                   {invitation.roles.map((role: OrganizationRole) => (
@@ -215,7 +215,7 @@ function InvitationContent() {
 
           {acceptError && (
             <div className="flex items-center gap-2 rounded-lg bg-destructive/10 p-3 text-destructive">
-              <AlertCircle className="h-4 w-4" />
+              <AlertCircle className="size-4" />
               <p className="text-sm">{acceptError}</p>
             </div>
           )}
@@ -223,7 +223,7 @@ function InvitationContent() {
           <Button className="w-full" disabled={isAccepting} onClick={handleAccept} size="lg">
             {isAccepting ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 size-4 animate-spin" />
                 <Trans>Accepting...</Trans>
               </>
             ) : (
@@ -236,12 +236,12 @@ function InvitationContent() {
       <Unauthenticated>
         <InvitationCard
           description={t`Please sign in or create an account to accept this invitation.`}
-          icon={<Mail className="h-12 w-12 text-primary" />}
+          icon={<Mail className="size-12 text-primary" />}
           title={t`Sign in to Accept`}
         >
           {/* Invitation preview */}
           <div className="flex items-center gap-3 rounded-lg bg-muted p-4">
-            <Building2 className="h-8 w-8 text-muted-foreground" />
+            <Building2 className="size-8 text-muted-foreground" />
             <div>
               <p className="font-semibold">{invitation.organization?.name}</p>
               <p className="text-muted-foreground text-sm">

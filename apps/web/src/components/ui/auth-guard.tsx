@@ -36,7 +36,7 @@ function AuthLoadingFallback() {
   return (
     <div className="flex min-h-[400px] items-center justify-center">
       <div className="flex flex-col items-center gap-4">
-        <Loader2 aria-label={t`Loading`} className="h-8 w-8 animate-spin text-muted-foreground" />
+        <Loader2 aria-label={t`Loading`} className="size-8 animate-spin text-muted-foreground" />
         <p className="text-muted-foreground text-sm">
           <Trans>Loading...</Trans>
         </p>
@@ -62,7 +62,7 @@ function UnauthenticatedFallback() {
       <div className="flex flex-col items-center gap-4">
         <Loader2
           aria-label={t`Redirecting`}
-          className="h-8 w-8 animate-spin text-muted-foreground"
+          className="size-8 animate-spin text-muted-foreground"
         />
         <p className="text-muted-foreground text-sm">
           <Trans>Redirecting to login...</Trans>
@@ -123,8 +123,8 @@ function NoAdminAccessFallback() {
   return (
     <Card className="mx-auto max-w-md" data-testid="no-permission-page">
       <CardContent className="flex flex-col items-center gap-6 py-10 text-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
-          <ShieldX className="h-8 w-8 text-destructive" />
+        <div className="flex size-16 items-center justify-center rounded-full bg-destructive/10">
+          <ShieldX className="size-8 text-destructive" />
         </div>
         <div className="space-y-2">
           <h2 className="font-semibold text-xl">
@@ -138,7 +138,7 @@ function NoAdminAccessFallback() {
           </p>
         </div>
         <Button render={<Link data-testid="back-to-app-link" href="/todos" />} variant="outline">
-          <Home className="mr-2 h-4 w-4" />
+          <Home className="mr-2 size-4" />
           <Trans>Back to Home</Trans>
         </Button>
       </CardContent>

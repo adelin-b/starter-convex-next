@@ -18,10 +18,10 @@ function SpeedLine({ delay, top, width }: { delay: string; top: string; width: s
 /** Floating abstract shape SVG */
 function FloatingShape() {
   return (
-    <div className="-translate-x-1/2 absolute bottom-[12%] left-1/2 h-32 w-[320px] animate-float">
+    <div className="absolute bottom-[12%] left-1/2 h-32 w-[320px] -translate-x-1/2 animate-float">
       <svg
         aria-hidden="true"
-        className="h-full w-full fill-primary/30"
+        className="size-full fill-primary/30"
         viewBox="0 0 200 80"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -37,10 +37,10 @@ function GlowOrbs() {
   return (
     <>
       {/* Primary blue glow - top left */}
-      <div className="-top-[20%] -left-[10%] absolute h-[500px] w-[500px] animate-pulse-glow rounded-full bg-primary/15 blur-[120px]" />
+      <div className="absolute -top-[20%] -left-[10%] size-[500px] animate-pulse-glow rounded-full bg-primary/15 blur-[120px]" />
       {/* Subtle amber accent - center right, more diffuse */}
       <div
-        className="-right-[15%] -translate-y-1/2 absolute top-1/2 h-[400px] w-[400px] animate-pulse-glow rounded-full bg-amber-500/10 blur-[150px]"
+        className="absolute top-1/2 -right-[15%] size-[400px] -translate-y-1/2 animate-pulse-glow rounded-full bg-amber-500/10 blur-[150px]"
         style={{ animationDelay: "2s" }}
       />
     </>

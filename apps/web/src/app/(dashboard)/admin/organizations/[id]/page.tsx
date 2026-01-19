@@ -44,7 +44,7 @@ function InfoTabContent({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Info className="h-5 w-5" />
+          <Info className="size-5" />
           <Trans>Organization Information</Trans>
         </CardTitle>
         <CardDescription>
@@ -54,7 +54,7 @@ function InfoTabContent({
       <CardContent>
         {error && (
           <Alert className="mb-4" variant="destructive">
-            <AlertCircle className="h-4 w-4" />
+            <AlertCircle className="size-4" />
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
@@ -98,7 +98,7 @@ function OrganizationDetailContent({ organizationId }: { organizationId: Id<"org
       >
         <Card>
           <CardContent className="py-12 text-center">
-            <AlertCircle className="mx-auto h-12 w-12 text-muted-foreground" />
+            <AlertCircle className="mx-auto size-12 text-muted-foreground" />
             <p className="mt-4 text-muted-foreground">
               <Trans>The organization may have been deleted or you don't have access to it.</Trans>
             </p>
@@ -127,7 +127,7 @@ function OrganizationDetailContent({ organizationId }: { organizationId: Id<"org
           variant="destructive"
         >
           <Button data-testid="delete-organization-button" variant="destructive">
-            <Trash2 className="mr-2 h-4 w-4" />
+            <Trash2 className="mr-2 size-4" />
             <Trans>Delete Organization</Trans>
           </Button>
         </ConfirmDialog>
@@ -163,17 +163,17 @@ function OrganizationDetailContent({ organizationId }: { organizationId: Id<"org
     >
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <Loader2 className="size-8 animate-spin text-muted-foreground" />
         </div>
       ) : (
         <Tabs defaultValue="info" onValueChange={setActiveTab} value={activeTab}>
           <TabsList>
             <TabsTrigger value="info">
-              <Info className="mr-2 h-4 w-4" />
+              <Info className="mr-2 size-4" />
               <Trans>Info</Trans>
             </TabsTrigger>
             <TabsTrigger value="members">
-              <Users className="mr-2 h-4 w-4" />
+              <Users className="mr-2 size-4" />
               <Trans>Members</Trans>
             </TabsTrigger>
           </TabsList>

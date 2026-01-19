@@ -37,7 +37,7 @@ export function useOrganizationColumns(
             className="flex items-center gap-2 font-medium hover:underline"
             href={`/admin/organizations/${row.original._id}`}
           >
-            <Building2 className="h-4 w-4 text-muted-foreground" />
+            <Building2 className="size-4 text-muted-foreground" />
             {row.original.name}
           </Link>
         ),
@@ -104,7 +104,7 @@ export function useOrganizationColumns(
                 size="icon"
                 variant="ghost"
               >
-                <Trash2 className="h-4 w-4" />
+                <Trash2 className="size-4" />
               </Button>
             </ConfirmDialog>
           );

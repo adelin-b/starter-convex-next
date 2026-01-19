@@ -120,7 +120,7 @@ function NavigationMenuPopup({
   return (
     <NavigationMenuPrimitive.Popup
       className={cn(
-        "data-[ending-style]:easing-[ease] dark:-outline-offset-1 relative h-[var(--popup-height)] w-[var(--popup-width)] xs:w-[var(--popup-width)] origin-[var(--transform-origin)] rounded-lg bg-popover shadow-lg outline-1 outline-border transition-[opacity,transform,width,height,scale,translate] duration-[var(--duration)] ease-[var(--easing)] data-[ending-style]:scale-90 data-[starting-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[ending-style]:duration-150 dark:shadow-none",
+        "data-[ending-style]:easing-[ease] relative h-[var(--popup-height)] w-[var(--popup-width)] xs:w-[var(--popup-width)] origin-[var(--transform-origin)] rounded-lg bg-popover shadow-lg outline-1 outline-border transition-[opacity,transform,width,height,scale,translate] duration-[var(--duration)] ease-[var(--easing)] data-[ending-style]:scale-90 data-[starting-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[ending-style]:duration-150 dark:shadow-none dark:-outline-offset-1",
         className,
       )}
       {...props}
@@ -157,7 +157,7 @@ function NavigationMenuArrow({ className, ...props }: NavigationMenuPrimitive.Ar
   return (
     <NavigationMenuPrimitive.Arrow
       className={cn(
-        "data-[side=right]:-rotate-90 flex transition-[left] duration-[var(--duration)] ease-[var(--easing)] data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=top]:bottom-[-8px] data-[side=right]:left-[-13px] data-[side=left]:rotate-90 data-[side=top]:rotate-180",
+        "flex transition-[left] duration-[var(--duration)] ease-[var(--easing)] data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=top]:bottom-[-8px] data-[side=right]:left-[-13px] data-[side=left]:rotate-90 data-[side=right]:-rotate-90 data-[side=top]:rotate-180",
         className,
       )}
       data-slot="navigation-menu-arrow"
