@@ -50,9 +50,9 @@ Sentry.init({
   replaysSessionSampleRate: 0.1, // 10% of sessions
   replaysOnErrorSampleRate: 1, // 100% of sessions with errors
 
-  // Enable in production OR when Spotlight is enabled for dev
+  // Enable in all environments when DSN is configured
   // biome-ignore lint/style/noProcessEnv: Sentry config requires direct env access at initialization
-  enabled: process.env.NODE_ENV === "production" || spotlightEnabled,
+  enabled: !!process.env.NEXT_PUBLIC_SENTRY_DSN,
 
   // Set environment
   // biome-ignore lint/style/noProcessEnv: Sentry config requires direct env access at initialization
