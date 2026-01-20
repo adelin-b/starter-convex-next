@@ -151,7 +151,7 @@ Output a summary of:
 📊 Template Update Analysis
 ═══════════════════════════
 
-🔍 Remote: upstream (vroommarket)
+🔍 Remote: upstream (template-source)
 📅 Since: 2026-01-10 (last sync)
 📝 Commits analyzed: 148
 

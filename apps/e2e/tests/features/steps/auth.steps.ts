@@ -280,7 +280,10 @@ When("I log out", async ({ ctx }) => {
     await signOutButton.click();
   }
 
-  // Wait for auth to be cleared (Sign In link appears)
+  // Wait for redirect to login page (auth guard redirects unauthenticated users)
+  await ctx.page.waitForURL(/\/login/, { timeout: 15_000 });
+
+  // Wait for sign-in form to be visible
   await ctx.page.waitForSelector('button:has-text("Sign In")', { timeout: 10_000 });
 });
 
