@@ -1,0 +1,12 @@
+{
+  "id": "salesforce-integration",
+  "category": "Integrations",
+  "title": "Salesforce CRM Integration",
+  "description": "Connect with Salesforce to sync leads, contacts, and opportunities. Logs call activities, updates lead status, and creates tasks. Supports custom field mapping and selective sync filters.",
+  "status": "backlog",
+  "priority": 2,
+  "complexity": "complex",
+  "dependencies": ["prospect-import-export"],
+  "createdAt": "2026-01-09T21:13:23.808Z",
+  "updatedAt": "2026-01-09T21:13:23.808Z"
+}

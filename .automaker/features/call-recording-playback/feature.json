@@ -1,0 +1,13 @@
+{
+  "id": "call-recording-playback",
+  "category": "Analytics",
+  "title": "Call Recording Playback UI",
+  "description": "Interactive call recording player with synchronized transcript, waveform visualization, and timestamp navigation. Includes playback speed controls, bookmarking key moments, and sharing capabilities.",
+  "status": "verified",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.807Z",
+  "updatedAt": "2026-01-10T15:51:34.411Z",
+  "startedAt": "2026-01-10T15:34:11.900Z"
+}

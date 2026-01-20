@@ -50,26 +50,28 @@ export const list = zodQuery({
       throw AppErrors.notAuthenticated("view prospects");
     }
 
-    let prospects;
+    const status = args.status;
 
-    if (args.status) {
-      prospects = await context.db
-        .query("prospects")
-        .withIndex("by_userId_and_status", (q) =>
-          q.eq("userId", identity.subject).eq("status", args.status!),
-        )
-        .collect();
-    } else {
-      prospects = await context.db
-        .query("prospects")
-        .withIndex("by_userId", (q) => q.eq("userId", identity.subject))
-        .collect();
-    }
+    const prospects = status
+      ? await context.db
+          .query("prospects")
+          .withIndex("by_userId_and_status", (q) =>
+            q.eq("userId", identity.subject).eq("status", status),
+          )
+          .collect()
+      : await context.db
+          .query("prospects")
+          .withIndex("by_userId", (q) => q.eq("userId", identity.subject))
+          .collect();
 
     // Filter in memory for optional params
     return prospects.filter((prospect) => {
-      if (args.campaignId && prospect.campaignId !== args.campaignId) return false;
-      if (args.organizationId && prospect.organizationId !== args.organizationId) return false;
+      if (args.campaignId && prospect.campaignId !== args.campaignId) {
+        return false;
+      }
+      if (args.organizationId && prospect.organizationId !== args.organizationId) {
+        return false;
+      }
       return true;
     });
   },

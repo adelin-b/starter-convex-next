@@ -1,6 +1,5 @@
 "use client";
 
-import type { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@starter-saas/ui/badge";
 import { Button } from "@starter-saas/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@starter-saas/ui/card";
@@ -14,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@starter-saas/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@starter-saas/ui/tabs";
+import type { ColumnDef } from "@tanstack/react-table";
 import { MoreVertical, Phone, Plus, Settings } from "lucide-react";
 import { useMemo } from "react";
 

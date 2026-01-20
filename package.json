@@ -19,12 +19,15 @@
     }
   },
   "scripts": {
-    "check": "turbo run check:biome //#check:eslint check:eslint check:types check:spell //#check:sherif //#check:knip --continue",
+    "check": "turbo run check:biome //#check:eslint check:eslint check:types check:spell //#check:sherif //#check:knip //#check:convex-unused //#check:urls //#check:deprecated //#check:skills check:steps --continue",
     "check:biome": "biome check .",
     "check:eslint": "eslint --concurrency auto .",
     "check:spell": "bunx cspell --config ./cspell.json --unique --show-context --show-suggestions \".\"",
     "check:sherif": "bunx sherif",
     "check:knip": "knip",
+    "check:convex-unused": "npx tsx scripts/find-unused-convex-endpoints.ts",
+    "check:urls": "npx tsx scripts/find-hardcoded-urls.ts",
+    "check:deprecated": "npx tsx scripts/find-deprecated-usage.ts",
     "fix": "biome check --write .",
     "prepare": "husky",
     "ruler:apply": "bunx @intellectronica/ruler@latest apply --local-only",
@@ -57,7 +60,8 @@
     "knip": "knip",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish"
+    "changeset:publish": "changeset publish",
+    "template:changelog": "bun run scripts/template-changelog.ts --since template/main"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.6",
@@ -65,7 +69,6 @@
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@cspell/dict-fr-fr": "^2.3.2",
-    "@cucumber/cucumber": "^12.2.0",
     "@cucumber/gherkin": "^37.0.0",
     "@lingui/babel-plugin-lingui-macro": "^5.6.1",
     "@lingui/loader": "^5.6.1",
@@ -83,7 +86,6 @@
     "baseline-browser-mapping": "^2.9.6",
     "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.1",
-    "framer-motion": "^12.23.25",
     "glob": "^13.0.0",
     "husky": "^9.1.7",
     "js-yaml": "^4.1.1",
@@ -106,10 +108,5 @@
   },
   "patchedDependencies": {
     "@xixixao/uploadstuff@0.0.5": "patches/@xixixao%2Fuploadstuff@0.0.5.patch"
-  },
-  "dependencies": {
-    "@convex-dev/polar": "^0.7.3",
-    "@langchain/core": "^1.0.5",
-    "@langchain/langgraph": "^1.0.2"
   }
 }

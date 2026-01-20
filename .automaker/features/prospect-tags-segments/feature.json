@@ -1,0 +1,12 @@
+{
+  "id": "prospect-tags-segments",
+  "category": "CRM",
+  "title": "Prospect Tags and Segmentation",
+  "description": "Advanced tagging system with custom tags, auto-tagging rules based on behaviors, and dynamic segments. Enables targeted campaign creation based on prospect attributes, engagement, and call history.",
+  "status": "backlog",
+  "priority": 2,
+  "complexity": "simple",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.809Z",
+  "updatedAt": "2026-01-09T21:13:23.809Z"
+}

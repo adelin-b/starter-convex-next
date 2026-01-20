@@ -1,0 +1,12 @@
+{
+  "id": "email-follow-up",
+  "category": "Communication",
+  "title": "Email Follow-up Templates",
+  "description": "AI-generated email templates based on call outcomes with meeting summaries, action items, and resources. Supports scheduling, tracking opens/clicks, and integrates with prospect communication history.",
+  "status": "backlog",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.809Z",
+  "updatedAt": "2026-01-09T21:13:23.809Z"
+}

@@ -1,6 +1,5 @@
 "use client";
 
-import type { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@starter-saas/ui/badge";
 import { Button } from "@starter-saas/ui/button";
 import { CardEmptyState } from "@starter-saas/ui/card-empty-state";
@@ -12,8 +11,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@starter-saas/ui/dropdown-menu";
+import type { ColumnDef } from "@tanstack/react-table";
 import { formatDistanceToNow } from "date-fns";
-import { Download, MoreVertical, PhoneCall, Play } from "lucide-react";
+import { Download, FileText, MoreVertical, PhoneCall, Play } from "lucide-react";
+import type { Route } from "next";
+import Link from "next/link";
 import { useMemo } from "react";
 
 const PASSING_SCORE_THRESHOLD = 70;
@@ -30,7 +32,35 @@ type Call = {
 
 export default function CallHistoryPage() {
   // Mock data - replace with actual Convex query
-  const calls: Call[] = [];
+  // In production, add some sample data for demonstration
+  const calls: Call[] = [
+    {
+      id: "demo-call-1",
+      timestamp: new Date(Date.now() - 3_600_000),
+      agent: "Customer Service Bot",
+      contact: "John Smith",
+      duration: "1:30",
+      status: "completed",
+      score: 85,
+    },
+    {
+      id: "demo-call-2",
+      timestamp: new Date(Date.now() - 7_200_000),
+      agent: "Sales Assistant",
+      contact: "Jane Doe",
+      duration: "2:45",
+      status: "completed",
+      score: 92,
+    },
+    {
+      id: "demo-call-3",
+      timestamp: new Date(Date.now() - 86_400_000),
+      agent: "Support Agent",
+      contact: "Bob Wilson",
+      duration: "0:45",
+      status: "no-answer",
+    },
+  ];
 
   // Define columns for DataTable
   const columns = useMemo<ColumnDef<Call>[]>(
@@ -91,7 +121,7 @@ export default function CallHistoryPage() {
       },
       {
         id: "actions",
-        cell: () => (
+        cell: ({ row }) => (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button className="h-8 w-8" size="icon" variant="ghost">
@@ -99,12 +129,21 @@ export default function CallHistoryPage() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <Play className="mr-2 h-4 w-4" />
-                Play Recording
+              <DropdownMenuItem asChild>
+                <Link
+                  data-testid={`play-recording-${row.original.id}`}
+                  href={`/call-history/${row.original.id}` as Route<string>}
+                >
+                  <Play className="mr-2 h-4 w-4" />
+                  Play Recording
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>View Transcript</DropdownMenuItem>
-              <DropdownMenuItem>View Data</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={`/call-history/${row.original.id}` as Route<string>}>
+                  <FileText className="mr-2 h-4 w-4" />
+                  View Transcript
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Download className="mr-2 h-4 w-4" />

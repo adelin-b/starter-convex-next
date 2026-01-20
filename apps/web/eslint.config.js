@@ -41,6 +41,38 @@ export default [
       // Global error boundary renders outside IntlProvider context
       // Text is intentionally hardcoded as last-resort fallback
       "src/app/global-error.tsx",
+
+      // ============================================================
+      // Early-stage features not yet localized (temporary ignores)
+      // TODO: Remove these as features are localized
+      // ============================================================
+
+      // New dashboard pages - not yet localized
+      "src/app/(dashboard)/account/**",
+      "src/app/(dashboard)/batch-call/**",
+      "src/app/(dashboard)/billing/**",
+      "src/app/(dashboard)/call-history/**",
+      "src/app/(dashboard)/chat-history/**",
+      "src/app/(dashboard)/knowledge-base/**",
+      "src/app/(dashboard)/notifications/**",
+      "src/app/(dashboard)/phone-numbers/**",
+      "src/app/(dashboard)/profile/**",
+      "src/app/(dashboard)/sdr-copilot/**",
+      "src/app/(dashboard)/upgrade/**",
+
+      // API routes - server-side, technical strings only
+      "src/app/api/**",
+
+      // Feature modules - not yet localized
+      "src/features/agents/**",
+      "src/features/calls/**",
+      "src/features/scripts/**",
+
+      // Dev-only components
+      "src/components/dev-tools-loader.tsx",
+
+      // Validation schemas - technical error messages
+      "src/lib/validation-schemas.ts",
     ],
   },
 

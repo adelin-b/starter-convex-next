@@ -1,0 +1,13 @@
+{
+  "id": "real-time-call-suggestions",
+  "category": "SDR Copilot",
+  "title": "Real-time Call Suggestions",
+  "description": "Live AI-powered suggestions during active calls that detect conversation context and recommend next steps. Integrates with LiveKit rooms to provide objection handlers, closing techniques, and script adjustments based on prospect responses.",
+  "status": "verified",
+  "priority": 1,
+  "complexity": "complex",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.806Z",
+  "updatedAt": "2026-01-10T15:47:36.881Z",
+  "startedAt": "2026-01-10T15:34:03.177Z"
+}

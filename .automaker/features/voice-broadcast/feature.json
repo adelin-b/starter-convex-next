@@ -1,0 +1,12 @@
+{
+  "id": "voice-broadcast",
+  "category": "Communication",
+  "title": "Voice Broadcast Campaigns",
+  "description": "One-to-many voice message broadcasting for announcements, reminders, or promotions. Supports pre-recorded messages, press-to-connect options, and campaign delivery scheduling with timezone awareness.",
+  "status": "backlog",
+  "priority": 3,
+  "complexity": "moderate",
+  "dependencies": ["batch-calling-engine"],
+  "createdAt": "2026-01-09T21:13:23.809Z",
+  "updatedAt": "2026-01-09T21:13:23.809Z"
+}

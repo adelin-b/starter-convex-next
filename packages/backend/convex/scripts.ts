@@ -71,9 +71,15 @@ export const list = zodQuery({
 
     // Filter in memory for optional params
     return scripts.filter((script) => {
-      if (args.category && script.category !== args.category) return false;
-      if (args.isPublic !== undefined && script.isPublic !== args.isPublic) return false;
-      if (args.organizationId && script.organizationId !== args.organizationId) return false;
+      if (args.category && script.category !== args.category) {
+        return false;
+      }
+      if (args.isPublic !== undefined && script.isPublic !== args.isPublic) {
+        return false;
+      }
+      if (args.organizationId && script.organizationId !== args.organizationId) {
+        return false;
+      }
       return true;
     });
   },

@@ -19,22 +19,16 @@
   ],
   "ignoreDependencies": [
     "baseline-browser-mapping",
-    "import-in-the-middle",
-    "require-in-the-middle",
     "@cucumber/gherkin",
     "lint-staged",
     "@vitest/coverage-v8",
     "sharp-cli",
-    "svgo",
     "@commitlint/cli",
     "@cspell/dict-fr-fr",
-    "postcss",
     "postcss-load-config",
     "@lingui/babel-plugin-lingui-macro",
     "@lingui/loader",
-    "@lingui/conf",
     "@lingui/macro",
-    "@lingui/swc-plugin",
     "@typescript-eslint/parser",
     "eslint-import-resolver-typescript",
     "eslint-plugin-import",
@@ -42,7 +36,7 @@
     "next",
     "react-dom"
   ],
-  "ignoreBinaries": ["open"],
+  "ignoreBinaries": ["open", "tsx"],
   "workspaces": {
     ".": {
       "entry": [
@@ -87,6 +81,7 @@
       "entry": [
         "src/app/**/*.{ts,tsx}",
         "src/lib/*.ts",
+        "src/features/**/index.ts",
         "src/instrumentation.ts",
         "sentry.client.config.ts",
         "sentry.server.config.ts",

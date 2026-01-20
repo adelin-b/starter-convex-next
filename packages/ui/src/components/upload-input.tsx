@@ -29,7 +29,7 @@ export function UploadInput({
         if (!event.target.files) {
           return;
         }
-        const files = Array.from(event.target.files);
+        const files = [...event.target.files];
         if (files.length === 0) {
           return;
         }

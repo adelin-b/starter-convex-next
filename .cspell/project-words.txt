@@ -1,4 +1,23 @@
 
+# AI/Voice Services
+assemblyai
+Cartesia
+cartesia
+copilotkit
+deepgram
+elevenlabs
+gladia
+groq
+huggingface
+inworld
+langgraph
+livekit
+Ollama
+ollama
+silero
+soniox
+speechmatics
+
 # AI tools ignore patterns
 # Build/bundler terms
 # Car models
@@ -92,6 +111,10 @@ berline
 biome
 bun
 bunx
+calcom
+caniemail
+checkpointer
+codexcli
 cabine
 calen
 carnitas
@@ -112,6 +135,8 @@ datatabletoolbar
 doesn
 domcontentloaded
 dtree
+emailonacid
+Endpointing
 epicweb
 evilrabbit
 extralight
@@ -119,8 +144,10 @@ fourgonnette
 frontmatter
 ghos
 groupable
+hubspot
 huskyrc
 johndoe
+langchain
 junie
 kiro
 kwargs
@@ -137,6 +164,7 @@ mockuser
 monocart
 monorepo
 moto
+msword
 mozjpeg
 msvc
 networkidle
@@ -144,14 +172,21 @@ nextjs
 njsproj
 ntvs
 nums
+nuqs
+officedocument
+omnichannel
 oneline
+openxmlformats
 opencode
+pgrep
 prefetch
+pushback
 qwen
 radix
 reques
 resender
 revalidate
+sarahs
 rnwood
 rooignore
 rscinfo
@@ -179,9 +214,12 @@ tsgo
 turbo
 turbopack
 turborepo
+tweakcn
 typesafe
 ultracite
+Uncomplete
 unauthed
+uploadstuff
 unhover
 unindexed
 unlocalized
@@ -193,6 +231,8 @@ vroom
 vroommarket
 vueless
 worktree
+wordprocessingml
 worktrees
+xixixao
 zod
 zodvex

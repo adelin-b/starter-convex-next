@@ -360,8 +360,8 @@ function PhaseTipsSection({ tips }: { tips: string[] }) {
         Tips
       </div>
       <ul className="space-y-1">
-        {tips.map((tip, i) => (
-          <li className="flex items-start gap-2 text-muted-foreground text-sm" key={i}>
+        {tips.map((tip) => (
+          <li className="flex items-start gap-2 text-muted-foreground text-sm" key={tip}>
             <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400" />
             {tip}
           </li>

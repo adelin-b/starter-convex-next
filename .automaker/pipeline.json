@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "id": "step_mk9nl14b_qwojs8",
+      "name": "Code Review",
+      "instructions": "## Code Review\n\nPlease perform a thorough code review of the changes made in this feature. Focus on:\n\n### Code Quality\n- **Readability**: Is the code easy to understand? Are variable/function names descriptive?\n- **Maintainability**: Will this code be easy to modify in the future?\n- **DRY Principle**: Is there any duplicated code that should be abstracted?\n- **Single Responsibility**: Do functions and classes have a single, clear purpose?\n\n### Best Practices\n- Follow established patterns and conventions used in the codebase\n- Ensure proper error handling is in place\n- Check for appropriate logging where needed\n- Verify that magic numbers/strings are replaced with named constants\n\n### Performance\n- Identify any potential performance bottlenecks\n- Check for unnecessary re-renders (React) or redundant computations\n- Ensure efficient data structures are used\n\n### Testing\n- Verify that new code has appropriate test coverage\n- Check that edge cases are handled\n\n### Action Required\nAfter reviewing, make any necessary improvements directly. If you find issues:\n1. Fix them immediately if they are straightforward\n2. For complex issues, document them clearly with suggested solutions\n\nProvide a brief summary of changes made or issues found.\n\nYou will run /review command so sub agents are going to help reviewing.",
+      "colorClass": "bg-blue-500/20",
+      "order": 0,
+      "createdAt": "2026-01-11T11:31:04.811Z",
+      "updatedAt": "2026-01-11T11:31:04.811Z"
+    },
+    {
+      "id": "step_mk9nm678_8fydcx",
+      "name": "Check linter",
+      "instructions": "Run bun check to find the problems.",
+      "colorClass": "bg-purple-500/20",
+      "order": 1,
+      "createdAt": "2026-01-11T11:31:58.052Z",
+      "updatedAt": "2026-01-11T11:31:58.052Z"
+    }
+  ]
+}

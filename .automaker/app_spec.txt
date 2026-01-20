@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project_specification>
+  <project_name>Handoo - AI Voice Agents Management &amp; SDR Enhancement Platform</project_name>
+
+  <overview>
+    Handoo is a comprehensive SaaS platform for managing AI-powered voice agents and enhancing Sales Development Representative (SDR) productivity. The platform enables businesses to create, configure, and deploy intelligent voice agents for outbound and inbound calling campaigns. It features a robust SDR Copilot system that provides real-time call guidance, dynamic scripting, prospect management, and AI-powered selling insights. The platform integrates with LiveKit for real-time voice communication using SIP telephony, supports multiple AI providers for speech-to-text, language models, and text-to-speech, and includes comprehensive campaign management with tracking and analytics. Key goals include automating sales outreach, improving SDR effectiveness through AI-assisted guidance, and managing multi-tenant organizations with full billing and subscription support.
+  </overview>
+
+  <technology_stack>
+    <technology>Next.js 16 (React 19)</technology>
+    <technology>TypeScript 5</technology>
+    <technology>Convex (Real-time Backend)</technology>
+    <technology>LiveKit (Real-time Voice/Video)</technology>
+    <technology>LiveKit Agents SDK</technology>
+    <technology>Better Auth (Authentication)</technology>
+    <technology>Tailwind CSS 4</technology>
+    <technology>shadcn/ui Components</technology>
+    <technology>Zod (Schema Validation)</technology>
+    <technology>React Hook Form</technology>
+    <technology>Framer Motion (Animations)</technology>
+    <technology>Tanstack React Table</technology>
+    <technology>Lingui (i18n)</technology>
+    <technology>Sentry (Error Tracking)</technology>
+    <technology>Turbo (Monorepo)</technology>
+    <technology>Bun (Package Manager)</technology>
+    <technology>Biome (Linting/Formatting)</technology>
+    <technology>Vitest (Testing)</technology>
+    <technology>Playwright (E2E Testing)</technology>
+    <technology>Storybook (Component Development)</technology>
+    <technology>Polar (Billing/Subscriptions)</technology>
+    <technology>Deepgram/AssemblyAI (Speech-to-Text)</technology>
+    <technology>OpenAI/Anthropic/Google/Groq (LLM Providers)</technology>
+    <technology>Cartesia/ElevenLabs/OpenAI (Text-to-Speech)</technology>
+    <technology>Silero VAD (Voice Activity Detection)</technology>
+  </technology_stack>
+
+  <core_capabilities>
+    <capability>AI Voice Agent Creation &amp; Configuration - Create chat and voice agents with customizable STT/LLM/TTS providers</capability>
+    <capability>Real-time Voice Communication - LiveKit-powered SIP telephony for outbound/inbound calls</capability>
+    <capability>SDR Copilot System - AI-powered call guidance with dynamic scripting and objection handling</capability>
+    <capability>Campaign Management - Create, schedule, and track automated calling campaigns</capability>
+    <capability>Prospect Management - Full CRM-lite functionality with status tracking and contact history</capability>
+    <capability>Multi-tenant Organizations - Team management with role-based access control (Owner/Admin/Member)</capability>
+    <capability>Knowledge Base - Vehicle insights, sales techniques, and objection handlers for SDR assistance</capability>
+    <capability>Call Analytics - Recording, transcription, sentiment analysis, and outcome tracking</capability>
+    <capability>Dynamic Call Scripts - Phase-based scripts (Opening, Discovery, Presentation, Objection, Closing)</capability>
+    <capability>Real-time Suggestions - Live call suggestions and objection detection during calls</capability>
+    <capability>Subscription &amp; Billing - Polar integration for plan management and usage tracking</capability>
+    <capability>API Keys &amp; Usage Monitoring - API access management with usage analytics</capability>
+  </core_capabilities>
+
+  <implemented_features>
+    <feature>
+      <name>AI Agent Management</name>
+      <description>Full CRUD operations for AI agents supporting both chat and voice types. Agents can be configured with custom STT providers (Deepgram, AssemblyAI, OpenAI), LLM models (OpenAI, Anthropic, Google, Groq), and TTS voices (Cartesia, ElevenLabs). Includes folder organization, activation toggles, and data schema definitions for structured data collection.</description>
+      <file_locations>
+        <location>packages/backend/convex/agents.ts</location>
+        <location>packages/backend/convex/schema.ts</location>
+        <location>apps/web/src/features/agents/components/agent-list.tsx</location>
+        <location>apps/web/src/app/(dashboard)/agents/page.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>LiveKit Voice Agent Runtime</name>
+      <description>LiveKit Agents SDK integration for real-time voice AI. The agent loads configuration from Convex, supports template variable replacement, includes built-in tools (addNote, updateData) for conversation data extraction, and features noise cancellation via LiveKit Cloud. Uses Silero VAD for voice activity detection and supports multilingual turn detection.</description>
+      <file_locations>
+        <location>packages/agent-livekit/src/agent.ts</location>
+        <location>packages/agent-livekit/package.json</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>SIP Outbound Calling</name>
+      <description>API endpoint for initiating outbound SIP calls through LiveKit. Creates unique room names, associates calls with AI agents, and manages SIP participant lifecycle for phone-based voice interactions.</description>
+      <file_locations>
+        <location>apps/web/src/app/api/sip/outbound-call/route.ts</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>SDR Copilot Dashboard</name>
+      <description>Three-column dashboard for sales call assistance: Pre-call Brief (prospect information), Dynamic Script (phase-based call guidance), and Knowledge Panel (selling insights). Features prospect selection, AI-powered recommendations, and real-time script progression.</description>
+      <file_locations>
+        <location>apps/web/src/app/(dashboard)/sdr-copilot/page.tsx</location>
+        <location>apps/web/src/app/(dashboard)/sdr-copilot/components/dynamic-script.tsx</location>
+        <location>apps/web/src/app/(dashboard)/sdr-copilot/components/pre-call-brief.tsx</location>
+        <location>apps/web/src/app/(dashboard)/sdr-copilot/components/knowledge-panel.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Dynamic Call Scripts</name>
+      <description>Phase-based scripting system with Opening, Discovery, Presentation, Objection Handling, and Closing phases. Each phase includes default scripts, tips, next-phase triggers, and progress tracking. Supports objection detection with contextual handler suggestions.</description>
+      <file_locations>
+        <location>apps/web/src/app/(dashboard)/sdr-copilot/components/dynamic-script.tsx</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Campaign Management</name>
+      <description>Full campaign lifecycle management including creation, scheduling, status transitions (draft/active/paused/completed/archived), and real-time statistics tracking. Campaigns link to agents, scripts, and prospects with concurrent call limits and retry configuration.</description>
+      <file_locations>
+        <location>packages/backend/convex/campaigns.ts</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Call Tracking &amp; Analytics</name>
+      <description>Comprehensive call management with status tracking (initiated/ringing/answered/in_progress/completed/failed), outcome recording (meeting_booked/callback_scheduled/interested/not_interested), sentiment analysis, key points extraction, and transcript storage.</description>
+      <file_locations>
+        <location>packages/backend/convex/calls.ts</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Prospect Management</name>
+      <description>CRM functionality for managing sales prospects with status tracking (new/contacted/interested/meeting_scheduled/callback_scheduled/not_interested), custom fields, tags, notes, and call history integration.</description>
+      <file_locations>
+        <location>packages/backend/convex/prospects.ts</location>
+        <location>packages/backend/convex/schema.ts</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Organization Multi-tenancy</name>
+      <description>Full multi-tenant support with organizations, member management, role-based access (Owner/Admin/Member), and email-based invitation system with token verification and expiration.</description>
+      <file_locations>
+        <location>packages/backend/convex/organizations.ts</location>
+        <location>packages/backend/convex/schema.ts</location>
+        <location>apps/web/src/features/organizations/</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Vehicle Insights Knowledge Base</name>
+      <description>Structured knowledge base for SDR assistance including best sellers, mileage tips, parts information, objection handlers, and pricing tips. Features approval workflow (draft/pending_review/approved/rejected) and usage tracking.</description>
+      <file_locations>
+        <location>packages/backend/convex/schema.ts</location>
+        <location>packages/backend/convex/sdrCopilot.ts</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Sales Techniques Library</name>
+      <description>Categorized sales techniques database organized by call phase (opening/discovery/presentation/objection/closing) with step-by-step instructions, psychological basis, example phrases, and effectiveness ratings.</description>
+      <file_locations>
+        <location>packages/backend/convex/schema.ts</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>AI-Generated Scripts</name>
+      <description>System for storing and tracking AI-generated call scripts with structured phases, prospect context, generation metadata (model used, generation time), and effectiveness tracking.</description>
+      <file_locations>
+        <location>packages/backend/convex/schema.ts</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Shared UI Component Library</name>
+      <description>Comprehensive React component library built on shadcn/ui with 50+ components including forms, data tables, dialogs, charts, layouts, and specialized components (filter panels, page headers, autoforms). Includes Storybook documentation.</description>
+      <file_locations>
+        <location>packages/ui/src/components/</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Authentication System</name>
+      <description>Better Auth integration with Google OAuth support, preview authentication for development, and Convex-backed session management.</description>
+      <file_locations>
+        <location>apps/web/src/lib/auth/client.ts</location>
+        <location>packages/backend/convex/auth.ts</location>
+        <location>apps/web/src/features/auth/</location>
+      </file_locations>
+    </feature>
+    <feature>
+      <name>Billing &amp; Subscriptions</name>
+      <description>Polar integration for subscription management with pricing tables, plan selection, and subscription status tracking. Includes usage events and organization-level usage aggregation.</description>
+      <file_locations>
+        <location>packages/backend/convex/polar.ts</location>
+        <location>apps/web/src/features/billing/</location>
+        <location>packages/backend/convex/schema.ts</location>
+      </file_locations>
+    </feature>
+  </implemented_features>
+
+  <additional_requirements>
+    <requirement>Node.js &gt;= 18 &lt; 25</requirement>
+    <requirement>Bun 1.3.2+ package manager</requirement>
+    <requirement>LiveKit Cloud account with SIP trunk configuration</requirement>
+    <requirement>Convex deployment for real-time backend</requirement>
+    <requirement>API keys for AI providers (OpenAI, Anthropic, Deepgram, AssemblyAI, Cartesia, ElevenLabs)</requirement>
+    <requirement>Polar account for billing integration</requirement>
+    <requirement>Google OAuth credentials for authentication</requirement>
+  </additional_requirements>
+
+  <development_guidelines>
+    <guideline>Monorepo structure using Turbo with apps/ and packages/ workspaces</guideline>
+    <guideline>TypeScript strict mode with Zod schema validation throughout</guideline>
+    <guideline>Feature-based architecture in apps/web with barrel exports</guideline>
+    <guideline>Convex for real-time database with zodvex for type-safe schemas</guideline>
+    <guideline>Biome for linting and formatting (replaces ESLint + Prettier)</guideline>
+    <guideline>Vitest for unit testing, Playwright for E2E testing</guideline>
+    <guideline>Storybook for component development and documentation</guideline>
+    <guideline>Lingui for internationalization with French and English support</guideline>
+    <guideline>Server-only enforcement via package.json exports in backend</guideline>
+    <guideline>Conventional commits with Commitlint enforcement</guideline>
+    <guideline>Environment validation using @t3-oss/env-nextjs</guideline>
+  </development_guidelines>
+
+  <implementation_roadmap>
+    <phase>
+      <name>Core Agent Infrastructure</name>
+      <status>completed</status>
+      <description>AI agent creation, configuration, and management with multi-provider support for STT/LLM/TTS</description>
+    </phase>
+    <phase>
+      <name>LiveKit Voice Integration</name>
+      <status>completed</status>
+      <description>Real-time voice agent runtime with LiveKit Agents SDK, SIP telephony, and noise cancellation</description>
+    </phase>
+    <phase>
+      <name>SDR Copilot MVP</name>
+      <status>completed</status>
+      <description>Basic SDR dashboard with prospect briefs, dynamic scripts, and knowledge panel</description>
+    </phase>
+    <phase>
+      <name>Campaign Management</name>
+      <status>completed</status>
+      <description>Full campaign CRUD with scheduling, status management, and statistics tracking</description>
+    </phase>
+    <phase>
+      <name>Call Analytics</name>
+      <status>completed</status>
+      <description>Call recording, transcription storage, sentiment analysis, and outcome tracking</description>
+    </phase>
+    <phase>
+      <name>Knowledge Base Enhancement</name>
+      <status>in_progress</status>
+      <description>Vehicle insights approval workflow, sales techniques library, and real-time suggestions</description>
+    </phase>
+    <phase>
+      <name>Batch Calling</name>
+      <status>pending</status>
+      <description>Automated batch calling with concurrent call management and retry logic</description>
+    </phase>
+    <phase>
+      <name>CRM Integrations</name>
+      <status>pending</status>
+      <description>HubSpot and Salesforce integration for prospect sync and activity logging</description>
+    </phase>
+    <phase>
+      <name>Calendar Integrations</name>
+      <status>pending</status>
+      <description>Cal.com and simple calendar integration for meeting scheduling from calls</description>
+    </phase>
+  </implementation_roadmap>
+</project_specification>

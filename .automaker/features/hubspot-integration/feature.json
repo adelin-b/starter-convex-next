@@ -1,0 +1,12 @@
+{
+  "id": "hubspot-integration",
+  "category": "Integrations",
+  "title": "HubSpot CRM Integration",
+  "description": "Bi-directional sync with HubSpot for prospects, contacts, and activities. Automatically logs calls, updates contact properties, creates tasks for follow-ups, and syncs deal stages based on call outcomes.",
+  "status": "backlog",
+  "priority": 2,
+  "complexity": "complex",
+  "dependencies": ["prospect-import-export"],
+  "createdAt": "2026-01-09T21:13:23.808Z",
+  "updatedAt": "2026-01-09T21:13:23.808Z"
+}

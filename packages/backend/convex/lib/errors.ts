@@ -36,6 +36,7 @@ export const ErrorCodes = {
 
   // Business Logic
   USAGE_LIMIT_EXCEEDED: "USAGE_LIMIT_EXCEEDED",
+  QUOTA_EXCEEDED: "QUOTA_EXCEEDED",
 
   // Validation
   INVALID_INPUT: "INVALID_INPUT",
@@ -244,6 +245,17 @@ export const AppErrors = {
       details: { limit, current, max },
       userMessage: `You have reached your ${limit.toLowerCase()} limit.`,
     }),
+
+  quotaExceeded: (resource: string, limit: number, current: number, plan: string) =>
+    createAppError(
+      ErrorCodes.QUOTA_EXCEEDED,
+      `${resource} quota exceeded: ${current}/${limit} (${plan} plan)`,
+      {
+        severity: ErrorSeverity.MEDIUM,
+        details: { resource, limit, current, plan },
+        userMessage: `You have reached your ${resource.toLowerCase()} limit on the ${plan} plan. Upgrade for more.`,
+      },
+    ),
 
   // Validation
   invalidInput: (field: string, reason?: string) =>

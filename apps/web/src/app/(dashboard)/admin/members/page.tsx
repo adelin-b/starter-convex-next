@@ -287,7 +287,11 @@ function MembersContent() {
     api.organizations.getAllMembers,
     {},
   );
-  const { data: organizations } = useQueryWithStatus(api.organizations.getAll, {});
+  const { data: organizationsResult } = useQueryWithStatus(api.organizations.getAll, {
+    limit: 100,
+    cursor: undefined,
+  });
+  const organizations = organizationsResult?.items;
   const { data: invitations, isPending: isInvitationsPending } = useQueryWithStatus(
     api.invitations.getAll,
     {},

@@ -6,6 +6,11 @@ afterEach(() => {
   cleanup();
 });
 
+// Mock Element.getAnimations for base-ui scroll area components
+if (Element.prototype.getAnimations === undefined) {
+  Element.prototype.getAnimations = vi.fn().mockReturnValue([]);
+}
+
 Object.defineProperty(globalThis, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query: string) => ({
@@ -20,17 +25,18 @@ Object.defineProperty(globalThis, "matchMedia", {
   })),
 });
 
-globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-}));
+globalThis.ResizeObserver = class ResizeObserver {
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+};
 
-globalThis.IntersectionObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-  root: null,
-  rootMargin: "",
-  thresholds: [],
-}));
+globalThis.IntersectionObserver = class IntersectionObserver {
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+  root = null;
+  rootMargin = "";
+  thresholds: number[] = [];
+  takeRecords = vi.fn().mockReturnValue([]);
+};

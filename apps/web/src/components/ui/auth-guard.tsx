@@ -138,7 +138,7 @@ function NoAdminAccessFallback() {
           </p>
         </div>
         <Button asChild variant="outline">
-          <Link data-testid="back-to-app-link" href="/todos">
+          <Link data-testid="back-to-app-link" href="/agents">
             <Home className="mr-2 h-4 w-4" />
             <Trans>Back to Home</Trans>
           </Link>

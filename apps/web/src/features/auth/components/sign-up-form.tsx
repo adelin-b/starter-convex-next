@@ -25,10 +25,7 @@ type SignUpFormProps = {
   callbackUrl?: string;
 };
 
-export default function SignUpForm({
-  onSwitchToSignIn,
-  callbackUrl = "/todos",
-}: SignUpFormProps) {
+export default function SignUpForm({ onSwitchToSignIn, callbackUrl = "/agents" }: SignUpFormProps) {
   const router = useRouter();
   const { t } = useLingui();
 
@@ -46,7 +43,6 @@ export default function SignUpForm({
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignUpFormData>({
-    // @ts-expect-error - Zod v3.25 version mismatch with zodResolver
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       name: "",

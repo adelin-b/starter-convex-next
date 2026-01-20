@@ -74,6 +74,7 @@ export const list = zodQuery({
     type: z.enum(agentTypes).optional(),
     isActive: z.boolean().optional(),
     organizationId: zid("organizations").optional(),
+    limit: z.number().int().positive().max(100).optional(),
   },
   handler: async (context, args) => {
     const identity = await context.auth.getUserIdentity();
@@ -81,19 +82,33 @@ export const list = zodQuery({
       throw AppErrors.notAuthenticated("view agents");
     }
 
+    const limit = args.limit ?? 50;
+
     const query = context.db
       .query("agents")
-      .withIndex("by_userId", (q) => q.eq("userId", identity.subject));
+      .withIndex("by_userId", (q) => q.eq("userId", identity.subject))
+      .order("desc");
 
+    // For filtered queries, we need to collect and filter in memory
+    // then apply limit to the filtered results
     const agents = await query.collect();
 
     // Filter in memory for optional params
-    return agents.filter((agent) => {
-      if (args.type && agent.type !== args.type) return false;
-      if (args.isActive !== undefined && agent.isActive !== args.isActive) return false;
-      if (args.organizationId && agent.organizationId !== args.organizationId) return false;
+    const filtered = agents.filter((agent) => {
+      if (args.type && agent.type !== args.type) {
+        return false;
+      }
+      if (args.isActive !== undefined && agent.isActive !== args.isActive) {
+        return false;
+      }
+      if (args.organizationId && agent.organizationId !== args.organizationId) {
+        return false;
+      }
       return true;
     });
+
+    // Apply limit after filtering
+    return filtered.slice(0, limit);
   },
 });
 
@@ -131,6 +146,7 @@ export const getByIdForAgent = zodQuery({
   },
   handler: async (context, { id, systemToken }) => {
     // Verify system token
+    // biome-ignore lint/style/noProcessEnv: Convex action requires direct env access
     const expectedToken = process.env.CONVEX_SYSTEM_ADMIN_TOKEN;
     if (!expectedToken || systemToken !== expectedToken) {
       throw AppErrors.insufficientPermissions("access agent config");

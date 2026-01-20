@@ -1,1 +1,0 @@
-../../features/agents/components/copilot-integration.tsx

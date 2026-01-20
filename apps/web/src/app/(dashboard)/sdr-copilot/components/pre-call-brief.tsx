@@ -245,8 +245,8 @@ function NotesCard({
           <div className="space-y-1">
             <p className="font-medium text-muted-foreground text-xs">TALKING POINTS</p>
             <ul className="list-inside list-disc space-y-1 text-sm">
-              {prepNotes.talkingPoints.map((point, index) => (
-                <li key={index}>{point}</li>
+              {prepNotes.talkingPoints.map((point) => (
+                <li key={point}>{point}</li>
               ))}
             </ul>
           </div>

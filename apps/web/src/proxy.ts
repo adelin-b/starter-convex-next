@@ -4,7 +4,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { getSafeCallbackUrl } from "@/utils/url-utils";
 
 // Routes that require authentication
-const protectedRoutes = ["/todos", "/settings", "/admin"] as const;
+const protectedRoutes = ["/agents", "/settings", "/admin"] as const;
 
 // Routes that should redirect to app if already authenticated
 const authRoutes = ["/login"] as const;
@@ -27,7 +27,9 @@ export function proxy(request: NextRequest) {
   }
 
   // Check if the current path matches protected routes
-  const isProtectedRoute = protectedRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
+  const isProtectedRoute = protectedRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
+  );
 
   // Check if the current path is an auth route
   const isAuthRoute = authRoutes.some(

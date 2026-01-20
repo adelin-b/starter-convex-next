@@ -1,0 +1,12 @@
+{
+  "id": "call-quality-scoring",
+  "category": "Analytics",
+  "title": "AI Call Quality Scoring",
+  "description": "Automated call quality analysis scoring calls on metrics like talk ratio, objection handling, script adherence, and engagement. Provides coaching insights and highlights top-performing calls for training.",
+  "status": "backlog",
+  "priority": 2,
+  "complexity": "complex",
+  "dependencies": ["call-recording-playback"],
+  "createdAt": "2026-01-09T21:13:23.809Z",
+  "updatedAt": "2026-01-09T21:13:23.809Z"
+}

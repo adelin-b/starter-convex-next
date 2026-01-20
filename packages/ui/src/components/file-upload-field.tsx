@@ -160,7 +160,7 @@ export function FileUploadField({
   // Helper to generate image preview
   const generateImagePreview = React.useCallback((file: File, fileName: string) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.addEventListener("load", (e) => {
       setUploadState((prev) => ({
         ...prev,
         preview: e.target?.result as string,
@@ -168,7 +168,7 @@ export function FileUploadField({
         isUploading: false,
         error: null,
       }));
-    };
+    });
     reader.readAsDataURL(file);
   }, []);
 
@@ -261,7 +261,7 @@ export function FileUploadField({
         return;
       }
 
-      const files = Array.from(e.dataTransfer.files);
+      const files = [...e.dataTransfer.files];
       const file = files[0];
       if (!file) {
         return;

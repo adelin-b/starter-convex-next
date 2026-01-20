@@ -54,28 +54,26 @@ export const list = zodQuery({
       throw AppErrors.notAuthenticated("view campaigns");
     }
 
-    let campaigns;
+    const status = args.status;
 
-    if (args.status) {
-      campaigns = await context.db
-        .query("campaigns")
-        .withIndex("by_userId_and_status", (q) =>
-          q.eq("userId", identity.subject).eq("status", args.status!),
-        )
-        .collect();
-    } else {
-      campaigns = await context.db
-        .query("campaigns")
-        .withIndex("by_userId", (q) => q.eq("userId", identity.subject))
-        .collect();
-    }
+    const allCampaigns = status
+      ? await context.db
+          .query("campaigns")
+          .withIndex("by_userId_and_status", (q) =>
+            q.eq("userId", identity.subject).eq("status", status),
+          )
+          .collect()
+      : await context.db
+          .query("campaigns")
+          .withIndex("by_userId", (q) => q.eq("userId", identity.subject))
+          .collect();
 
     // Filter by organization if provided
     if (args.organizationId) {
-      campaigns = campaigns.filter((c) => c.organizationId === args.organizationId);
+      return allCampaigns.filter((c) => c.organizationId === args.organizationId);
     }
 
-    return campaigns;
+    return allCampaigns;
   },
 });
 

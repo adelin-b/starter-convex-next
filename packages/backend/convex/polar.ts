@@ -8,7 +8,6 @@ import { query } from "./_generated/server";
 import { env } from "./env";
 
 // Type assertion needed until `convex dev` regenerates types with polar component
-// biome-ignore lint/suspicious/noExplicitAny: Polar component types not yet generated
 const polarComponent = (components as unknown as { polar: any }).polar;
 
 /**
@@ -28,7 +27,6 @@ export const polar: Polar<DataModel> = new Polar<DataModel>(polarComponent, {
    * This connects Polar subscriptions to your user system.
    */
   getUserInfo: async (ctx): Promise<{ userId: string; email: string }> => {
-    // biome-ignore lint/suspicious/noExplicitAny: better-auth user type is complex
     const user: any = await ctx.runQuery(api.auth.getCurrentUser);
     if (!user) {
       throw new Error("User not authenticated");
@@ -94,9 +92,7 @@ export const {
 export const getCurrentSubscription = query({
   args: {},
   returns: v.any(),
-  // biome-ignore lint/suspicious/noExplicitAny: Polar subscription type is complex
   handler: async (ctx): Promise<any> => {
-    // biome-ignore lint/suspicious/noExplicitAny: better-auth user type is complex
     const user: any = await ctx.runQuery(api.auth.getCurrentUser);
     if (!user) {
       return null; // Not authenticated = no subscription

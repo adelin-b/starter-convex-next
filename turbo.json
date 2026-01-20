@@ -26,6 +26,34 @@
       "inputs": ["$TURBO_DEFAULT$", "knip.json"],
       "outputs": []
     },
+    "//#check:convex-unused": {
+      "inputs": [
+        "packages/backend/convex/**/*.ts",
+        "packages/backend/convex/_generated/api.d.ts",
+        "scripts/find-unused-convex-endpoints.ts"
+      ],
+      "outputs": []
+    },
+    "//#check:urls": {
+      "inputs": [
+        "apps/web/src/**/*.{ts,tsx}",
+        "packages/**/*.{ts,tsx}",
+        "scripts/find-hardcoded-urls.ts"
+      ],
+      "outputs": []
+    },
+    "//#check:deprecated": {
+      "inputs": [
+        "apps/**/*.{ts,tsx}",
+        "packages/**/*.{ts,tsx}",
+        "scripts/find-deprecated-usage.ts"
+      ],
+      "outputs": []
+    },
+    "//#check:skills": {
+      "inputs": [".claude/**", "scripts/lint-claude-skills.ts"],
+      "outputs": []
+    },
     "check:eslint": {
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -147,8 +175,13 @@
       "inputs": ["src/**/*.{ts,tsx}"],
       "outputs": ["src/locales/en.json"]
     },
-    "lint:steps": {
-      "inputs": ["tests/**/*.{ts,feature}"]
+    "check:steps": {
+      "inputs": [
+        "apps/e2e/features/**/*.feature",
+        "apps/e2e/features/**/*.ts",
+        "apps/e2e/scripts/lint-steps.ts"
+      ],
+      "outputs": []
     }
   }
 }

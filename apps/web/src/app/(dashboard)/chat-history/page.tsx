@@ -1,6 +1,5 @@
 "use client";
 
-import type { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@starter-saas/ui/badge";
 import { Button } from "@starter-saas/ui/button";
 import { CardEmptyState } from "@starter-saas/ui/card-empty-state";
@@ -12,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@starter-saas/ui/dropdown-menu";
+import type { ColumnDef } from "@tanstack/react-table";
 import { formatDistanceToNow } from "date-fns";
 import { Download, MessageSquare, MoreVertical } from "lucide-react";
 import { useMemo } from "react";

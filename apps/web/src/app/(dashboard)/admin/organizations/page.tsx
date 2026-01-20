@@ -32,7 +32,11 @@ function OrganizationsContent() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<Id<"organizations"> | null>(null);
-  const { data: organizations, isPending } = useQueryWithStatus(api.organizations.getAll, {});
+  const { data: organizationsResult, isPending } = useQueryWithStatus(api.organizations.getAll, {
+    limit: 100,
+    cursor: undefined,
+  });
+  const organizations = organizationsResult?.items;
   const deleteMutation = useMutation(api.organizations.remove);
   const updateStatusMutation = useMutation(api.organizations.updateStatus);
 

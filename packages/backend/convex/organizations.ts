@@ -27,9 +27,25 @@ const CreateOrganizationArgsSchema = z
   .partial({ description: true, address: true, phone: true, email: true });
 
 export const getAll = zodQuery({
-  handler: async (context) => {
+  args: {
+    limit: z.number().int().positive().max(100).optional(),
+    cursor: z.string().optional(),
+  },
+  handler: async (context, args) => {
     await requireAdminAccess(context);
-    return await context.db.query("organizations").collect();
+    const limit = args.limit ?? 50;
+
+    const query = context.db.query("organizations").order("desc");
+
+    const results = args.cursor
+      ? await query.paginate({ cursor: args.cursor, numItems: limit })
+      : await query.paginate({ cursor: null, numItems: limit });
+
+    return {
+      items: results.page,
+      cursor: results.continueCursor,
+      isDone: results.isDone,
+    };
   },
 });
 

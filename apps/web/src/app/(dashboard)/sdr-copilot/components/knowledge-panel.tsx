@@ -1,7 +1,12 @@
 "use client";
 
 import type { Id } from "@starter-saas/backend/convex/_generated/dataModel";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@starter-saas/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@starter-saas/ui/accordion";
 import { Badge } from "@starter-saas/ui/badge";
 import { Button } from "@starter-saas/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@starter-saas/ui/card";

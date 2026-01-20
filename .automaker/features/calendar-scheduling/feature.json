@@ -1,0 +1,12 @@
+{
+  "id": "calendar-scheduling",
+  "category": "Integrations",
+  "title": "Calendar Integration for Meeting Scheduling",
+  "description": "Cal.com and generic calendar integration allowing SDRs to book meetings directly from calls. Detects availability, sends invites, and updates prospect status automatically when meetings are scheduled.",
+  "status": "backlog",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.808Z",
+  "updatedAt": "2026-01-09T21:13:23.808Z"
+}

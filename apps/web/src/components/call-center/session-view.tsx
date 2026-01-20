@@ -1,1 +1,0 @@
-../../features/call-center/components/session-view.tsx

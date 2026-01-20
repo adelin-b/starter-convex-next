@@ -31,7 +31,6 @@ export function OrganizationForm({ organization, onSuccess, onError }: Organizat
   const updateMutation = useMutation(api.organizations.updateOrganization);
 
   const form = useForm<CreateOrganizationData>({
-    // @ts-expect-error - Zod version mismatch
     resolver: zodResolver(CreateOrganizationSchema),
     defaultValues: {
       name: organization.name,

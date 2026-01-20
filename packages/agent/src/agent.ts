@@ -3,19 +3,18 @@
  * This agent helps with data analysis, filtering, sorting, and grid operations
  */
 
+import type { Action } from "@copilotkit/sdk-js";
 // Import CopilotKit helpers
 import {
   CopilotKitStateAnnotation,
   convertActionsToDynamicStructuredTools,
 } from "@copilotkit/sdk-js/langgraph";
-import type { Action } from "@copilotkit/shared";
 import { type AIMessage, SystemMessage } from "@langchain/core/messages";
 import type { Runnable, RunnableConfig } from "@langchain/core/runnables";
 import { tool } from "@langchain/core/tools";
 import { Annotation, MemorySaver, START, StateGraph } from "@langchain/langgraph";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { ChatOpenAI } from "@langchain/openai";
-import type { FilterModel, SortModelItem } from "ag-grid-community";
 import { z } from "zod";
 
 // Data row type for grid data
@@ -30,6 +29,10 @@ type DataRow = {
   lastActive: string;
   conversionRate: string;
 };
+
+// Types for grid state (inlined to avoid ag-grid-community dependency)
+type FilterModel = Record<string, unknown>;
+type SortModelItem = { colId: string; sort: "asc" | "desc" };
 
 // Define our agent state with data grid context
 const AgentStateAnnotation = Annotation.Root({
@@ -54,10 +57,10 @@ const analyzeData = tool(
     name: "analyzeData",
     description: "Analyze data in a specific column",
     schema: z.object({
-      column: z.string().describe("The column to analyze"),
+      column: z.string().meta({ description: "The column to analyze" }),
       operation: z
         .enum(["sum", "average", "min", "max", "count", "unique"])
-        .describe("The analysis operation to perform"),
+        .meta({ description: "The analysis operation to perform" }),
     }),
   },
 );
@@ -76,7 +79,7 @@ const generateInsights = tool(
     name: "generateInsights",
     description: "Generate insights from the current data view",
     schema: z.object({
-      dataType: z.string().describe("The type of data to analyze"),
+      dataType: z.string().meta({ description: "The type of data to analyze" }),
     }),
   },
 );
@@ -93,8 +96,8 @@ const exportData = tool(
     name: "exportData",
     description: "Export grid data in various formats",
     schema: z.object({
-      format: z.enum(["csv", "excel", "pdf", "json"]).describe("Export format"),
-      includeFilters: z.boolean().describe("Whether to include only filtered data"),
+      format: z.enum(["csv", "excel", "pdf", "json"]).meta({ description: "Export format" }),
+      includeFilters: z.boolean().meta({ description: "Whether to include only filtered data" }),
     }),
   },
 );
@@ -105,13 +108,16 @@ const tools = [analyzeData, generateInsights, exportData];
 // Chat node to handle conversations
 async function chat_node(state: AgentState, _config: RunnableConfig) {
   // Use Ollama if configured, otherwise use OpenAI
-  const model = process.env.OLLAMA_BASE_URL
+  const ollamaBaseUrl = process.env.OLLAMA_BASE_URL;
+  const ollamaModel = process.env.OLLAMA_MODEL;
+
+  const model = ollamaBaseUrl
     ? new ChatOpenAI({
         temperature: 0,
-        model: process.env.OLLAMA_MODEL || "qwen3:8b",
+        model: ollamaModel || "qwen3:8b",
         openAIApiKey: "ollama",
         configuration: {
-          baseURL: `${process.env.OLLAMA_BASE_URL}/v1`,
+          baseURL: `${ollamaBaseUrl}/v1`,
         },
       })
     : new ChatOpenAI({ temperature: 0, model: "gpt-4o" });

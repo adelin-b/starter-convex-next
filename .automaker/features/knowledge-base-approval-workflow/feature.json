@@ -1,0 +1,12 @@
+{
+  "id": "knowledge-base-approval-workflow",
+  "category": "Knowledge Base",
+  "title": "Knowledge Base Approval Workflow",
+  "description": "Complete approval system for vehicle insights and sales techniques with draft/pending/approved/rejected states. Includes review assignment, version history, and bulk approval capabilities for knowledge administrators.",
+  "status": "backlog",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.807Z",
+  "updatedAt": "2026-01-09T21:13:23.807Z"
+}

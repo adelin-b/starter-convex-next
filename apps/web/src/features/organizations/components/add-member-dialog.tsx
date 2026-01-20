@@ -71,7 +71,6 @@ export function AddMemberDialog({
   const hasFixedOrganization = organizationId !== undefined;
 
   const form = useForm<InviteMemberData>({
-    // @ts-expect-error - Zod v3.25 version mismatch with zodResolver
     resolver: zodResolver(inviteMemberSchema),
     defaultValues: {
       email: "",

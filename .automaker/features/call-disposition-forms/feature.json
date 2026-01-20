@@ -1,0 +1,12 @@
+{
+  "id": "call-disposition-forms",
+  "category": "SDR Copilot",
+  "title": "Post-call Disposition Forms",
+  "description": "Customizable forms for SDRs to log call outcomes, next steps, and notes immediately after calls. Supports custom fields per campaign, auto-population from AI analysis, and required field validation.",
+  "status": "backlog",
+  "priority": 1,
+  "complexity": "simple",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.808Z",
+  "updatedAt": "2026-01-09T21:13:23.808Z"
+}

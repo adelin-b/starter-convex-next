@@ -940,7 +940,6 @@ export function crud<
           ...systemFields,
         }),
       ),
-      // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Filter logic requires handling multiple conditions
       handler: async (context, args) => {
         const includeDeleted = args.includeDeleted ?? false;
         const limit = args.limit ?? DEFAULT_LIMIT;
@@ -1062,7 +1061,6 @@ export function crud<
         ),
       }),
       // @ts-expect-error - Complex generic type inference
-      // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Paginated filter logic handles multiple query paths
       handler: async (context, args) => {
         const includeDeleted = args.includeDeleted ?? false;
         const advFilter = args.advancedFilter;

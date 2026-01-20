@@ -14,8 +14,10 @@ export default function AccountPage() {
         <div className="space-y-4 text-center">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
             <svg
+              aria-label="Account settings icon"
               className="h-8 w-8 text-primary"
               fill="none"
+              role="img"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >

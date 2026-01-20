@@ -1,0 +1,13 @@
+{
+  "id": "ai-script-generator",
+  "category": "SDR Copilot",
+  "title": "AI Script Generator",
+  "description": "Generate personalized call scripts using prospect context and AI. Creates phase-based scripts with opening hooks, discovery questions, and closing strategies tailored to prospect industry, role, and pain points.",
+  "status": "verified",
+  "priority": 1,
+  "complexity": "moderate",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.808Z",
+  "updatedAt": "2026-01-11T11:38:25.125Z",
+  "startedAt": "2026-01-10T15:33:47.799Z"
+}

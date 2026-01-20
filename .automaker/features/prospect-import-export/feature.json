@@ -1,0 +1,12 @@
+{
+  "id": "prospect-import-export",
+  "category": "CRM",
+  "title": "Prospect Import/Export",
+  "description": "Bulk prospect management with CSV/Excel import, field mapping, duplicate detection, and validation. Supports export of prospect lists with custom field selection and filtering for campaign planning.",
+  "status": "backlog",
+  "priority": 1,
+  "complexity": "simple",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.807Z",
+  "updatedAt": "2026-01-09T21:13:23.807Z"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "batch-calling-engine",
+  "category": "Core",
+  "title": "Batch Calling Engine",
+  "description": "Automated batch calling system that processes campaign prospect lists with concurrent call limits. Handles call queue management, retry logic for failed calls, and real-time status updates across the organization.",
+  "status": "backlog",
+  "priority": 1,
+  "complexity": "complex",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.806Z",
+  "updatedAt": "2026-01-09T21:13:23.806Z"
+}

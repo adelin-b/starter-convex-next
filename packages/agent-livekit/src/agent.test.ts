@@ -1,11 +1,10 @@
-import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, expect, it } from "vitest";
 
 describe("Agent Configuration", () => {
   it("should have Node.js environment available", () => {
     // Basic test to ensure Node.js environment is working
-    assert.ok(typeof process !== "undefined", "Process should be available");
-    assert.ok(typeof process.env !== "undefined", "Environment variables should be accessible");
+    expect(typeof process !== "undefined").toBe(true);
+    expect(process.env !== undefined).toBe(true);
   });
 
   it("should be able to import required modules", async () => {
@@ -13,12 +12,12 @@ describe("Agent Configuration", () => {
     const path = await import("node:path");
     const url = await import("node:url");
 
-    assert.ok(typeof path.dirname === "function", "Path module should be available");
-    assert.ok(typeof url.fileURLToPath === "function", "URL module should be available");
+    expect(typeof path.dirname).toBe("function");
+    expect(typeof url.fileURLToPath).toBe("function");
   });
 
   it("should have TypeScript compilation working", () => {
     // This test file being run means TypeScript compiled successfully
-    assert.ok(true, "TypeScript compilation is working");
+    expect(true).toBe(true);
   });
 });

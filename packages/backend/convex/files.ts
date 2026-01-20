@@ -112,15 +112,13 @@ export const getFileUrls = zodQuery({
   args: {
     storageIds: z.array(zid("_storage")),
   },
-  handler: async (context, { storageIds }) => {
-    const urls = await Promise.all(
+  handler: async (context, { storageIds }) =>
+    await Promise.all(
       storageIds.map(async (id) => ({
         storageId: id,
         url: await context.storage.getUrl(id),
       })),
-    );
-    return urls;
-  },
+    ),
 });
 
 /**

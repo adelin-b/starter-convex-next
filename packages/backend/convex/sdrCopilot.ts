@@ -1,6 +1,5 @@
 // Server-only enforcement handled by package.json exports
 
-import { z } from "zod";
 import { zid } from "zodvex";
 import { AppErrors } from "./lib/errors";
 import { zodQuery } from "./lib/functions";

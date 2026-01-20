@@ -1,0 +1,12 @@
+{
+  "id": "objection-detection-system",
+  "category": "SDR Copilot",
+  "title": "Objection Detection System",
+  "description": "Real-time analysis of call transcripts to detect common objections (pricing, timing, competition). Automatically surfaces relevant objection handlers from the knowledge base and tracks objection patterns across calls.",
+  "status": "backlog",
+  "priority": 1,
+  "complexity": "moderate",
+  "dependencies": ["real-time-call-suggestions"],
+  "createdAt": "2026-01-09T21:13:23.807Z",
+  "updatedAt": "2026-01-09T21:13:23.807Z"
+}

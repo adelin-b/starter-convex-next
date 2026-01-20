@@ -65,30 +65,33 @@ export const list = zodQuery({
       throw AppErrors.notAuthenticated("view calls");
     }
     const limit = args.limit ?? 50;
+    const status = args.status;
 
-    let calls;
-
-    if (args.status) {
-      calls = await context.db
-        .query("calls")
-        .withIndex("by_userId_and_status", (q) =>
-          q.eq("userId", identity.subject).eq("status", args.status!),
-        )
-        .order("desc")
-        .take(limit);
-    } else {
-      calls = await context.db
-        .query("calls")
-        .withIndex("by_userId", (q) => q.eq("userId", identity.subject))
-        .order("desc")
-        .take(limit);
-    }
+    const calls = status
+      ? await context.db
+          .query("calls")
+          .withIndex("by_userId_and_status", (q) =>
+            q.eq("userId", identity.subject).eq("status", status),
+          )
+          .order("desc")
+          .take(limit)
+      : await context.db
+          .query("calls")
+          .withIndex("by_userId", (q) => q.eq("userId", identity.subject))
+          .order("desc")
+          .take(limit);
 
     // Filter in memory for optional params
     return calls.filter((call) => {
-      if (args.outcome && call.outcome !== args.outcome) return false;
-      if (args.campaignId && call.campaignId !== args.campaignId) return false;
-      if (args.organizationId && call.organizationId !== args.organizationId) return false;
+      if (args.outcome && call.outcome !== args.outcome) {
+        return false;
+      }
+      if (args.campaignId && call.campaignId !== args.campaignId) {
+        return false;
+      }
+      if (args.organizationId && call.organizationId !== args.organizationId) {
+        return false;
+      }
       return true;
     });
   },

@@ -1,0 +1,12 @@
+{
+  "id": "campaign-analytics-dashboard",
+  "category": "Analytics",
+  "title": "Campaign Analytics Dashboard",
+  "description": "Comprehensive analytics dashboard showing campaign performance metrics including call volume, connection rates, conversion rates, and ROI. Features time-series charts, funnel visualization, and comparative campaign analysis.",
+  "status": "backlog",
+  "priority": 1,
+  "complexity": "moderate",
+  "dependencies": ["batch-calling-engine"],
+  "createdAt": "2026-01-09T21:13:23.807Z",
+  "updatedAt": "2026-01-09T21:13:23.807Z"
+}

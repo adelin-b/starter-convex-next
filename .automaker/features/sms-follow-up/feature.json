@@ -1,0 +1,12 @@
+{
+  "id": "sms-follow-up",
+  "category": "Communication",
+  "title": "Automated SMS Follow-up",
+  "description": "Send automated SMS follow-ups after calls based on outcome. Includes template library, personalization tokens, scheduling delays, and compliance with SMS regulations (opt-out handling).",
+  "status": "backlog",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.808Z",
+  "updatedAt": "2026-01-09T21:13:23.808Z"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "team-performance-leaderboard",
+  "category": "Analytics",
+  "title": "Team Performance Leaderboard",
+  "description": "Gamified leaderboard showing SDR performance metrics including calls made, meetings booked, and conversion rates. Features daily/weekly/monthly views and achievement badges to drive team motivation.",
+  "status": "backlog",
+  "priority": 3,
+  "complexity": "simple",
+  "dependencies": ["campaign-analytics-dashboard"],
+  "createdAt": "2026-01-09T21:13:23.808Z",
+  "updatedAt": "2026-01-09T21:13:23.808Z"
+}

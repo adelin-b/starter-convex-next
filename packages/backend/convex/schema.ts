@@ -7,7 +7,7 @@ const FIELDS_CONSTANTS = {
 } as const;
 
 // Reusable nullable organizationId type
-const nullableOrganizationId = z.union([zid("organizations"), z.null()]);
+const nullableOrganizationIdSchema = z.union([zid("organizations"), z.null()]);
 
 // =============================================================================
 // TODOS (Example Domain)
@@ -264,7 +264,7 @@ export const Files = zodTable("files", {
   size: z.number(),
   type: z.string(),
   storageId: zid("_storage"),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   category: z.enum(fileCategories).optional(),
   description: z.string().optional(),
   tags: z.array(z.string()).optional(),
@@ -295,7 +295,7 @@ export type NotificationType = (typeof notificationTypes)[number];
 
 export const Notifications = zodTable("notifications", {
   userId: z.string(),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   title: z.string(),
   message: z.string(),
   type: z.enum(notificationTypes),
@@ -314,7 +314,7 @@ const NotificationsTable = Notifications.table
 
 export const NotificationPreferences = zodTable("notificationPreferences", {
   userId: z.string(),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   emailNotifications: z.boolean(),
   emailKYCUpdates: z.boolean(),
   emailAdminMessages: z.boolean(),
@@ -417,7 +417,7 @@ export type TurnDetectionMode = (typeof turnDetectionModes)[number];
 export const Agents = zodTable("agents", {
   // Common fields
   userId: z.string(),
-  organizationId: nullableOrganizationId.optional(),
+  organizationId: nullableOrganizationIdSchema.optional(),
   type: z.enum(agentTypes).optional(), // defaults to "chat"
   name: z.string(),
   description: z.string().optional(),
@@ -496,7 +496,7 @@ const AgentFoldersTable = AgentFolders.table
 
 export const AgentTemplates = zodTable("agentTemplates", {
   userId: z.string().optional(),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   name: z.string(),
   description: z.string(),
   category: z.string(),
@@ -521,7 +521,7 @@ export type AgentToolType = (typeof agentToolTypes)[number];
 
 export const AgentTools = zodTable("agentTools", {
   userId: z.string(),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   agentId: zid("agents"),
   name: z.string(),
   description: z.string(),
@@ -553,7 +553,7 @@ const computedSchema = z.object({
 });
 
 export const AgentData = zodTable("agentData", {
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   agentId: zid("agents"),
   callId: zid("calls").optional(),
   prospectId: zid("prospects").optional(),
@@ -573,7 +573,7 @@ export const agentActionStatuses = ["pending", "completed", "failed", "cancelled
 export type AgentActionStatus = (typeof agentActionStatuses)[number];
 
 export const AgentActions = zodTable("agentActions", {
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   agentId: zid("agents"),
   dataId: zid("agentData"),
   actionType: z.string(),
@@ -598,7 +598,7 @@ export type ScriptCategory = (typeof scriptCategories)[number];
 
 export const Scripts = zodTable("scripts", {
   userId: z.string(),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   name: z.string(),
   description: z.string().optional(),
   category: z.enum(scriptCategories).optional(),
@@ -637,7 +637,7 @@ export type ProspectStatus = (typeof prospectStatuses)[number];
 
 export const Prospects = zodTable("prospects", {
   userId: z.string(),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   campaignId: zid("campaigns").optional(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
@@ -678,7 +678,7 @@ const campaignScheduleSchema = z.object({
 
 export const Campaigns = zodTable("campaigns", {
   userId: z.string(),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   agentId: zid("agents"),
   scriptId: zid("scripts").optional(),
   name: z.string(),
@@ -741,7 +741,7 @@ export type CallSentiment = (typeof callSentiments)[number];
 
 export const Calls = zodTable("calls", {
   userId: z.string(),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   campaignId: zid("campaigns").optional(),
   prospectId: zid("prospects"),
   agentId: zid("agents"),
@@ -787,7 +787,7 @@ export const transcriptSpeakers = ["user", "agent", "system"] as const;
 export type TranscriptSpeaker = (typeof transcriptSpeakers)[number];
 
 export const CallTranscripts = zodTable("callTranscripts", {
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   callId: zid("calls"),
   speaker: z.enum(transcriptSpeakers),
   message: z.string(),
@@ -812,7 +812,7 @@ export type CallbackStatus = (typeof callbackStatuses)[number];
 
 export const ScheduledCallbacks = zodTable("scheduledCallbacks", {
   userId: z.string(),
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   prospectId: zid("prospects"),
   originalCallId: zid("calls").optional(),
   campaignId: zid("campaigns").optional(),
@@ -854,7 +854,7 @@ export const priceRanges = ["budget", "mid", "premium"] as const;
 export type PriceRange = (typeof priceRanges)[number];
 
 export const VehicleInsights = zodTable("vehicleInsights", {
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   category: z.enum(insightCategories),
   title: z.string(),
   content: z.string(),
@@ -885,7 +885,7 @@ export const callPhases = ["opening", "discovery", "presentation", "objection", 
 export type CallPhase = (typeof callPhases)[number];
 
 export const SdrCallPreps = zodTable("sdrCallPreps", {
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   prospectId: zid("prospects"),
   userId: z.string(),
   briefSummary: z.string(),
@@ -912,7 +912,7 @@ export const insightOutcomes = ["success", "neutral", "failed"] as const;
 export type InsightOutcome = (typeof insightOutcomes)[number];
 
 export const SdrInsightUsage = zodTable("sdrInsightUsage", {
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   insightId: zid("vehicleInsights"),
   callId: zid("calls").optional(),
   userId: z.string(),
@@ -928,7 +928,7 @@ const SdrInsightUsageTable = SdrInsightUsage.table
 
 // Sales Techniques Knowledge Base
 export const SalesTechniques = zodTable("salesTechniques", {
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   name: z.string(),
   category: z.enum(callPhases),
   description: z.string(),
@@ -955,7 +955,7 @@ export const effectivenessOptions = ["effective", "neutral", "ineffective"] as c
 export type Effectiveness = (typeof effectivenessOptions)[number];
 
 export const AiGeneratedScripts = zodTable("aiGeneratedScripts", {
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   prospectId: zid("prospects"),
   userId: z.string(),
   // Structured script phases
@@ -997,7 +997,7 @@ export const suggestionStatuses = ["pending", "used", "dismissed"] as const;
 export type SuggestionStatus = (typeof suggestionStatuses)[number];
 
 export const SdrLiveSuggestions = zodTable("sdrLiveSuggestions", {
-  organizationId: nullableOrganizationId,
+  organizationId: nullableOrganizationIdSchema,
   callId: zid("calls"),
   prepId: zid("sdrCallPreps").optional(),
   insightId: zid("vehicleInsights").optional(),

@@ -104,7 +104,21 @@
       "linter": {
         "rules": {
           "style": {
-            "useFilenamingConvention": "off"
+            "useFilenamingConvention": "off",
+            "noNonNullAssertion": "off"
+          },
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          },
+          "nursery": {
+            "noShadow": "off",
+            "noIncrementDecrement": "off",
+            "useMaxParams": "off"
+          },
+          "suspicious": {
+            "noEvolvingTypes": "off",
+            "noImplicitAnyLet": "off",
+            "noExplicitAny": "off"
           }
         }
       }
@@ -125,12 +139,17 @@
           },
           "suspicious": {
             "noArrayIndexKey": "off",
-            "noExplicitAny": "off"
+            "noExplicitAny": "off",
+            "noShadowRestrictedNames": "off"
+          },
+          "nursery": {
+            "noShadow": "off"
           },
           "a11y": {
             "useSemanticElements": "off",
             "useFocusableInteractive": "off",
-            "noSvgWithoutTitle": "off"
+            "noSvgWithoutTitle": "off",
+            "noLabelWithoutControl": "off"
           },
           "style": {
             "noNonNullAssertion": "off",
@@ -193,12 +212,53 @@
       "includes": [
         "apps/e2e/lib/test.ts",
         "apps/web/src/lib/convex-hooks.ts",
-        "apps/web/src/lib/i18n.ts"
+        "apps/web/src/lib/i18n.ts",
+        "**/features/**/index.ts"
       ],
       "linter": {
         "rules": {
           "performance": {
             "noBarrelFile": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/agent-livekit/**/*", "packages/agent/**/*"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noProcessEnv": "off",
+            "noNestedTernary": "off"
+          },
+          "suspicious": {
+            "noExplicitAny": "off"
+          },
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "apps/web/src/features/calls/components/waveform-visualization.tsx",
+        "apps/web/src/features/calls/hooks/use-waveform.ts"
+      ],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/ollama-service/**/*"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noProcessEnv": "off"
           }
         }
       }

@@ -11,8 +11,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate environment variables
+    // biome-ignore lint/style/noProcessEnv: API routes require direct env access
     const livekitUrl = process.env.LIVEKIT_URL;
+    // biome-ignore lint/style/noProcessEnv: API routes require direct env access
     const livekitApiKey = process.env.LIVEKIT_API_KEY;
+    // biome-ignore lint/style/noProcessEnv: API routes require direct env access
     const livekitApiSecret = process.env.LIVEKIT_API_SECRET;
 
     if (!(livekitUrl && livekitApiKey && livekitApiSecret)) {
@@ -31,6 +34,7 @@ export async function POST(request: NextRequest) {
     const roomName = `outbound-call-${Date.now()}`;
 
     // Get outbound trunk ID
+    // biome-ignore lint/style/noProcessEnv: API routes require direct env access
     const sipTrunkId = process.env.LIVEKIT_SIP_OUTBOUND_TRUNK_ID;
 
     if (!sipTrunkId) {

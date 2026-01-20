@@ -10,8 +10,11 @@ type ConnectionDetails = {
 };
 
 // NOTE: you are expected to define the following environment variables in `.env.local`:
+// biome-ignore lint/style/noProcessEnv: API routes require direct env access
 const API_KEY = process.env.LIVEKIT_API_KEY;
+// biome-ignore lint/style/noProcessEnv: API routes require direct env access
 const API_SECRET = process.env.LIVEKIT_API_SECRET;
+// biome-ignore lint/style/noProcessEnv: API routes require direct env access
 const LIVEKIT_URL = process.env.LIVEKIT_URL;
 
 // Constants

@@ -3,7 +3,14 @@
 import { Badge } from "@starter-saas/ui/badge";
 import { Button } from "@starter-saas/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@starter-saas/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@starter-saas/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@starter-saas/ui/table";
 import { formatDistanceToNow } from "date-fns";
 import { CreditCard, Download, Receipt, TrendingDown, TrendingUp } from "lucide-react";
 
@@ -57,7 +64,15 @@ export default function BillingPage() {
     },
   ];
 
-  const invoices: any[] = [];
+  type Invoice = {
+    id: string;
+    number: string;
+    period: string;
+    amount: number;
+    status: string;
+    date: Date;
+  };
+  const invoices: Invoice[] = [];
 
   return (
     <div className="flex-1 space-y-6 p-8 pt-6">
@@ -156,7 +171,7 @@ export default function BillingPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {invoices.map((invoice: any) => (
+                  {invoices.map((invoice) => (
                     <TableRow key={invoice.id}>
                       <TableCell className="font-medium font-mono">{invoice.number}</TableCell>
                       <TableCell>{invoice.period}</TableCell>

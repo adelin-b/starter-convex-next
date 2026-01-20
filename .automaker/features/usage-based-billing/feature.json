@@ -1,0 +1,12 @@
+{
+  "id": "usage-based-billing",
+  "category": "Billing",
+  "title": "Usage-based Billing Tracking",
+  "description": "Track and bill for call minutes, AI tokens, and SMS messages. Provides real-time usage dashboards, quota alerts, and automatic overage handling integrated with Polar subscription tiers.",
+  "status": "backlog",
+  "priority": 2,
+  "complexity": "moderate",
+  "dependencies": [],
+  "createdAt": "2026-01-09T21:13:23.808Z",
+  "updatedAt": "2026-01-09T21:13:23.808Z"
+}

@@ -113,7 +113,11 @@ export function DevQuickLogin({ callbackUrl = "/" }: DevQuickLoginProps) {
             </Avatar>
           )}
           <span className="flex-1 text-left">{DEV_USER.name}</span>
-          {isLoading ? <UserPlus className="h-3 w-3 opacity-50" /> : <LogIn className="h-3 w-3 opacity-50" />}
+          {isLoading ? (
+            <UserPlus className="h-3 w-3 opacity-50" />
+          ) : (
+            <LogIn className="h-3 w-3 opacity-50" />
+          )}
         </Button>
 
         <p className="text-muted-foreground text-xs">
