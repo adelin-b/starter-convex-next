@@ -25,9 +25,10 @@ export abstract class BasePage {
 
   /**
    * Wait for navigation to complete.
+   * Note: Don't use networkidle as Convex WebSocket prevents it from settling.
    */
   async waitForNavigation(): Promise<void> {
-    await this.page.waitForLoadState("networkidle");
+    await this.page.waitForLoadState("domcontentloaded");
   }
 
   /**
